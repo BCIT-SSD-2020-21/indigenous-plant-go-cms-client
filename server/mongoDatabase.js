@@ -58,13 +58,16 @@ module.exports = async function() {
   //Update One user, should be authorized
   //Update password base on userId
   //PUT /api/users/:userId
-  async function updateUser({userId, password}) {
-    //Hash password
-    const encrypted = await bcrypt.hash(password, 12)
+  async function updateUser({userId, updatedUser}) {
+    if (updatedUser.password) {
+      //Hash password
+      const encrypted = await bcrypt.hash(updatedUser.password, 12)
+      updatedUser.password = encrypted
+    }
 
     const result = await users.findOneAndUpdate(
       {_id: ObjectID(userId)},
-      {$set: {password: encrypted}}
+      {$set: {...updatedUser}}
     )
 
     return result
