@@ -35,9 +35,6 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
 
 ## SUPPORTING DOCUMENTS
 ---
-### Use Case Diagram
-
-### Prototype
 
 ### ER Diagram
 ![image](/planning/database/ERD/ERD.png)
