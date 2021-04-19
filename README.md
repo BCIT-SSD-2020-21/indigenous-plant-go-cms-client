@@ -45,7 +45,7 @@ f.	Change layout page <br>
 g.	Verify location <br>
 h.	Create/update users information <br>
 <br>
-2. System User Tester I.  – The user should be able :
+2. System User Tester I.  – The user should be able :<br>
 a.	to upload and manage plant media, like images, so user can just browse the media library instead of needing to interact with your web server directly:<br>
 b.	to add new post, plant detail and location.
 
