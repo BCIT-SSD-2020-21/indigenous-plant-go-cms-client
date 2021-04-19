@@ -51,7 +51,7 @@ module.exports = async function() {
     }
     const same = await bcrypt.compare(password, user.password)
     if (!same) {
-      throw Error("Passwords don't match")
+      throw Error("Password don't match")
     }
 
     return user
@@ -64,21 +64,23 @@ module.exports = async function() {
     //Hash password
     const encrypted = await bcrypt.hash(password, 12)
 
-    await users.findOneAndUpdate({
-      _id: userId
-    },
-    {
-      password: encrypted
-    })
+    const result = await users.findOneAndUpdate(
+      {_id: ObjectID(userId)},
+      {$set: {password: encrypted}}
+    )
+
+    return result
   }
 
   //Delete One user, should be authorized
   //Delete user base on userId
   //DELETE /api/users/:userId
   async function deleteUser({userId}) {
-    await users.findOneAndDelete({
-      _id: userId
+    const result = await users.findOneAndDelete({
+      _id: ObjectID(userId)
     })
+
+    return result
   }
 
   return {

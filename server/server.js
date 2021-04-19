@@ -1,15 +1,13 @@
 const express = require('express')
 const mongoDatabase = require('./mongoDatabase')
+const makeUsersRouter = require('./routers/usersRouter')
 
 const app = express()
 app.use(express.json())
 
 mongoDatabase().then((database) => {
-  console.log(database)
-})
-
-app.get('/', async (req, res) => {
-  res.send("connected")
+  const usersRouter = makeUsersRouter({database})
+  app.use('/api/users', usersRouter)
 })
 
 const port = process.env.port || 8080
