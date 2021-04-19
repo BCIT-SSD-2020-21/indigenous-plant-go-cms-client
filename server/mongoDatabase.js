@@ -18,6 +18,14 @@ module.exports = async function() {
   // Takes in email and password
   // POST /api/users
   async function createUser({email, username, password}) {
+    //Check if email or username is repeating
+    const user = await users.findOne({
+      $or: [{email: email}, {username: username}]
+    })
+    if (user) {
+      throw Error("Username or email is already taken")
+    }
+
     //Hash password
     const encrypted = await bcrypt.hash(password, 12)
 
@@ -36,23 +44,19 @@ module.exports = async function() {
   //Takes in email and password and find one user that match
   //POST /api/users/login
   async function getUser({loginName, password}) {
-    const user = await users.find({
+    const user = await users.findOne({
       $or: [{email: loginName}, {username: loginName}]
     })
-
-    if (!(await user.hasNext())) {
+    if (!user) {
       throw Error("Invalid user")
     }
 
-    while (await user.hasNext()) {
-      const checkUser = await user.next()
-      const same = await bcrypt.compare(password, checkUser.password)
-      if (same) {
-        return checkUser
-      }
+    const same = await bcrypt.compare(password, user.password)
+    if (!same) {
+      throw Error("Password doesn't match")
     }
 
-    throw Error("Password doesn't match")
+    return user
   }
 
   //Update One user, should be authorized
