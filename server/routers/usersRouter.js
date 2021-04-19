@@ -9,7 +9,7 @@ module.exports = function({database, authorize, generateToken}) {
     try {
       const result = await database.createUser(req.body)
       const user = result.ops[0]
-      const accessToken = generateToken({_id: user._id, email: user.email})
+      const accessToken = generateToken({_id: user._id, email: user.email, username: user.username, role: user.role})
       res.send(accessToken)
     } catch (error) {
       console.error(error)
@@ -22,7 +22,7 @@ module.exports = function({database, authorize, generateToken}) {
   router.post('/login', async (req, res) => {
     try {
       const result = await database.getUser(req.body)
-      const accessToken = generateToken({_id: result._id, email: result.email})
+      const accessToken = generateToken({_id: result._id, email: result.email, username: result.username, role: result.role})
       res.send(accessToken)
     } catch (error) {
       console.error(error)

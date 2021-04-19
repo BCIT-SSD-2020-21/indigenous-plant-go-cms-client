@@ -17,21 +17,15 @@ module.exports = async function() {
   // Create new user, use for register
   // Takes in email and password
   // POST /api/users
-  async function createUser({email, password}) {
-    //Check no user with same email
-    const user = await users.findOne({
-      email: email
-    })
-    if (user) {
-      throw Error("Email already taken")
-    }
-
+  async function createUser({email, username, password}) {
     //Hash password
     const encrypted = await bcrypt.hash(password, 12)
 
     const result = await users.insertOne({
       email,
-      password: encrypted
+      username,
+      password: encrypted,
+      role: "Manager"
     })
 
     //Need this to make jwt token later
@@ -41,20 +35,24 @@ module.exports = async function() {
   //Get One user, use for login
   //Takes in email and password and find one user that match
   //POST /api/users/login
-  async function getUser({email, password}) {
-    const user = await users.findOne({
-      email: email
+  async function getUser({loginName, password}) {
+    const user = await users.find({
+      $or: [{email: loginName}, {username: loginName}]
     })
 
-    if (!user) {
-      throw Error("No user with this email")
-    }
-    const same = await bcrypt.compare(password, user.password)
-    if (!same) {
-      throw Error("Password don't match")
+    if (!(await user.hasNext())) {
+      throw Error("Invalid user")
     }
 
-    return user
+    while (await user.hasNext()) {
+      const checkUser = await user.next()
+      const same = await bcrypt.compare(password, checkUser.password)
+      if (same) {
+        return checkUser
+      }
+    }
+
+    throw Error("Password doesn't match")
   }
 
   //Update One user, should be authorized
