@@ -35,8 +35,7 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
 
 ### Content Manager / Administrator Role Permission on CMS
 
-1. System Administrator I. – The user of this role should be able to create, manage, and modify content on the website without the need for specialized technical knowledge. Others roles is to:
-<br>
+1. System Administrator I. – The user of this role should be able to create, manage, and modify content on the website without the need for specialized technical knowledge. Others roles is to:<br>
 a. Log-in to web-based CMS <br>
 b.	Modify size and image alignment <br>
 c.	Edit text, font, size <br>
