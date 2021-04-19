@@ -37,17 +37,17 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
 
 1. System Administrator I. – The user of this role should be able to create, manage, and modify content on the website without the need for specialized technical knowledge. Others roles is to:
 <br>
-a. Log-in to web-based CMS
-b.	Modify size and image alignment
-c.	Edit text, font, size
-d.	Upload/delete plant image/details
-e.	Upload/Delete video & audio clips
-f.	Change layout page
-g.	Verify location
-h.	Create/update users information
+a. Log-in to web-based CMS <br>
+b.	Modify size and image alignment <br>
+c.	Edit text, font, size <br>
+d.	Upload/delete plant image/details <br>
+e.	Upload/Delete video & audio clips <br>
+f.	Change layout page <br>
+g.	Verify location <br>
+h.	Create/update users information <br>
 <br>
 2. System User Tester I.  – The user should be able :
-a.	to upload and manage plant media, like images, so user can just browse the media library instead of needing to interact with your web server directly:
+a.	to upload and manage plant media, like images, so user can just browse the media library instead of needing to interact with your web server directly:<br>
 b.	to add new post, plant detail and location.
 
 
