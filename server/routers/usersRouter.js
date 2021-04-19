@@ -1,6 +1,6 @@
 const express = require('express')
 
-module.exports = function({database}) {
+module.exports = function({database, authorize, generateToken}) {
   const router = express.Router()
 
   //Create
@@ -8,7 +8,9 @@ module.exports = function({database}) {
   router.post('/', async (req, res) => {
     try {
       const result = await database.createUser(req.body)
-      res.send(result)
+      const user = result.ops[0]
+      const accessToken = generateToken({_id: user._id, email: user.email})
+      res.send(accessToken)
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
@@ -20,7 +22,8 @@ module.exports = function({database}) {
   router.post('/login', async (req, res) => {
     try {
       const result = await database.getUser(req.body)
-      res.send(result)
+      const accessToken = generateToken({_id: result._id, email: result.email})
+      res.send(accessToken)
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
@@ -29,11 +32,11 @@ module.exports = function({database}) {
 
   //Update
   //PUT /api/users/:userId
-  router.put('/:userId', async (req, res) => {
+  router.put('/:userId', authorize, async (req, res) => {
     try {
       const userId = req.params.userId
       const result = await database.updateUser({userId, ...req.body})
-      res.send(result)
+      res.send("User updated")
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
@@ -42,11 +45,11 @@ module.exports = function({database}) {
 
   //Delete
   //PUT /api/users/:userId
-  router.delete('/:userId', async (req, res) => {
+  router.delete('/:userId', authorize, async (req, res) => {
     try {
       const userId = req.params.userId
       const result = await database.deleteUser({userId})
-      res.send(result)
+      res.send("User deleted")
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
