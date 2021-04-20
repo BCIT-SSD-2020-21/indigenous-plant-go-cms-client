@@ -15,7 +15,7 @@ module.exports = async function() {
   // Users
 
   // Create new user, use for register
-  // Takes in email and password
+  // Takes in email, username and password, role default to Manager
   // POST /api/users
   async function createUser({email, username, password}) {
     //Check if email or username is repeating
@@ -41,7 +41,7 @@ module.exports = async function() {
   }
 
   //Get One user, use for login
-  //Takes in email and password and find one user that match
+  //Takes in email/username and password and find one user that match
   //POST /api/users/login
   async function getUser({loginName, password}) {
     const user = await users.findOne({
@@ -60,13 +60,30 @@ module.exports = async function() {
   }
 
   //Update One user, should be authorized
-  //Update password base on userId
+  //Update base on userId
   //PUT /api/users/:userId
-  async function updateUser({userId, updatedUser}) {
+  async function updateUser({userId, updatedUser, userRole}) {
+    if (updatedUser.email || updatedUser.username) {
+      const user = await users.findOne({
+        $or: [{email: updatedUser.email}, {username: updatedUser.username}]
+      })
+      if (user) {
+        if (user._id != userId) {
+          throw Error("Username or email is already taken")
+        }
+      }
+    }
+
     if (updatedUser.password) {
       //Hash password
       const encrypted = await bcrypt.hash(updatedUser.password, 12)
       updatedUser.password = encrypted
+    }
+    
+    if (updatedUser.role) {
+      if (userRole !== "Admin") {
+        throw Error("No permission to update role")
+      }
     }
 
     const result = await users.findOneAndUpdate(

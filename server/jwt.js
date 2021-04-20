@@ -27,7 +27,7 @@ function authorize(req, res, next) {
     return
   }
 
-  req.user= decoded
+  req.user = decoded
   next()
 }
 exports.authorize = authorize
