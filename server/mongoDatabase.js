@@ -118,11 +118,15 @@ module.exports = async function() {
     return await tags.findOne({_id: ObjectID(tagId)})
   }
 
+  
+
 
   return {
     createUser,
     getUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getTag,
+    getTags
   }
 }
