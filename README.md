@@ -51,9 +51,9 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
    h. Update own user information <br>
    <br>
 2. Administrator:<br>
-   a. everything a Content Manager can do
-   b. Register new Content Manager accounts
-   c. Edit any user information.
+   a. everything a Content Manager can do <br>
+   b. Register new Content Manager accounts <br>
+   c. Edit any user information. <br>
 
 ## SUPPORTING DOCUMENTS
 
