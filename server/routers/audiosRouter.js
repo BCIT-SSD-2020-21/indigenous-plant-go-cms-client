@@ -5,7 +5,7 @@ module.exports = function({database, verifyKey}) {
 
   router.get('/', verifyKey, async (req, res) => {
     try {
-      const result = await database.getImages()
+      const result = await database.getAudios()
       res.send(result)
     } catch (error) {
       console.error(error)
@@ -13,10 +13,10 @@ module.exports = function({database, verifyKey}) {
     }
   })
 
-  router.get('/:imageId', verifyKey, async (req, res) => {
+  router.get('/:audioId', verifyKey, async (req, res) => {
     try {
-      const imageId = req.params.imageId
-      const result = await database.getImage({imageId})
+      const audioId = req.params.audioId
+      const result = await database.getAudio({audioId})
       res.send(result)
     } catch (error) {
       console.error(error)

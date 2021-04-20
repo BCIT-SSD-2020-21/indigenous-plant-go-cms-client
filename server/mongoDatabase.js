@@ -12,6 +12,7 @@ module.exports = async function() {
 
   const users = db.collection('users')
   const images = db.collection('images')
+  const audios = db.collection('audios')
 
   // Users
 
@@ -120,12 +121,28 @@ module.exports = async function() {
     return await images.findOne({_id: ObjectID(imageId)})
   }
 
+  // Audios
+
+  // Get All
+  // GET /api/audios
+  async function getAudios() {
+    return await audios.find().toArray()
+  }
+
+  // Get One
+  // GET /api/audios/:audioId
+  async function getAudio({audioId}) {
+    return await audios.findOne({_id: ObjectID(audioId)})
+  }
+
   return {
     createUser,
     getUser,
     updateUser,
     deleteUser,
     getImages,
-    getImage
+    getImage,
+    getAudios,
+    getAudio
   }
 }
