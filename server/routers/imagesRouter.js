@@ -1,6 +1,6 @@
 const express = require('express')
 
-module.exports = function({database, verifyKey, upload, uploadFile}) {
+module.exports = function({database, verifyKey, upload}) {
   const router = express.Router()
 
   //Get All
@@ -21,9 +21,7 @@ module.exports = function({database, verifyKey, upload, uploadFile}) {
     try {
       const file = req.file
       console.log(file)
-      const result = await uploadFile(file)
-      console.log(result)
-      res.send(result)
+      res.send(file)
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
