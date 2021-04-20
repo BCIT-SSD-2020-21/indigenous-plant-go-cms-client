@@ -11,6 +11,7 @@ module.exports = async function() {
   const db = client.db(dbName)
 
   const users = db.collection('users')
+  const images = db.collection('images')
 
   // Users
 
@@ -105,10 +106,26 @@ module.exports = async function() {
     return result
   }
 
+  // Images
+
+  // Get All
+  // GET /api/images
+  async function getImages() {
+    return await images.find().toArray()
+  }
+
+  // Get One
+  // GET /api/images/:imageId
+  async function getImage({imageId}) {
+    return await images.findOne({_id: ObjectID(imageId)})
+  }
+
   return {
     createUser,
     getUser,
     updateUser,
-    deleteUser
+    deleteUser,
+    getImages,
+    getImage
   }
 }
