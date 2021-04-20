@@ -62,3 +62,47 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
 ### ER Diagram
 
 ![image](/planning/database/ERD/ERDv2.png)
+
+### Wireframes
+
+#### Home
+
+![image](/planning/client/wireframes/DASHBOARD - Home.png)
+
+#### Plant Content Type
+
+![image](/planning/client/wireframes/PLANTS - All Plants.png)
+![image](/planning/client/wireframes/PLANTS - Categories.png)
+![image](/planning/client/wireframes/PLANTS - Add New Plant.png)
+![image](/planning/client/wireframes/PLANTS - Edit Plant.png)
+![image](/planning/client/wireframes/PLANTS - Add-Edit Plant (Add Custom Field Modal).png)
+![image](/planning/client/wireframes/PLANTS - Add-Edit Plant (Create Tag-Category Modal).png)
+![image](/planning/client/wireframes/PLANTS - Add-Edit Plant (Edit Custom Field Modal).png)
+![image](/planning/client/wireframes/PLANTS - Add-Edit Plant (Upload Media Modal).png)
+
+#### Users
+
+![image](/planning/client/wireframes/USERS - All Users.png)
+![image](/planning/client/wireframes/USERS - Add User.png)
+![image](/planning/client/wireframes/USERS - Update User.png)
+
+#### Profile
+
+![image](/planning/client/wireframes/MY User.png)
+
+#### Tags
+
+![image](/planning/client/wireframes/TAGS.png)
+
+#### Locations
+
+![image](/planning/client/wireframes/LOCATIONS.png)
+
+#### Media Uploads
+
+![image](/planning/client/wireframes/MEDIA - Images.png)
+![image](/planning/client/wireframes/MEDIA - Audio.png)
+
+#### Expanded Sidebar
+
+![image](/planning/client/wireframes/DASHBOARD - Expanded Sidebar.png)
