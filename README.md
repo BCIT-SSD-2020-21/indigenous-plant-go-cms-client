@@ -38,21 +38,22 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
 
 <br>
 
-### Content Manager / Administrator Role Permission on CMS
+### Roles and Permission
 
-1. System Administrator I. – The user of this role should be able to create, manage, and modify content on the website without the need for specialized technical knowledge. Others roles is to:<br>
+1. Content Manager.<br>
    a. Log-in to web-based CMS <br>
    b. Modify size and image alignment <br>
    c. Edit text, font, size <br>
-   d. Upload/delete plant image/details <br>
-   e. Upload/Delete video & audio clips <br>
-   f. Change layout page <br>
-   g. Verify location <br>
-   h. Create/update users information <br>
+   d. Upload/edit/delete plant, waypoint, and learn more data
+   e. Upload/edit/delete media [images, audio, video]
+   f. Upload/edit/delete categories, tags
+   g. Upload/edit/delete locations
+   h. Update own user information <br>
    <br>
-2. System User Tester I. – The user should be able :<br>
-   a. to upload and manage plant media, like images, so user can just browse the media library instead of needing to interact with your web server directly:<br>
-   b. to add new post, plant detail and location.
+2. Administrator:<br>
+   a. everything a Content Manager can do
+   b. Register new Content Manager accounts
+   c. Edit any user information.
 
 ## SUPPORTING DOCUMENTS
 
