@@ -19,9 +19,10 @@ module.exports = function({database, verifyKey, upload}) {
   //POST /api/images?key=<API_KEY>
   router.post('/', verifyKey, upload.single('image'), async (req, res) => {
     try {
-      const file = req.file
-      console.log(file)
-      res.send(file)
+      console.log(req.body)
+      const url = req.file.location
+      const result = await database.createImage({imageUrl: url, caption: req.body.caption})
+      res.send("Image added")
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})

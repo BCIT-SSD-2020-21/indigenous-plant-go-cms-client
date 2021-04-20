@@ -116,6 +116,14 @@ module.exports = async function() {
     return await images.find().toArray()
   }
 
+  async function createImage({imageUrl, caption}) {
+    const result = await images.insertOne({
+      image_url: imageUrl,
+      caption
+    })
+    return result
+  }
+
   //Get One
   //GET /api/images/:imageId
   async function getImage({imageId}) {
@@ -156,6 +164,7 @@ module.exports = async function() {
     updateUser,
     deleteUser,
     getImages,
+    createImage,
     getImage,
     getAudios,
     getAudio,
