@@ -1,0 +1,13 @@
+/*
+  @desc GET single waypoint category
+  @route /api/waypoints/category/:id
+  @access Protected -- API key
+
+  Example request: GET /api/waypoints/category/607e399e59c86677e2af6587?key=<API_KEY>
+*/
+
+// EXAMPLE RESPONSE BODY
+{
+  "_id": "607e399e59c86677e2af6587",
+  "category_name": "Building"
+}

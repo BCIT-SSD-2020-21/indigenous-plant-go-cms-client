@@ -1,11 +1,11 @@
-import { custom_field as CustomField } from "./custom_field.ts"
-import { video as Video } from "./video.ts"
-import { audio_file as AudioFile } from "./audio_file.ts"
-import { image as Image } from "./image.ts"
-import { tag as Tag } from "./tag.ts"
-import { category as Category } from "./category.ts"
-import { location as Location } from "./location.ts"
-import { revision as Revision } from "./revision.ts"
+import { custom_field as CustomField } from "./custom_field"
+import { video as Video } from "./video"
+import { audio_file as AudioFile } from "./audio_file"
+import { image as Image } from "./image"
+import { tag as Tag } from "./tag"
+import { category as Category } from "./category"
+import { location as Location } from "./location"
+import { revision as Revision } from "./revision"
 
 export interface waypoint {
   waypoint_id: ObjectId,
