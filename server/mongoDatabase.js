@@ -1,5 +1,6 @@
 const {MongoClient, ObjectID} = require('mongodb')
 const bcrypt = require('bcryptjs')
+require('dotenv').config()
 
 const url = 'mongodb://localhost:27017'
 const dbName = 'indigenousPlant'
@@ -130,6 +131,28 @@ module.exports = async function() {
     return await images.findOne({_id: ObjectID(imageId)})
   }
 
+  //Delete
+  //DELETE /api/images/:imageId
+  async function deleteImage({imageId, s3}) {
+    const image = await images.findOne({_id: ObjectID(imageId)})
+    s3.deleteObject({
+      Bucket: process.env.AWS_BUCKET_NAME,
+      Key: image.image_url.split(".com/")[1]
+    }, function(err, data) {
+      if(err) {
+        console.log(err)
+      } else {
+        console.log("Success")
+      }
+    })
+
+    const result = await images.findOneAndDelete({
+      _id: ObjectID(imageId)
+    })
+
+    return result
+  }
+
   //Audios
 
   //Get All
@@ -166,6 +189,7 @@ module.exports = async function() {
     getImages,
     createImage,
     getImage,
+    deleteImage,
     getAudios,
     getAudio,
     getVideos,

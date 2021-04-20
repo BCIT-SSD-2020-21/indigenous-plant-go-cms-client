@@ -1,6 +1,6 @@
 const express = require('express')
 
-module.exports = function({database, verifyKey, upload}) {
+module.exports = function({database, verifyKey, upload, s3}) {
   const router = express.Router()
 
   //Get All
@@ -36,6 +36,22 @@ module.exports = function({database, verifyKey, upload}) {
       const imageId = req.params.imageId
       const result = await database.getImage({imageId})
       res.send(result)
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
+  //Update
+  //PUT /api/images/:imageId?key=<API_KEY>
+
+  //Delete
+  //DELETE /api/images/:imageId?key=<API_KEY>
+  router.delete('/:imageId', verifyKey, async (req, res) => {
+    try {
+      const imageId = req.params.imageId
+      const result = await database.deleteImage({imageId, s3})
+      res.send("Image deleted")
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
