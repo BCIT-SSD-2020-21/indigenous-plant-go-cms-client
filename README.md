@@ -67,28 +67,28 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
 
 #### Home
 
-![image](/planning/client/wireframes/DASHBOARD - Home.png)
+![image](/planning/client/wireframes/DASHBOARDHOME.png)
 
 #### Plant Content Type
 
-![image](/planning/client/wireframes/PLANTS - All Plants.png)
-![image](/planning/client/wireframes/PLANTS - Categories.png)
-![image](/planning/client/wireframes/PLANTS - Add New Plant.png)
-![image](/planning/client/wireframes/PLANTS - Edit Plant.png)
-![image](/planning/client/wireframes/PLANTS - Add-Edit Plant (Add Custom Field Modal).png)
-![image](/planning/client/wireframes/PLANTS - Add-Edit Plant (Create Tag-Category Modal).png)
-![image](/planning/client/wireframes/PLANTS - Add-Edit Plant (Edit Custom Field Modal).png)
-![image](/planning/client/wireframes/PLANTS - Add-Edit Plant (Upload Media Modal).png)
+![image](/planning/client/wireframes/PLANTS1.png)
+![image](/planning/client/wireframes/PLANTS2.png)
+![image](/planning/client/wireframes/PLANTS3.png)
+![image](/planning/client/wireframes/PLANTS4.png)
+![image](/planning/client/wireframes/PLANTS5.png)
+![image](/planning/client/wireframes/PLANTS6.png)
+![image](/planning/client/wireframes/PLANTS7.png)
+![image](/planning/client/wireframes/PLANTS8.png)
 
 #### Users
 
-![image](/planning/client/wireframes/USERS - All Users.png)
-![image](/planning/client/wireframes/USERS - Add User.png)
-![image](/planning/client/wireframes/USERS - Update User.png)
+![image](/planning/client/wireframes/USERS1.png)
+![image](/planning/client/wireframes/USERS2.png)
+![image](/planning/client/wireframes/USERS3.png)
 
 #### Profile
 
-![image](/planning/client/wireframes/MY User.png)
+![image](/planning/client/wireframes/PROFILE.png)
 
 #### Tags
 
@@ -100,9 +100,9 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
 
 #### Media Uploads
 
-![image](/planning/client/wireframes/MEDIA - Images.png)
-![image](/planning/client/wireframes/MEDIA - Audio.png)
+![image](/planning/client/wireframes/MEDIA1.png)
+![image](/planning/client/wireframes/MEDIA2.png)
 
 #### Expanded Sidebar
 
-![image](/planning/client/wireframes/DASHBOARD - Expanded Sidebar.png)
+![image](/planning/client/wireframes/SIDEBAR.png)
