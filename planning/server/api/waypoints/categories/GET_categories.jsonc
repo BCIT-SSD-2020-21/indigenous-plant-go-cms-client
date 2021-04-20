@@ -1,0 +1,24 @@
+/*
+  @desc GET all waypoints categories
+  @route /api/waypoints/categories
+  @access Protected -- API key
+
+  Example request: GET /api/waypoints/categories?key=<API_KEY>
+*/
+
+// EXAMPLE RESPONSE BODY
+[
+  {
+    "_id": "607e399e59c86677e2af6587",
+    "category_name": "Building"
+  },
+  {
+    "_id": "607e399e59c86677e2asda77",
+    "category_name": "Garden"
+  },
+  {
+    "_id": "607e399e59c86677s72sda77",
+    "category_name": "Wetlodge"
+  }
+  // ... Repeat
+]

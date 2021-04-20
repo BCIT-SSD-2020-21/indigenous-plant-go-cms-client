@@ -1,5 +1,5 @@
-import { custom_field as CustomField } from "./custom_field.ts"
-import { revision as Revision } from "./revision.ts"
+import { custom_field as CustomField } from "./custom_field"
+import { revision as Revision } from "./revision"
 
 export interface learn_more {
   learn_more_id: ObjectId,

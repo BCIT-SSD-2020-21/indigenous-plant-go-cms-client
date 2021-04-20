@@ -1,0 +1,24 @@
+/*
+  @desc GET all plant categories
+  @route /api/plants/categories
+  @access Protected -- API key
+
+  Example request: GET /api/plants/categories?key=<API_KEY>
+*/
+
+// EXAMPLE RESPONSE BODY
+[
+  {
+    "_id": "607e399e59c86677e2af6587",
+    "category_name": "Perenniel"
+  },
+  {
+    "_id": "607e399e59c86677e2asda77",
+    "category_name": "Evergreen"
+  },
+  {
+    "_id": "607e399e59c86677s72sda77",
+    "category_name": "Tundra"
+  }
+  // ... Repeat
+]
