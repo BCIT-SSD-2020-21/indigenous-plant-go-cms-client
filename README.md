@@ -62,3 +62,47 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
 ### ER Diagram
 
 ![image](/planning/database/ERD/ERDv2.png)
+
+### Wireframes
+
+#### Home
+
+![image](/planning/client/wireframes/DASHBOARDHOME.png)
+
+#### Plant Content Type
+
+![image](/planning/client/wireframes/PLANTS1.png)
+![image](/planning/client/wireframes/PLANTS2.png)
+![image](/planning/client/wireframes/PLANTS3.png)
+![image](/planning/client/wireframes/PLANTS4.png)
+![image](/planning/client/wireframes/PLANTS5.png)
+![image](/planning/client/wireframes/PLANTS6.png)
+![image](/planning/client/wireframes/PLANTS7.png)
+![image](/planning/client/wireframes/PLANTS8.png)
+
+#### Users
+
+![image](/planning/client/wireframes/USERS1.png)
+![image](/planning/client/wireframes/USERS2.png)
+![image](/planning/client/wireframes/USERS3.png)
+
+#### Profile
+
+![image](/planning/client/wireframes/PROFILE.png)
+
+#### Tags
+
+![image](/planning/client/wireframes/TAGS.png)
+
+#### Locations
+
+![image](/planning/client/wireframes/LOCATIONS.png)
+
+#### Media Uploads
+
+![image](/planning/client/wireframes/MEDIA1.png)
+![image](/planning/client/wireframes/MEDIA2.png)
+
+#### Expanded Sidebar
+
+![image](/planning/client/wireframes/SIDEBAR.png)
