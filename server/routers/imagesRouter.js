@@ -1,6 +1,6 @@
 const express = require('express')
 
-module.exports = function({database, verifyKey}) {
+module.exports = function({database, verifyKey, upload, uploadFile}) {
   const router = express.Router()
 
   //Get All
@@ -8,6 +8,21 @@ module.exports = function({database, verifyKey}) {
   router.get('/', verifyKey, async (req, res) => {
     try {
       const result = await database.getImages()
+      res.send(result)
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
+  //Create
+  //POST /api/images?key=<API_KEY>
+  router.post('/', verifyKey, upload.single('image'), async (req, res) => {
+    try {
+      const file = req.file
+      console.log(file)
+      const result = await uploadFile(file)
+      console.log(result)
       res.send(result)
     } catch (error) {
       console.error(error)
