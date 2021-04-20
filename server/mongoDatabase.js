@@ -146,6 +146,19 @@ module.exports = async function() {
     return await locations.findOne({_id: ObjectID(locationId)})
   }
 
+  // Revision
+  
+  // Get All
+  //GET /api/revisions
+  async function getRevisions() {
+    return await revisions.find().toArray()
+  }
+
+  // Get One
+  //GET /api/revisions
+  async function getRevision({revisionId}) {
+    return await revisions.findOne({_id: ObjectID(revisionId)})
+  }
   return {
     createUser,
     getUser,
@@ -154,6 +167,8 @@ module.exports = async function() {
     getTag,
     getTags,
     getLocation,
-    getLocations
+    getLocations,
+    getRevision,
+    getRevisions
   }
 }
