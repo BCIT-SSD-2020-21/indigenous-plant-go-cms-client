@@ -46,8 +46,8 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
    c. Edit text, font, size <br>
    d. Upload/edit/delete plant, waypoint, and learn more data
    e. Upload/edit/delete media [images, audio, video]
-   f. Upload/edit/delete categories, tags
-   g. Upload/edit/delete locations
+   f. Upload/edit/delete categories, tags <br>
+   g. Upload/edit/delete locations <br>
    h. Update own user information <br>
    <br>
 2. Administrator:<br>
