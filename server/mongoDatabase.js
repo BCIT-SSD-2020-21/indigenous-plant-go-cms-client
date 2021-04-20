@@ -132,7 +132,19 @@ module.exports = async function() {
     return await categories.findOne({_id: ObjectID(categoryId)})
   }
 
+  // Location
+  
+  // Get All
+  //GET /api/locations
+  async function getLocations() {
+    return await locations.find().toArray()
+  }
 
+  // Get One
+  //GET /api/locations
+  async function getLocation({locationId}) {
+    return await locations.findOne({_id: ObjectID(locationId)})
+  }
 
   return {
     createUser,
@@ -140,6 +152,8 @@ module.exports = async function() {
     updateUser,
     deleteUser,
     getTag,
-    getTags
+    getTags,
+    getLocation,
+    getLocations
   }
 }
