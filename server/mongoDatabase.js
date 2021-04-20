@@ -118,6 +118,47 @@ module.exports = async function() {
     return await tags.findOne({_id: ObjectID(tagId)})
   }
 
+  async function createTag({id, name}) {
+    const result = await tags.insertOne({
+      tag_id: tagId,
+      tag_name: tagName
+    })
+    return result
+  }
+
+  //Update Tag
+  //PUT /api/tags/:tagId
+  async function updateTag({tagId, updatedTag}) {
+    if (updatedTag.tagId || updatedTag.tagName) {
+      const tag = await tags.findOne({
+        $or: [{id: updatedTag.id}, {name: updatedTag.name}]
+      })
+    
+    // if (updatedUser.role) {
+    //   if (userRole !== "Admin") {
+    //     throw Error("No permission to update role")
+    //   }
+    // }
+
+    const result = await tags.findOneAndUpdate(
+      {_id: ObjectID(tagId)},
+      {$set: {...updatedTag}}
+    )
+
+    return result
+  }
+
+  //Delete tag base on tagId
+  //DELETE /api/tags/:tagId
+  async function deleteTag({tagId}) {
+    const result = await tags.findOneAndDelete({
+      _id: ObjectID(tagId)
+    })
+
+    return result
+  }
+
+
   // Category 
 
   // Get All
