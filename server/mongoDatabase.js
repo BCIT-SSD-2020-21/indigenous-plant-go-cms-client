@@ -108,17 +108,30 @@ module.exports = async function() {
   // CRUD for Tag
   
   // Get All
-  // GET /api/tags
+  //GET /api/tags
   async function getTag() {
     return await tag.find().toArray()
   }
-  // Get All
+  // Get One
   // Get /api/tags/:tagId
   async function getTag({tagId}) {
     return await tags.findOne({_id: ObjectID(tagId)})
   }
 
-  
+  // Category 
+
+  // Get All
+  //GET /api/categories
+  async function getCategories() {
+    return await categories.find().toArray()
+  }
+
+  // Get One
+  //GET /api/categories
+  async function getCategory({categoryId}) {
+    return await categories.findOne({_id: ObjectID(categoryId)})
+  }
+
 
 
   return {
