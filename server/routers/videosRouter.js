@@ -4,10 +4,10 @@ module.exports = function({database, verifyKey}) {
   const router = express.Router()
 
   //Get All
-  //GET /api/audios?key=<API_KEY>
+  //GET /api/videos?key=<API_KEY>
   router.get('/', verifyKey, async (req, res) => {
     try {
-      const result = await database.getAudios()
+      const result = await database.getVideos()
       res.send(result)
     } catch (error) {
       console.error(error)
@@ -16,11 +16,11 @@ module.exports = function({database, verifyKey}) {
   })
 
   //Get One
-  //GET /api/audios/:audioId?key=<API_KEY>
-  router.get('/:audioId', verifyKey, async (req, res) => {
+  //GET /api/videos/:videoId?key=<API_KEY>
+  router.get('/:videoId', verifyKey, async (req, res) => {
     try {
-      const audioId = req.params.audioId
-      const result = await database.getAudio({audioId})
+      const videoId = req.params.videoId
+      const result = await database.getVideo({videoId})
       res.send(result)
     } catch (error) {
       console.error(error)

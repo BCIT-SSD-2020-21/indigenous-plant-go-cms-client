@@ -3,6 +3,8 @@ const express = require('express')
 module.exports = function({database, verifyKey}) {
   const router = express.Router()
 
+  //Get All
+  //GET /api/images?key=<API_KEY>
   router.get('/', verifyKey, async (req, res) => {
     try {
       const result = await database.getImages()
@@ -13,6 +15,8 @@ module.exports = function({database, verifyKey}) {
     }
   })
 
+  //Get One
+  //GET /api/images/:imageId?key=<API_KEY>
   router.get('/:imageId', verifyKey, async (req, res) => {
     try {
       const imageId = req.params.imageId

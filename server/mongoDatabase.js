@@ -13,12 +13,13 @@ module.exports = async function() {
   const users = db.collection('users')
   const images = db.collection('images')
   const audios = db.collection('audios')
+  const videos = db.collection('videos')
 
-  // Users
+  //Users
 
-  // Create new user, use for register
-  // Takes in email, username and password, role default to Manager
-  // POST /api/users
+  //Create new user, use for register
+  //Takes in email, username and password, role default to Manager
+  //POST /api/users
   async function createUser({email, username, password}) {
     //Check if email or username is repeating
     const user = await users.findOne({
@@ -107,32 +108,46 @@ module.exports = async function() {
     return result
   }
 
-  // Images
+  //Images
 
-  // Get All
-  // GET /api/images
+  //Get All
+  //GET /api/images
   async function getImages() {
     return await images.find().toArray()
   }
 
-  // Get One
-  // GET /api/images/:imageId
+  //Get One
+  //GET /api/images/:imageId
   async function getImage({imageId}) {
     return await images.findOne({_id: ObjectID(imageId)})
   }
 
-  // Audios
+  //Audios
 
-  // Get All
-  // GET /api/audios
+  //Get All
+  //GET /api/audios
   async function getAudios() {
     return await audios.find().toArray()
   }
 
-  // Get One
-  // GET /api/audios/:audioId
+  //Get One
+  //GET /api/audios/:audioId
   async function getAudio({audioId}) {
     return await audios.findOne({_id: ObjectID(audioId)})
+  }
+
+  //Videos
+
+  //Get All
+  //GET /api/videos
+  async function getVideos() {
+    return await videos.find().toArray()
+  }
+
+  //Get One
+  //GET /api/videos/:videoId
+  async function getVideo({videoId}) {
+    return await videos.findOne({_id: ObjectID(videoId)})
   }
 
   return {
@@ -143,6 +158,8 @@ module.exports = async function() {
     getImages,
     getImage,
     getAudios,
-    getAudio
+    getAudio,
+    getVideos,
+    getVideo
   }
 }

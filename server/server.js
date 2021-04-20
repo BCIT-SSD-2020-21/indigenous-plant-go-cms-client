@@ -5,6 +5,7 @@ const apikey = require('./apikey')
 const makeUsersRouter = require('./routers/usersRouter')
 const makeImagesRouter = require('./routers/imagesRouter')
 const makeAudiosRouter = require('./routers/audiosRouter')
+const makeVideosRouter = require('./routers/videosRouter')
 
 const app = express()
 app.use(express.json())
@@ -18,6 +19,9 @@ mongoDatabase().then((database) => {
 
   const audiosRouter = makeAudiosRouter({database, verifyKey: apikey.verifyKey})
   app.use('/api/audios', audiosRouter)
+
+  const videosRouter = makeVideosRouter({database, verifyKey: apikey.verifyKey})
+  app.use('/api/videos', videosRouter)
 })
 
 const port = process.env.port || 8080
