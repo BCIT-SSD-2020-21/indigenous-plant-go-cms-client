@@ -12,6 +12,7 @@ module.exports = async function() {
 
   const users = db.collection('users')
   const tags = db.collection('tags')
+  const categories = db.collection('categories')
 
   // Users
 
@@ -146,7 +147,6 @@ module.exports = async function() {
     return result
   }
 
-
   // Category 
 
   // Get All
@@ -159,6 +159,33 @@ module.exports = async function() {
   //GET /api/categories
   async function getCategory({categoryId}) {
     return await categories.findOne({_id: ObjectID(categoryId)})
+  }
+
+  //Create Category
+  async function createCategory({categoryName}) {
+    const result = await categories.insertOne({
+      category_name: categoryName
+    })
+    return result
+  }
+
+  //Update Category
+  //PUT /api/categories/:categoryId
+  async function updateCategory({categoryId, updatedCategory}) {
+    const result = await categories.findOneAndUpdate(
+      {_id: ObjectID(categoryId)},
+      {$set: {...updatedCategory}}
+    )
+    return result
+  }
+  
+  //Delete tag base on tagId
+  //DELETE /api/tags/:tagId
+  async function deleteCategory({categoryId}) {
+    const result = await categories.findOneAndDelete({
+      _id: ObjectID(categoryId)
+    })
+    return result
   }
 
   // Location
@@ -199,11 +226,23 @@ module.exports = async function() {
     deleteTag,
     getTag,
     getTags,
+    //Category
+    getCategory,
+    getCategories,
+    createCategory,
+    updateCategory,
+    deleteCategory,
     //Location
     getLocation,
     getLocations,
+    //createLocation,
+    //updateLocation,
+    //deleteLocation,
     //Revision
     getRevision,
-    getRevisions
+    getRevisions,
+    //createRevision,
+   // updateRevision,
+   // deleteRevision
   }
   }

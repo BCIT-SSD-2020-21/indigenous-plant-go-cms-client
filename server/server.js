@@ -3,6 +3,7 @@ const mongoDatabase = require('./mongoDatabase')
 const jwt = require('./jwt')
 const makeUsersRouter = require('./routers/usersRouter')
 const makeTagsRouter = require('./routers/tagsRouter')
+const makeCategoriesRouter = require('./routers/categoriesRouter')
 
 const app = express()
 app.use(express.json())
@@ -12,6 +13,8 @@ mongoDatabase().then((database) => {
   app.use('/api/users', usersRouter)
   const tagsRouter = makeTagsRouter({database})
   app.use('/api/tags', tagsRouter)
+  const categoriesRouter = makeCategoriesRouter({database})
+  app.use('/api/categories', categoriesRouter)
 })
 
 const port = process.env.port || 8080
