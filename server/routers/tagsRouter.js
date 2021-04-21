@@ -5,7 +5,7 @@ module.exports = function({database, verifyKey}) {
 
   //Get All
   //GET /api/tags?key=<API_KEY>
-  router.get('/', verifyKey, async (req, res) => {
+  router.get('/', async (req, res) => {
     try {
       const result = await database.getTags()
       res.send(result)
@@ -15,9 +15,49 @@ module.exports = function({database, verifyKey}) {
     }
   })
 
+
+  //Create
+  //POST /api/tags?key=<API_KEY>
+  router.post('/', async (req, res) => {
+    try {
+      console.log(req.body)
+      const result = await database.createTag({tagName: req.body.tagName})
+      res.send("Tag added")
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
+  //Update
+  //PUT /api/tags/:tagId?key=<API_KEY>
+  router.put('/:tagId', async (req, res) => {
+    try {
+      const tagId = req.params.tagId
+      const result = await database.updateTag({tagId, updatedTag: req.body})
+      res.send("Tag updated")
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
+  //Delete
+  //DELETE /api/tags/:tagId?key=<API_KEY>
+  router.delete('/:tagId', async (req, res) => {
+    try {
+      const tagId = req.params.tagId
+      const result = await database.deleteTag({tagId})
+      res.send("Tag deleted")
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
   //Get One
   //GET /api/tags/:tagId?key=<API_KEY>
-  router.get('/:tagId', verifyKey, async (req, res) => {
+  router.get('/:tagId', async (req, res) => {
     try {
       const tagId = req.params.tagId
       const result = await database.getTag({tagId})

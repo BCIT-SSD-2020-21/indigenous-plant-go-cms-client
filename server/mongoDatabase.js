@@ -11,6 +11,7 @@ module.exports = async function() {
   const db = client.db(dbName)
 
   const users = db.collection('users')
+  const tags = db.collection('tags')
 
   // Users
 
@@ -109,18 +110,17 @@ module.exports = async function() {
   
   // Get All
   //GET /api/tags
-  async function getTag() {
-    return await tag.find().toArray()
+  async function getTags() {
+    return await tags.find().toArray()
   }
   // Get One
   // Get /api/tags/:tagId
   async function getTag({tagId}) {
     return await tags.findOne({_id: ObjectID(tagId)})
   }
-
-  async function createTag({id, name}) {
+  //Create Tag
+  async function createTag({tagName}) {
     const result = await tags.insertOne({
-      tag_id: tagId,
       tag_name: tagName
     })
     return result
@@ -129,32 +129,20 @@ module.exports = async function() {
   //Update Tag
   //PUT /api/tags/:tagId
   async function updateTag({tagId, updatedTag}) {
-    if (updatedTag.tagId || updatedTag.tagName) {
-      const tag = await tags.findOne({
-        $or: [{id: updatedTag.id}, {name: updatedTag.name}]
-      })
-    
-    // if (updatedUser.role) {
-    //   if (userRole !== "Admin") {
-    //     throw Error("No permission to update role")
-    //   }
-    // }
 
     const result = await tags.findOneAndUpdate(
       {_id: ObjectID(tagId)},
       {$set: {...updatedTag}}
     )
-
     return result
   }
-
+  
   //Delete tag base on tagId
   //DELETE /api/tags/:tagId
   async function deleteTag({tagId}) {
     const result = await tags.findOneAndDelete({
       _id: ObjectID(tagId)
     })
-
     return result
   }
 
@@ -205,11 +193,17 @@ module.exports = async function() {
     getUser,
     updateUser,
     deleteUser,
+    //Tag
+    createTag,
+    updateTag,
+    deleteTag,
     getTag,
     getTags,
+    //Location
     getLocation,
     getLocations,
+    //Revision
     getRevision,
     getRevisions
   }
-}
+  }
