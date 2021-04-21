@@ -17,9 +17,9 @@ import AddWaypoint from "../pages/waypoints/AddWaypoint";
 import EditWaypoint from "../pages/waypoints/EditWaypoint";
 import WaypointCategories from "../pages/waypoints/WaypointCategories";
 // 4.0 LEARN MORE
-import AllLearnMore from "../pages/learnMore/AllLearnMore";
-import AddLearnMore from "../pages/learnMore/AddLearnMore";
-import EditLearnMore from "../pages/learnMore/EditLearnMore";
+import AllLearnMore from "../pages/learnmore/AllLearnMore";
+import AddLearnMore from "../pages/learnmore/AddLearnMore";
+import EditLearnMore from "../pages/learnmore/EditLearnMore";
 // 5.0 USERS
 import AllUsers from "../pages/users/AllUsers";
 import AddUser from "../pages/user/AddUser";
