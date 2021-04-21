@@ -117,6 +117,8 @@ module.exports = async function() {
     return await images.find().toArray()
   }
 
+  //Create
+  //Post /api/images
   async function createImage({url, updatedImage}) {
     const result = await images.insertOne({
       image_url: url,
@@ -201,10 +203,82 @@ module.exports = async function() {
     return await audios.find().toArray()
   }
 
+  //Create
+  //Post /api/audios
+  async function createAudio({url, updatedAudio}) {
+    const result = await audios.insertOne({
+      audio_file_url: url,
+      ...updatedAudio
+    })
+    return result
+  }
+
   //Get One
   //GET /api/audios/:audioId
   async function getAudio({audioId}) {
     return await audios.findOne({_id: ObjectID(audioId)})
+  }
+
+  //Update
+  //PUT /api/audios/:audioId
+  async function updateAudio({audioId, url, updatedAudio, s3}) {
+    //There is a new url, delete the old one from s3
+    if (url) {
+      const audio = await audios.findOne({_id: ObjectID(audioId)})
+      if (audio.audio_file_url) {
+        s3.deleteObject({
+          Bucket: process.env.AWS_BUCKET_NAME,
+          Key: audio.audio_file_url.split(".com/")[1]
+        }, function(err, data) {
+          if (err) {
+            console.log(err)
+          } else {
+            console.log("Success")
+          }
+        })
+      }
+
+      await audios.findOneAndUpdate(
+        {_id: ObjectID(audioId)},
+        {$set: {
+          audio_file_url: url
+        }}
+      )
+    }
+
+    const result = await audios.findOneAndUpdate(
+      {_id: ObjectID(audioId)},
+      {$set: {
+        ...updatedAudio
+      }}
+    )
+
+    return result
+  }
+
+  //Delete
+  //DELETE /api/audios/:audioId
+  async function deleteAudio({audioId, s3}) {
+    //Delete file from s3
+    const audio = await audios.findOne({_id: ObjectID(audioId)})
+    if (audio.audio_file_url) {
+      s3.deleteObject({
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: audio.audio_file_url.split(".com/")[1]
+      }, function(err, data) {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log("Success")
+        }
+      })
+    }
+
+    const result = await audios.findOneAndDelete({
+      _id: ObjectID(audioId)
+    })
+
+    return result
   }
 
   //Videos
@@ -222,17 +296,24 @@ module.exports = async function() {
   }
 
   return {
+    //User
     createUser,
     getUser,
     updateUser,
     deleteUser,
+    //Image
     getImages,
     createImage,
     getImage,
     updateImage,
     deleteImage,
+    //Audio
     getAudios,
+    createAudio,
     getAudio,
+    updateAudio,
+    deleteAudio,
+    //Video
     getVideos,
     getVideo
   }

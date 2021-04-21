@@ -1,6 +1,6 @@
 const express = require('express')
 
-module.exports = function({database, verifyKey}) {
+module.exports = function({database, verifyKey, upload, s3}) {
   const router = express.Router()
 
   //Get All
@@ -15,6 +15,19 @@ module.exports = function({database, verifyKey}) {
     }
   })
 
+  //Create
+  //POST /api/audios?key=<API_KEY>
+  router.post('/', verifyKey, upload.single('audio'), async (req, res) => {
+    try {
+      const url = req.file ? req.file.location : null
+      const result = await database.createAudio({url: url, updatedAudio: req.body})
+      res.send("Audio file added")
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
   //Get One
   //GET /api/audios/:audioId?key=<API_KEY>
   router.get('/:audioId', verifyKey, async (req, res) => {
@@ -22,6 +35,33 @@ module.exports = function({database, verifyKey}) {
       const audioId = req.params.audioId
       const result = await database.getAudio({audioId})
       res.send(result)
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
+  //Update
+  //PUT /api/audios/:audioId?key=<API_KEY>
+  router.put('/:audioId', verifyKey, upload.single('audio'), async (req, res) => {
+    try {
+      const url = req.file ? req.file.location : null
+      const audioId = req.params.audioId
+      const result = await database.updateAudio({audioId, url: url, updatedAudio: req.body, s3})
+      res.send("Audio file updated")
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
+  //Delete
+  //DELETE /api/audios/:audioId?key=<API_KEY>
+  router.delete('/:audioId', verifyKey, async (req, res) => {
+    try {
+      const audioId = req.params.audioId
+      const result = await database.deleteAudio({audioId, s3})
+      res.send("Audio file deleted")
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
