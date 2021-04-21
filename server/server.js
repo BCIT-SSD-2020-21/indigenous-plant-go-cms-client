@@ -25,6 +25,8 @@ const s3 = new S3({
   secretAccessKey
 })
 
+//Here the key/filename is set as current time + original file name
+//If you want to change the name file is saved as here is the place to change it
 const storage = multerS3({
   s3: s3,
   bucket: bucketName,
