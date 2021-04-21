@@ -289,10 +289,82 @@ module.exports = async function() {
     return await videos.find().toArray()
   }
 
+  //Create
+  //Post /api/videos
+  async function createVideo({url, updatedVideo}) {
+    const result = await videos.insertOne({
+      video_url: url,
+      ...updatedVideo
+    })
+    return result
+  }
+
   //Get One
   //GET /api/videos/:videoId
   async function getVideo({videoId}) {
     return await videos.findOne({_id: ObjectID(videoId)})
+  }
+
+  //Update
+  //PUT /api/videos/:videoId
+  async function updateVideo({videoId, url, updatedVideo, s3}) {
+    //There is a new url, delete the old one from s3
+    if (url) {
+      const video = await videos.findOne({_id: ObjectID(videoId)})
+      if (video.video_url) {
+        s3.deleteObject({
+          Bucket: process.env.AWS_BUCKET_NAME,
+          Key: video.video_url.split(".com/")[1]
+        }, function(err, data) {
+          if (err) {
+            console.log(err)
+          } else {
+            console.log("Success")
+          }
+        })
+      }
+
+      await videos.findOneAndUpdate(
+        {_id: ObjectID(videoId)},
+        {$set: {
+          video_url: url
+        }}
+      )
+    }
+
+    const result = await videos.findOneAndUpdate(
+      {_id: ObjectID(videoId)},
+      {$set: {
+        ...updatedVideo
+      }}
+    )
+
+    return result
+  }
+
+  //Delete
+  //DELETE /api/videos/:videoId
+  async function deleteVideo({videoId, s3}) {
+    //Delete file from s3
+    const video = await videos.findOne({_id: ObjectID(videoId)})
+    if (video.video_url) {
+      s3.deleteObject({
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: video.video_url.split(".com/")[1]
+      }, function(err, data) {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log("Success")
+        }
+      })
+    }
+
+    const result = await videos.findOneAndDelete({
+      _id: ObjectID(videoId)
+    })
+
+    return result
   }
 
   return {
@@ -315,6 +387,9 @@ module.exports = async function() {
     deleteAudio,
     //Video
     getVideos,
-    getVideo
+    createVideo,
+    getVideo,
+    updateVideo,
+    deleteVideo
   }
 }
