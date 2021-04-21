@@ -19,9 +19,8 @@ module.exports = function({database, verifyKey, upload, s3}) {
   //POST /api/images?key=<API_KEY>
   router.post('/', verifyKey, upload.single('image'), async (req, res) => {
     try {
-      console.log(req.body)
-      const url = req.file.location
-      const result = await database.createImage({imageUrl: url, caption: req.body.caption})
+      const url = req.file ? req.file.location : null
+      const result = await database.createImage({url: url, updatedImage: req.body})
       res.send("Image added")
     } catch (error) {
       console.error(error)
@@ -44,6 +43,17 @@ module.exports = function({database, verifyKey, upload, s3}) {
 
   //Update
   //PUT /api/images/:imageId?key=<API_KEY>
+  router.put('/:imageId', verifyKey, upload.single('image'), async (req, res) => {
+    try {
+      const url = req.file ? req.file.location : null
+      const imageId = req.params.imageId
+      const result = await database.updateImage({imageId, url: url, updatedImage: req.body, s3})
+      res.send("Image updated")
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
 
   //Delete
   //DELETE /api/images/:imageId?key=<API_KEY>

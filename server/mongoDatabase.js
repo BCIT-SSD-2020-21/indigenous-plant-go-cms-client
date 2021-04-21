@@ -117,10 +117,10 @@ module.exports = async function() {
     return await images.find().toArray()
   }
 
-  async function createImage({imageUrl, caption}) {
+  async function createImage({url, updatedImage}) {
     const result = await images.insertOne({
-      image_url: imageUrl,
-      caption
+      image_url: url,
+      ...updatedImage
     })
     return result
   }
@@ -131,20 +131,60 @@ module.exports = async function() {
     return await images.findOne({_id: ObjectID(imageId)})
   }
 
+  //Update
+  //PUT /api/images/:imageId
+  async function updateImage({imageId, url, updatedImage, s3}) {
+    //There is a new url, delete the old one from s3
+    if (url) {
+      const image = await images.findOne({_id: ObjectID(imageId)})
+      if (image.image_url) {
+        s3.deleteObject({
+          Bucket: process.env.AWS_BUCKET_NAME,
+          Key: image.image_url.split(".com/")[1]
+        }, function(err, data) {
+          if (err) {
+            console.log(err)
+          } else {
+            console.log("Success")
+          }
+        })
+      }
+
+      await images.findOneAndUpdate(
+        {_id: ObjectID(imageId)},
+        {$set: {
+          image_url: url
+        }}
+      )
+    }
+
+    const result = await images.findOneAndUpdate(
+      {_id: ObjectID(imageId)},
+      {$set: {
+        ...updatedImage
+      }}
+    )
+
+    return result
+  }
+
   //Delete
   //DELETE /api/images/:imageId
   async function deleteImage({imageId, s3}) {
+    //Delete the image from s3 if there is any
     const image = await images.findOne({_id: ObjectID(imageId)})
-    s3.deleteObject({
-      Bucket: process.env.AWS_BUCKET_NAME,
-      Key: image.image_url.split(".com/")[1]
-    }, function(err, data) {
-      if(err) {
-        console.log(err)
-      } else {
-        console.log("Success")
-      }
-    })
+    if (image.image_url) {
+      s3.deleteObject({
+        Bucket: process.env.AWS_BUCKET_NAME,
+        Key: image.image_url.split(".com/")[1]
+      }, function(err, data) {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log("Success")
+        }
+      })
+    }
 
     const result = await images.findOneAndDelete({
       _id: ObjectID(imageId)
@@ -189,6 +229,7 @@ module.exports = async function() {
     getImages,
     createImage,
     getImage,
+    updateImage,
     deleteImage,
     getAudios,
     getAudio,
