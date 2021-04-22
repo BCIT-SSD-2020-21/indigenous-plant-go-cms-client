@@ -1,0 +1,20 @@
+[
+  {
+    "_id": {
+      "$oid": "6081b447fc13ae6e380004ee"
+    },
+    "user": {    
+      "_id" : {"$oid":"604fd5351a6e6eae57f1c9ac"},    
+        "username" : "bob"},
+    "date": "11/13/2020"
+  }, 
+  {
+    "_id": {
+      "$oid": "6081b447fc13ae6e380004ef"
+    },
+    "user": {
+      "_id" : {"$oid":"604fd5351a6e6eae57f1c9ad"},    
+      "username" : "charlie"},
+    "date": "10/1/2020"
+  }
+]
