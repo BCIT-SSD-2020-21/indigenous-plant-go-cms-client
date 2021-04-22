@@ -80,6 +80,18 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
 ![image](/planning/client/wireframes/PLANTS7.png)
 ![image](/planning/client/wireframes/PLANTS8.png)
 
+#### Waypoint Content Type
+
+![image](/planning/client/wireframes/WAYPOINTS1.png)
+![image](/planning/client/wireframes/WAYPOINTS2.png)
+![image](/planning/client/wireframes/WAYPOINTS3.png)
+
+#### Learn More Content Type
+
+![image](/planning/client/wireframes/LEARNMORE1.png)
+![image](/planning/client/wireframes/LEARNMORE2.png)
+![image](/planning/client/wireframes/LEARNMORE3.png)
+
 #### Users
 
 ![image](/planning/client/wireframes/USERS1.png)

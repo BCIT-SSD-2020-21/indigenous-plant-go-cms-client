@@ -1,9 +1,9 @@
 /*
-  @desc GET single images
-  @route /api/image/:id
+  @desc GET single image
+  @route /api/images/:id
   @access Protected -- API key
 
-  Example request: GET /api/image/607e399e59c8feg7e2af65r7?key=<API_KEY>
+  Example request: GET /api/images/607e399e59c8feg7e2af65r7?key=<API_KEY>
 */
 
 // EXAMPLE RESPONSE BODY
