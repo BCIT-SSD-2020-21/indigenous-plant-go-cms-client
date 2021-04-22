@@ -55,9 +55,9 @@ module.exports = async function() {
   //Get One user, use for login
   //Takes in email/username and password and find one user that match
   //POST /api/users/login
-  async function getUser({loginName, password}) {
+  async function getUser({username, password}) {
     const user = await users.findOne({
-      $or: [{email: loginName}, {username: loginName}]
+      $or: [{email: username}, {username: username}]
     })
     if (!user) {
       throw Error("Invalid user")
