@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import LoginForm from "../../components/LoginForm";
 import useLocalStorage from "../../hooks/useLocalStorage";
+import { login } from "../../network";
 
 export default function LoginFormCtrl() {
   const [username, setUsername] = useLocalStorage("username", "");
@@ -14,8 +15,10 @@ export default function LoginFormCtrl() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const attemptLogin = (e) => {
+  const attemptLogin = async (e) => {
     e.preventDefault();
+    const result = await login({ username, password });
+    console.log(result);
     console.log("Login attempted.");
   };
 
