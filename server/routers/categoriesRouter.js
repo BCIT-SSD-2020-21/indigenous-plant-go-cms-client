@@ -19,7 +19,6 @@ module.exports = function({database, authorize, verifyKey}) {
   //POST /api/categories?key=<API_KEY>
   router.post('/', authorize, verifyKey, async (req, res) => {
     try {
-      console.log(req.body)
       const result = await database.createCategory(req.body)
       res.send("Category added")
     } catch (error) {

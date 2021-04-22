@@ -19,7 +19,6 @@ module.exports = function({database, authorize, verifyKey}) {
   //POST /api/tags?key=<API_KEY>
   router.post('/', authorize, verifyKey, async (req, res) => {
     try {
-      console.log(req.body)
       const result = await database.createTag(req.body)
       res.send("Tag added")
     } catch (error) {

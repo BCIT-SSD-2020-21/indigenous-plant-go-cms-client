@@ -19,7 +19,6 @@ module.exports = function({database, authorize, verifyKey}) {
   //POST /api/locations?key=<API_KEY>
   router.post('/', authorize, verifyKey, async (req, res) => {
     try {
-      console.log(req.body)
       const result = await database.createLocation(req.body)
       res.send("Location added")
     } catch (error) {
