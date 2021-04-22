@@ -1,0 +1,11 @@
+/*
+  @desc DELETE single image
+  @route /api/images/:id
+  @access Protected -- API key
+
+  Example request: DELETE /api/images/607e399e59c8feg7e2af65r7?key=<API_KEY>
+*/
+
+// SUCCESS RESPONSE BODY
+// "Image deleted"
+

@@ -120,6 +120,14 @@ module.exports = async function() {
   //Create
   //Post /api/images
   async function createImage({url, updatedImage}) {
+    if(!url) {
+      throw Error("Missing image")
+    }
+
+    if(!updatedImage.caption) {
+      throw Error("Missing caption")
+    }
+
     const result = await images.insertOne({
       image_url: url,
       ...updatedImage
@@ -206,6 +214,14 @@ module.exports = async function() {
   //Create
   //Post /api/audios
   async function createAudio({url, updatedAudio}) {
+    if(!url) {
+      throw Error("Missing audio")
+    }
+
+    if(!updatedAudio.caption) {
+      throw Error("Missing caption")
+    }
+
     const result = await audios.insertOne({
       audio_file_url: url,
       ...updatedAudio
@@ -292,6 +308,14 @@ module.exports = async function() {
   //Create
   //Post /api/videos
   async function createVideo({url, updatedVideo}) {
+    if(!url) {
+      throw Error("Missing video")
+    }
+
+    if(!updatedVideo.caption) {
+      throw Error("Missing caption")
+    }
+
     const result = await videos.insertOne({
       video_url: url,
       ...updatedVideo
