@@ -44,14 +44,16 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   const authContext = useAuth();
   const { isAuthenticated } = authContext;
 
+  console.log(isAuthenticated);
+
   return (
     <Route
       {...rest}
       render={(props) =>
-        isAuthenticated === true ? (
-          <Component {...props} />
-        ) : (
+        isAuthenticated === false ? (
           <Redirect to="/login" />
+        ) : (
+          <Component {...props} />
         )
       }
     />
@@ -86,19 +88,29 @@ export default function Navigation() {
         <PrivateRoute exact path="/" component={Home} />
 
         {/* 2.0 PLANTS */}
-        <PrivateRoute path="/plants" component={AllPlants} />
-        <PrivateRoute path="/plants/add" component={AddPlant} />
-        <PrivateRoute path="/plants/edit/:plantId" component={EditPlant} />
-        <PrivateRoute path="/plants/categories" component={PlantCategories} />
+        <PrivateRoute exact path="/plants" component={AllPlants} />
+        <PrivateRoute exact path="/plants/add" component={AddPlant} />
+        <PrivateRoute
+          exact
+          path="/plants/edit/:plantId"
+          component={EditPlant}
+        />
+        <PrivateRoute
+          exact
+          path="/plants/categories"
+          component={PlantCategories}
+        />
 
         {/* 3.0 WAYPOINTS */}
-        <PrivateRoute path="/waypoints" component={AllWaypoints} />
-        <PrivateRoute path="/waypoints/add" component={AddWaypoint} />
+        <PrivateRoute exact path="/waypoints" component={AllWaypoints} />
+        <PrivateRoute exact path="/waypoints/add" component={AddWaypoint} />
         <PrivateRoute
+          exact
           path="/waypoints/edit/:waypointId"
           component={EditWaypoint}
         />
         <PrivateRoute
+          exact
           path="/waypoints/categories"
           component={WaypointCategories}
         />
