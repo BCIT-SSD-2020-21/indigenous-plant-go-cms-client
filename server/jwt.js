@@ -15,7 +15,7 @@ function authorize(req, res, next) {
   if (!token) {
     const errMsg = "No token sent to server"
     console.error(errMsg)
-    res.status(401).send({error: errMsg})
+    res.status(501).send({error: errMsg})
   }
 
   let decoded
@@ -23,7 +23,7 @@ function authorize(req, res, next) {
     decoded = jwt.verify(token, secret)
   } catch(error) {
     console.error(error)
-    res.status(401).send({error: "Invalid Token"})
+    res.status(501).send({error: "Invalid Token"})
     return
   }
 
