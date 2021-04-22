@@ -66,7 +66,6 @@ const style = {
   header: {
     padding: "7px 20px",
     background: "var(--darkprimary)",
-    border: "1px solid var(--darkborder)",
     position: "fixed",
     top: 0,
     left: 0,
