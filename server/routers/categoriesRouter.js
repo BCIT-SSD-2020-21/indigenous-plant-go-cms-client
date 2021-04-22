@@ -28,6 +28,19 @@ module.exports = function({database}) {
     }
   })
 
+  //Get One
+  //GET /api/categories/:categoryId?key=<API_KEY>
+  router.get('/:categoryId', async (req, res) => {
+    try {
+      const categoryId = req.params.categoryId
+      const result = await database.getCategory({categoryId})
+      res.send(result)
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
   //Update
   //PUT /api/categories/:categoryId?key=<API_KEY>
   router.put('/:categoryId', async (req, res) => {
@@ -48,19 +61,6 @@ module.exports = function({database}) {
       const categoryId = req.params.categoryId
       const result = await database.deleteCategory({categoryId})
       res.send("Category deleted")
-    } catch (error) {
-      console.error(error)
-      res.status(401).send({error: error.message})
-    }
-  })
-
-  //Get One
-  //GET /api/categories/:categoryId?key=<API_KEY>
-  router.get('/:categoryId', async (req, res) => {
-    try {
-      const categoryId = req.params.categoryId
-      const result = await database.getCategory({categoryId})
-      res.send(result)
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})

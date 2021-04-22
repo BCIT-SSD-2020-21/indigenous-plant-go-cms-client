@@ -403,26 +403,30 @@ module.exports = async function() {
     return result
   }
 
-  // CRUD for Tag
+  //Tags
   
-  // Get All
+  //Get All
   //GET /api/tags
   async function getTags() {
     return await tags.find().toArray()
   }
-  // Get One
-  // Get /api/tags/:tagId
-  async function getTag({tagId}) {
-    return await tags.findOne({_id: ObjectID(tagId)})
-  }
-  //Create Tag
+
+  //Create
+  //POST /api/tags
   async function createTag({tagName}) {
     const result = await tags.insertOne({
       tag_name: tagName
     })
     return result
   }
-  //Update Tag
+
+  //Get One
+  //Get /api/tags/:tagId
+  async function getTag({tagId}) {
+    return await tags.findOne({_id: ObjectID(tagId)})
+  }
+
+  //Update
   //PUT /api/tags/:tagId
   async function updateTag({tagId, updatedTag}) {
     const result = await tags.findOneAndUpdate(
@@ -431,7 +435,8 @@ module.exports = async function() {
     )
     return result
   }
-  //Delete tag base on tagId
+
+  //Delete
   //DELETE /api/tags/:tagId
   async function deleteTag({tagId}) {
     const result = await tags.findOneAndDelete({
@@ -440,21 +445,16 @@ module.exports = async function() {
     return result
   }
 
-  // Category 
+  //Categories
 
-  // Get All
+  //Get All
   //GET /api/categories
   async function getCategories() {
     return await categories.find().toArray()
   }
 
-  // Get One
-  //GET /api/categories
-  async function getCategory({categoryId}) {
-    return await categories.findOne({_id: ObjectID(categoryId)})
-  }
-
-  //Create Category
+  //Create
+  //POST /api/categories
   async function createCategory({categoryName}) {
     const result = await categories.insertOne({
       category_name: categoryName
@@ -462,7 +462,13 @@ module.exports = async function() {
     return result
   }
 
-  //Update Category
+  //Get One
+  //GET /api/categories/:categoryId
+  async function getCategory({categoryId}) {
+    return await categories.findOne({_id: ObjectID(categoryId)})
+  }
+
+  //Update
   //PUT /api/categories/:categoryId
   async function updateCategory({categoryId, updatedCategory}) {
     const result = await categories.findOneAndUpdate(
@@ -472,7 +478,7 @@ module.exports = async function() {
     return result
   }
   
-  //Delete tag base on categoryId
+  //Delete
   //DELETE /api/categories/:categoryId
   async function deleteCategory({categoryId}) {
     const result = await categories.findOneAndDelete({
@@ -481,21 +487,16 @@ module.exports = async function() {
     return result
   }
 
-  // Location
+  //Locations
   
-  // Get All
+  //Get All
   //GET /api/locations
   async function getLocations() {
     return await locations.find().toArray()
   }
 
-  // Get One
-  //GET /api/locations
-  async function getLocation({locationId}) {
-    return await locations.findOne({_id: ObjectID(locationId)})
-  }
-
-  //Create Locations
+  //Create
+  //POST /api/locations
   async function createLocation({locationName}) {
     const result = await locations.insertOne({
       location_name: locationName
@@ -503,7 +504,13 @@ module.exports = async function() {
     return result
   }
 
-  //Update Location
+  //Get One
+  //GET /api/locations/:locationId
+  async function getLocation({locationId}) {
+    return await locations.findOne({_id: ObjectID(locationId)})
+  }
+
+  //Update
   //PUT /api/locations/:locationId
   async function updateLocation({locationId, updatedLocation}) {
     const result = await locations.findOneAndUpdate(
@@ -513,7 +520,7 @@ module.exports = async function() {
     return result
   }
   
-  //Delete locations base on locationId
+  //Delete
   //DELETE /api/locations/:locationId
   async function deleteLocation({locationId}) {
     const result = await locations.findOneAndDelete({
@@ -522,21 +529,16 @@ module.exports = async function() {
     return result
   }
 
-  // Revision
+  //Revisions
   
-  // Get All
+  //Get All
   //GET /api/revisions
   async function getRevisions() {
     return await revisions.find().toArray()
   }
 
-  // Get One
-  //GET /api/revisions
-  async function getRevision({revisionId}) {
-    return await revisions.findOne({_id: ObjectID(revisionId)})
-  }
-
-  //Create Revision
+  //Create
+  //POST /api/revisions
   async function createRevision({revisionName}) {
     const result = await revisions.insertOne({
       revision_name: revisionName
@@ -544,7 +546,13 @@ module.exports = async function() {
     return result
   }
 
-  //Update Revision
+  //Get One
+  //GET /api/revisions/:revisionId
+  async function getRevision({revisionId}) {
+    return await revisions.findOne({_id: ObjectID(revisionId)})
+  }
+
+  //Update
   //PUT /api/revisions/:revisionId
   async function updateRevision({revisionId, updatedRevision}) {
     const result = await revisions.findOneAndUpdate(
@@ -554,7 +562,7 @@ module.exports = async function() {
     return result
   }
   
-  //Delete Revisions base on revisionId
+  //Delete
   //DELETE /api/revisions/:revisionId
   async function deleteRevision({revisionId}) {
     const result = await revisions.findOneAndDelete({
@@ -588,27 +596,27 @@ module.exports = async function() {
     updateVideo,
     deleteVideo,
     //Tag
+    getTags,
     createTag,
+    getTag,
     updateTag,
     deleteTag,
-    getTag,
-    getTags,
     //Category
-    getCategory,
     getCategories,
     createCategory,
+    getCategory,
     updateCategory,
     deleteCategory,
     //Location
-    getLocation,
     getLocations,
     createLocation,
+    getLocation,
     updateLocation,
     deleteLocation,
     //Revision
-    getRevision,
     getRevisions,
     createRevision,
+    getRevision,
     updateRevision,
     deleteRevision
   }

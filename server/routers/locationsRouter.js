@@ -28,6 +28,19 @@ module.exports = function({database, verifyKey}) {
     }
   })
 
+  //Get One
+  //GET /api/locations/:locationId?key=<API_KEY>
+  router.get('/:locationId', async (req, res) => {
+    try {
+      const locationId = req.params.locationId
+      const result = await database.getLocation({locationId})
+      res.send(result)
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
   //Update
   //PUT /api/locations/:locationId?key=<API_KEY>
   router.put('/:locationId', async (req, res) => {
@@ -48,19 +61,6 @@ module.exports = function({database, verifyKey}) {
       const locationId = req.params.locationId
       const result = await database.deleteLocation({locationId})
       res.send("Location deleted")
-    } catch (error) {
-      console.error(error)
-      res.status(401).send({error: error.message})
-    }
-  })
-
-  //Get One
-  //GET /api/locations/:locationId?key=<API_KEY>
-  router.get('/:locationId', async (req, res) => {
-    try {
-      const locationId = req.params.locationId
-      const result = await database.getLocation({locationId})
-      res.send(result)
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})

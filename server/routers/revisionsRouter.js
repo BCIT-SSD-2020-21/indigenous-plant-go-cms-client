@@ -27,6 +27,19 @@ module.exports = function({database, verifyKey}) {
       res.status(401).send({error: error.message})
     }
   })
+  
+  //Get One
+  //GET /api/revisions/:revisionId?key=<API_KEY>
+  router.get('/:revisionId', async (req, res) => {
+    try {
+      const revisionId = req.params.revisionId
+      const result = await database.getRevision({revisionId})
+      res.send(result)
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
 
   //Update
   //PUT /api/revisions/:revisionId?key=<API_KEY>
@@ -48,19 +61,6 @@ module.exports = function({database, verifyKey}) {
       const revisionId = req.params.revisionId
       const result = await database.deleteRevision({revisionId})
       res.send("Revison deleted")
-    } catch (error) {
-      console.error(error)
-      res.status(401).send({error: error.message})
-    }
-  })
-
-  //Get One
-  //GET /api/revisions/:revisionId?key=<API_KEY>
-  router.get('/:revisionId', async (req, res) => {
-    try {
-      const revisionId = req.params.revisionId
-      const result = await database.getRevision({revisionId})
-      res.send(result)
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
