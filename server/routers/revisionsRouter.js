@@ -20,7 +20,7 @@ module.exports = function({database, authorize, verifyKey}) {
   router.post('/', authorize, verifyKey, async (req, res) => {
     try {
       console.log(req.body)
-      const result = await database.createRevision({revisionName: req.body.revisionName})
+      const result = await database.createRevision({user_id: req.user._id})
       res.send("Revision added")
     } catch (error) {
       console.error(error)

@@ -20,7 +20,7 @@ module.exports = function({database, authorize, verifyKey}) {
   router.post('/', authorize, verifyKey, async (req, res) => {
     try {
       console.log(req.body)
-      const result = await database.createCategory({categoryName: req.body.categoryName})
+      const result = await database.createCategory(req.body)
       res.send("Category added")
     } catch (error) {
       console.error(error)

@@ -34,11 +34,11 @@ module.exports = async function() {
       throw Error("Username or email is already taken")
     }
 
-    if(!email) { //email can't be null
+    if (!email) { //email can't be null
       throw Error("Requires an email")
     }
 
-    if(!password) { //password can't be null
+    if (!password) { //password can't be null
       throw Error("Requires a password")
     }
 
@@ -132,11 +132,11 @@ module.exports = async function() {
   //Create
   //Post /api/images
   async function createImage({url, updatedImage}) {
-    if(!url) {
+    if (!url) {
       throw Error("Missing image")
     }
 
-    if(!updatedImage.caption) {
+    if (!updatedImage.caption) {
       throw Error("Missing caption")
     }
 
@@ -226,11 +226,11 @@ module.exports = async function() {
   //Create
   //Post /api/audios
   async function createAudio({url, updatedAudio}) {
-    if(!url) {
+    if (!url) {
       throw Error("Missing audio")
     }
 
-    if(!updatedAudio.caption) {
+    if (!updatedAudio.caption) {
       throw Error("Missing caption")
     }
 
@@ -320,11 +320,11 @@ module.exports = async function() {
   //Create
   //Post /api/videos
   async function createVideo({url, updatedVideo}) {
-    if(!url) {
+    if (!url) {
       throw Error("Missing video")
     }
 
-    if(!updatedVideo.caption) {
+    if (!updatedVideo.caption) {
       throw Error("Missing caption")
     }
 
@@ -413,9 +413,13 @@ module.exports = async function() {
 
   //Create
   //POST /api/tags
-  async function createTag({tagName}) {
+  async function createTag({tag_name}) {
+    if (!tag_name) {
+      throw Error("Require a tag name")
+    }
+
     const result = await tags.insertOne({
-      tag_name: tagName
+      tag_name
     })
     return result
   }
@@ -455,9 +459,13 @@ module.exports = async function() {
 
   //Create
   //POST /api/categories
-  async function createCategory({categoryName}) {
+  async function createCategory({category_name}) {
+    if (!category_name) {
+      throw Error("Require a category name")
+    }
+
     const result = await categories.insertOne({
-      category_name: categoryName
+      category_name
     })
     return result
   }
@@ -497,9 +505,19 @@ module.exports = async function() {
 
   //Create
   //POST /api/locations
-  async function createLocation({locationName}) {
+  async function createLocation({location_name, coordinates, description=null}) {
+    if (!location_name) {
+      throw Error("Require a location name")
+    }
+
+    if (!coordinates) {
+      throw Error("Require a coordinate")
+    }
+
     const result = await locations.insertOne({
-      location_name: locationName
+      location_name,
+      coordinates,
+      description
     })
     return result
   }
@@ -539,9 +557,14 @@ module.exports = async function() {
 
   //Create
   //POST /api/revisions
-  async function createRevision({revisionName}) {
+  async function createRevision({user_id}) {
+    if(!user_id) {
+      throw Error("User id missing")
+    }
+
     const result = await revisions.insertOne({
-      revision_name: revisionName
+      user_id,
+      date: Date.now().toString()
     })
     return result
   }

@@ -20,7 +20,7 @@ module.exports = function({database, authorize, verifyKey}) {
   router.post('/', authorize, verifyKey, async (req, res) => {
     try {
       console.log(req.body)
-      const result = await database.createTag({tagName: req.body.tagName})
+      const result = await database.createTag(req.body)
       res.send("Tag added")
     } catch (error) {
       console.error(error)
