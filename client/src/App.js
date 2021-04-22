@@ -1,5 +1,6 @@
 import Navigation from "./navigation";
 import HeaderCtrl from "./controllers/Header/HeaderCtrl";
+import SidebarCtrl from "./controllers/Sidebar/SidebarCtrl";
 import { useAuth } from "./context/AuthContext";
 
 function App() {
@@ -7,7 +8,12 @@ function App() {
   const { isAuthenticated } = authContext;
   return (
     <>
-      {isAuthenticated && <HeaderCtrl />}
+      {isAuthenticated && (
+        <>
+          <HeaderCtrl />
+          <SidebarCtrl />
+        </>
+      )}
       <Navigation />
     </>
   );
