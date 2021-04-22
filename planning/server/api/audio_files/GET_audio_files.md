@@ -1,12 +1,12 @@
-/*
-  @desc GET all audio files
-  @route /api/audios
-  @access Protected -- API key
+# Get audios
+@desc GET all audio files
+@route /api/audios
+@access Protected -- API key
 
-  Example request: GET /api/audios?key=<API_KEY>
-*/
+Example request: GET /api/audios?key=<API_KEY>
 
-// EXAMPLE RESPONSE BODY
+# EXAMPLE RESPONSE BODY
+```
 [
   {
     "_id": "607e399459c86677e2af65r7",
@@ -20,3 +20,4 @@
   }
   // ... Repeat
 ]
+```

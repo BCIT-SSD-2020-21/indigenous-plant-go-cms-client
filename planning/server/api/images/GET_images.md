@@ -1,12 +1,12 @@
-/*
-  @desc GET all images
-  @route /api/images
-  @access Protected -- API key
+# Get images
+@desc GET all images
+@route /api/images
+@access Protected -- API key
 
-  Example request: GET /api/images?key=<API_KEY>
-*/
+Example request: GET /api/images?key=<API_KEY>
 
-// EXAMPLE RESPONSE BODY
+# EXAMPLE RESPONSE BODY
+```
 [
   {
     "_id": "607e399e59c8feg7e2af65r7",
@@ -20,3 +20,4 @@
   }
   // ... Repeat
 ]
+```

@@ -505,7 +505,7 @@ module.exports = async function() {
 
   //Create
   //POST /api/locations
-  async function createLocation({location_name, coordinates, description=null}) {
+  async function createLocation({location_name, coordinates, description=""}) {
     if (!location_name) {
       throw Error("Require a location name")
     }
