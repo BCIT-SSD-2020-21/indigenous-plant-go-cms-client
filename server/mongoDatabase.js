@@ -574,16 +574,6 @@ module.exports = async function() {
   async function getRevision({revisionId}) {
     return await revisions.findOne({_id: ObjectID(revisionId)})
   }
-
-  //Update
-  //PUT /api/revisions/:revisionId
-  async function updateRevision({revisionId, updatedRevision}) {
-    const result = await revisions.findOneAndUpdate(
-      {_id: ObjectID(revisionId)},
-      {$set: {...updatedRevision}}
-    )
-    return result
-  }
   
   //Delete
   //DELETE /api/revisions/:revisionId

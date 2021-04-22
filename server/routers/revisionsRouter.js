@@ -41,19 +41,6 @@ module.exports = function({database, authorize, verifyKey}) {
     }
   })
 
-  //Update
-  //PUT /api/revisions/:revisionId?key=<API_KEY>
-  router.put('/:revisionId', authorize, verifyKey, async (req, res) => {
-    try {
-      const revisionId = req.params.revisionId
-      const result = await database.updateRevision({revisionId, updatedRevision: req.body})
-      res.send("Revision updated")
-    } catch (error) {
-      console.error(error)
-      res.status(401).send({error: error.message})
-    }
-  })
-
   //Delete
   //DELETE /api/revisions/:revisionId?key=<API_KEY>
   router.delete('/:revisionId', authorize, verifyKey, async (req, res) => {
