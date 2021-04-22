@@ -1,7 +1,7 @@
 /*
   @desc PUT single audio file (Update)
   @route /api/audios/:id
-  @access Protected -- API key
+  @access Protected -- API key, require user login
 
   Example request: PUT /api/audios/607e399e59c8feg7e2af65r7?key=<API_KEY>
 */

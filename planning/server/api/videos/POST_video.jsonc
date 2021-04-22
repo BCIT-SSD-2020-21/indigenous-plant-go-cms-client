@@ -1,7 +1,7 @@
 /*
   @desc POST single video (Create)
   @route /api/videos
-  @access Protected -- API key
+  @access Protected -- API key, require user login
 
   Example request: POST /api/videos?key=<API_KEY>
 */
