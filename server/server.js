@@ -7,6 +7,7 @@ const multerS3 = require('multer-s3')
 const S3 = require('aws-sdk/clients/s3')
 require('dotenv').config()
 const makeUsersRouter = require('./routers/usersRouter')
+const makePingRouter = require('./routers/pingRouter')
 const makeImagesRouter = require('./routers/imagesRouter')
 const makeAudiosRouter = require('./routers/audiosRouter')
 const makeVideosRouter = require('./routers/videosRouter')
@@ -42,6 +43,9 @@ const upload = multer({storage: storage})
 mongoDatabase().then((database) => {
   const usersRouter = makeUsersRouter({database, authorize: jwt.authorize, generateToken: jwt.generateToken})
   app.use('/api/users', usersRouter)
+
+  const pingRouter = makePingRouter({authorize: jwt.authorize})
+  app.use('/api/ping', pingRouter)
 
   const imagesRouter = makeImagesRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey, upload: upload, s3: s3})
   app.use('/api/images', imagesRouter)

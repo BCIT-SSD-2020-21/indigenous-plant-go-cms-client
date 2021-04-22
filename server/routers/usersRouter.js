@@ -9,8 +9,9 @@ module.exports = function({database, authorize, generateToken}) {
     try {
       const result = await database.createUser(req.body)
       const user = result.ops[0]
-      const accessToken = generateToken({_id: user._id, email: user.email, username: user.username, role: user.role})
-      res.send(accessToken)
+      const filteredResult = (({_id, email, username, role}) => ({_id, email, username, role}))(user)
+      const accessToken = generateToken(filteredResult)
+      res.send({accessToken, user: filteredResult})
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
@@ -22,8 +23,9 @@ module.exports = function({database, authorize, generateToken}) {
   router.post('/login', async (req, res) => {
     try {
       const result = await database.getUser(req.body)
-      const accessToken = generateToken({_id: result._id, email: result.email, username: result.username, role: result.role})
-      res.send(accessToken)
+      const filteredResult = (({_id, email, username, role}) => ({_id, email, username, role}))(result)
+      const accessToken = generateToken(filteredResult)
+      res.send({accessToken, user: filteredResult})
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
