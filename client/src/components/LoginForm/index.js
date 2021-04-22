@@ -1,23 +1,28 @@
 import React from "react";
-import {
-  Input,
-  Icon,
-  Checkbox,
-  Button,
-  Message,
-  Loader,
-} from "semantic-ui-react";
+import { Input, Checkbox, Button } from "semantic-ui-react";
 
-export default function LoginForm({}) {
+export default function LoginForm({
+  //PROPERTIES
+  username,
+  password,
+  rememberMe,
+  // METHODS
+  setPassword,
+  setUsername,
+  setRememberMe,
+  attemptLogin,
+}) {
   return (
     <div>
-      <form style={style.form}>
+      <form style={style.form} onSubmit={(e) => attemptLogin(e)}>
         <fieldset style={style.fieldset}>
           <p style={style.label}>
             Username or Email<span style={style.req}>*</span>
           </p>
           <Input
             style={style.input}
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
             icon="user"
             iconPosition="left"
             placeholder="Username or email"
@@ -30,6 +35,8 @@ export default function LoginForm({}) {
           </p>
           <Input
             style={style.input}
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
             type="password"
             icon="key"
             iconPosition="left"
@@ -39,7 +46,10 @@ export default function LoginForm({}) {
 
         <fieldset style={style.fieldset}>
           <Checkbox
-            checked={true}
+            checked={rememberMe}
+            onChange={(_, data) => {
+              setRememberMe(data.checked);
+            }}
             toggle
             label={{ children: "Remember me" }}
             style={style.input}
@@ -48,7 +58,7 @@ export default function LoginForm({}) {
 
         <fieldset style={style.fieldset}>
           <Button primary style={{ ...style.submit, position: "relative" }}>
-            Login
+            Log in
           </Button>
         </fieldset>
       </form>

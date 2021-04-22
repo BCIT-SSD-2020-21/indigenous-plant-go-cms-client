@@ -1,5 +1,5 @@
 import React from "react";
-import LoginForm from "../../components/LoginForm";
+import LoginFormCtrl from "../../controllers/LoginForm/LoginFormCtrl";
 
 export default function Login() {
   return (
@@ -14,7 +14,7 @@ export default function Login() {
             />
           </div>
         </div>
-        <LoginForm />
+        <LoginFormCtrl />
       </div>
     </div>
   );

@@ -15,10 +15,10 @@
 .ui.toggle.checkbox label,
 .ui.toggle.checked.checkbox label,
 .ui.checkbox input:checked ~ label {
-  color: var(--lightsecondary) !important;
+  color: var(--darksecondary) !important;
 
   &::before {
-    background: var(--lighttertiary) !important;
+    background: lightgrey !important;
   }
 }
 
