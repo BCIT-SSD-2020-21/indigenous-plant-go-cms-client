@@ -22,8 +22,8 @@ import AddLearnMore from "../pages/learnmore/AddLearnMore";
 import EditLearnMore from "../pages/learnmore/EditLearnMore";
 // 5.0 USERS
 import AllUsers from "../pages/users/AllUsers";
-import AddUser from "../pages/user/AddUser";
-import EditUser from "../pages/user/EditUser";
+import AddUser from "../pages/users/AddUser";
+import EditUser from "../pages/users/EditUser";
 // 6.0 LOCATIONS
 import Locations from "../pages/locations";
 // 7.0 MEDIA
