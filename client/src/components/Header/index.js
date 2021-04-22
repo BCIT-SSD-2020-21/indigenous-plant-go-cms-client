@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Header() {
+export default function Header({ handleSignout }) {
   return (
     <header style={style.header}>
       <div className="wrap">
@@ -42,6 +42,7 @@ export default function Header() {
             </li>
             <li style={{ cursor: "pointer" }}>
               <button
+                onClick={() => handleSignout()}
                 style={{
                   color: "var(--lightsecondary)",
                   marginLeft: 10,
@@ -88,11 +89,15 @@ const style = {
   initial: {
     height: "30px",
     width: "30px",
-    backgroundColor: "var(--lightsecondary)",
+    backgroundColor: "var(--highlight)",
+    border: "1px solid var(--highlightsecondary)",
+    color: "var(--lightprimary)",
     borderRadius: "50%",
-    lineHeight: "30px",
+    lineHeight: "27px",
+    textAlign: "center",
     fontFamily: "serif, Times",
     display: "block",
     cursor: "pointer",
+    fontSize: 17,
   },
 };

@@ -1,13 +1,15 @@
 import Navigation from "./navigation";
-import { AuthProvider } from "./context/AuthContext";
-import Header from "./components/Header";
+import HeaderCtrl from "./controllers/Header/HeaderCtrl";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
+  const authContext = useAuth();
+  const { isAuthenticated } = authContext;
   return (
-    <AuthProvider>
-      <Header />
+    <>
+      {isAuthenticated && <HeaderCtrl />}
       <Navigation />
-    </AuthProvider>
+    </>
   );
 }
 
