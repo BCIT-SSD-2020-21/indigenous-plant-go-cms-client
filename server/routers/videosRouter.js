@@ -1,6 +1,6 @@
 const express = require('express')
 
-module.exports = function({database, verifyKey, upload, s3}) {
+module.exports = function({database, authorize, verifyKey, upload, s3}) {
   const router = express.Router()
 
   //Get All
@@ -17,7 +17,7 @@ module.exports = function({database, verifyKey, upload, s3}) {
 
   //Create
   //POST /api/videos?key=<API_KEY>
-  router.post('/', verifyKey, upload.single('video'), async (req, res) => {
+  router.post('/', authorize, verifyKey, upload.single('video'), async (req, res) => {
     try {
       const url = req.file ? req.file.location : null
       const result = await database.createVideo({url: url, updatedVideo: req.body})
@@ -43,7 +43,7 @@ module.exports = function({database, verifyKey, upload, s3}) {
 
   //Update
   //PUT /api/videos/:videoId?key=<API_KEY>
-  router.put('/:videoId', verifyKey, upload.single('video'), async (req, res) => {
+  router.put('/:videoId', authorize, verifyKey, upload.single('video'), async (req, res) => {
     try {
       const url = req.file ? req.file.location : null
       const videoId = req.params.videoId
@@ -57,7 +57,7 @@ module.exports = function({database, verifyKey, upload, s3}) {
 
   //Delete
   //DELETE /api/videos/:videoId?key=<API_KEY>
-  router.delete('/:videoId', verifyKey, async (req, res) => {
+  router.delete('/:videoId', authorize, verifyKey, async (req, res) => {
     try {
       const videoId = req.params.videoId
       const result = await database.deleteVideo({videoId, s3})
