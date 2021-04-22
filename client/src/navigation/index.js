@@ -1,4 +1,5 @@
 import { Switch, Route, Redirect } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 /*
   ======================================================== 
   IMPORTING PAGES
@@ -40,10 +41,9 @@ import Login from "../pages/login";
 // Routes that should only be visible if authenticated.
 // TO DO: Write authentication context
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  // const authContext = useAuth();
-  // const { isAuthenticated } = authContext;
+  const authContext = useAuth();
+  const { isAuthenticated } = authContext;
 
-  const isAuthenticated = false;
   return (
     <Route
       {...rest}
@@ -61,10 +61,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 // Routes that should only be visible if NOT authenticated
 // TO DO: Write authentication context
 const AnonymousRoute = ({ component: Component, ...rest }) => {
-  // const authContext = useAuth();
-  // const { isAuthenticated } = authContext;
+  const authContext = useAuth();
+  const { isAuthenticated } = authContext;
 
-  const isAuthenticated = false;
   return (
     <Route
       {...rest}
