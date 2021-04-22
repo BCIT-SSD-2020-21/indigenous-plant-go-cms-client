@@ -1,12 +1,12 @@
-/*
-  @desc GET all locations
-  @route /api/locations
-  @access Protected -- API key
+# Get locations
+@desc GET all locations
+@route /api/locations
+@access Protected -- API key
 
-  Example request: GET /api/locations?key=<API_KEY>
-*/
+Example request: GET /api/locations?key=<API_KEY>
 
-// EXAMPLE RESPONSE BODY
+# EXAMPLE RESPONSE BODY
+```
 [
   { 
     "_id": "607e3ab0a0d3df815abfcfb1",
@@ -22,3 +22,4 @@
   }
   // ... Repeat
 ]
+```

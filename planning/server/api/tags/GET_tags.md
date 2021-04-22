@@ -1,12 +1,12 @@
-/*
-  @desc GET all tags
-  @route /api/tags
-  @access Protected -- API key
+# Get tags
+@desc GET all tags
+@route /api/tags
+@access Protected -- API key
 
-  Example request: GET /api/tags?key=<API_KEY>
-*/
+Example request: GET /api/tags?key=<API_KEY>
 
-// EXAMPLE RESPONSE BODY
+# EXAMPLE RESPONSE BODY
+```
 [
   {
     "_id": "607e399e59c86677e2af6587",
@@ -22,3 +22,4 @@
   }
   // ... Repeat
 ]
+```

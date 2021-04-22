@@ -1,12 +1,12 @@
-/*
-  @desc GET all videos
-  @route /api/videos
-  @access Protected -- API key
+# Get videos
+@desc GET all videos
+@route /api/videos
+@access Protected -- API key
 
-  Example request: GET /api/videos?key=<API_KEY>
-*/
+Example request: GET /api/videos?key=<API_KEY>
 
-// EXAMPLE RESPONSE BODY
+# EXAMPLE RESPONSE BODY
+```
 [
   {
     "_id": "607e384559c86677e2af65r7",
@@ -20,3 +20,4 @@
   }
   // ... Repeat
 ]
+```

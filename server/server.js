@@ -11,6 +11,10 @@ const makePingRouter = require('./routers/pingRouter')
 const makeImagesRouter = require('./routers/imagesRouter')
 const makeAudiosRouter = require('./routers/audiosRouter')
 const makeVideosRouter = require('./routers/videosRouter')
+const makeTagsRouter = require('./routers/tagsRouter')
+const makeCategoriesRouter = require('./routers/categoriesRouter')
+const makeLocationsRouter = require('./routers/locationsRouter')
+const makeRevisionsRouter = require('./routers/revisionsRouter')
 
 const app = express()
 app.use(express.json())
@@ -55,6 +59,18 @@ mongoDatabase().then((database) => {
 
   const videosRouter = makeVideosRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey, upload: upload, s3: s3})
   app.use('/api/videos', videosRouter)
+
+  const tagsRouter = makeTagsRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
+  app.use('/api/tags', tagsRouter)
+
+  const categoriesRouter = makeCategoriesRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
+  app.use('/api/categories', categoriesRouter)
+
+  const locationsRouter = makeLocationsRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
+  app.use('/api/locations', locationsRouter)
+
+  const revisionsRouter = makeRevisionsRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
+  app.use('/api/revisions', revisionsRouter)
 })
 
 const port = process.env.port || 8080
