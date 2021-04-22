@@ -21,7 +21,7 @@ module.exports = async function() {
   //Create new user, use for register
   //Takes in email, username and password, role default to Manager
   //POST /api/users
-  async function createUser({email, username, password}) {
+  async function createUser({email, username, password, role="Manager"}) {
     //Check if email or username is repeating
     const user = await users.findOne({
       $or: [{email: email}, {username: username}]
@@ -37,7 +37,7 @@ module.exports = async function() {
       email,
       username,
       password: encrypted,
-      role: "Manager"
+      role
     })
 
     //Need this to make jwt token later
