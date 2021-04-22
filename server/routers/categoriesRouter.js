@@ -1,11 +1,11 @@
 const express = require('express')
 
-module.exports = function({database}) {
+module.exports = function({database, authorize, verifyKey}) {
   const router = express.Router()
 
   //Get All
   //GET /api/categories?key=<API_KEY>
-  router.get('/', async (req, res) => {
+  router.get('/', verifyKey, async (req, res) => {
     try {
       const result = await database.getCategories()
       res.send(result)
@@ -17,7 +17,7 @@ module.exports = function({database}) {
 
   //Create
   //POST /api/categories?key=<API_KEY>
-  router.post('/', async (req, res) => {
+  router.post('/', authorize, verifyKey, async (req, res) => {
     try {
       console.log(req.body)
       const result = await database.createCategory({categoryName: req.body.categoryName})
@@ -30,7 +30,7 @@ module.exports = function({database}) {
 
   //Get One
   //GET /api/categories/:categoryId?key=<API_KEY>
-  router.get('/:categoryId', async (req, res) => {
+  router.get('/:categoryId', verifyKey, async (req, res) => {
     try {
       const categoryId = req.params.categoryId
       const result = await database.getCategory({categoryId})
@@ -43,7 +43,7 @@ module.exports = function({database}) {
 
   //Update
   //PUT /api/categories/:categoryId?key=<API_KEY>
-  router.put('/:categoryId', async (req, res) => {
+  router.put('/:categoryId', authorize, verifyKey, async (req, res) => {
     try {
       const categoryId = req.params.categoryId
       const result = await database.updateCategory({categoryId, updatedCategory: req.body})
@@ -56,7 +56,7 @@ module.exports = function({database}) {
 
   //Delete
   //DELETE /api/categories/:categoryId?key=<API_KEY>
-  router.delete('/:categoryId', async (req, res) => {
+  router.delete('/:categoryId', authorize, verifyKey, async (req, res) => {
     try {
       const categoryId = req.params.categoryId
       const result = await database.deleteCategory({categoryId})

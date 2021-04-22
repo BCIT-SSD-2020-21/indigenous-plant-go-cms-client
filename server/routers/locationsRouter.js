@@ -1,11 +1,11 @@
 const express = require('express')
 
-module.exports = function({database, verifyKey}) {
+module.exports = function({database, authorize, verifyKey}) {
   const router = express.Router()
 
   //Get All
   //GET /api/locations?key=<API_KEY>
-  router.get('/', async (req, res) => {
+  router.get('/', verifyKey, async (req, res) => {
     try {
       const result = await database.getLocations()
       res.send(result)
@@ -17,7 +17,7 @@ module.exports = function({database, verifyKey}) {
 
   //Create
   //POST /api/locations?key=<API_KEY>
-  router.post('/', async (req, res) => {
+  router.post('/', authorize, verifyKey, async (req, res) => {
     try {
       console.log(req.body)
       const result = await database.createLocation({locationName: req.body.locationName})
@@ -30,7 +30,7 @@ module.exports = function({database, verifyKey}) {
 
   //Get One
   //GET /api/locations/:locationId?key=<API_KEY>
-  router.get('/:locationId', async (req, res) => {
+  router.get('/:locationId', verifyKey, async (req, res) => {
     try {
       const locationId = req.params.locationId
       const result = await database.getLocation({locationId})
@@ -43,7 +43,7 @@ module.exports = function({database, verifyKey}) {
 
   //Update
   //PUT /api/locations/:locationId?key=<API_KEY>
-  router.put('/:locationId', async (req, res) => {
+  router.put('/:locationId', authorize, verifyKey, async (req, res) => {
     try {
       const locationId = req.params.locationId
       const result = await database.updateLocation({locationId, updatedLocation: req.body})
@@ -56,7 +56,7 @@ module.exports = function({database, verifyKey}) {
 
   //Delete
   //DELETE /api/locations/:locationId?key=<API_KEY>
-  router.delete('/:locationId', async (req, res) => {
+  router.delete('/:locationId', authorize, verifyKey, async (req, res) => {
     try {
       const locationId = req.params.locationId
       const result = await database.deleteLocation({locationId})

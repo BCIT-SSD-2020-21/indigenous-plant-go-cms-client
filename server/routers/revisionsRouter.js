@@ -1,11 +1,11 @@
 const express = require('express')
 
-module.exports = function({database, verifyKey}) {
+module.exports = function({database, authorize, verifyKey}) {
   const router = express.Router()
 
   //Get All
   //GET /api/revisions?key=<API_KEY>
-  router.get('/', async (req, res) => {
+  router.get('/', verifyKey, async (req, res) => {
     try {
       const result = await database.getRevisions()
       res.send(result)
@@ -17,7 +17,7 @@ module.exports = function({database, verifyKey}) {
 
   //Create
   //POST /api/revisions?key=<API_KEY>
-  router.post('/', async (req, res) => {
+  router.post('/', authorize, verifyKey, async (req, res) => {
     try {
       console.log(req.body)
       const result = await database.createRevision({revisionName: req.body.revisionName})
@@ -27,10 +27,10 @@ module.exports = function({database, verifyKey}) {
       res.status(401).send({error: error.message})
     }
   })
-  
+
   //Get One
   //GET /api/revisions/:revisionId?key=<API_KEY>
-  router.get('/:revisionId', async (req, res) => {
+  router.get('/:revisionId', verifyKey, async (req, res) => {
     try {
       const revisionId = req.params.revisionId
       const result = await database.getRevision({revisionId})
@@ -43,7 +43,7 @@ module.exports = function({database, verifyKey}) {
 
   //Update
   //PUT /api/revisions/:revisionId?key=<API_KEY>
-  router.put('/:revisionId', async (req, res) => {
+  router.put('/:revisionId', authorize, verifyKey, async (req, res) => {
     try {
       const revisionId = req.params.revisionId
       const result = await database.updateRevision({revisionId, updatedRevision: req.body})
@@ -56,7 +56,7 @@ module.exports = function({database, verifyKey}) {
 
   //Delete
   //DELETE /api/revisions/:revisionId?key=<API_KEY>
-  router.delete('/:revisionId', async (req, res) => {
+  router.delete('/:revisionId', authorize, verifyKey, async (req, res) => {
     try {
       const revisionId = req.params.revisionId
       const result = await database.deleteRevision({revisionId})

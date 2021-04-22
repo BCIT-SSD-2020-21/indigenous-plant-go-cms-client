@@ -56,16 +56,16 @@ mongoDatabase().then((database) => {
   const videosRouter = makeVideosRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey, upload: upload, s3: s3})
   app.use('/api/videos', videosRouter)
 
-  const tagsRouter = makeTagsRouter({database})
+  const tagsRouter = makeTagsRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
   app.use('/api/tags', tagsRouter)
 
-  const categoriesRouter = makeCategoriesRouter({database})
+  const categoriesRouter = makeCategoriesRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
   app.use('/api/categories', categoriesRouter)
 
-  const locationsRouter = makeLocationsRouter({database})
+  const locationsRouter = makeLocationsRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
   app.use('/api/locations', locationsRouter)
-  
-  const revisionsRouter = makeRevisionsRouter({database})
+
+  const revisionsRouter = makeRevisionsRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
   app.use('/api/revisions', revisionsRouter)
 })
 

@@ -1,11 +1,11 @@
 const express = require('express')
 
-module.exports = function({database, verifyKey}) {
+module.exports = function({database, authorize, verifyKey}) {
   const router = express.Router()
 
   //Get All
   //GET /api/tags?key=<API_KEY>
-  router.get('/', async (req, res) => {
+  router.get('/', verifyKey, async (req, res) => {
     try {
       const result = await database.getTags()
       res.send(result)
@@ -17,7 +17,7 @@ module.exports = function({database, verifyKey}) {
 
   //Create
   //POST /api/tags?key=<API_KEY>
-  router.post('/', async (req, res) => {
+  router.post('/', authorize, verifyKey, async (req, res) => {
     try {
       console.log(req.body)
       const result = await database.createTag({tagName: req.body.tagName})
@@ -30,7 +30,7 @@ module.exports = function({database, verifyKey}) {
 
   //Get One
   //GET /api/tags/:tagId?key=<API_KEY>
-  router.get('/:tagId', async (req, res) => {
+  router.get('/:tagId', verifyKey, async (req, res) => {
     try {
       const tagId = req.params.tagId
       const result = await database.getTag({tagId})
@@ -43,7 +43,7 @@ module.exports = function({database, verifyKey}) {
 
   //Update
   //PUT /api/tags/:tagId?key=<API_KEY>
-  router.put('/:tagId', async (req, res) => {
+  router.put('/:tagId', authorize, verifyKey, async (req, res) => {
     try {
       const tagId = req.params.tagId
       const result = await database.updateTag({tagId, updatedTag: req.body})
@@ -56,7 +56,7 @@ module.exports = function({database, verifyKey}) {
 
   //Delete
   //DELETE /api/tags/:tagId?key=<API_KEY>
-  router.delete('/:tagId', async (req, res) => {
+  router.delete('/:tagId', authorize, verifyKey, async (req, res) => {
     try {
       const tagId = req.params.tagId
       const result = await database.deleteTag({tagId})
