@@ -13,6 +13,8 @@ module.exports = async function() {
   const users = db.collection('users')
   const tags = db.collection('tags')
   const categories = db.collection('categories')
+  const locations = db.collection('locations')
+  const revisions = db.collection('revisions')
 
   // Users
 
@@ -126,18 +128,15 @@ module.exports = async function() {
     })
     return result
   }
-
   //Update Tag
   //PUT /api/tags/:tagId
   async function updateTag({tagId, updatedTag}) {
-
     const result = await tags.findOneAndUpdate(
       {_id: ObjectID(tagId)},
       {$set: {...updatedTag}}
     )
     return result
   }
-  
   //Delete tag base on tagId
   //DELETE /api/tags/:tagId
   async function deleteTag({tagId}) {
@@ -179,8 +178,8 @@ module.exports = async function() {
     return result
   }
   
-  //Delete tag base on tagId
-  //DELETE /api/tags/:tagId
+  //Delete tag base on categoryId
+  //DELETE /api/categories/:categoryId
   async function deleteCategory({categoryId}) {
     const result = await categories.findOneAndDelete({
       _id: ObjectID(categoryId)
@@ -202,6 +201,33 @@ module.exports = async function() {
     return await locations.findOne({_id: ObjectID(locationId)})
   }
 
+  //Create Locations
+  async function createLocation({locationName}) {
+    const result = await locations.insertOne({
+      location_name: locationName
+    })
+    return result
+  }
+
+  //Update Location
+  //PUT /api/locations/:locationId
+  async function updateLocation({locationId, updatedLocation}) {
+    const result = await locations.findOneAndUpdate(
+      {_id: ObjectID(locationId)},
+      {$set: {...updatedLocation}}
+    )
+    return result
+  }
+  
+  //Delete locations base on locationId
+  //DELETE /api/locations/:locationId
+  async function deleteLocation({locationId}) {
+    const result = await locations.findOneAndDelete({
+      _id: ObjectID(locationId)
+    })
+    return result
+  }
+
   // Revision
   
   // Get All
@@ -214,6 +240,33 @@ module.exports = async function() {
   //GET /api/revisions
   async function getRevision({revisionId}) {
     return await revisions.findOne({_id: ObjectID(revisionId)})
+  }
+
+  //Create Revision
+  async function createRevision({revisionName}) {
+    const result = await revisions.insertOne({
+      revision_name: revisionName
+    })
+    return result
+  }
+
+  //Update Revision
+  //PUT /api/revisions/:revisionId
+  async function updateRevision({revisionId, updatedRevision}) {
+    const result = await revisions.findOneAndUpdate(
+      {_id: ObjectID(revisionId)},
+      {$set: {...updatedRevision}}
+    )
+    return result
+  }
+  
+  //Delete Revisions base on revisionId
+  //DELETE /api/revisions/:revisionId
+  async function deleteRevision({revisionId}) {
+    const result = await revisions.findOneAndDelete({
+      _id: ObjectID(revisionId)
+    })
+    return result
   }
   return {
     createUser,
@@ -235,14 +288,14 @@ module.exports = async function() {
     //Location
     getLocation,
     getLocations,
-    //createLocation,
-    //updateLocation,
-    //deleteLocation,
+    createLocation,
+    updateLocation,
+    deleteLocation,
     //Revision
     getRevision,
     getRevisions,
-    //createRevision,
-   // updateRevision,
-   // deleteRevision
+    createRevision,
+    updateRevision,
+    deleteRevision
   }
   }
