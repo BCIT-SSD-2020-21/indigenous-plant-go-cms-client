@@ -1,0 +1,82 @@
+.ui.input > input {
+  background: var(--lighttertiary) !important;
+  color: var(--darkprimary) !important;
+  border-radius: 0 !important;
+}
+
+.ui.input {
+  border: 1px solid var(--lightborder) !important;
+}
+
+.ui.input i {
+  color: var(--darksecondary);
+}
+
+.ui.toggle.checkbox label,
+.ui.toggle.checked.checkbox label,
+.ui.checkbox input:checked ~ label {
+  color: var(--lightsecondary) !important;
+
+  &::before {
+    background: var(--lighttertiary) !important;
+  }
+}
+
+fieldset > button:last-child {
+  margin-right: 0 !important;
+}
+
+fieldset .ui.toggle.checkbox input:focus:checked ~ label,
+fieldset .ui.toggle.checkbox input:checked ~ label {
+  color: var(--darksecondary) !important;
+
+  &::before {
+    background: var(--highlight) !important;
+  }
+}
+
+.ui.selection.dropdown {
+  background: var(--darktertiary) !important;
+  color: var(--lightprimary) !important;
+}
+
+.ui.dropdown .menu {
+  background: var(--darksecondary) !important;
+}
+
+.ui.selection.dropdown .menu > .item {
+  color: var(--lightprimary) !important;
+  border-top: 1px solid var(--darkborder) !important;
+}
+
+.ui.selection.dropdown .menu > .message {
+  color: var(--lightprimary) !important;
+}
+
+.ui.selection.dropdown .divider.text {
+  color: var(--lightprimary) !important;
+}
+
+input,
+button {
+  width: 100%;
+  cursor: pointer !important;
+  box-sizing: border-box; /* add this */
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+.ui.indicating.progress .bar {
+  background-color: green !important;
+}
+
+@media screen and (min-width: 320px) and (max-width: 767px) {
+  .form__actions {
+    flex-direction: column-reverse;
+  }
+
+  .form__actions button {
+    width: 100% !important;
+    margin-left: 0 !important;
+  }
+}
