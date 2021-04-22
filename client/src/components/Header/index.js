@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Header({ handleSignout }) {
+export default function Header({ handleSignout, userData }) {
   return (
     <header style={style.header}>
       <div className="wrap">
@@ -30,14 +30,16 @@ export default function Header({ handleSignout }) {
                 <span
                   style={{
                     lineHeight: "30px",
-                    marginRight: 10,
+                    marginRight: 15,
                     color: "var(--lightsecondary)",
                     cursor: "pointer",
                   }}
                 >
-                  Patrick Fortaleza
+                  {userData.user.username}
                 </span>
-                <span style={style.initial}>P</span>
+                <span style={style.initial}>
+                  {userData.user.username[0].toUpperCase()}
+                </span>
               </button>
             </li>
             <li style={{ cursor: "pointer" }}>

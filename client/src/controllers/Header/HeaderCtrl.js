@@ -4,11 +4,11 @@ import { useAuth } from "../../context/AuthContext";
 
 export default function HeaderCtrl() {
   const authContext = useAuth();
-  const { setUserData } = authContext;
+  const { setUserData, userData } = authContext;
 
   const handleSignout = () => {
     setUserData(null);
   };
 
-  return <Header handleSignout={handleSignout} />;
+  return <Header handleSignout={handleSignout} userData={userData} />;
 }
