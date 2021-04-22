@@ -10,7 +10,7 @@ import {
   TagIcon,
 } from "../../icons";
 
-export default function Sidebar() {
+export default function Sidebar({ userData }) {
   return (
     <aside className="sidebar">
       <ul>
@@ -217,8 +217,14 @@ export default function Sidebar() {
         <li>
           <button>
             <span className="menu__item item__wrap">
-              <span style={style.initial}>P</span>
-              <span className="menu__item item__label">Patrick Fortaleza</span>
+              <span style={style.initial}>
+                {" "}
+                {userData?.user?.username[0].toUpperCase()}
+              </span>
+              <span className="menu__item item__label">
+                {" "}
+                {userData?.user?.username}
+              </span>
             </span>
           </button>
           <ul className="menu__item sub__menu">
