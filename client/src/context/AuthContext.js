@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
+import { ping } from "../network";
 const AuthContext = React.createContext();
 
 export function useAuth() {
@@ -9,6 +10,20 @@ export function useAuth() {
 export function AuthProvider({ children }) {
   const [userData, setUserData] = useLocalStorage("userData", null);
   const [isAuthenticated, setAuthentication] = useState(false);
+
+  const signOut = () => {
+    setAuthentication(false);
+    setUserData(null);
+  };
+
+  const validateToken = async () => {
+    const result = await ping();
+    if (result.error) return signOut();
+  };
+
+  useEffect(() => {
+    validateToken();
+  }, []);
 
   useEffect(() => {
     if (userData === null || !userData) {
@@ -25,6 +40,7 @@ export function AuthProvider({ children }) {
     isAuthenticated,
     // Methods
     setUserData,
+    signOut,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -22,10 +22,7 @@ export default function LoginFormCtrl() {
     e.preventDefault();
     const result = await login({ username, password });
     if (result.error) return console.log("Error ocurred when attempting login");
-    const user = {
-      token: result,
-    };
-    setUserData(user);
+    setUserData(result);
   };
 
   return (
