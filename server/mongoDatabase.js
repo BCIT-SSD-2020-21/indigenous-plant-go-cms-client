@@ -30,6 +30,14 @@ module.exports = async function() {
       throw Error("Username or email is already taken")
     }
 
+    if(!email) { //email can't be null
+      throw Error("Requires an email")
+    }
+
+    if(!password) { //password can't be null
+      throw Error("Requires a password")
+    }
+
     //Hash password
     const encrypted = await bcrypt.hash(password, 12)
 
