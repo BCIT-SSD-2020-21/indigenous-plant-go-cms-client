@@ -1,5 +1,16 @@
+import Navigation from "./navigation";
+import HeaderCtrl from "./controllers/Header/HeaderCtrl";
+import { useAuth } from "./context/AuthContext";
+
 function App() {
-  return <div className="App">epp</div>;
+  const authContext = useAuth();
+  const { isAuthenticated } = authContext;
+  return (
+    <>
+      {isAuthenticated && <HeaderCtrl />}
+      <Navigation />
+    </>
+  );
 }
 
 export default App;
