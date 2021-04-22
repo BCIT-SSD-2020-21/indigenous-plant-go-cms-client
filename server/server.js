@@ -43,13 +43,13 @@ mongoDatabase().then((database) => {
   const usersRouter = makeUsersRouter({database, authorize: jwt.authorize, generateToken: jwt.generateToken})
   app.use('/api/users', usersRouter)
 
-  const imagesRouter = makeImagesRouter({database, verifyKey: apikey.verifyKey, upload: upload, s3: s3})
+  const imagesRouter = makeImagesRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey, upload: upload, s3: s3})
   app.use('/api/images', imagesRouter)
 
-  const audiosRouter = makeAudiosRouter({database, verifyKey: apikey.verifyKey, upload: upload, s3: s3})
+  const audiosRouter = makeAudiosRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey, upload: upload, s3: s3})
   app.use('/api/audios', audiosRouter)
 
-  const videosRouter = makeVideosRouter({database, verifyKey: apikey.verifyKey, upload: upload, s3: s3})
+  const videosRouter = makeVideosRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey, upload: upload, s3: s3})
   app.use('/api/videos', videosRouter)
 })
 

@@ -21,13 +21,21 @@ module.exports = async function() {
   //Create new user, use for register
   //Takes in email, username and password, role default to Manager
   //POST /api/users
-  async function createUser({email, username, password}) {
+  async function createUser({email, username, password, role="Manager"}) {
     //Check if email or username is repeating
     const user = await users.findOne({
       $or: [{email: email}, {username: username}]
     })
     if (user) {
       throw Error("Username or email is already taken")
+    }
+
+    if(!email) { //email can't be null
+      throw Error("Requires an email")
+    }
+
+    if(!password) { //password can't be null
+      throw Error("Requires a password")
     }
 
     //Hash password
@@ -37,7 +45,7 @@ module.exports = async function() {
       email,
       username,
       password: encrypted,
-      role: "Manager"
+      role
     })
 
     //Need this to make jwt token later
@@ -47,9 +55,9 @@ module.exports = async function() {
   //Get One user, use for login
   //Takes in email/username and password and find one user that match
   //POST /api/users/login
-  async function getUser({loginName, password}) {
+  async function getUser({username, password}) {
     const user = await users.findOne({
-      $or: [{email: loginName}, {username: loginName}]
+      $or: [{email: username}, {username: username}]
     })
     if (!user) {
       throw Error("Invalid user")

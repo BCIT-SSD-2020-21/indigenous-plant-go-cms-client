@@ -1,6 +1,6 @@
 const express = require('express')
 
-module.exports = function({database, verifyKey, upload, s3}) {
+module.exports = function({database, authorize, verifyKey, upload, s3}) {
   const router = express.Router()
 
   //Get All
@@ -17,7 +17,7 @@ module.exports = function({database, verifyKey, upload, s3}) {
 
   //Create
   //POST /api/images?key=<API_KEY>
-  router.post('/', verifyKey, upload.single('image'), async (req, res) => {
+  router.post('/', authorize, verifyKey, upload.single('image'), async (req, res) => {
     try {
       const url = req.file ? req.file.location : null
       const result = await database.createImage({url: url, updatedImage: req.body})
@@ -43,7 +43,7 @@ module.exports = function({database, verifyKey, upload, s3}) {
 
   //Update
   //PUT /api/images/:imageId?key=<API_KEY>
-  router.put('/:imageId', verifyKey, upload.single('image'), async (req, res) => {
+  router.put('/:imageId', authorize, verifyKey, upload.single('image'), async (req, res) => {
     try {
       const url = req.file ? req.file.location : null
       const imageId = req.params.imageId
@@ -57,7 +57,7 @@ module.exports = function({database, verifyKey, upload, s3}) {
 
   //Delete
   //DELETE /api/images/:imageId?key=<API_KEY>
-  router.delete('/:imageId', verifyKey, async (req, res) => {
+  router.delete('/:imageId', authorize, verifyKey, async (req, res) => {
     try {
       const imageId = req.params.imageId
       const result = await database.deleteImage({imageId, s3})
