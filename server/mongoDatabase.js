@@ -596,6 +596,54 @@ module.exports = async function() {
           foreignField: '_id',
           as: 'images'
         }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'audios',
+          foreignField: '_id',
+          as: 'audios'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'videos',
+          foreignField: '_id',
+          as: 'videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'tags',
+          foreignField: '_id',
+          as: 'tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'categories',
+          foreignField: '_id',
+          as: 'categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'locations',
+          localField: 'locations',
+          foreignField: '_id',
+          as: 'locations'
+        }
+      },
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'revisions',
+          foreignField: '_id',
+          as: 'revisions'
+        }
       }
     ]
   }
