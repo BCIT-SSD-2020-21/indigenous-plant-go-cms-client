@@ -46,11 +46,11 @@ const seed = async () => {
   // 2. Insert Images
   await images.insertMany([
     {
-      "image_url": "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
+      "image_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/lavender-1.png",
       "caption": "lavender"
     },
     {
-      "image_url": "s3.aws.indigenousplantgo.com/images/kinnikinnickl-1.jpg",
+      "image_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/kinnikinnick-1.png",
       "caption": "kinnikinnick"
     }
   ])
