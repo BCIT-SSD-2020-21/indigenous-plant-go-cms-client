@@ -10,13 +10,32 @@ import {
   TagIcon,
 } from "../../icons";
 
-export default function Sidebar({ userData }) {
+export default function Sidebar({
+  userData,
+  navigateToHome,
+  navigateToAllPlants,
+  navigateToAddPlant,
+  navigateToPlantCategories,
+  navigateToAllWaypoints,
+  navigateToAddWaypoint,
+  navigateToWaypointCategories,
+  navigateToAllLearnmore,
+  navigateToAddLearnmore,
+  navigateToAllUsers,
+  navigateToAddUser,
+  navigateToLocations,
+  navigateToImages,
+  navigateToAudioFiles,
+  navigateToVideos,
+  navigateToTags,
+  navigateToProfile,
+}) {
   return (
     <aside className="sidebar">
       <ul>
         {/* DASHBOARD */}
         <li>
-          <button>
+          <button onClick={() => navigateToHome()}>
             <span className="menu__item item__wrap">
               <DashboardIcon />
               <span className="menu__item item__label">Dashboard</span>
@@ -26,7 +45,7 @@ export default function Sidebar({ userData }) {
 
         {/* PLANTS */}
         <li>
-          <button>
+          <button onClick={() => navigateToAllPlants()}>
             <span className="menu__item item__wrap">
               <PlantIcon />
               <span className="menu__item item__label">Plants</span>
@@ -34,21 +53,21 @@ export default function Sidebar({ userData }) {
           </button>
           <ul className="menu__item sub__menu">
             <li>
-              <button>
+              <button onClick={() => navigateToAllPlants()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">All Plants</span>
                 </span>
               </button>
             </li>
             <li>
-              <button>
+              <button onClick={() => navigateToAddPlant()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">Add New</span>
                 </span>
               </button>
             </li>
             <li>
-              <button>
+              <button onClick={() => navigateToPlantCategories()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">Categories</span>
                 </span>
@@ -59,7 +78,7 @@ export default function Sidebar({ userData }) {
 
         {/* WAYPOINTS */}
         <li>
-          <button>
+          <button onClick={() => navigateToAllWaypoints()}>
             <span className="menu__item item__wrap">
               <CompassIcon />
               <span className="menu__item item__label">Waypoints</span>
@@ -67,21 +86,21 @@ export default function Sidebar({ userData }) {
           </button>
           <ul className="menu__item sub__menu">
             <li>
-              <button>
+              <button onClick={() => navigateToAllWaypoints()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">All Waypoints</span>
                 </span>
               </button>
             </li>
             <li>
-              <button>
+              <button onClick={() => navigateToAddWaypoint()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">Add New</span>
                 </span>
               </button>
             </li>
             <li>
-              <button>
+              <button onClick={() => navigateToWaypointCategories()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">Categories</span>
                 </span>
@@ -92,7 +111,7 @@ export default function Sidebar({ userData }) {
 
         {/* LEARN MORE */}
         <li>
-          <button>
+          <button onClick={() => navigateToAllLearnmore()}>
             <span className="menu__item item__wrap">
               <InfoIcon />
               <span className="menu__item item__label">Learn More</span>
@@ -100,14 +119,14 @@ export default function Sidebar({ userData }) {
           </button>
           <ul className="menu__item sub__menu">
             <li>
-              <button>
+              <button onClick={() => navigateToAllLearnmore()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">All Learn More</span>
                 </span>
               </button>
             </li>
             <li>
-              <button>
+              <button onClick={() => navigateToAddLearnmore()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">Add New</span>
                 </span>
@@ -118,7 +137,7 @@ export default function Sidebar({ userData }) {
 
         {/* USERS */}
         <li>
-          <button>
+          <button onClick={() => navigateToAllUsers()}>
             <span className="menu__item item__wrap">
               <UsersIcon />
               <span className="menu__item item__label">Users</span>
@@ -126,14 +145,14 @@ export default function Sidebar({ userData }) {
           </button>
           <ul className="menu__item sub__menu">
             <li>
-              <button>
+              <button onClick={() => navigateToAllUsers()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">All Users</span>
                 </span>
               </button>
             </li>
             <li>
-              <button>
+              <button onClick={() => navigateToAddUser()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">Add New</span>
                 </span>
@@ -144,7 +163,7 @@ export default function Sidebar({ userData }) {
 
         {/* LOCATIONS */}
         <li>
-          <button>
+          <button onClick={() => navigateToLocations()}>
             <span className="menu__item item__wrap">
               <LocationIcon />
               <span className="menu__item item__label">Locations</span>
@@ -152,7 +171,7 @@ export default function Sidebar({ userData }) {
           </button>
           <ul className="menu__item sub__menu">
             <li>
-              <button>
+              <button onClick={() => navigateToLocations()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">All Locations</span>
                 </span>
@@ -163,7 +182,7 @@ export default function Sidebar({ userData }) {
 
         {/* MEDIA */}
         <li>
-          <button>
+          <button onClick={() => navigateToImages()}>
             <span className="menu__item item__wrap">
               <MediaIcon />
               <span className="menu__item item__label">Media</span>
@@ -171,21 +190,21 @@ export default function Sidebar({ userData }) {
           </button>
           <ul className="menu__item sub__menu">
             <li>
-              <button>
+              <button onClick={() => navigateToImages()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">Images</span>
                 </span>
               </button>
             </li>
             <li>
-              <button>
+              <button onClick={() => navigateToVideos()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">Video</span>
                 </span>
               </button>
             </li>
             <li>
-              <button>
+              <button onClick={() => navigateToAudioFiles()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">Audio</span>
                 </span>
@@ -196,7 +215,7 @@ export default function Sidebar({ userData }) {
 
         {/* TAGS */}
         <li>
-          <button>
+          <button onClick={() => navigateToTags()}>
             <span className="menu__item item__wrap">
               <TagIcon />
               <span className="menu__item item__label">Tags</span>
@@ -204,7 +223,7 @@ export default function Sidebar({ userData }) {
           </button>
           <ul className="menu__item sub__menu">
             <li>
-              <button>
+              <button onClick={() => navigateToTags()}>
                 <span className="menu__item item__wrap">
                   <span className="menu__item item__label">All Tags</span>
                 </span>
@@ -215,7 +234,7 @@ export default function Sidebar({ userData }) {
 
         {/* PROFILE */}
         <li>
-          <button>
+          <button onClick={() => navigateToProfile()}>
             <span className="menu__item item__wrap">
               <span style={style.initial}>
                 {" "}
@@ -229,9 +248,9 @@ export default function Sidebar({ userData }) {
           </button>
           <ul className="menu__item sub__menu">
             <li>
-              <button>
+              <button onClick={() => navigateToProfile()}>
                 <span className="menu__item item__wrap">
-                  <span className="menu__item item__label">All Tags</span>
+                  <span className="menu__item item__label">My Profile</span>
                 </span>
               </button>
             </li>

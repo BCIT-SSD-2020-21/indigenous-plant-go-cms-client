@@ -132,9 +132,9 @@ export default function Navigation() {
         <PrivateRoute path="/locations" component={Locations} />
 
         {/* 7.0 MEDIA */}
-        <PrivateRoute path="/images" component={Images} />
-        <PrivateRoute path="/audiofiles" component={AudioFiles} />
-        <PrivateRoute path="/videos" component={Videos} />
+        <PrivateRoute path="/media/images" component={Images} />
+        <PrivateRoute path="/media/audiofiles" component={AudioFiles} />
+        <PrivateRoute path="/media/videos" component={Videos} />
 
         {/* 8.0 TAGS */}
         <PrivateRoute path="/tags" component={Tags} />
