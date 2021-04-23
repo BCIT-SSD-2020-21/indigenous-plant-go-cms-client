@@ -586,16 +586,15 @@ module.exports = async function() {
 
   //Plant
   //GET /api/plants
-  async function getPlants({}) {
+  async function getPlants() {
+    //Fields like images must be array of ObjectId
     const aggregateOptions = [
-      {$unwind: '$images'},
       {
         $lookup: {
           from: 'images',
-          let: {'imageId': '$_id'},
-          pipline: [
-            {$match: {$expr: {$eq: ['$$imageId','$images']}}}
-          ]
+          localField: 'images',
+          foreignField: '_id',
+          as: 'images'
         }
       }
     ]
