@@ -15,6 +15,10 @@ module.exports = async function() {
   const images = db.collection('images')
   const audios = db.collection('audios')
   const videos = db.collection('videos')
+  const tags = db.collection('tags')
+  const categories = db.collection('categories')
+  const locations = db.collection('locations')
+  const revisions = db.collection('revisions')
 
   //Users
 
@@ -30,11 +34,11 @@ module.exports = async function() {
       throw Error("Username or email is already taken")
     }
 
-    if(!email) { //email can't be null
+    if (!email) { //email can't be null
       throw Error("Requires an email")
     }
 
-    if(!password) { //password can't be null
+    if (!password) { //password can't be null
       throw Error("Requires a password")
     }
 
@@ -128,11 +132,11 @@ module.exports = async function() {
   //Create
   //Post /api/images
   async function createImage({url, updatedImage}) {
-    if(!url) {
+    if (!url) {
       throw Error("Missing image")
     }
 
-    if(!updatedImage.caption) {
+    if (!updatedImage.caption) {
       throw Error("Missing caption")
     }
 
@@ -222,11 +226,11 @@ module.exports = async function() {
   //Create
   //Post /api/audios
   async function createAudio({url, updatedAudio}) {
-    if(!url) {
+    if (!url) {
       throw Error("Missing audio")
     }
 
-    if(!updatedAudio.caption) {
+    if (!updatedAudio.caption) {
       throw Error("Missing caption")
     }
 
@@ -316,11 +320,11 @@ module.exports = async function() {
   //Create
   //Post /api/videos
   async function createVideo({url, updatedVideo}) {
-    if(!url) {
+    if (!url) {
       throw Error("Missing video")
     }
 
-    if(!updatedVideo.caption) {
+    if (!updatedVideo.caption) {
       throw Error("Missing caption")
     }
 
@@ -399,6 +403,204 @@ module.exports = async function() {
     return result
   }
 
+  //Tags
+  
+  //Get All
+  //GET /api/tags
+  async function getTags() {
+    return await tags.find().toArray()
+  }
+
+  //Create
+  //POST /api/tags
+  async function createTag({tag_name}) {
+    if (!tag_name) {
+      throw Error("Require a tag name")
+    }
+
+    const result = await tags.insertOne({
+      tag_name
+    })
+    return result
+  }
+
+  //Get One
+  //Get /api/tags/:tagId
+  async function getTag({tagId}) {
+    return await tags.findOne({_id: ObjectID(tagId)})
+  }
+
+  //Update
+  //PUT /api/tags/:tagId
+  async function updateTag({tagId, updatedTag}) {
+    const result = await tags.findOneAndUpdate(
+      {_id: ObjectID(tagId)},
+      {$set: {...updatedTag}}
+    )
+    return result
+  }
+
+  //Delete
+  //DELETE /api/tags/:tagId
+  async function deleteTag({tagId}) {
+    const result = await tags.findOneAndDelete({
+      _id: ObjectID(tagId)
+    })
+    return result
+  }
+
+  //Categories
+
+  //Get All
+  //GET /api/categories
+  async function getCategories() {
+    return await categories.find().toArray()
+  }
+
+  //Create
+  //POST /api/categories
+  async function createCategory({category_name}) {
+    if (!category_name) {
+      throw Error("Require a category name")
+    }
+
+    const result = await categories.insertOne({
+      category_name
+    })
+    return result
+  }
+
+  //Get One
+  //GET /api/categories/:categoryId
+  async function getCategory({categoryId}) {
+    return await categories.findOne({_id: ObjectID(categoryId)})
+  }
+
+  //Update
+  //PUT /api/categories/:categoryId
+  async function updateCategory({categoryId, updatedCategory}) {
+    const result = await categories.findOneAndUpdate(
+      {_id: ObjectID(categoryId)},
+      {$set: {...updatedCategory}}
+    )
+    return result
+  }
+  
+  //Delete
+  //DELETE /api/categories/:categoryId
+  async function deleteCategory({categoryId}) {
+    const result = await categories.findOneAndDelete({
+      _id: ObjectID(categoryId)
+    })
+    return result
+  }
+
+  //Locations
+  
+  //Get All
+  //GET /api/locations
+  async function getLocations() {
+    return await locations.find().toArray()
+  }
+
+  //Create
+  //POST /api/locations
+  async function createLocation({location_name, coordinates, description=""}) {
+    if (!location_name) {
+      throw Error("Require a location name")
+    }
+
+    if (!coordinates) {
+      throw Error("Require a coordinate")
+    }
+
+    const result = await locations.insertOne({
+      location_name,
+      coordinates,
+      description
+    })
+    return result
+  }
+
+  //Get One
+  //GET /api/locations/:locationId
+  async function getLocation({locationId}) {
+    return await locations.findOne({_id: ObjectID(locationId)})
+  }
+
+  //Update
+  //PUT /api/locations/:locationId
+  async function updateLocation({locationId, updatedLocation}) {
+    const result = await locations.findOneAndUpdate(
+      {_id: ObjectID(locationId)},
+      {$set: {...updatedLocation}}
+    )
+    return result
+  }
+  
+  //Delete
+  //DELETE /api/locations/:locationId
+  async function deleteLocation({locationId}) {
+    const result = await locations.findOneAndDelete({
+      _id: ObjectID(locationId)
+    })
+    return result
+  }
+
+  //Revisions
+  
+  //Get All
+  //GET /api/revisions
+  async function getRevisions() {
+    return await revisions.find().toArray()
+  }
+
+  //Create
+  //POST /api/revisions
+  async function createRevision({user_id}) {
+    if(!user_id) {
+      throw Error("User id missing")
+    }
+
+    const result = await revisions.insertOne({
+      user_id,
+      date: Date.now().toString()
+    })
+    return result
+  }
+
+  //Get One
+  //GET /api/revisions/:revisionId
+  async function getRevision({revisionId}) {
+    return await revisions.findOne({_id: ObjectID(revisionId)})
+  }
+  
+  //Delete
+  //DELETE /api/revisions/:revisionId
+  async function deleteRevision({revisionId}) {
+    const result = await revisions.findOneAndDelete({
+      _id: ObjectID(revisionId)
+    })
+    return result
+  }
+
+  //Plant
+  //GET /api/plants
+  async function getPlants({}) {
+    const aggregateOptions = [
+      {$unwind: '$images'},
+      {
+        $lookup: {
+          from: 'images',
+          let: {'imageId': '$_id'},
+          pipline: [
+            {$match: {$expr: {$eq: ['$$imageId','$images']}}}
+          ]
+        }
+      }
+    ]
+  }
+
   return {
     //User
     createUser,
@@ -422,6 +624,31 @@ module.exports = async function() {
     createVideo,
     getVideo,
     updateVideo,
-    deleteVideo
+    deleteVideo,
+    //Tag
+    getTags,
+    createTag,
+    getTag,
+    updateTag,
+    deleteTag,
+    //Category
+    getCategories,
+    createCategory,
+    getCategory,
+    updateCategory,
+    deleteCategory,
+    //Location
+    getLocations,
+    createLocation,
+    getLocation,
+    updateLocation,
+    deleteLocation,
+    //Revision
+    getRevisions,
+    createRevision,
+    getRevision,
+    deleteRevision,
+    //Plant
+    getPlants
   }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Header({ handleSignout, userData }) {
+export default function Header({ handleSignout, userData, navigateToProfile }) {
   return (
     <header style={style.header}>
       <div className="wrap">
@@ -26,7 +26,10 @@ export default function Header({ handleSignout, userData }) {
 
           <ul style={style.profileMenu}>
             <li style={{ cursor: "pointer" }}>
-              <button style={{ display: "flex" }}>
+              <button
+                onClick={() => navigateToProfile()}
+                style={{ display: "flex" }}
+              >
                 <span
                   style={{
                     lineHeight: "30px",
@@ -66,7 +69,6 @@ const style = {
   header: {
     padding: "7px 20px",
     background: "var(--darkprimary)",
-    border: "1px solid var(--darkborder)",
     position: "fixed",
     top: 0,
     left: 0,
