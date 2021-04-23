@@ -1,5 +1,4 @@
 const {MongoClient, ObjectID} = require('mongodb')
-const bcrypt = require('bcryptjs')
 require('dotenv').config()
 
 const url =  process.env.MONGO_DB_URL 
