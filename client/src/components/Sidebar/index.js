@@ -11,6 +11,7 @@ import {
 } from "../../icons";
 
 export default function Sidebar({
+  sidebarModel,
   userData,
   navigateToHome,
   navigateToAllPlants,
@@ -36,7 +37,13 @@ export default function Sidebar({
         {/* DASHBOARD */}
         <li>
           <button onClick={() => navigateToHome()}>
-            <span className="menu__item item__wrap">
+            <span
+              className={
+                sidebarModel["dashboard"]
+                  ? "menu__item item__wrap parent active"
+                  : "menu__item item__wrap parent"
+              }
+            >
               <DashboardIcon />
               <span className="menu__item item__label">Dashboard</span>
             </span>
@@ -46,12 +53,24 @@ export default function Sidebar({
         {/* PLANTS */}
         <li>
           <button onClick={() => navigateToAllPlants()}>
-            <span className="menu__item item__wrap">
+            <span
+              className={
+                sidebarModel["plants"]
+                  ? "menu__item item__wrap parent active"
+                  : "menu__item item__wrap parent"
+              }
+            >
               <PlantIcon />
               <span className="menu__item item__label">Plants</span>
             </span>
           </button>
-          <ul className="menu__item sub__menu">
+          <ul
+            className={
+              sidebarModel["plants"]
+                ? "menu__item sub__menu active"
+                : "menu__item sub__menu"
+            }
+          >
             <li>
               <button onClick={() => navigateToAllPlants()}>
                 <span className="menu__item item__wrap">
@@ -79,12 +98,24 @@ export default function Sidebar({
         {/* WAYPOINTS */}
         <li>
           <button onClick={() => navigateToAllWaypoints()}>
-            <span className="menu__item item__wrap">
+            <span
+              className={
+                sidebarModel["waypoints"]
+                  ? "menu__item item__wrap parent active"
+                  : "menu__item item__wrap parent"
+              }
+            >
               <CompassIcon />
               <span className="menu__item item__label">Waypoints</span>
             </span>
           </button>
-          <ul className="menu__item sub__menu">
+          <ul
+            className={
+              sidebarModel["waypoints"]
+                ? "menu__item sub__menu active"
+                : "menu__item sub__menu"
+            }
+          >
             <li>
               <button onClick={() => navigateToAllWaypoints()}>
                 <span className="menu__item item__wrap">
@@ -112,12 +143,24 @@ export default function Sidebar({
         {/* LEARN MORE */}
         <li>
           <button onClick={() => navigateToAllLearnmore()}>
-            <span className="menu__item item__wrap">
+            <span
+              className={
+                sidebarModel["learnmore"]
+                  ? "menu__item item__wrap parent active"
+                  : "menu__item item__wrap parent"
+              }
+            >
               <InfoIcon />
               <span className="menu__item item__label">Learn More</span>
             </span>
           </button>
-          <ul className="menu__item sub__menu">
+          <ul
+            className={
+              sidebarModel["learnmore"]
+                ? "menu__item sub__menu active"
+                : "menu__item sub__menu"
+            }
+          >
             <li>
               <button onClick={() => navigateToAllLearnmore()}>
                 <span className="menu__item item__wrap">
@@ -138,12 +181,24 @@ export default function Sidebar({
         {/* USERS */}
         <li>
           <button onClick={() => navigateToAllUsers()}>
-            <span className="menu__item item__wrap">
+            <span
+              className={
+                sidebarModel["users"]
+                  ? "menu__item item__wrap parent active"
+                  : "menu__item item__wrap parent"
+              }
+            >
               <UsersIcon />
               <span className="menu__item item__label">Users</span>
             </span>
           </button>
-          <ul className="menu__item sub__menu">
+          <ul
+            className={
+              sidebarModel["users"]
+                ? "menu__item sub__menu active"
+                : "menu__item sub__menu"
+            }
+          >
             <li>
               <button onClick={() => navigateToAllUsers()}>
                 <span className="menu__item item__wrap">
@@ -164,12 +219,24 @@ export default function Sidebar({
         {/* LOCATIONS */}
         <li>
           <button onClick={() => navigateToLocations()}>
-            <span className="menu__item item__wrap">
+            <span
+              className={
+                sidebarModel["locations"]
+                  ? "menu__item item__wrap parent active"
+                  : "menu__item item__wrap parent"
+              }
+            >
               <LocationIcon />
               <span className="menu__item item__label">Locations</span>
             </span>
           </button>
-          <ul className="menu__item sub__menu">
+          <ul
+            className={
+              sidebarModel["locations"]
+                ? "menu__item sub__menu active"
+                : "menu__item sub__menu"
+            }
+          >
             <li>
               <button onClick={() => navigateToLocations()}>
                 <span className="menu__item item__wrap">
@@ -183,12 +250,24 @@ export default function Sidebar({
         {/* MEDIA */}
         <li>
           <button onClick={() => navigateToImages()}>
-            <span className="menu__item item__wrap">
+            <span
+              className={
+                sidebarModel["media"]
+                  ? "menu__item item__wrap parent active"
+                  : "menu__item item__wrap parent"
+              }
+            >
               <MediaIcon />
               <span className="menu__item item__label">Media</span>
             </span>
           </button>
-          <ul className="menu__item sub__menu">
+          <ul
+            className={
+              sidebarModel["media"]
+                ? "menu__item sub__menu active"
+                : "menu__item sub__menu"
+            }
+          >
             <li>
               <button onClick={() => navigateToImages()}>
                 <span className="menu__item item__wrap">
@@ -216,12 +295,24 @@ export default function Sidebar({
         {/* TAGS */}
         <li>
           <button onClick={() => navigateToTags()}>
-            <span className="menu__item item__wrap">
+            <span
+              className={
+                sidebarModel["tags"]
+                  ? "menu__item item__wrap parent active"
+                  : "menu__item item__wrap parent"
+              }
+            >
               <TagIcon />
               <span className="menu__item item__label">Tags</span>
             </span>
           </button>
-          <ul className="menu__item sub__menu">
+          <ul
+            className={
+              sidebarModel["tags"]
+                ? "menu__item sub__menu active"
+                : "menu__item sub__menu"
+            }
+          >
             <li>
               <button onClick={() => navigateToTags()}>
                 <span className="menu__item item__wrap">
@@ -235,7 +326,13 @@ export default function Sidebar({
         {/* PROFILE */}
         <li>
           <button onClick={() => navigateToProfile()}>
-            <span className="menu__item item__wrap">
+            <span
+              className={
+                sidebarModel["profile"]
+                  ? "menu__item item__wrap parent active"
+                  : "menu__item item__wrap parent"
+              }
+            >
               <span style={style.initial}>
                 {" "}
                 {userData?.user?.username[0].toUpperCase()}
@@ -246,7 +343,13 @@ export default function Sidebar({
               </span>
             </span>
           </button>
-          <ul className="menu__item sub__menu">
+          <ul
+            className={
+              sidebarModel["profile"]
+                ? "menu__item sub__menu active"
+                : "menu__item sub__menu"
+            }
+          >
             <li>
               <button onClick={() => navigateToProfile()}>
                 <span className="menu__item item__wrap">

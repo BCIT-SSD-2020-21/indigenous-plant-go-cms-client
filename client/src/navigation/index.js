@@ -44,8 +44,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   const authContext = useAuth();
   const { isAuthenticated } = authContext;
 
-  console.log(isAuthenticated);
-
   return (
     <Route
       {...rest}
