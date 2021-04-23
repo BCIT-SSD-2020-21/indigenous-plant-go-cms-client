@@ -24,6 +24,11 @@ const seed = async () => {
   const tags = db.collection('tags')
   const revision_history = db.collection('revision_history')
   const custom_fields = db.collection('custom_fields')
+  const waypoint_categories = db.collection('waypoint_categories')
+  const waypoint = db.collection('waypoint')
+  const learn_more = db.collection('learn_more')
+
+
 
   // III. Insert Data to mongoDB
   // 1. Insert Users
@@ -188,6 +193,44 @@ const seed = async () => {
     }
 
   ])
+
+  // 11. Insert Waypoint Categories
+  await waypoint_categories.insertMany([
+    {
+      "categories" : [
+        category1._id, 
+        category2._id
+      ]
+    }
+
+  ])
+
+  // 12. Insert Waypoint
+  await waypoint.insertMany([
+    {
+      "waypoint_name": "Location A",
+      "description": "Infront of SW1",
+      "location": location1._id,
+      "custom_fields": [custom_field1._id],
+      "images": [image1._id],
+     " audio_files": [audio1._id],
+      "videos": [video1._id],
+      "tags": [tag1._id],
+      "categories": [category1._id],
+      "revision_history": [revision_history1._id],
+    }
+  ])
+
+  // 13. Insert Learnmore
+  await learn_more.insertMany([
+    {
+      "learn_more_title": "Other information",
+      "description": "Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. ", // Should be stringified HTML
+      "custom_fields": [custom_field1._id] ,
+      "revision_history": [revision_history1._id],
+    }
+  ])
+
 }
 
 // IV. Run function
