@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function AddPlant() {
-  return <div>AddPlant</div>;
+  return <main>AddPlant</main>;
 }

@@ -9,7 +9,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [userData, setUserData] = useLocalStorage("userData", null);
-  const [isAuthenticated, setAuthentication] = useState(false);
+  const [isAuthenticated, setAuthentication] = useState(true);
 
   const signOut = () => {
     setAuthentication(false);
@@ -21,8 +21,8 @@ export function AuthProvider({ children }) {
     if (result.error) return signOut();
   };
 
-  useEffect(() => {
-    validateToken();
+  useEffect(async () => {
+    await validateToken();
   }, []);
 
   useEffect(() => {

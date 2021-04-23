@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function AddWaypoint() {
-  return <div>AddWaypoint</div>;
+  return <main>AddWaypoint</main>;
 }
