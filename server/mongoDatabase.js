@@ -584,6 +584,23 @@ module.exports = async function() {
     return result
   }
 
+  //Plant
+  //GET /api/plants
+  async function getPlants({}) {
+    const aggregateOptions = [
+      {$unwind: '$images'},
+      {
+        $lookup: {
+          from: 'images',
+          let: {'imageId': '$_id'},
+          pipline: [
+            {$match: {$expr: {$eq: ['$$imageId','$images']}}}
+          ]
+        }
+      }
+    ]
+  }
+
   return {
     //User
     createUser,
@@ -630,7 +647,8 @@ module.exports = async function() {
     getRevisions,
     createRevision,
     getRevision,
-    updateRevision,
-    deleteRevision
+    deleteRevision,
+    //Plant
+    getPlants
   }
 }
