@@ -20,9 +20,11 @@ export default function SidebarCtrl() {
     tags: false,
     profile: false,
   });
+  const [pathParts, setPathParts] = useState([]);
 
   const evaluatePath = () => {
-    let currentPath = pathname.split("/").filter((string) => string)[0];
+    let pathParts = pathname.split("/").filter((string) => string);
+    let currentPath = pathParts[0];
     if (!currentPath || currentPath === undefined) currentPath = "dashboard";
 
     const newSidebarModel = {
@@ -39,6 +41,7 @@ export default function SidebarCtrl() {
 
     newSidebarModel[currentPath] = true;
     setSidebarModel(newSidebarModel);
+    setPathParts(pathParts);
   };
 
   useEffect(() => {
@@ -110,6 +113,7 @@ export default function SidebarCtrl() {
     <Sidebar
       userData={userData}
       sidebarModel={sidebarModel}
+      pathParts={pathParts}
       // DASHBOARD
       navigateToHome={navigateToHome}
       // PLANTS

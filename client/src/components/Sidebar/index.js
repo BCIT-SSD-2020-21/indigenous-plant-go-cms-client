@@ -13,6 +13,7 @@ import {
 export default function Sidebar({
   sidebarModel,
   userData,
+  pathParts,
   navigateToHome,
   navigateToAllPlants,
   navigateToAddPlant,
@@ -73,21 +74,40 @@ export default function Sidebar({
           >
             <li>
               <button onClick={() => navigateToAllPlants()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.length === 1 && pathParts.includes("plants")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">All Plants</span>
                 </span>
               </button>
             </li>
             <li>
               <button onClick={() => navigateToAddPlant()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.includes("plants") && pathParts.includes("add")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">Add New</span>
                 </span>
               </button>
             </li>
             <li>
               <button onClick={() => navigateToPlantCategories()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.includes("plants") &&
+                    pathParts.includes("categories")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">Categories</span>
                 </span>
               </button>
@@ -118,21 +138,40 @@ export default function Sidebar({
           >
             <li>
               <button onClick={() => navigateToAllWaypoints()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.length === 1 && pathParts.includes("waypoints")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">All Waypoints</span>
                 </span>
               </button>
             </li>
             <li>
               <button onClick={() => navigateToAddWaypoint()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.includes("waypoints") && pathParts.includes("add")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">Add New</span>
                 </span>
               </button>
             </li>
             <li>
               <button onClick={() => navigateToWaypointCategories()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.includes("waypoints") &&
+                    pathParts.includes("categories")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">Categories</span>
                 </span>
               </button>
@@ -163,14 +202,26 @@ export default function Sidebar({
           >
             <li>
               <button onClick={() => navigateToAllLearnmore()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.length === 1 && pathParts.includes("learnmore")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">All Learn More</span>
                 </span>
               </button>
             </li>
             <li>
               <button onClick={() => navigateToAddLearnmore()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.includes("learnmore") && pathParts.includes("add")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">Add New</span>
                 </span>
               </button>
@@ -201,14 +252,26 @@ export default function Sidebar({
           >
             <li>
               <button onClick={() => navigateToAllUsers()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.length === 1 && pathParts.includes("users")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">All Users</span>
                 </span>
               </button>
             </li>
             <li>
               <button onClick={() => navigateToAddUser()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.includes("users") && pathParts.includes("add")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">Add New</span>
                 </span>
               </button>
@@ -239,7 +302,13 @@ export default function Sidebar({
           >
             <li>
               <button onClick={() => navigateToLocations()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.length === 1 && pathParts.includes("locations")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">All Locations</span>
                 </span>
               </button>
@@ -270,21 +339,40 @@ export default function Sidebar({
           >
             <li>
               <button onClick={() => navigateToImages()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.includes("media") && pathParts.includes("images")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">Images</span>
                 </span>
               </button>
             </li>
             <li>
               <button onClick={() => navigateToVideos()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.includes("media") && pathParts.includes("videos")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">Video</span>
                 </span>
               </button>
             </li>
             <li>
               <button onClick={() => navigateToAudioFiles()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.includes("media") &&
+                    pathParts.includes("audiofiles")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">Audio</span>
                 </span>
               </button>
@@ -315,7 +403,13 @@ export default function Sidebar({
           >
             <li>
               <button onClick={() => navigateToTags()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.length === 1 && pathParts.includes("tags")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">All Tags</span>
                 </span>
               </button>
@@ -352,7 +446,13 @@ export default function Sidebar({
           >
             <li>
               <button onClick={() => navigateToProfile()}>
-                <span className="menu__item item__wrap">
+                <span
+                  className={
+                    pathParts.length === 1 && pathParts.includes("profile")
+                      ? "menu__item item__wrap active"
+                      : "menu__item item__wrap"
+                  }
+                >
                   <span className="menu__item item__label">My Profile</span>
                 </span>
               </button>
