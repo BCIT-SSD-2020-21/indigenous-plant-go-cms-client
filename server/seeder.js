@@ -2,7 +2,7 @@ const {MongoClient, ObjectID} = require('mongodb')
 const bcrypt = require('bcryptjs')
 require('dotenv').config()
 
-const url = process.env.MONGO_DB_URL 
+const url =  process.env.MONGO_DB_URL 
 const dbName = process.env.MONGO_DB_NAME 
 const client = new MongoClient(url, {useUnifiedTopology: true, useNewUrlParser: true})
 
@@ -11,7 +11,10 @@ const seed = async () => {
   await client.connect()
   const db = client.db(dbName)
 
-  // I. List of  collections
+  // I. Drop Database | Clean Slate
+  await db.dropDatabase()
+
+  // II. List of  collections
   const users = db.collection('users')
   const plants = db.collection('plants')
   const images = db.collection('images')
@@ -22,18 +25,6 @@ const seed = async () => {
   const tags = db.collection('tags')
   const revision_history = db.collection('revision_history')
   const custom_fields = db.collection('custom_fields')
-
-  // II. Delete Collections | Clean database
-  await users.deleteMany({})
-  await plants.deleteMany({})
-  await images.deleteMany({})
-  await audios.deleteMany({})
-  await videos.deleteMany({})
-  await locations.deleteMany({})
-  await categories.deleteMany({})
-  await tags.deleteMany({})
-  await revision_history.deleteMany({})
-  await custom_fields.deleteMany({})
 
   // III. Insert Data to mongoDB
   // 1. Insert Users
@@ -49,7 +40,7 @@ const seed = async () => {
       "password" : "$2y$08$2pRScE9X7Jz8M0Ij7u5LCehFaBt5IePug7HGUBEuRONVH76zCvMtK",    
       "email" : "charlie@test.ca",    
       "role" : "Manager"
-    }
+    },
   ])
 
   // 2. Insert Images
