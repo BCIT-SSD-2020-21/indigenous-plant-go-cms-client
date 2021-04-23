@@ -1,5 +1,4 @@
 const {MongoClient, ObjectID} = require('mongodb')
-const bcrypt = require('bcryptjs')
 require('dotenv').config()
 
 const url =  process.env.MONGO_DB_URL 
@@ -40,17 +39,17 @@ const seed = async () => {
       "password" : "$2y$08$2pRScE9X7Jz8M0Ij7u5LCehFaBt5IePug7HGUBEuRONVH76zCvMtK",    
       "email" : "charlie@test.ca",    
       "role" : "Manager"
-    },
+    }
   ])
 
   // 2. Insert Images
   await images.insertMany([
     {
-      "image_url": "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
+      "image_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/lavender-1.png",
       "caption": "lavender"
     },
     {
-      "image_url": "s3.aws.indigenousplantgo.com/images/kinnikinnickl-1.jpg",
+      "image_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/kinnikinnick-1.png",
       "caption": "kinnikinnick"
     }
   ])
