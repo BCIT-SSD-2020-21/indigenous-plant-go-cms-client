@@ -39,7 +39,7 @@ const seed = async () => {
       "password" : "$2y$08$2pRScE9X7Jz8M0Ij7u5LCehFaBt5IePug7HGUBEuRONVH76zCvMtK",    
       "email" : "charlie@test.ca",    
       "role" : "Manager"
-    },
+    }
   ])
 
   // 2. Insert Images
