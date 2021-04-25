@@ -1,5 +1,5 @@
 .textpicker {
-  max-width: 470px;
+  max-width: 400px;
 
   label {
     font-weight: 700;
@@ -28,6 +28,13 @@
       border: 1px solid var(--lightborder);
       margin-bottom: 7px;
       padding: 7px;
+
+      .selected__title {
+        svg {
+          fill: gray;
+          margin-right: 10px;
+        }
+      }
 
       span {
         display: flex;

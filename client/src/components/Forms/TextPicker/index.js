@@ -1,6 +1,7 @@
 import React from "react";
-import { TrashIcon } from "../../../icons";
+import { TrashIcon, HamburgerIcon } from "../../../icons";
 import { Dropdown } from "semantic-ui-react";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export default function TextPicker({
   options,
@@ -8,6 +9,7 @@ export default function TextPicker({
   handleSelectChange,
   handleRemove,
   confirmSelection,
+  handleOnDragEnd,
 }) {
   return (
     <div className="textpicker">
@@ -15,16 +17,41 @@ export default function TextPicker({
         Location(s)<span className="req">*</span>
       </label>
       <div className="textpicker__scroll">
-        <ul>
-          {activeSelection.map((item, index) => (
-            <li key={index} className="textpicker__selected">
-              <span>{item.title}</span>
-              <button onClick={() => handleRemove(item._id)}>
-                <TrashIcon />
-              </button>
-            </li>
-          ))}
-        </ul>
+        <DragDropContext onDragEnd={(result) => handleOnDragEnd(result)}>
+          <Droppable droppableId="textpicker">
+            {(provided) => (
+              <ul {...provided.droppableProps} ref={provided.innerRef}>
+                {activeSelection.map((item, index) => (
+                  <Draggable
+                    key={item._id}
+                    draggableId={item._id}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <li
+                        {...provided.draggableProps}
+                        ref={provided.innerRef}
+                        {...provided.dragHandleProps}
+                        className="textpicker__selected"
+                      >
+                        <span className="selected__title">
+                          <span style={{ maxWidth: "24px" }}>
+                            <HamburgerIcon />
+                          </span>
+                          {item.title}
+                        </span>
+                        <button onClick={() => handleRemove(item._id)}>
+                          <TrashIcon />
+                        </button>
+                      </li>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
+        </DragDropContext>
       </div>
       <div className="textpicker__picker">
         <Dropdown

@@ -16,6 +16,15 @@ export default function TextPickerCtrl() {
     formatOptions();
   }, [options, activeSelection]);
 
+  const handleOnDragEnd = (result) => {
+    if(!result.destination) return
+    const items = Array.from(activeSelection);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setActiveSelection(items);
+  };
+
   const formatOptions = () => {
     const activeOptions = [...activeSelection].map((item) => item._id);
 
@@ -67,6 +76,7 @@ export default function TextPickerCtrl() {
       handleSelectChange={handleSelectChange}
       handleRemove={handleRemove}
       confirmSelection={confirmSelection}
+      handleOnDragEnd={handleOnDragEnd}
       activeSelection={activeSelection}
       options={formattedOptions}
     />
