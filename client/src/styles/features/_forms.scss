@@ -36,25 +36,27 @@ fieldset .ui.toggle.checkbox input:checked ~ label {
 }
 
 .ui.selection.dropdown {
-  background: var(--darktertiary) !important;
-  color: var(--lightprimary) !important;
+  background: var(--lighttertiary) !important;
+  color: var(--darkprimary) !important;
+  border-radius: 0 !important;
+  width: 100% !important;
 }
 
 .ui.dropdown .menu {
-  background: var(--darksecondary) !important;
+  background: var(--lightsecondary) !important;
 }
 
 .ui.selection.dropdown .menu > .item {
-  color: var(--lightprimary) !important;
-  border-top: 1px solid var(--darkborder) !important;
+  color: var(--darkprimary) !important;
+  border-top: 1px solid var(--lightborder) !important;
 }
 
 .ui.selection.dropdown .menu > .message {
-  color: var(--lightprimary) !important;
+  color: var(--darkprimary) !important;
 }
 
 .ui.selection.dropdown .divider.text {
-  color: var(--lightprimary) !important;
+  color: var(--darkprimary) !important;
 }
 
 input,

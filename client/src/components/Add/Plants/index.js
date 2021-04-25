@@ -1,5 +1,6 @@
 import React from "react";
 import DashHeader from "../../DashHeader";
+import TextPickerCtrl from "../../../controllers/Forms/TextPicker/TextPickerCtrl";
 
 export default function AddPlants({ handlePublish }) {
   return (
@@ -9,6 +10,7 @@ export default function AddPlants({ handlePublish }) {
         action="Publish"
         method={handlePublish}
       />
+      <TextPickerCtrl />
     </div>
   );
 }
