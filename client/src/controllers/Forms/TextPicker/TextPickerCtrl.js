@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import TextPicker from "../../../components/Forms/TextPicker";
-import { locations } from "./Fake";
 
-export default function TextPickerCtrl() {
+export default function TextPickerCtrl({ label, dataLabel, data }) {
   const [activeSelection, setActiveSelection] = useState([]);
   const [formattedOptions, setFormattedOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
-    setOptions(locations);
+    setOptions(data);
   }, []);
 
   useEffect(() => {
@@ -17,7 +16,7 @@ export default function TextPickerCtrl() {
   }, [options, activeSelection]);
 
   const handleOnDragEnd = (result) => {
-    if(!result.destination) return
+    if (!result.destination) return;
     const items = Array.from(activeSelection);
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
@@ -37,7 +36,7 @@ export default function TextPickerCtrl() {
         ...option,
         key: option._id,
         value: option._id,
-        text: option.location_name,
+        text: option[`${dataLabel}_name`],
       };
     });
 
@@ -79,6 +78,7 @@ export default function TextPickerCtrl() {
       handleOnDragEnd={handleOnDragEnd}
       activeSelection={activeSelection}
       options={formattedOptions}
+      label={label}
     />
   );
 }

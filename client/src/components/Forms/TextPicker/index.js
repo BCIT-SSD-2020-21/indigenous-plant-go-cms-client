@@ -10,11 +10,13 @@ export default function TextPicker({
   handleRemove,
   confirmSelection,
   handleOnDragEnd,
+  label,
 }) {
   return (
     <div className="textpicker">
       <label>
-        Location(s)<span className="req">*</span>
+        {`${label[0].toUpperCase()}${label.substring(1)}`}(s)
+        <span className="req">*</span>
       </label>
       <div className="textpicker__scroll">
         <DragDropContext onDragEnd={(result) => handleOnDragEnd(result)}>
