@@ -745,6 +745,11 @@ module.exports = async function() {
   async function getPlant({plantId}) {
     const aggregateOptions = [
       {
+        $match: {
+          _id: ObjectID(plantId)
+        }
+      },
+      {
         $lookup: {
           from: 'images',
           localField: 'images',
@@ -802,7 +807,7 @@ module.exports = async function() {
       }
     ]
 
-    return await plants.findOne({_id: ObjectID(revisionId)})
+    return await plants.aggregate(aggregateOptions).next()
   }
 
   return {

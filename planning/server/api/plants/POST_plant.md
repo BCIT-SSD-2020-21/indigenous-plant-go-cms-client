@@ -18,7 +18,7 @@ Example request: POST /api/plants?key=<API_KEY>
   "videos": ["607e384559c86677e2af65r7"],
   "tags": ["607e4qwee59c86677e2af65r7", "607e384559c86677e2af65r7"],
   "categories": ["607e4qwee59c86677e2ewe3447"],
-  "location": ["607e3ab0a0d3df815abfcfb1"],
+  "locations": ["607e3ab0a0d3df815abfcfb1"],
   "custom_fields": ["607e399e59c86677e2af65r7", "607e399e59c86677e465r7"]
 }
 ```
