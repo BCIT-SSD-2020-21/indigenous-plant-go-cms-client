@@ -16,6 +16,9 @@ export default function AddPlants({
   categoriesChanged,
   tagsChanged,
   locationsChanged,
+  imagesChanged,
+  audioFilesChanged,
+  videosChanged,
 }) {
   return (
     <div>
@@ -46,19 +49,19 @@ export default function AddPlants({
         label={"image"}
         dataLabel={"image"}
         data={images}
-        setter={(data) => tagsChanged(data)}
+        setter={(data) => imagesChanged(data)}
       />
       <MediaPickerCtrl
         label={"Audio File"}
         dataLabel={"audio_file"}
         data={audio}
-        setter={(data) => tagsChanged(data)}
+        setter={(data) => audioFilesChanged(data)}
       />
       <MediaPickerCtrl
         label={"video"}
         dataLabel={"video"}
         data={videos}
-        setter={(data) => tagsChanged(data)}
+        setter={(data) => videosChanged(data)}
       />
     </div>
   );

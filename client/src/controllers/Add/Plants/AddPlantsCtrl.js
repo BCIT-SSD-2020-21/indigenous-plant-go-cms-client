@@ -5,6 +5,9 @@ export default function AddPlantsCtrl() {
   const [tags, setTags] = useState([]);
   const [categories, setCategories] = useState([]);
   const [locations, setLocations] = useState([]);
+  const [images, setImages] = useState([]);
+  const [audioFiles, setAudioFiles] = useState([]);
+  const [videos, setVideos] = useState([]);
 
   const categoriesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
@@ -21,6 +24,21 @@ export default function AddPlantsCtrl() {
     setLocations(mappedData);
   };
 
+  const imagesChanged = (data) => {
+    const mappedData = data.map((d) => d._id);
+    setImages(mappedData);
+  };
+
+  const audioFilesChanged = (data) => {
+    const mappedData = data.map((d) => d._id);
+    setAudioFiles(mappedData);
+  };
+
+  const videosChanged = (data) => {
+    const mappedData = data.map((d) => d._id);
+    setVideos(mappedData);
+  };
+
   const handlePublish = () => {
     console.log("Attempt publish");
   };
@@ -30,6 +48,9 @@ export default function AddPlantsCtrl() {
       categoriesChanged={categoriesChanged}
       tagsChanged={tagsChanged}
       locationsChanged={locationsChanged}
+      imagesChanged={imagesChanged}
+      audioFilesChanged={audioFilesChanged}
+      videosChanged={videosChanged}
       handlePublish={handlePublish}
     />
   );
