@@ -9,6 +9,7 @@ import {
   LocationIcon,
   MediaIcon,
   TagIcon,
+  TourIcon,
 } from "../../../icons";
 
 export default function MenuItem({
@@ -80,6 +81,8 @@ const renderIcon = (label) => {
       return <TagIcon />;
     case "media":
       return <MediaIcon />;
+    case "tours":
+      return <TourIcon />;
     default:
       return <PlantIcon />;
   }

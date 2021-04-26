@@ -1,9 +1,9 @@
 import React from "react";
-import { TrashIcon, HamburgerIcon } from "../../../icons";
+import { TrashIcon, ImageIcon, AudioIcon, VideoIcon } from "../../../icons";
 import { Dropdown } from "semantic-ui-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-export default function TextPicker({
+export default function MediaPicker({
   options,
   activeSelection,
   handleSelectChange,
@@ -41,10 +41,19 @@ export default function TextPicker({
                           className="textpicker__selected"
                         >
                           <span className="selected__title">
-                            <span style={{ maxWidth: "24px" }}>
-                              <HamburgerIcon />
+                            <span classname="selected__icon">
+                              {renderIcon(label)}
                             </span>
-                            {item.title}
+                            <div className="selected__media__meta">
+                              <label className="caption">
+                                <strong>Caption: </strong>
+                                {item.title}
+                              </label>
+                              <label className="url">
+                                <strong>URL: </strong>
+                                {item.url}
+                              </label>
+                            </div>
                           </span>
                           <button onClick={() => handleRemove(item._id)}>
                             <TrashIcon />
@@ -76,9 +85,22 @@ export default function TextPicker({
       </div>
       <div className="textpicker__footer">
         <button>
-          + Create A New {`${label[0].toUpperCase()}${label.substring(1)}`}
+          + Upload A New {`${label[0].toUpperCase()}${label.substring(1)}`}
         </button>
       </div>
     </div>
   );
 }
+
+const renderIcon = (label) => {
+  switch (label) {
+    case "image":
+      return <ImageIcon />;
+    case "video":
+      return <VideoIcon />;
+    case "Audio File":
+      return <AudioIcon />;
+    default:
+      return <ImageIcon />;
+  }
+};
