@@ -9,7 +9,14 @@
 @import "./modules/colors";
 
 /*--------------------------------------------------------------
+# Layouts
+--------------------------------------------------------------*/
+@import "./modules/layouts";
+
+/*--------------------------------------------------------------
 # Features
 --------------------------------------------------------------*/
 @import "./features/forms";
 @import "./features/sidebar";
+@import "./features/dashtitle";
+@import "./features/textpicker";

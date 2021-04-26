@@ -9,7 +9,7 @@ export function useAuth() {
 
 export function AuthProvider({ children }) {
   const [userData, setUserData] = useLocalStorage("userData", null);
-  const [isAuthenticated, setAuthentication] = useState(false);
+  const [isAuthenticated, setAuthentication] = useState(true);
 
   const signOut = () => {
     setAuthentication(false);
@@ -22,7 +22,11 @@ export function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    validateToken();
+    const pingToken = async () => {
+      await validateToken();
+    };
+
+    pingToken();
   }, []);
 
   useEffect(() => {

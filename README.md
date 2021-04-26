@@ -61,7 +61,7 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
 
 ### ER Diagram
 
-![image](/planning/database/ERD/ERDv2.png)
+![image](/planning/database/ERD/ERDv3.png)
 
 ### Wireframes
 

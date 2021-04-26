@@ -1,5 +1,10 @@
 import React from "react";
+import AddPlantsCtrl from "../../controllers/Add/Plants/AddPlantsCtrl";
 
 export default function AddPlant() {
-  return <div>AddPlant</div>;
+  return (
+    <main>
+      <AddPlantsCtrl />
+    </main>
+  );
 }
