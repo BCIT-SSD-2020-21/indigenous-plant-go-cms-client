@@ -1,6 +1,8 @@
 # Get images
 @desc GET all images
+
 @route /api/images
+
 @access Protected -- API key
 
 Example request: GET /api/images?key=<API_KEY>
