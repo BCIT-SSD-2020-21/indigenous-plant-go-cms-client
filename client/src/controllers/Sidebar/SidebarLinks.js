@@ -46,6 +46,26 @@ export const sidebarLinks = [
       },
     ],
   },
+  // Tours
+  {
+    label: "tours",
+    formattedLabel: "Tours",
+    navigationPath: "/tours",
+    subItems: [
+      {
+        label: "All Tours",
+        navigationPath: "/tours",
+      },
+      {
+        label: "Add New",
+        navigationPath: "/tours/add",
+      },
+      {
+        label: "Categories",
+        navigationPath: "/tours/categories",
+      },
+    ],
+  },
   // LEARN MORE
   {
     label: "learnmore",
@@ -59,6 +79,10 @@ export const sidebarLinks = [
       {
         label: "Add New",
         navigationPath: "/learnmore/add",
+      },
+      {
+        label: "Categories",
+        navigationPath: "/learnmore/categories",
       },
     ],
   },

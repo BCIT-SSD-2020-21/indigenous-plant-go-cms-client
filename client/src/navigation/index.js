@@ -17,25 +17,31 @@ import AllWaypoints from "../pages/waypoints/AllWaypoints";
 import AddWaypoint from "../pages/waypoints/AddWaypoint";
 import EditWaypoint from "../pages/waypoints/EditWaypoint";
 import WaypointCategories from "../pages/waypoints/WaypointCategories";
-// 4.0 LEARN MORE
+// 4.0 TOURS
+import AllTours from "../pages/tours/AllTours";
+import AddTour from "../pages/tours/AddTour";
+import EditTour from "../pages/tours/EditTour";
+import TourCategories from "../pages/tours/TourCategories";
+// 5.0 LEARN MORE
 import AllLearnMore from "../pages/learnmore/AllLearnMore";
 import AddLearnMore from "../pages/learnmore/AddLearnMore";
 import EditLearnMore from "../pages/learnmore/EditLearnMore";
-// 5.0 USERS
+import LearnMoreCategories from "../pages/learnmore/LearnMoreCategories";
+// 6.0 USERS
 import AllUsers from "../pages/users/AllUsers";
 import AddUser from "../pages/users/AddUser";
 import EditUser from "../pages/users/EditUser";
-// 6.0 LOCATIONS
+// 7.0 LOCATIONS
 import Locations from "../pages/locations";
-// 7.0 MEDIA
+// 8.0 MEDIA
 import Images from "../pages/media/Images";
 import AudioFiles from "../pages/media/AudioFiles";
 import Videos from "../pages/media/Videos";
-// 8.0 TAGS
+// 9.0 TAGS
 import Tags from "../pages/tags";
-// 9.0 PROFILE
+// 10.0 PROFILE
 import Profile from "../pages/profile";
-// 10.0 LOGIN
+// 11.0 LOGIN
 import Login from "../pages/login";
 
 // Routes that should only be visible if authenticated.
@@ -113,35 +119,51 @@ export default function Navigation() {
           component={WaypointCategories}
         />
 
-        {/* 4.0 LEARN MORE */}
-        <PrivateRoute path="/learnmore" component={AllLearnMore} />
-        <PrivateRoute path="/learnmore/add" component={AddLearnMore} />
+        {/* 4.0 TOURS */}
+        <PrivateRoute exact path="/tours" component={AllTours} />
+        <PrivateRoute exact path="/tours/add" component={AddTour} />
+        <PrivateRoute exact path="/tours/edit/:tourId" component={EditTour} />
         <PrivateRoute
+          exact
+          path="/tours/categories"
+          component={TourCategories}
+        />
+
+        {/* 5.0 LEARN MORE */}
+        <PrivateRoute exact path="/learnmore" component={AllLearnMore} />
+        <PrivateRoute exact path="/learnmore/add" component={AddLearnMore} />
+        <PrivateRoute
+          exact
           path="/learnmore/edit/:learnmoreId"
           component={EditLearnMore}
         />
+        <PrivateRoute
+          exact
+          path="/learnmore/categories"
+          component={LearnMoreCategories}
+        />
 
-        {/* 5.0 USERS */}
-        <PrivateRoute path="/users" component={AllUsers} />
-        <PrivateRoute path="/users/add" component={AddUser} />
-        <PrivateRoute path="/users/edit/:userId" component={EditUser} />
+        {/* 6.0 USERS */}
+        <PrivateRoute exact path="/users" component={AllUsers} />
+        <PrivateRoute exact path="/users/add" component={AddUser} />
+        <PrivateRoute exact path="/users/edit/:userId" component={EditUser} />
 
-        {/* 6.0 LOCATIONS */}
-        <PrivateRoute path="/locations" component={Locations} />
+        {/* 7.0 LOCATIONS */}
+        <PrivateRoute exact path="/locations" component={Locations} />
 
-        {/* 7.0 MEDIA */}
-        <PrivateRoute path="/media/images" component={Images} />
-        <PrivateRoute path="/media/audiofiles" component={AudioFiles} />
-        <PrivateRoute path="/media/videos" component={Videos} />
+        {/* 8.0 MEDIA */}
+        <PrivateRoute exact path="/media/images" component={Images} />
+        <PrivateRoute exact path="/media/audiofiles" component={AudioFiles} />
+        <PrivateRoute exact path="/media/videos" component={Videos} />
 
-        {/* 8.0 TAGS */}
-        <PrivateRoute path="/tags" component={Tags} />
+        {/* 9.0 TAGS */}
+        <PrivateRoute exact path="/tags" component={Tags} />
 
-        {/* 9.0 PROFILE */}
-        <PrivateRoute path="/profile" component={Profile} />
+        {/* 10.0 PROFILE */}
+        <PrivateRoute exact path="/profile" component={Profile} />
 
-        {/* 10.0 LOGIN */}
-        <AnonymousRoute path="/login" component={Login} />
+        {/* 11.0 LOGIN */}
+        <AnonymousRoute exact path="/login" component={Login} />
       </Switch>
     </>
   );
