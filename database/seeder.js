@@ -27,6 +27,7 @@ const seed = async () => {
   const waypoint_categories = db.collection('waypoint_categories')
   const waypoint = db.collection('waypoint')
   const learn_more = db.collection('learn_more')
+  const tour = db.collection('tour')
 
   // III. Insert Data to mongoDB
   // 1. Insert Users
@@ -38,7 +39,7 @@ const seed = async () => {
       "role" : "Admin"
     },
     {
-      "username" : "charlie",    
+      "username" : "charli",    
       "password" : "$2y$08$2pRScE9X7Jz8M0Ij7u5LCehFaBt5IePug7HGUBEuRONVH76zCvMtK",    
       "email" : "charlie@test.ca",    
       "role" : "Manager"
@@ -131,7 +132,7 @@ const seed = async () => {
 
   // 9. Insert Revision Histroy
   const user1 = await users.findOne({username: "bob"})
-  const user2 = await users.findOne({username: "charlie"})
+  const user2 = await users.findOne({username: "charli"})
 
   await revision_history.insertMany([
     { 
@@ -226,6 +227,28 @@ const seed = async () => {
       "description": "Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. ", // Should be stringified HTML
       "custom_fields": [custom_field1._id] ,
       "revision_history": [revision_history1._id],
+    }
+  ])
+  
+  // 14. Insert Tours
+
+  const waypoint1 = await waypoint.findOne({"waypoint_name": "Location A"})
+  const plant1 = await plants.findOne({ "plant_name": "lavender"})
+ 
+
+  await tour.insertMany([
+    {
+      "tour_name": "The English Walk",
+      "description:": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      "custom_fields" : [custom_field1._id, custom_field2._id],
+      "images" : [image1._id, image2._id],
+      "audio_files" : [audio1._id, audio2._id],
+      "videos" : [video1._id, video2._id],
+      "tags" : [tag1._id, tag2._id],
+      "categories" : [category1._id, category2._id],
+      "waypoints" : [waypoint1],
+      "plants" : [plant1._id],
+      "revision_history" : [revision_history1._id]
     }
   ])
 
