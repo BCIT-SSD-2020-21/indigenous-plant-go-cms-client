@@ -147,8 +147,8 @@ const seed = async () => {
   // 10. Insert Plants
   const image1 = await images.findOne({"caption": "lavender"})
   const image2 = await images.findOne({"caption": "kinnikinnick"})
-  const video1 = await videos.findOne({"video_url": "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4"})
-  const video2 = await videos.findOne({"video_url": "s3.aws.indigenousplantgo.com/video/kinnikinncik-bloom.mp4"})
+  const video1 = await videos.findOne({"video_url": "https://www.youtube.com/watch?v=-EfK8OhRElI"})
+  const video2 = await videos.findOne({"video_url": "https://www.youtube.com/watch?v=lhqNduGgpC8"})
   const audio1 = await audios.findOne({"caption": "lavender"})
   const audio2 = await audios.findOne({"caption": "kinnikinnick"})
   const location1 = await locations.findOne({"location_name": "SW1"})
