@@ -1,7 +1,8 @@
 import React from "react";
 import DashHeader from "../../DashHeader";
 import TextPickerCtrl from "../../../controllers/Forms/TextPicker/TextPickerCtrl";
-import { locations, categories, tags } from "../../../data";
+import MediaPickerCtrl from "../../../controllers/Forms/MediaPicker/MediaPickerCtrl";
+import { locations, categories, tags, images } from "../../../data";
 
 export default function AddPlants({
   handlePublish,
@@ -32,6 +33,12 @@ export default function AddPlants({
         label={"tag"}
         dataLabel={"tag"}
         data={tags}
+        setter={(data) => tagsChanged(data)}
+      />
+      <MediaPickerCtrl
+        label={"image"}
+        dataLabel={"image"}
+        data={images}
         setter={(data) => tagsChanged(data)}
       />
     </div>

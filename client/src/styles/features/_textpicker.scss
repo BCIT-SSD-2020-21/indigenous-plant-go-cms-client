@@ -31,9 +31,25 @@
       padding: 7px;
 
       .selected__title {
+        .selected__icon {
+          width: 40px;
+          display: block;
+        }
         svg {
           fill: gray;
           margin-right: 10px;
+        }
+
+        .selected__media__meta {
+          max-width: 300px;
+          label {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: normal;
+            margin: 0;
+            font-size: 12px;
+          }
         }
       }
 
