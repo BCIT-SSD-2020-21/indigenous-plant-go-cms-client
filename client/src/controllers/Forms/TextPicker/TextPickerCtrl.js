@@ -57,7 +57,7 @@ export default function TextPickerCtrl({ label, dataLabel, data }) {
 
     foundOption = {
       _id: foundOption._id,
-      title: foundOption.location_name,
+      title: foundOption[`${dataLabel}_name`],
     };
 
     const newActiveSelection = [...activeSelection, foundOption];

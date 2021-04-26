@@ -21,8 +21,12 @@ export function AuthProvider({ children }) {
     if (result.error) return signOut();
   };
 
-  useEffect(async () => {
-    await validateToken();
+  useEffect(() => {
+    const pingToken = async () => {
+      await validateToken();
+    };
+
+    pingToken();
   }, []);
 
   useEffect(() => {

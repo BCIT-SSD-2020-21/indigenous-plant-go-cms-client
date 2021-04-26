@@ -1,7 +1,10 @@
 import React from "react";
 import DashHeader from "../../DashHeader";
 import TextPickerCtrl from "../../../controllers/Forms/TextPicker/TextPickerCtrl";
-import { locations } from "../../../controllers/Forms/TextPicker/Fake";
+import {
+  locations,
+  categories,
+} from "../../../controllers/Forms/TextPicker/Fake";
 
 export default function AddPlants({ handlePublish }) {
   return (
@@ -15,6 +18,11 @@ export default function AddPlants({ handlePublish }) {
         label={"location"}
         dataLabel={"location"}
         data={locations}
+      />
+      <TextPickerCtrl
+        label={"category"}
+        dataLabel={"category"}
+        data={categories}
       />
     </div>
   );
