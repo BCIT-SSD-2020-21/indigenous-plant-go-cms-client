@@ -75,11 +75,8 @@ export default function TextPicker({
         </button>
       </div>
       <div className="textpicker__footer">
-        <span className="or">
-          <span>Or</span>
-        </span>
         <button>
-          Create A New {`${label[0].toUpperCase()}${label.substring(1)}`}
+          + Create A New {`${label[0].toUpperCase()}${label.substring(1)}`}
         </button>
       </div>
     </div>

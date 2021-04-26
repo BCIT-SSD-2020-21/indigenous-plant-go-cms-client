@@ -124,14 +124,17 @@
 
     button {
       width: 100%;
-      background: var(--highlight);
-      color: var(--lightprimary);
+      background: none;
+      color: var(--highlight);
       padding: 11px 14px;
       transition: 0.2s ease-in-out;
+      font-size: 12px;
+      text-align: left;
+      padding-left: 2px;
 
       &:hover,
       &:focus {
-        background: var(--highlightsecondary);
+        color: var(--highlightsecondary);
       }
     }
   }

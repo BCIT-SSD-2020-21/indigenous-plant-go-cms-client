@@ -84,11 +84,8 @@ export default function MediaPicker({
         </button>
       </div>
       <div className="textpicker__footer">
-        <span className="or">
-          <span>Or</span>
-        </span>
         <button>
-          Upload A New {`${label[0].toUpperCase()}${label.substring(1)}`}
+          + Upload A New {`${label[0].toUpperCase()}${label.substring(1)}`}
         </button>
       </div>
     </div>
