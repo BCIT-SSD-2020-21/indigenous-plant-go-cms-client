@@ -2,7 +2,14 @@ import React from "react";
 import DashHeader from "../../DashHeader";
 import TextPickerCtrl from "../../../controllers/Forms/TextPicker/TextPickerCtrl";
 import MediaPickerCtrl from "../../../controllers/Forms/MediaPicker/MediaPickerCtrl";
-import { locations, categories, tags, images } from "../../../data";
+import {
+  locations,
+  categories,
+  tags,
+  images,
+  audio,
+  videos,
+} from "../../../data";
 
 export default function AddPlants({
   handlePublish,
@@ -39,6 +46,18 @@ export default function AddPlants({
         label={"image"}
         dataLabel={"image"}
         data={images}
+        setter={(data) => tagsChanged(data)}
+      />
+      <MediaPickerCtrl
+        label={"Audio File"}
+        dataLabel={"audio_file"}
+        data={audio}
+        setter={(data) => tagsChanged(data)}
+      />
+      <MediaPickerCtrl
+        label={"video"}
+        dataLabel={"video"}
+        data={videos}
         setter={(data) => tagsChanged(data)}
       />
     </div>

@@ -15,7 +15,7 @@
 
   .textpicker__scroll {
     border: 1px solid var(--lightborder);
-    height: 150px;
+    max-height: 150px;
     overflow-y: auto;
 
     ul {
@@ -42,6 +42,7 @@
 
         .selected__media__meta {
           max-width: 300px;
+          padding: 0 7px;
           label {
             white-space: nowrap;
             overflow: hidden;

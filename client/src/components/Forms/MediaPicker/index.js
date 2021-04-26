@@ -101,7 +101,7 @@ const renderIcon = (label) => {
       return <ImageIcon />;
     case "video":
       return <VideoIcon />;
-    case "audio":
+    case "Audio File":
       return <AudioIcon />;
     default:
       return <ImageIcon />;

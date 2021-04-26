@@ -57,6 +57,11 @@ fieldset .ui.toggle.checkbox input:checked ~ label {
 
 .ui.selection.dropdown .divider.text {
   color: var(--darkprimary) !important;
+  font-size: 12px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-width: 160px !important;
 }
 
 input,

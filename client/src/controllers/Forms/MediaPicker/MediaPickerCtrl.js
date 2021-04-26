@@ -56,6 +56,10 @@ export default function MediaPickerCtrl({ label, dataLabel, data, setter }) {
       (option) => option._id === selectedOption
     )[0];
 
+    console.log(foundOption);
+    console.log(dataLabel);
+    console.log(foundOption[`${dataLabel}_url`]);
+
     if (!foundOption || foundOption.length < 1)
       return console.log("Error selecting option");
 
