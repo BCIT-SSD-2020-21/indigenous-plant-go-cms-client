@@ -60,11 +60,11 @@ const seed = async () => {
   // 3. Insert Videos
   await videos.insertMany([
     {
-      "video_url": "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+      "video_url": "https://www.youtube.com/watch?v=-EfK8OhRElI",
       "caption": "A lavender flower blooming timelapse"
     },
     {
-      "video_url": "s3.aws.indigenousplantgo.com/video/kinnikinncik-bloom.mp4",
+      "video_url": "https://www.youtube.com/watch?v=lhqNduGgpC8",
       "caption": "A kinnikinnick flower blooming timelapse"
     }
   ])
