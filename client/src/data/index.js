@@ -39,3 +39,22 @@ export const categories = [
     category_name: "exotic",
   },
 ];
+
+export const tags = [
+  {
+    _id: "0fb14ca5-8548-4361-82c3-361c9d23e125",
+    tag_name: "Flower",
+  },
+  {
+    _id: "0fb14ca5-8548-4361-82c3-3870dm7e2125",
+    tag_name: "Bloom",
+  },
+  {
+    _id: "8365bnh75-8952-4361-82c3-387c9d7e2125",
+    tag_name: "Purple",
+  },
+  {
+    _id: "0fb14ca5-kjds-827b-82c3-387c9d7e228b",
+    tag_name: "Pink",
+  },
+];

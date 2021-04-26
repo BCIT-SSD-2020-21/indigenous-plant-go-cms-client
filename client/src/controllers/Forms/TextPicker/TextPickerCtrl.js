@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import TextPicker from "../../../components/Forms/TextPicker";
 
-export default function TextPickerCtrl({ label, dataLabel, data }) {
+export default function TextPickerCtrl({ label, dataLabel, data, setter }) {
   const [activeSelection, setActiveSelection] = useState([]);
   const [formattedOptions, setFormattedOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
@@ -10,6 +10,10 @@ export default function TextPickerCtrl({ label, dataLabel, data }) {
   useEffect(() => {
     setOptions(data);
   }, []);
+
+  useEffect(() => {
+    setter(activeSelection);
+  }, [activeSelection]);
 
   useEffect(() => {
     formatOptions();

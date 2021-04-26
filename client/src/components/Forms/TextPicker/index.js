@@ -17,7 +17,7 @@ export default function TextPicker({
       <label>
         {label === "category"
           ? "Categories:"
-          : `${label[0].toUpperCase()}${label.substring(1)}(s)`}
+          : `${label[0].toUpperCase()}${label.substring(1)}(s):`}
 
         <span className="req">*</span>
       </label>
