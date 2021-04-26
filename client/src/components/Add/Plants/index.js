@@ -10,6 +10,8 @@ import {
   images,
   audio,
   videos,
+  plants,
+  waypoints,
 } from "../../../data";
 
 export default function AddPlants({
@@ -64,7 +66,19 @@ export default function AddPlants({
         data={videos}
         setter={(data) => videosChanged(data)}
       />
-      <ContentPickerCtrl />
+      <ContentPickerCtrl
+        label={"plant"}
+        dataLabel={"plant"}
+        data={plants}
+        setter={(data) => videosChanged(data)}
+      />
+
+      <ContentPickerCtrl
+        label={"waypoint"}
+        dataLabel={"waypoint"}
+        data={waypoints}
+        setter={(data) => videosChanged(data)}
+      />
     </div>
   );
 }

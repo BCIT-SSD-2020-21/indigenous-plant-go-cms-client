@@ -292,7 +292,7 @@ export const plants = [
   },
   {
     _id: "607e399e5863b87hde2af6587",
-    plant_name: "Lavende 3r",
+    plant_name: "Lavender 3",
     description:
       "Lavender is a perennial shrub with purple flowers that bloom during the summer.",
     scientific_name: "Lavandula 3",
