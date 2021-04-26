@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const mongoDatabase = require('./mongoDatabase')
 const jwt = require('./jwt')
 const apikey = require('./apikey')
@@ -19,6 +20,7 @@ const makePlantsRouter = require('./routers/plantsRouter')
 
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 const bucketName = process.env.AWS_BUCKET_NAME
 const region = process.env.AWS_BUCKET_REGION
