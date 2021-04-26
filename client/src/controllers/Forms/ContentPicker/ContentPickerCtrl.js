@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import TextPicker from "../../../components/Forms/TextPicker";
+import ContentPicker from "../../../components/Forms/ContentPicker";
 
-export default function TextPickerCtrl({ label, dataLabel, data, setter }) {
+export default function ContentPickerCtrl({ label, dataLabel, data, setter }) {
   const [activeSelection, setActiveSelection] = useState([]);
   const [formattedOptions, setFormattedOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
@@ -40,6 +40,8 @@ export default function TextPickerCtrl({ label, dataLabel, data, setter }) {
         ...option,
         key: option._id,
         value: option._id,
+        // Nullify description, it looks like semantic UI drop downs look for this specific key, value which produces unwanted effects.
+        description: null,
         text: option[`${dataLabel}_name`],
       };
     });
@@ -73,9 +75,8 @@ export default function TextPickerCtrl({ label, dataLabel, data, setter }) {
     selected = selected.filter((item) => item._id !== id);
     setActiveSelection(selected);
   };
-
   return (
-    <TextPicker
+    <ContentPicker
       handleSelectChange={handleSelectChange}
       handleRemove={handleRemove}
       confirmSelection={confirmSelection}

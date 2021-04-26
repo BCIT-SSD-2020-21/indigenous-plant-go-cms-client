@@ -15,7 +15,7 @@
 
   .textpicker__scroll {
     border: 1px solid var(--lightborder);
-    height: 150px;
+    max-height: 150px;
     overflow-y: auto;
 
     ul {
@@ -31,9 +31,26 @@
       padding: 7px;
 
       .selected__title {
+        .selected__icon {
+          width: 40px;
+          display: block;
+        }
         svg {
           fill: gray;
           margin-right: 10px;
+        }
+
+        .selected__media__meta {
+          max-width: 300px;
+          padding: 0 7px;
+          label {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: normal;
+            margin: 0;
+            font-size: 12px;
+          }
         }
       }
 
@@ -107,14 +124,17 @@
 
     button {
       width: 100%;
-      background: var(--highlight);
-      color: var(--lightprimary);
+      background: none;
+      color: var(--highlight);
       padding: 11px 14px;
       transition: 0.2s ease-in-out;
+      font-size: 12px;
+      text-align: left;
+      padding-left: 5px;
 
       &:hover,
       &:focus {
-        background: var(--highlightsecondary);
+        color: var(--highlightsecondary);
       }
     }
   }

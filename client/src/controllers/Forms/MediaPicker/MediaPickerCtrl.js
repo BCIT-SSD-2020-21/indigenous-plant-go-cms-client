@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import TextPicker from "../../../components/Forms/TextPicker";
+import MediaPicker from "../../../components/Forms/MediaPicker";
 
-export default function TextPickerCtrl({ label, dataLabel, data, setter }) {
+export default function MediaPickerCtrl({ label, dataLabel, data, setter }) {
   const [activeSelection, setActiveSelection] = useState([]);
   const [formattedOptions, setFormattedOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
@@ -40,7 +40,7 @@ export default function TextPickerCtrl({ label, dataLabel, data, setter }) {
         ...option,
         key: option._id,
         value: option._id,
-        text: option[`${dataLabel}_name`],
+        text: option.caption,
       };
     });
 
@@ -61,7 +61,8 @@ export default function TextPickerCtrl({ label, dataLabel, data, setter }) {
 
     foundOption = {
       _id: foundOption._id,
-      title: foundOption[`${dataLabel}_name`],
+      title: foundOption.caption,
+      url: foundOption[`${dataLabel}_url`],
     };
 
     const newActiveSelection = [...activeSelection, foundOption];
@@ -73,9 +74,8 @@ export default function TextPickerCtrl({ label, dataLabel, data, setter }) {
     selected = selected.filter((item) => item._id !== id);
     setActiveSelection(selected);
   };
-
   return (
-    <TextPicker
+    <MediaPicker
       handleSelectChange={handleSelectChange}
       handleRemove={handleRemove}
       confirmSelection={confirmSelection}
