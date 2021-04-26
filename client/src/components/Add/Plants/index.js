@@ -4,6 +4,8 @@ import TextPickerCtrl from "../../../controllers/Forms/TextPicker/TextPickerCtrl
 import MediaPickerCtrl from "../../../controllers/Forms/MediaPicker/MediaPickerCtrl";
 import ContentPickerCtrl from "../../../controllers/Forms/ContentPicker/ContentPickerCtrl";
 import CustomFieldPickerCtrl from "../../../controllers/Forms/CustomFieldPicker/CustomFieldPickerCtrl";
+import TextInputCtrl from "../../../controllers/Forms/TextInput/TextInputCtrl";
+import TextAreaCtrl from "../../../controllers/Forms/TextArea/TextAreaCtrl";
 import {
   locations,
   categories,
@@ -24,6 +26,9 @@ export default function AddPlants({
   audioFilesChanged,
   videosChanged,
   customFieldsChanged,
+  plantNameChanged,
+  scientificNameChanged,
+  descriptionChanged,
 }) {
   return (
     <div>
@@ -31,6 +36,19 @@ export default function AddPlants({
         title="Add New Plant"
         action="Publish"
         method={handlePublish}
+      />
+
+      <TextInputCtrl
+        label={"Plant Name"}
+        setter={(data) => plantNameChanged(data)}
+      />
+      <TextInputCtrl
+        label={"Scientific Name"}
+        setter={(data) => scientificNameChanged(data)}
+      />
+      <TextAreaCtrl
+        label={"Description"}
+        setter={(data) => descriptionChanged(data)}
       />
       <TextPickerCtrl
         label={"location"}

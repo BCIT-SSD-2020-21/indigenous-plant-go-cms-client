@@ -125,7 +125,6 @@ export default function CustomFieldPicker({
             </p>
             <TextArea
               value={content}
-              maxLength="300"
               onChange={(e) => updateContent(e)}
               style={{
                 ...style.input,

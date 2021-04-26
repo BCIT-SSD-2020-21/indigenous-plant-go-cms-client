@@ -8,7 +8,10 @@ export default function AddPlantsCtrl() {
   const [images, setImages] = useState([]);
   const [audioFiles, setAudioFiles] = useState([]);
   const [videos, setVideos] = useState([]);
-  const [custiomFields, setCustomFields] = useState([]);
+  const [customFields, setCustomFields] = useState([]);
+  const [plantName, setPlantName] = useState("");
+  const [scientificName, setScientificName] = useState("");
+  const [description, setDescription] = useState("");
 
   const categoriesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
@@ -44,6 +47,18 @@ export default function AddPlantsCtrl() {
     setCustomFields(data);
   };
 
+  const plantNameChanged = (data) => {
+    setPlantName(data);
+  };
+
+  const scientificNameChanged = (data) => {
+    setScientificName(data);
+  };
+
+  const descriptionChanged = (data) => {
+    setDescription(data);
+  };
+
   const handlePublish = () => {
     console.log("Attempt publish");
   };
@@ -57,6 +72,9 @@ export default function AddPlantsCtrl() {
       audioFilesChanged={audioFilesChanged}
       customFieldsChanged={customFieldsChanged}
       videosChanged={videosChanged}
+      plantNameChanged={plantNameChanged}
+      scientificNameChanged={scientificNameChanged}
+      descriptionChanged={descriptionChanged}
       handlePublish={handlePublish}
     />
   );
