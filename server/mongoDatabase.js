@@ -810,6 +810,81 @@ module.exports = async function() {
     return await plants.aggregate(aggregateOptions).next()
   }
 
+  //Update
+  //PUT /api/plants/:plantId
+  async function updatePlant({plantId, updatedPlant, user_id}) {
+    //Convert all passed in array of id to ObjectId
+    //User should get data of the plant when they start editing
+    if(updatedPlant.images) {
+      updatedPlant.images.forEach((image, index, self) => {
+        self[index] = ObjectID(image)
+      })
+    }
+
+    if(updatedPlant.audio_files) {
+      updatedPlant.audio_files.forEach((audio, index, self) => {
+        self[index] = ObjectID(audio)
+      })
+    }
+
+    if(updatedPlant.videos) {
+      updatedPlant.videos.forEach((video, index, self) => {
+        self[index] = ObjectID(video)
+      })
+    }
+
+    if(updatedPlant.tags) {
+      updatedPlant.tags.forEach((tag, index, self) => {
+        self[index] = ObjectID(tag)
+      })
+    }
+
+    if(updatedPlant.categories) {
+      updatedPlant.categories.forEach((category, index, self) => {
+        self[index] = ObjectID(category)
+      })
+    }
+
+    if(updatedPlant.locations) {
+      updatedPlant.locations.forEach((location, index, self) => {
+        self[index] = ObjectID(location)
+      })
+    }
+
+    if(updatedPlant.custom_fields) {
+      updatedPlant.custom_fields.forEach((custom_field, index, self) => {
+        self[index] = ObjectID(custom_field)
+      })
+    }
+
+    //New revision for when plant is updated
+    const revision = await createRevision({user_id: user_id})
+
+    const plant = await plants.findOne({_id: ObjectID(plantId)})
+    updatedPlant.revisions = plant.revisions
+    updatedPlant.revisions.push(ObjectID(revision.ops[0]._id))
+
+    const result = await plants.findOneAndUpdate(
+      {_id: ObjectID(plantId)},
+      {$set: {...updatedPlant}}
+    )
+    return result
+  }
+  
+  //Delete
+  //DELETE /api/plants/:plantId
+  async function deletePlant({plantId}) {
+    const plant = await plants.findOne({_id: ObjectID(plantId)})
+    plant.revisions.forEach(async(revision) => {
+      await deleteRevision({revisionId: revision})
+    })
+
+    const result = await plants.findOneAndDelete({
+      _id: ObjectID(plantId)
+    })
+    return result
+  }
+
   return {
     //User
     createUser,
@@ -860,6 +935,8 @@ module.exports = async function() {
     //Plant
     getPlants,
     createPlant,
-    getPlant
+    getPlant,
+    updatePlant,
+    deletePlant
   }
 }
