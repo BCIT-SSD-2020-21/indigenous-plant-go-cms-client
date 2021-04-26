@@ -8,6 +8,7 @@ export default function AddPlantsCtrl() {
   const [images, setImages] = useState([]);
   const [audioFiles, setAudioFiles] = useState([]);
   const [videos, setVideos] = useState([]);
+  const [custiomFields, setCustomFields] = useState([]);
 
   const categoriesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
@@ -39,6 +40,10 @@ export default function AddPlantsCtrl() {
     setVideos(mappedData);
   };
 
+  const customFieldsChanged = (data) => {
+    setCustomFields(data);
+  };
+
   const handlePublish = () => {
     console.log("Attempt publish");
   };
@@ -50,6 +55,7 @@ export default function AddPlantsCtrl() {
       locationsChanged={locationsChanged}
       imagesChanged={imagesChanged}
       audioFilesChanged={audioFilesChanged}
+      customFieldsChanged={customFieldsChanged}
       videosChanged={videosChanged}
       handlePublish={handlePublish}
     />

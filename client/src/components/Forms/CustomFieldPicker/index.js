@@ -93,7 +93,7 @@ export default function CustomFieldPicker({
       )}
       <div className="textpicker__footer">
         <button onClick={() => handleNewCustomField()}>
-          + Upload A New {`${label[0].toUpperCase()}${label.substring(1)}`}
+          + Create A New {`${label[0].toUpperCase()}${label.substring(1)}`}
         </button>
         <Modal
           isActive={modalActive}
@@ -102,7 +102,7 @@ export default function CustomFieldPicker({
           title={
             modalState === "edit"
               ? `Edit ${`${label[0].toUpperCase()}${label.substring(1)}`}`
-              : `Upload A New ${`${label[0].toUpperCase()}${label.substring(
+              : `Create A New ${`${label[0].toUpperCase()}${label.substring(
                   1
                 )}`}`
           }

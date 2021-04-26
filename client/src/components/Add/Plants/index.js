@@ -23,6 +23,7 @@ export default function AddPlants({
   imagesChanged,
   audioFilesChanged,
   videosChanged,
+  customFieldsChanged,
 }) {
   return (
     <div>
@@ -67,7 +68,7 @@ export default function AddPlants({
         data={videos}
         setter={(data) => videosChanged(data)}
       />
-      <ContentPickerCtrl
+      {/* <ContentPickerCtrl
         label={"plant"}
         dataLabel={"plant"}
         data={plants}
@@ -79,10 +80,10 @@ export default function AddPlants({
         dataLabel={"waypoint"}
         data={waypoints}
         setter={(data) => videosChanged(data)}
-      />
+      /> */}
       <CustomFieldPickerCtrl
         label={"Custom Field"}
-        setter={(data) => videosChanged(data)}
+        setter={(data) => customFieldsChanged(data)}
       />
     </div>
   );

@@ -2,13 +2,17 @@ import React, { useState, useEffect } from "react";
 import CustomFieldPicker from "../../../components/Forms/CustomFieldPicker";
 import { v4 as uuidv4 } from "uuid";
 
-export default function CustomFieldPickerCtrl({ label }) {
+export default function CustomFieldPickerCtrl({ label, setter }) {
   const [activeSelection, setActiveSelection] = useState([]);
   const [modalActive, setModalActive] = useState(false);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [_id, setId] = useState("");
   const [modalState, setModalState] = useState("add");
+
+  useEffect(() => {
+    setter(activeSelection);
+  }, [activeSelection]);
 
   const clearFields = () => {
     setTitle("");
