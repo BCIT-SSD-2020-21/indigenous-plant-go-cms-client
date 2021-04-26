@@ -1,6 +1,8 @@
 # Get audios
 @desc GET all audio files
+
 @route /api/audios
+
 @access Protected -- API key
 
 Example request: GET /api/audios?key=<API_KEY>

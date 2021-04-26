@@ -1,6 +1,8 @@
 # Get categories
 @desc GET all categories
+
 @route /api/categories
+
 @access Protected -- API key
 
 Example request: GET /api/categories?key=<API_KEY>

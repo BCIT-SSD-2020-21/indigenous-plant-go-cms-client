@@ -15,7 +15,7 @@ Example request: POST /api/images?key=<API_KEY>
 }
 ```
 
-"<file>" represent file input
+`<file>` represent file input
 
 The image file must have key name "image"
 

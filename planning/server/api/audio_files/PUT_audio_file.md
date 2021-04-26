@@ -1,6 +1,8 @@
 # Update audio
 @desc PUT single audio file (Update)
+
 @route /api/audios/:id
+
 @access Protected -- API key, require user login
 
 Example request: PUT /api/audios/607e399e59c8feg7e2af65r7?key=<API_KEY>
@@ -13,8 +15,10 @@ Example request: PUT /api/audios/607e399e59c8feg7e2af65r7?key=<API_KEY>
 }
 ```
 
-<file> represent file input
+`<file>` represent file input
+
 The audio file must have key name "audio"
+
 If you don't provide a field that field will just remain as the old value
 
 # SUCCESS RESPONSE BODY

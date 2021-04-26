@@ -1,6 +1,8 @@
 # Get locations
 @desc GET all locations
+
 @route /api/locations
+
 @access Protected -- API key
 
 Example request: GET /api/locations?key=<API_KEY>

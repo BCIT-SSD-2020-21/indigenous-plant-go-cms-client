@@ -1,6 +1,8 @@
 # Create location
 @desc POST single location
+
 @route /api/locations
+
 @access Protected -- API key, require user login
 
 Example request: POST /api/locations?key=<API_KEY>

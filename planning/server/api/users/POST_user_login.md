@@ -1,5 +1,6 @@
 # Login user
 @desc POST single user login information (Login)
+
 @route /api/users/login
 
 Example request: POST /api/users/login
