@@ -1,5 +1,6 @@
 const {MongoClient, ObjectID} = require('mongodb')
 const bcrypt = require('bcryptjs')
+const e = require('express')
 require('dotenv').config()
 
 const url = 'mongodb://localhost:27017'
@@ -19,6 +20,7 @@ module.exports = async function() {
   const categories = db.collection('categories')
   const locations = db.collection('locations')
   const revisions = db.collection('revisions')
+  const plants= db.collection('plants')
 
   //Users
 
@@ -588,6 +590,7 @@ module.exports = async function() {
   //GET /api/plants
   async function getPlants() {
     //Fields like images must be array of ObjectId
+    //Should convert all the ObjectId array to array of their respective item
     const aggregateOptions = [
       {
         $lookup: {
@@ -646,6 +649,88 @@ module.exports = async function() {
         }
       }
     ]
+
+    return await plants.aggregate(aggregateOptions).toArray()
+  }
+
+  async function createPlant({newPlant, user_id}) {
+    //Check required none array field first
+    if(!newPlant.plant_name) {
+      throw Error("Missing plant name")
+    }
+
+    if(!newPlant.scientific_name) {
+      throw Error("Missing scientific name")
+    }
+
+    //Convert all passed in array of id to ObjectId
+    //Require passing in array of string
+    //Default to empty array if the field is not given
+    if(newPlant.images) {
+      newPlant.images.forEach((image, index, self) => {
+        self[index] = ObjectID(image)
+      })
+    } else {
+      newPlant.images = []
+    }
+
+    if(newPlant.audio_files) {
+      newPlant.audio_files.forEach((audio, index, self) => {
+        self[index] = ObjectID(audio)
+      })
+    } else {
+      newPlant.audio_files = []
+    }
+
+    if(newPlant.videos) {
+      newPlant.videos.forEach((video, index, self) => {
+        self[index] = ObjectID(video)
+      })
+    } else {
+      newPlant.videos = []
+    }
+
+    if(newPlant.tags) {
+      newPlant.tags.forEach((tag, index, self) => {
+        self[index] = ObjectID(tag)
+      })
+    } else {
+      newPlant.tags = []
+    }
+
+    if(newPlant.categories) {
+      newPlant.categories.forEach((category, index, self) => {
+        self[index] = ObjectID(category)
+      })
+    } else {
+      newPlant.categories = []
+    }
+
+    if(newPlant.locations) {
+      newPlant.locations.forEach((location, index, self) => {
+        self[index] = ObjectID(location)
+      })
+    } else {
+      newPlant.locations = []
+    }
+
+    if(newPlant.custom_fields) {
+      newPlant.custom_fields.forEach((custom_field, index, self) => {
+        self[index] = ObjectID(custom_field)
+      })
+    } else {
+      newPlant.custom_fields = []
+    }
+
+    //New revision for when plant is created
+    const revision = await createRevision({user_id: user_id})
+
+    newPlant.revisions = [ObjectID(revision.ops[0]._id)]
+
+    const result = await plants.insertOne({
+      ...newPlant
+    })
+    return result
   }
 
   return {
@@ -696,6 +781,7 @@ module.exports = async function() {
     getRevision,
     deleteRevision,
     //Plant
-    getPlants
+    getPlants,
+    createPlant
   }
 }

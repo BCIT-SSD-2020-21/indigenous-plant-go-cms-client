@@ -15,6 +15,7 @@ const makeTagsRouter = require('./routers/tagsRouter')
 const makeCategoriesRouter = require('./routers/categoriesRouter')
 const makeLocationsRouter = require('./routers/locationsRouter')
 const makeRevisionsRouter = require('./routers/revisionsRouter')
+const makePlantsRouter = require('./routers/plantsRouter')
 
 const app = express()
 app.use(express.json())
@@ -71,6 +72,9 @@ mongoDatabase().then((database) => {
 
   const revisionsRouter = makeRevisionsRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
   app.use('/api/revisions', revisionsRouter)
+
+  const plantsRouter = makePlantsRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
+  app.use('/api/plants', plantsRouter)
 })
 
 const port = process.env.port || 8080
