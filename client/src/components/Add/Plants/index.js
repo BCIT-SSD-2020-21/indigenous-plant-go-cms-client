@@ -2,6 +2,7 @@ import React from "react";
 import DashHeader from "../../DashHeader";
 import TextPickerCtrl from "../../../controllers/Forms/TextPicker/TextPickerCtrl";
 import MediaPickerCtrl from "../../../controllers/Forms/MediaPicker/MediaPickerCtrl";
+import ContentPickerCtrl from "../../../controllers/Forms/ContentPicker/ContentPickerCtrl";
 import {
   locations,
   categories,
@@ -63,6 +64,7 @@ export default function AddPlants({
         data={videos}
         setter={(data) => videosChanged(data)}
       />
+      <ContentPickerCtrl />
     </div>
   );
 }
