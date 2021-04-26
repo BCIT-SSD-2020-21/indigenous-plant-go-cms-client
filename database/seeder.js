@@ -28,8 +28,6 @@ const seed = async () => {
   const waypoint = db.collection('waypoint')
   const learn_more = db.collection('learn_more')
 
-
-
   // III. Insert Data to mongoDB
   // 1. Insert Users
   await users.insertMany([
@@ -62,11 +60,11 @@ const seed = async () => {
   // 3. Insert Videos
   await videos.insertMany([
     {
-      "video_url": "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+      "video_url": "https://www.youtube.com/watch?v=-EfK8OhRElI",
       "caption": "A lavender flower blooming timelapse"
     },
     {
-      "video_url": "s3.aws.indigenousplantgo.com/video/kinnikinncik-bloom.mp4",
+      "video_url": "https://www.youtube.com/watch?v=lhqNduGgpC8",
       "caption": "A kinnikinnick flower blooming timelapse"
     }
   ])
@@ -74,11 +72,11 @@ const seed = async () => {
   // 4. Insert Audios
   await audios.insertMany([
     {
-      "image_url": "s3.aws.indigenousplantgo.com/audios/lavender-1.mp3",
+      "image_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/sound-1.mp3",
       "caption": "lavender"
     },
     {
-      "image_url": "s3.aws.indigenousplantgo.com/audios/kinnikinnick.mp3",
+      "image_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/sound-2.mp3",
       "caption": "kinnikinnick"
     }
   ])
