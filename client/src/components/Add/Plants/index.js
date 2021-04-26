@@ -3,6 +3,7 @@ import DashHeader from "../../DashHeader";
 import TextPickerCtrl from "../../../controllers/Forms/TextPicker/TextPickerCtrl";
 import MediaPickerCtrl from "../../../controllers/Forms/MediaPicker/MediaPickerCtrl";
 import ContentPickerCtrl from "../../../controllers/Forms/ContentPicker/ContentPickerCtrl";
+import CustomFieldPickerCtrl from "../../../controllers/Forms/CustomFieldPicker/CustomFieldPickerCtrl";
 import {
   locations,
   categories,
@@ -77,6 +78,10 @@ export default function AddPlants({
         label={"waypoint"}
         dataLabel={"waypoint"}
         data={waypoints}
+        setter={(data) => videosChanged(data)}
+      />
+      <CustomFieldPickerCtrl
+        label={"Custom Field"}
         setter={(data) => videosChanged(data)}
       />
     </div>

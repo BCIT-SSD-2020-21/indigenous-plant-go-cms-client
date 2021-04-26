@@ -3,7 +3,6 @@ import {
   TrashIcon,
   ImageIcon,
   AudioIcon,
-  VideoIcon,
   PlantIcon,
   CompassIcon,
 } from "../../../icons";
