@@ -587,6 +587,8 @@ module.exports = async function() {
   }
 
   //Plant
+
+  //Get All
   //GET /api/plants
   async function getPlants() {
     //Fields like images must be array of ObjectId
@@ -653,6 +655,8 @@ module.exports = async function() {
     return await plants.aggregate(aggregateOptions).toArray()
   }
 
+  //Create
+  //POST /api/plants
   async function createPlant({newPlant, user_id}) {
     //Check required none array field first
     if(!newPlant.plant_name) {
@@ -661,6 +665,10 @@ module.exports = async function() {
 
     if(!newPlant.scientific_name) {
       throw Error("Missing scientific name")
+    }
+
+    if(!newPlant.description) {
+      throw Error("Missing description")
     }
 
     //Convert all passed in array of id to ObjectId
@@ -733,6 +741,71 @@ module.exports = async function() {
     return result
   }
 
+  //Get One
+  //GET /api/plants/:plantId
+  async function getPlant({plantId}) {
+    const aggregateOptions = [
+      {
+        $lookup: {
+          from: 'images',
+          localField: 'images',
+          foreignField: '_id',
+          as: 'images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'audios',
+          foreignField: '_id',
+          as: 'audios'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'videos',
+          foreignField: '_id',
+          as: 'videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'tags',
+          foreignField: '_id',
+          as: 'tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'categories',
+          foreignField: '_id',
+          as: 'categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'locations',
+          localField: 'locations',
+          foreignField: '_id',
+          as: 'locations'
+        }
+      },
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'revisions',
+          foreignField: '_id',
+          as: 'revisions'
+        }
+      }
+    ]
+
+    return await plants.findOne({_id: ObjectID(revisionId)})
+  }
+
   return {
     //User
     createUser,
@@ -782,6 +855,7 @@ module.exports = async function() {
     deleteRevision,
     //Plant
     getPlants,
-    createPlant
+    createPlant,
+    getPlant
   }
 }

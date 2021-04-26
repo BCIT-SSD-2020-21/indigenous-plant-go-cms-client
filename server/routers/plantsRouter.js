@@ -27,5 +27,18 @@ module.exports = function({database, authorize, verifyKey}) {
     }
   })
 
+  //Get One
+  //GET /api/plants/:plantId?key=<API_KEY>
+  router.get('/:plantId', verifyKey, async (req, res) => {
+    try {
+      const plantId = req.params.plantId
+      const result = await database.getPlant({plantId})
+      res.send(result)
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
   return router
 }
