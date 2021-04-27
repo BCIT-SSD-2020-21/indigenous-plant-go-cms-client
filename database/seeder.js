@@ -34,13 +34,13 @@ const seed = async () => {
   await users.insertMany([
     {
       "email" : "bob@test.ca",
-      "username" : "Bob",
+      "user_name" : "bob",
       "password" : "$2a$12$V.slVAcWMlWxKNw7qbYEcO5UvkYBOvMMu2nKvkyPVZh5bE93EfCUu",
       "role" : "Admin"    
     },
     {
       "email" : "charli@test.ca",
-      "username" : "charli",
+      "user_name" : "charli",
       "password" : "$2a$12$exIUEGDgWU.l2mJU78JIBOJvwA1j/OHmp5OidfVVfrEiFBotD91.C",
       "role" : "Manager"
     
@@ -102,27 +102,51 @@ const seed = async () => {
   // 6. Insert Categories
   await categories.insertMany([
     {
-      "category_name": "medicinal properties",
+      "category_name": "caryophyllaceae",
       "resource": "plants",
     },
     {
-      "category_name": "color",
+      "category_name": "asteraceae",
       "resource": "plants",
     },
     {
-      "category_name": "color",
+      "category_name": "medicinal",
       "resource": "plants",
     },
     {
-      "category_name": "CategoryName2",
+      "category_name": "SE14",
       "resource": "waypoints",
     },
     {
-      "category_name": "CategoryName3",
+      "category_name": "SW01",
+      "resource": "waypoints",
+    },
+    {
+      "category_name": "SW02",
+      "resource": "waypoints",
+    },
+    {
+      "category_name": "english walk",
       "resource": "tours",
     },
     {
-      "category_name": "CategoryName4",
+      "category_name": "hidden gem",
+      "resource": "tours",
+    },
+    {
+      "category_name": "scenic",
+      "resource": "tours",
+    },
+    {
+      "category_name": "historic",
+      "resource": "learn_more",
+    },
+    {
+      "category_name": "legend",
+      "resource": "learn_more",
+    },
+    {
+      "category_name": "seasonal",
       "resource": "learn_more",
     }
   ])
@@ -150,8 +174,8 @@ const seed = async () => {
   // ])
 
   // 9. Insert Revision Histroy
-  const user1 = await users.findOne({username: "Bob"})
-  const user2 = await users.findOne({username: "charli"})
+  const user1 = await users.findOne({"user_name": "bob"})
+  const user2 = await users.findOne({"user_name": "charli"})
 
   await revisions.insertMany([
     { 
@@ -173,8 +197,8 @@ const seed = async () => {
   const audio2 = await audios.findOne({"caption": "kinnikinnick"})
   const location1 = await locations.findOne({"location_name": "SW1"})
   const location2 = await locations.findOne({"location_name": "SW2"})
-  const category1 = await categories.findOne({"resource": "plants"})
-  const category2 = await categories.findOne({ "resource": "plants"})
+  const category1 = await categories.findOne({"category_name": "caryophyllaceae",})
+  const category2 = await categories.findOne({ "category_name": "asteraceae"})
   const tag1 = await tags.findOne({"tag_name": "healing"})
   const tag2 = await tags.findOne({"tag_name": "luck"})
   // const custom_field1 = await custom_fields.findOne({"field_title" : "Water Intake"})
@@ -248,7 +272,7 @@ const seed = async () => {
       "location": location1._id,
       //"custom_fields": [custom_field1._id],
       "images": [image1._id],
-     " audio_files": [audio1._id],
+     "audio_files": [audio1._id],
       "videos": [video1._id],
       "tags": [tag1._id],
       "categories": [category1._id],
