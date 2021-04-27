@@ -133,11 +133,9 @@ export default function ListPlantsCtrl() {
     let newSelected = [...selectedPlants];
 
     if (selectedPlants.includes(id)) {
-      console.log("id is inside, remove it");
       newSelected = newSelected.filter((item) => item !== id);
       console.log(newSelected);
     } else {
-      console.log("id is NOT inside, add it");
       newSelected = [...newSelected, id];
     }
 

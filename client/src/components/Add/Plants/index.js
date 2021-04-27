@@ -6,16 +6,6 @@ import ContentPickerCtrl from "../../../controllers/Forms/ContentPicker/ContentP
 import CustomFieldPickerCtrl from "../../../controllers/Forms/CustomFieldPicker/CustomFieldPickerCtrl";
 import TextInputCtrl from "../../../controllers/Forms/TextInput/TextInputCtrl";
 import TextAreaCtrl from "../../../controllers/Forms/TextArea/TextAreaCtrl";
-import {
-  locations,
-  categories,
-  tags,
-  images,
-  audio,
-  videos,
-  plants,
-  waypoints,
-} from "../../../data";
 
 export default function AddPlants({
   handlePublish,
