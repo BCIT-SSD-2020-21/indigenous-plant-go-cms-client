@@ -227,6 +227,7 @@ const seed = async () => {
       "description": "Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. ", // Should be stringified HTML
       "custom_fields": [custom_field1._id] ,
       "revision_history": [revision_history1._id],
+      "categories": [category1._id],
     }
   ])
   
