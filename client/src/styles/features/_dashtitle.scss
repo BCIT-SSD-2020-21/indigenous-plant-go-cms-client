@@ -1,6 +1,8 @@
 .dash__header {
-  display: flex;
   margin-bottom: 30px;
+  .dash__title {
+    display: flex;
+  }
 
   h2 {
     margin: 0;

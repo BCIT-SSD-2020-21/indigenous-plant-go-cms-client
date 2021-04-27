@@ -92,6 +92,12 @@ button {
   }
 }
 
+button.field__button {
+  background: var(--highlight);
+  padding: 14px 10px;
+  color: var(--lightprimary);
+}
+
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .form__actions {
     flex-direction: column-reverse;
