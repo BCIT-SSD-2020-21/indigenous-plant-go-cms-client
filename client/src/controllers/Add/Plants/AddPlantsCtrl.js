@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AddPlants from "../../../components/Add/Plants";
+import { useHistory } from "react-router-dom";
 import {
   getLocations,
   getImages,
@@ -7,9 +8,11 @@ import {
   getVideos,
   getTags,
   getAllCategories,
+  createPlant,
 } from "../../../network";
 
 export default function AddPlantsCtrl() {
+  const history = useHistory();
   // ===============================================================
   // FORM DATA
   // ===============================================================
@@ -131,8 +134,29 @@ export default function AddPlantsCtrl() {
     setDescription(data);
   };
 
-  const handlePublish = () => {
+  // ===============================================================
+  // POST
+  // ===============================================================
+
+  const handlePublish = async () => {
     console.log("Attempt publish");
+
+    const plant = {
+      plant_name: plantName,
+      scientific_name: scientificName,
+      description: description,
+      images: images,
+      audio_files: audioFiles,
+      videos: videos,
+      tags: tags,
+      categories: categories,
+      locations: locations,
+      custom_fields: customFields,
+    };
+
+    const result = await createPlant(plant);
+    if (result.error) return console.log("error creating plant");
+    history.push("/plants");
   };
 
   return (
