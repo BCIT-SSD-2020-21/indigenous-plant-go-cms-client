@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ListCategories from "../../../components/List/Categories";
-import { getAllCategories } from "../../../network";
+import {
+  getCategoryGroup,
+  createCategory,
+  deleteCategory,
+  updateCategory,
+} from "../../../network";
 
 export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   const [eCategories, setECategories] = useState([]);
@@ -11,6 +16,12 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   const [pages, setPages] = useState([]);
   const [page, setPage] = useState(1);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [newCat, setNewCat] = useState("");
+  const [editCat, setEditCat] = useState("");
+  const [pendingDelete, setPendingDelete] = useState({});
+  const [pendingEdit, setPendingEdit] = useState({});
+  const [modalActive, setModalActive] = useState(false);
+  const [modalState, setModalState] = useState("delete");
 
   useEffect(() => {
     queryCategories();
@@ -49,7 +60,7 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   };
 
   const queryCategories = async () => {
-    const result = await getAllCategories();
+    const result = await getCategoryGroup(dataLabel);
     if (result.error) return console.log("error fetching categories");
     setECategories(result);
   };
@@ -119,6 +130,71 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
     }
   };
 
+  const submitNewCategory = async () => {
+    if (!newCat) return console.log("Cannot populate an empty category");
+    const category = {
+      category_name: newCat,
+      resource: `${dataLabel}`,
+    };
+
+    const result = await createCategory(category);
+    if (result.error) return console.log("error creating a category");
+    queryCategories();
+    setNewCat("");
+  };
+
+  const closeModal = () => {
+    setModalActive(false);
+  };
+
+  const handleDelete = async (e) => {
+    setModalState("delete");
+    const id = e.target.value;
+    const foundCategory = eCategories.filter(
+      (category) => category._id === id
+    )[0];
+    if (!foundCategory) return console.log("Unable to find category");
+    await setPendingDelete(foundCategory);
+    setModalActive(true);
+  };
+
+  const applyDelete = async () => {
+    const id = pendingDelete._id;
+    if (!id) return console.log("Unable to delete category");
+    const result = await deleteCategory(id);
+    if (result.error) return console.log("Unable to delete category");
+    closeModal();
+    setPendingDelete({});
+    queryCategories();
+  };
+
+  const handleEdit = async (e) => {
+    setModalState("edit");
+    const id = e.target.value;
+    const foundCategory = eCategories.filter(
+      (category) => category._id === id
+    )[0];
+    if (!foundCategory) return console.log("Unable to find category");
+    await setPendingEdit(foundCategory);
+    setEditCat(foundCategory.category_name);
+    setModalActive(true);
+  };
+
+  const applyEdit = async (e) => {
+    const id = pendingEdit._id;
+    if (!id) return console.log("Unable to edit category");
+    const updatedCategory = {
+      category_name: editCat,
+      resource: pendingEdit.resource,
+      _id: pendingEdit._id,
+    };
+    const result = await updateCategory(id, updatedCategory);
+    if (result.error) return console.log("Unable to edit category");
+    closeModal();
+    setPendingEdit({});
+    queryCategories();
+  };
+
   return (
     <ListCategories
       dataLabel={dataLabel}
@@ -136,7 +212,21 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
       prevPage={prevPage}
       handleSelected={handleSelected}
       batchSelect={batchSelect}
+      newCategory={setNewCat}
+      handleDelete={handleDelete}
+      newCategoryValue={newCat}
       selectedCategories={selectedCategories}
+      pendingDelete={pendingDelete}
+      pendingEdit={pendingEdit}
+      submitNewCategory={submitNewCategory}
+      closeModal={closeModal}
+      applyDelete={applyDelete}
+      modalActive={modalActive}
+      modalState={modalState}
+      handleEdit={handleEdit}
+      editCategory={setEditCat}
+      editCategoryValue={editCat}
+      applyEdit={applyEdit}
     />
   );
 }

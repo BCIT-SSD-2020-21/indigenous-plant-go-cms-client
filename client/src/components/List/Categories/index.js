@@ -1,12 +1,12 @@
 import React from "react";
 import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
+import Modal from "../../Modal";
 import Table from "./Table";
 
 export default function ListCategories({
   categories,
   label,
-  dataLabel,
   labelPlural,
   searchQuery,
   handleQueryChange,
@@ -20,7 +20,64 @@ export default function ListCategories({
   handleSelected,
   selectedCategories,
   batchSelect,
+  newCategory,
+  newCategoryValue,
+  submitNewCategory,
+  handleDelete,
+  pendingDelete,
+  pendingEdit,
+  closeModal,
+  modalActive,
+  applyDelete,
+  modalState,
+  handleEdit,
+  editCategory,
+  editCategoryValue,
+  applyEdit,
 }) {
+  const editModal = () => (
+    <>
+      <fieldset style={style.fieldset}>
+        <p style={style.label}>
+          Category name <span style={style.req}>*</span>
+        </p>
+        <Input
+          onChange={(e) => editCategory(e.target.value)}
+          value={editCategoryValue}
+          style={style.input}
+          placeholder="Enter category name"
+        />
+      </fieldset>
+      <button onClick={() => applyEdit()} className="field__button">
+        Update category
+      </button>
+      <button
+        onClick={() => closeModal()}
+        style={{ color: "var(--highlight)" }}
+      >
+        Cancel
+      </button>
+    </>
+  );
+
+  const deleteModal = () => (
+    <>
+      <p>
+        Deleting this category will remove all instances of the category&nbsp;
+        <strong style={{ color: "var(--danger)" }}>
+          {pendingDelete.category_name}
+        </strong>
+        . Do you wish to proceed?
+      </p>
+      <button onClick={() => applyDelete()} className="field__button">
+        Yes, I know what I am doing.
+      </button>
+      <button onClick={() => closeModal()} className="field__button secondary">
+        No, cancel my request.
+      </button>
+    </>
+  );
+
   return (
     <div>
       <DashHeader title={labelPlural} subtitle={`${label} Categories`} />
@@ -32,10 +89,17 @@ export default function ListCategories({
             <p style={style.label}>
               Category name <span style={style.req}>*</span>
             </p>
-            <Input style={style.input} placeholder="Enter category name" />
+            <Input
+              onChange={(e) => newCategory(e.target.value)}
+              value={newCategoryValue}
+              style={style.input}
+              placeholder="Enter category name"
+            />
           </fieldset>
 
-          <button className="field__button">Create new category</button>
+          <button onClick={() => submitNewCategory()} className="field__button">
+            Create new category
+          </button>
         </div>
         <div className="resource__col right">
           <p>
@@ -86,6 +150,8 @@ export default function ListCategories({
             </div>
           </div>
           <Table
+            handleDelete={handleDelete}
+            handleEdit={handleEdit}
             categories={hasPages ? pages[page - 1] : categories}
             handleSelected={handleSelected}
             selectedCategories={selectedCategories}
@@ -108,6 +174,21 @@ export default function ListCategories({
               </div>
             </div>
           )}
+
+          <Modal
+            isActive={modalActive}
+            title={
+              modalState === "delete"
+                ? `Delete ${pendingDelete.category_name}?`
+                : `Edit ${pendingEdit.category_name}`
+            }
+            subtitle={`id: ${
+              modalState === "delete" ? pendingDelete._id : pendingEdit._id
+            }`}
+            closeModal={closeModal}
+          >
+            {modalState === "delete" ? deleteModal() : editModal()}
+          </Modal>
         </div>
       </div>
     </div>

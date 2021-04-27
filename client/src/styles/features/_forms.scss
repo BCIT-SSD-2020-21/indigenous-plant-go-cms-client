@@ -96,6 +96,13 @@ button.field__button {
   background: var(--highlight);
   padding: 14px 10px;
   color: var(--lightprimary);
+  margin-bottom: 7px;
+
+  &.secondary {
+    background: var(--lightprimary);
+    color: var(--highlight);
+    border: 2px solid var(--highlight);
+  }
 }
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
