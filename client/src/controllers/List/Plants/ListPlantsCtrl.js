@@ -94,6 +94,27 @@ export default function ListPlantsCtrl() {
     setSelectedPlants(newSelected);
   };
 
+  const batchSelect = (e) => {
+    // EVALUATE STATE
+
+    const resourceIds = plantData.map((plant) => plant._id);
+    const selectedIds = selectedPlants;
+
+    const allSelected =
+      resourceIds.length == selectedIds.length &&
+      resourceIds.every(function (element, index) {
+        return element === selectedIds[index];
+      });
+
+    if (!allSelected) {
+      setSelectedPlants(resourceIds);
+    } else {
+      setSelectedPlants([]);
+    }
+
+    console.log(e.target.value);
+  };
+
   return (
     <ListPlants
       plantData={plantData_}
@@ -107,6 +128,7 @@ export default function ListPlantsCtrl() {
       applyFilters={applyFilter}
       resetFilters={resetFilters}
       handleSelected={handleSelected}
+      batchSelect={batchSelect}
     />
   );
 }

@@ -15,6 +15,7 @@ export default function ListPlants({
   resetFilters,
   handleSelected,
   selectedPlants,
+  batchSelect,
 }) {
   return (
     <div>
@@ -87,7 +88,11 @@ export default function ListPlants({
       <form>
         <div className="table__heading table__row">
           <div className="table__col head select">
-            <input type="checkbox" value={"select all"} />
+            <input
+              type="checkbox"
+              onChange={(e) => batchSelect(e)}
+              value={"select all"}
+            />
           </div>
           <div className="table__col head title">
             <h3>Title</h3>
