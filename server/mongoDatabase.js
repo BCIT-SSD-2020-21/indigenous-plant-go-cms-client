@@ -20,6 +20,7 @@ module.exports = async function() {
   const locations = db.collection('locations')
   const revisions = db.collection('revisions')
   const plants= db.collection('plants')
+  const learnmore = db.collection('learnmore')
 
   //Users
 
