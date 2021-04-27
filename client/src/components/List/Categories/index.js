@@ -8,6 +8,18 @@ export default function ListCategories({
   label,
   dataLabel,
   labelPlural,
+  searchQuery,
+  handleQueryChange,
+  applySearch,
+  clearSearch,
+  hasPages,
+  pages,
+  page,
+  prevPage,
+  nextPage,
+  handleSelected,
+  selectedCategories,
+  batchSelect,
 }) {
   return (
     <div>
@@ -46,23 +58,56 @@ export default function ListCategories({
 
             <div>
               <div className="table__action" style={{ marginRight: 0 }}>
+                {searchQuery && (
+                  <button onClick={() => clearSearch()} className="sub__action">
+                    Clear search
+                  </button>
+                )}
                 <Input
+                  value={searchQuery}
+                  onChange={(e) => handleQueryChange(e)}
                   style={{ ...style.input, minWidth: 250 }}
                   placeholder={`Enter search query`}
                 />
-                <button>Search</button>
+                <button onClick={() => applySearch()}>Search</button>
               </div>
             </div>
           </div>
           <div className="table__heading table__row">
             <div className="table__col head select">
-              <input type="checkbox" value={"select all"} />
+              <input
+                type="checkbox"
+                value={"select all"}
+                onChange={(e) => batchSelect(e)}
+              />
             </div>
             <div className="table__col head title">
               <h3>name</h3>
             </div>
           </div>
-          <Table categories={categories} />
+          <Table
+            categories={hasPages ? pages[page - 1] : categories}
+            handleSelected={handleSelected}
+            selectedCategories={selectedCategories}
+          />
+          {hasPages && (
+            <div className="pagination__control">
+              <div>
+                <p style={{ marginBottom: "7px" }}>
+                  Page {page} of {pages.length}
+                </p>
+                <div className="control">
+                  <button onClick={() => prevPage()}>
+                    <Icon name="caret left" />
+                  </button>
+                  <span>{page}</span>
+                  <button onClick={() => nextPage()}>
+                    <Icon name="caret right" />
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

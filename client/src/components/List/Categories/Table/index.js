@@ -1,15 +1,33 @@
 import React from "react";
 
-export default function Table({ categories }) {
+export default function Table({
+  categories,
+  handleSelected,
+  selectedCategories,
+}) {
   return (
     <ul className="table__list">
       {categories &&
         categories.length > 0 &&
         categories.map((category, index) => {
           return (
-            <li className="table__row" key={index}>
+            <li
+              className={
+                selectedCategories.includes(category._id)
+                  ? "table__row selected"
+                  : "table__row"
+              }
+              key={index}
+            >
               <div className="table__col select">
-                <input type="checkbox" />
+                <input
+                  type="checkbox"
+                  value={category._id}
+                  checked={
+                    selectedCategories.includes(category._id) ? true : false
+                  }
+                  onChange={(e) => handleSelected(e)}
+                />
               </div>
               <div className="table__col title">
                 <p>{category.category_name}</p>
