@@ -25,6 +25,16 @@ module.exports = function({database, authorize, verifyKey}) {
     }
   })
 
-  
+  //Update
+  router.put('/:learnMoreId', authorize, verifyKey, async (req, res) => {
+    try {
+      const learnMoreId = req.params.learnMoreId
+      const result = await database.updateLearnMore({learnMoreId, updatedLearnMore : req.body, user_id: req.user._id})
+      res.send(result)
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
   return router
 }

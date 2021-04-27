@@ -911,7 +911,7 @@ module.exports = async function() {
   }
 
     //Get One
-  //GET /api/learn_more/:learn_more_id
+  //GET /api/learn_more/:learnMoreId
   async function getLearnMoreById({learnMoreId}) {
     const aggregateOptions = [
       {
@@ -938,6 +938,30 @@ module.exports = async function() {
     ]
 
     return await learn_more.aggregate(aggregateOptions).next()
+  }
+
+   //Update
+  //PUT /api/learn_more/:learnMoreId
+  async function updateLearnMore({learnMoreId, updatedLearnMore, user_id}) {
+
+    if(updatedLearnMore.categories) {
+      updatedLearnMore.categories.forEach((category, index, self) => {
+        self[index] = ObjectID(category)
+      })
+    }
+
+    const revision = await createRevision({user_id: user_id})
+    
+    const learnmore = await learn_more.findOne({_id: ObjectID(learnMoreId)})
+
+    updatedLearnMore.revisions = learnmore.revisions
+    updatedLearnMore.revisions.push(ObjectID(revision.ops[0]._id))
+
+    const result = await learn_more.findOneAndUpdate(
+      {_id: ObjectID(learnMoreId)},
+      {$set: {...updatedLearnMore}}
+    )
+    return result
   }
 
 
@@ -997,6 +1021,7 @@ module.exports = async function() {
     deletePlant,
     //Learn More
     getLearnMore,
-    getLearnMoreById
+    getLearnMoreById,
+    updateLearnMore
   }
 }
