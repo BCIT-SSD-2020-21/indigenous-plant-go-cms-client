@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ListPlants from "../../../components/List/Plants/index";
-import { plants, categories } from "../../../data";
+import { getAllPlants, getAllCategories } from "../../../network";
 
 export default function ListPlantsCtrl() {
-  const [plantData, setPlantData] = useState(plants);
+  const [plantData, setPlantData] = useState([]);
   // plantData_ is the mutable version of plantData that we'll be using to filter
   const [plantData_, setPlantData_] = useState([]);
   const [formattedCategories, setFormattedCategories] = useState([]);
@@ -13,11 +13,17 @@ export default function ListPlantsCtrl() {
   const [hasPages, setHasPages] = useState(false);
   const [pages, setPages] = useState([]);
   const [page, setPage] = useState(1);
+  const [eCategories, setECategories] = useState([]);
+
+  useEffect(() => {
+    queryPlants();
+    queryCategories();
+    formatPages();
+  }, []);
 
   useEffect(() => {
     setPlantData_(plantData);
-    formatPages();
-  }, []);
+  }, [plantData]);
 
   useEffect(() => {
     if (!searchQuery) applyFilter();
@@ -25,12 +31,24 @@ export default function ListPlantsCtrl() {
 
   useEffect(() => {
     formatCategories();
-  }, [categories]);
+  }, [eCategories]);
 
   useEffect(() => {
     setPage(1);
     formatPages();
   }, [plantData_]);
+
+  const queryPlants = async () => {
+    const result = await getAllPlants();
+    if (result.error) return console.log("error getting plants");
+    setPlantData(result);
+  };
+
+  const queryCategories = async () => {
+    const result = await getAllCategories();
+    if (result.error) return console.log("error getting categories");
+    setECategories(result);
+  };
 
   const formatPages = () => {
     const dataLength = plantData_.length;
@@ -56,7 +74,7 @@ export default function ListPlantsCtrl() {
   };
 
   const formatCategories = () => {
-    const formatted = categories.map((category) => {
+    const formatted = eCategories.map((category) => {
       return {
         ...category,
         key: category._id,
