@@ -1,4 +1,5 @@
 import React from "react";
+import { parseDate } from "../../../../utility";
 
 export default function Table({ plantData, handleSelected, selectedPlants }) {
   return (
@@ -7,11 +8,12 @@ export default function Table({ plantData, handleSelected, selectedPlants }) {
         plantData.length > 0 &&
         plantData.map((plant, index) => {
           const lastRevision = {
-            date:
-              plant.revision_history[plant.revision_history.length - 1].date,
+            date: parseDate(
+              plant.revision_history[plant.revision_history.length - 1].date
+            ),
             user:
               plant.revision_history[plant.revision_history.length - 1].user
-                .user_name,
+                ?.user_name || " ",
           };
 
           return (
@@ -43,7 +45,7 @@ export default function Table({ plantData, handleSelected, selectedPlants }) {
                 </span>
               </div>
               <div className="table__col author">
-                <p>{plant.revision_history[0].user.user_name}</p>
+                <p>{plant.revision_history[0].user?.user_name}</p>
               </div>
               <div className="table__col categories">
                 <p>

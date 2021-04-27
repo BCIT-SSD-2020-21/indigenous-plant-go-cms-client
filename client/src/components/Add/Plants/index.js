@@ -29,6 +29,13 @@ export default function AddPlants({
   plantNameChanged,
   scientificNameChanged,
   descriptionChanged,
+  // SELECTION DATA
+  eLocations,
+  eImages,
+  eAudios,
+  eVideos,
+  eTags,
+  eCategories,
 }) {
   return (
     <div>
@@ -58,7 +65,7 @@ export default function AddPlants({
           <TextPickerCtrl
             label={"location"}
             dataLabel={"location"}
-            data={locations}
+            data={eLocations}
             setter={(data) => locationsChanged(data)}
           />
         </div>
@@ -66,19 +73,19 @@ export default function AddPlants({
           <MediaPickerCtrl
             label={"image"}
             dataLabel={"image"}
-            data={images}
+            data={eImages}
             setter={(data) => imagesChanged(data)}
           />
           <MediaPickerCtrl
             label={"Audio File"}
             dataLabel={"audio_file"}
-            data={audio}
+            data={eAudios}
             setter={(data) => audioFilesChanged(data)}
           />
           <MediaPickerCtrl
             label={"video"}
             dataLabel={"video"}
-            data={videos}
+            data={eVideos}
             setter={(data) => videosChanged(data)}
           />
         </div>
@@ -86,13 +93,13 @@ export default function AddPlants({
           <TextPickerCtrl
             label={"category"}
             dataLabel={"category"}
-            data={categories}
+            data={eCategories}
             setter={(data) => categoriesChanged(data)}
           />
           <TextPickerCtrl
             label={"tag"}
             dataLabel={"tag"}
-            data={tags}
+            data={eTags}
             setter={(data) => tagsChanged(data)}
           />
         </div>
