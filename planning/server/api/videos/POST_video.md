@@ -21,5 +21,9 @@ The video file must have key name "video"
 
 # SUCCESS RESPONSE BODY
 ```
-"Video added"
+{
+  "_id": "607e384559c86677e2af65r7",
+  "video_url": "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+  "caption": "A lavender flower blooming timelapse"
+}
 ```

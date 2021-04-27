@@ -21,6 +21,10 @@ The image file must have key name "image"
 
 # SUCCESS RESPONSE BODY
 ```
-"Image added"
+{
+  "_id": "607e399e59c8feg7e2af65r7",
+  "image_url": "s3.aws.indigenousplantgo.com/images/lavender-1",
+  "caption": "lavender in a big field"
+}
 ```
 

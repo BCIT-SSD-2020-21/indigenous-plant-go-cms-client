@@ -19,5 +19,9 @@ Resource field is provided by the frontend depending on where the category is cr
 
 # SUCCESS RESPONSE BODY
 ```
-"Category added"
+{
+  "_id": "607e399e59c86677e2af6587",
+  "category_name": "Event",
+  "resource": "plant"
+}
 ```
