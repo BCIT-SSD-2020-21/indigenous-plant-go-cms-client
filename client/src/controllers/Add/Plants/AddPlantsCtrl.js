@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import AddPlants from "../../../components/Add/Plants";
+import { getLocations } from "../../../network";
 
 export default function AddPlantsCtrl() {
+  // ===============================================================
+  // FORM DATA
+  // ===============================================================
   const [tags, setTags] = useState([]);
   const [categories, setCategories] = useState([]);
   const [locations, setLocations] = useState([]);
@@ -12,6 +16,23 @@ export default function AddPlantsCtrl() {
   const [plantName, setPlantName] = useState("");
   const [scientificName, setScientificName] = useState("");
   const [description, setDescription] = useState("");
+  // ===============================================================
+  // SELECTION DATA
+  // ===============================================================
+  const [eLocations, setELocations] = useState([]);
+
+  useEffect(() => {
+    queryLocations();
+  }, []);
+
+  // ===============================================================
+  // NETWORK QUERIES FOR EXISTING DATA
+  // ===============================================================
+  const queryLocations = async () => {
+    const result = await getLocations();
+    if (result.error) return console.log("error getting locations");
+    setELocations(result);
+  };
 
   const categoriesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
@@ -76,6 +97,8 @@ export default function AddPlantsCtrl() {
       scientificNameChanged={scientificNameChanged}
       descriptionChanged={descriptionChanged}
       handlePublish={handlePublish}
+      // SELECTION DATA
+      eLocations={eLocations}
     />
   );
 }

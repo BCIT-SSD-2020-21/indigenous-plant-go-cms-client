@@ -29,6 +29,8 @@ export default function AddPlants({
   plantNameChanged,
   scientificNameChanged,
   descriptionChanged,
+  // SELECTION DATA
+  eLocations,
 }) {
   return (
     <div>
@@ -58,7 +60,7 @@ export default function AddPlants({
           <TextPickerCtrl
             label={"location"}
             dataLabel={"location"}
-            data={locations}
+            data={eLocations}
             setter={(data) => locationsChanged(data)}
           />
         </div>
