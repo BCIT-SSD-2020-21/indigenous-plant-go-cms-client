@@ -1,12 +1,12 @@
-/*
-  @desc GET a single waypoint
-  @route /api/waypoint/:id
-  @access Protected -- API key
+# Get waypoint
+@desc GET a single waypoint
+@route /api/waypoint/:id
+@access Protected -- API key
 
-  Example request: GET /api/waypoint/607e399e59c86677e2af6587?key=<API_KEY>
-*/
+Example request: GET /api/waypoint/607e399e59c86677e2af6587?key=<API_KEY>
 
-// EXAMPLE RESPONSE BODY
+# EXAMPLE RESPONSE BODY
+```
 {
   "_id": "607e399e59c86677e2af6587",
   "waypoint_name": "The Indigenous Initiatives Gathering Place",
@@ -175,3 +175,4 @@
     }
   ]
 }
+```

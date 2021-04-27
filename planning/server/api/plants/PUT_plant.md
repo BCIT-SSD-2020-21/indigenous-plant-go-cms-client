@@ -19,7 +19,13 @@ Example request: PUT /api/plants/607e399e59c8feg7e2af65r7
   "tags": ["607e4qwee59c86677e2af65r7", "607e384559c86677e2af65r7"],
   "categories": ["607e4qwee59c86677e2ewe3447"],
   "locations": ["607e3ab0a0d3df815abfcfb1"],
-  "custom_fields": ["607e399e59c86677e2af65r7", "607e399e59c86677e465r7"]
+  "custom_fields": [
+    {
+      custom_field_id: "607e399e59c86677e2af65r7",
+      field_title: "Medical",
+      content: "Use in medical"
+    }
+  ]
 }
 ```
 

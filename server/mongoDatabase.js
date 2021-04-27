@@ -1011,7 +1011,7 @@ module.exports = async function() {
     if(newWaypoint.location) {
       newWaypoint.location = ObjectID(newWaypoint.location)
     } else {
-      newWaypoint.location = ""
+      throw Error("Missing location")
     }
 
     if(newWaypoint.plants) {
