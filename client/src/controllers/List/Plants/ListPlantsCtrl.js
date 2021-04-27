@@ -10,9 +10,13 @@ export default function ListPlantsCtrl() {
   const [categoryFilter, setCategoryFilter] = useState("default");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPlants, setSelectedPlants] = useState([]);
+  const [hasPages, setHasPages] = useState(false);
+  const [pages, setPages] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     setPlantData_(plantData);
+    formatPages();
   }, []);
 
   useEffect(() => {
@@ -22,6 +26,34 @@ export default function ListPlantsCtrl() {
   useEffect(() => {
     formatCategories();
   }, [categories]);
+
+  useEffect(() => {
+    setPage(1);
+    formatPages();
+  }, [plantData_]);
+
+  const formatPages = () => {
+    const dataLength = plantData_.length;
+    if (dataLength < 5) return setHasPages(false);
+
+    setHasPages(true);
+    let itemsChunk = 5,
+      plantData = plantData_;
+
+    // split the data into pages
+    const pages = plantData.reduce((resultArray, item, index) => {
+      const chunkIndex = Math.floor(index / itemsChunk);
+
+      if (!resultArray[chunkIndex]) {
+        resultArray[chunkIndex] = []; // start a new chunk
+      }
+
+      resultArray[chunkIndex].push(item);
+      return resultArray;
+    }, []);
+
+    setPages(pages);
+  };
 
   const formatCategories = () => {
     const formatted = categories.map((category) => {
@@ -94,9 +126,7 @@ export default function ListPlantsCtrl() {
     setSelectedPlants(newSelected);
   };
 
-  const batchSelect = (e) => {
-    // EVALUATE STATE
-
+  const batchSelect = () => {
     const resourceIds = plantData.map((plant) => plant._id);
     const selectedIds = selectedPlants;
 
@@ -111,8 +141,22 @@ export default function ListPlantsCtrl() {
     } else {
       setSelectedPlants([]);
     }
+  };
 
-    console.log(e.target.value);
+  const nextPage = () => {
+    let currentPage = page;
+    if (currentPage >= pages.length) return;
+
+    currentPage = currentPage + 1;
+    setPage(currentPage);
+  };
+
+  const prevPage = () => {
+    let currentPage = page;
+    if (currentPage === 1) return;
+
+    currentPage = currentPage - 1;
+    setPage(currentPage);
   };
 
   return (
@@ -122,6 +166,9 @@ export default function ListPlantsCtrl() {
       searchQuery={searchQuery}
       categoryFilter={categoryFilter}
       selectedPlants={selectedPlants}
+      hasPages={hasPages}
+      pages={pages}
+      page={page}
       handleFilterChange={handleFilterChange}
       handleQueryChange={handleQueryChange}
       clearSearch={clearSearch}
@@ -129,6 +176,8 @@ export default function ListPlantsCtrl() {
       resetFilters={resetFilters}
       handleSelected={handleSelected}
       batchSelect={batchSelect}
+      prevPage={prevPage}
+      nextPage={nextPage}
     />
   );
 }
