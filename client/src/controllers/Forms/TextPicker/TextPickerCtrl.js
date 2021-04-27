@@ -8,6 +8,11 @@ export default function TextPickerCtrl({ label, dataLabel, data, setter }) {
   const [options, setOptions] = useState(data);
 
   useEffect(() => {
+    setOptions(data);
+    formatOptions();
+  }, [data]);
+
+  useEffect(() => {
     setter(activeSelection);
   }, [activeSelection]);
 
@@ -27,7 +32,7 @@ export default function TextPickerCtrl({ label, dataLabel, data, setter }) {
   const formatOptions = () => {
     const activeOptions = [...activeSelection].map((item) => item._id);
 
-    const filtered = options.filter(
+    const filtered = data.filter(
       (option) => !activeOptions.includes(option._id)
     );
 

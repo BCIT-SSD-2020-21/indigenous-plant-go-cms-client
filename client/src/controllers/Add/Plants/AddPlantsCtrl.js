@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import AddPlants from "../../../components/Add/Plants";
-import { getLocations } from "../../../network";
+import {
+  getLocations,
+  getImages,
+  getAudios,
+  getVideos,
+} from "../../../network";
 
 export default function AddPlantsCtrl() {
   // ===============================================================
@@ -20,9 +25,15 @@ export default function AddPlantsCtrl() {
   // SELECTION DATA
   // ===============================================================
   const [eLocations, setELocations] = useState([]);
+  const [eImages, setEImages] = useState([]);
+  const [eAudios, setEAudios] = useState([]);
+  const [eVideos, setEVideos] = useState([]);
 
-  useEffect(() => {
-    queryLocations();
+  useEffect(async () => {
+    await queryLocations();
+    await queryImages();
+    await queryAudios();
+    await queryVideos();
   }, []);
 
   // ===============================================================
@@ -33,6 +44,28 @@ export default function AddPlantsCtrl() {
     if (result.error) return console.log("error getting locations");
     setELocations(result);
   };
+
+  const queryImages = async () => {
+    const result = await getImages();
+    if (result.error) return console.log("error getting images");
+    setEImages(result);
+  };
+
+  const queryAudios = async () => {
+    const result = await getAudios();
+    if (result.error) return console.log("error getting audios");
+    setEAudios(result);
+  };
+
+  const queryVideos = async () => {
+    const result = await getVideos();
+    if (result.error) return console.log("error getting videos");
+    setEVideos(result);
+  };
+
+  // ===============================================================
+  // INPUT WATCHERS AND SETTERS
+  // ===============================================================
 
   const categoriesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
@@ -99,6 +132,9 @@ export default function AddPlantsCtrl() {
       handlePublish={handlePublish}
       // SELECTION DATA
       eLocations={eLocations}
+      eImages={eImages}
+      eAudios={eAudios}
+      eVideos={eVideos}
     />
   );
 }

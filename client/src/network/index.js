@@ -52,25 +52,53 @@ export const login = async ({ username, password }) => {
 };
 
 export const getLocations = async () => {
-  const token = getToken();
-
-  if (!token)
-    return {
-      error: "No token found. Could not authenticate request.",
-    };
   try {
-    const response = await axios.get(`${BASE_URL}/locations`, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(`${BASE_URL}/locations`);
 
     return response.data;
   } catch (error) {
     console.log(error.response);
     return {
-      error: error.message,
+      error: error.response,
+    };
+  }
+};
+
+export const getImages = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/images`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const getAudios = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/audios`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const getVideos = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/videos`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
     };
   }
 };
