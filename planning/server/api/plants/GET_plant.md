@@ -1,12 +1,14 @@
-/*
-  @desc GET a single plant
-  @route /api/plant/:id
-  @access Protected -- API key
+# Get plant
+@desc GET a single plant
 
-  Example request: GET /api/plant/607e399e59c86677e2af6587?key=<API_KEY>
-*/
+@route /api/plant/:id
 
-// EXAMPLE RESPONSE BODY
+@access Protected -- API key
+
+Example request: GET /api/plant/607e399e59c86677e2af6587?key=<API_KEY>
+
+# EXAMPLE RESPONSE BODY
+```
 {
   "_id": "607e399e59c86677e2af6587",
   "plant_name": "Lavender",
@@ -90,3 +92,4 @@
     },
   ]
 }
+```
