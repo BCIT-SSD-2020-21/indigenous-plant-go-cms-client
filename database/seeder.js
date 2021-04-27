@@ -33,16 +33,17 @@ const seed = async () => {
   // 1. Insert Users
   await users.insertMany([
     {
-      "username" : "bob",    
-      "password" : "$2y$08$2pRScE9X7Jz8M0Ij7u5LCehFaBt5IePug7HGUBEuRONVH76zCvMtK",    
-      "email" : "bob@test.ca",    
-      "role" : "Admin"
+      "email" : "bob@test.ca",
+      "username" : "Bob",
+      "password" : "$2a$12$V.slVAcWMlWxKNw7qbYEcO5UvkYBOvMMu2nKvkyPVZh5bE93EfCUu",
+      "role" : "Admin"    
     },
     {
-      "username" : "charli",    
-      "password" : "$2y$08$2pRScE9X7Jz8M0Ij7u5LCehFaBt5IePug7HGUBEuRONVH76zCvMtK",    
-      "email" : "charlie@test.ca",    
+      "email" : "charli@test.ca",
+      "username" : "charli",
+      "password" : "$2a$12$exIUEGDgWU.l2mJU78JIBOJvwA1j/OHmp5OidfVVfrEiFBotD91.C",
       "role" : "Manager"
+    
     }
   ])
 
@@ -131,7 +132,7 @@ const seed = async () => {
   ])
 
   // 9. Insert Revision Histroy
-  const user1 = await users.findOne({username: "bob"})
+  const user1 = await users.findOne({username: "Bob"})
   const user2 = await users.findOne({username: "charli"})
 
   await revision_history.insertMany([
