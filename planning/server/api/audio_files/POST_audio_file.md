@@ -1,6 +1,8 @@
 # Create audio
 @desc POST single audio file
+
 @route /api/audios
+
 @access Protected -- API key, require user login
 
 Example request: POST /api/audios?key=<API_KEY>
@@ -13,7 +15,8 @@ Example request: POST /api/audios?key=<API_KEY>
 }
 ```
 
-<file> represent file input
+`<file>` represent file input
+
 The audio file must have key name "audio"
 
 # SUCCESS RESPONSE BODY

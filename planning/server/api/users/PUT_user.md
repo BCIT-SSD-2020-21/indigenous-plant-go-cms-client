@@ -1,6 +1,8 @@
 # Update user
 @desc PUT single user
+
 @route /api/users/:id
+
 @access Protected -- require user login
 
 Example request: PUT /api/users/607e399e59c8feg7e2af65r7

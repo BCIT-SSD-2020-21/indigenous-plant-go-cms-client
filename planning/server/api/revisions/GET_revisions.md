@@ -1,6 +1,8 @@
 # Get revisions
 @desc GET all revisions
+
 @route /api/revisions
+
 @access Protected -- API key
 
 Example request: GET /api/revisions?key=<API_KEY>

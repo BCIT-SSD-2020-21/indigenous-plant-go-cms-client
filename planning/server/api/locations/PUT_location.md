@@ -1,6 +1,8 @@
 # Update location
 @desc PUT single location (Update)
+
 @route /api/locations/:id
+
 @access Protected -- API key, require user login
 
 Example request: PUT /api/locations/607e399e59c8feg7e2af65r7?key=<API_KEY>

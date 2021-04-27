@@ -1,5 +1,6 @@
 # Register user
 @desc POST single user (Register)
+
 @route /api/users
 
 Example request: POST /api/users

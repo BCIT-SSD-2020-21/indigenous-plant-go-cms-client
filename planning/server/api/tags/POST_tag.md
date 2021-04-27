@@ -1,6 +1,8 @@
 # Create tag
 @desc POST single tag
+
 @route /api/tags
+
 @access Protected -- API key, require user login
 
 Example request: POST /api/tags?key=<API_KEY>

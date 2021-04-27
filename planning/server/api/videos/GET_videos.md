@@ -1,6 +1,8 @@
 # Get videos
 @desc GET all videos
+
 @route /api/videos
+
 @access Protected -- API key
 
 Example request: GET /api/videos?key=<API_KEY>

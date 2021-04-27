@@ -1,12 +1,14 @@
-/*
-  @desc GET all plants
-  @route /api/plants
-  @access Protected -- API key
+# Get plants
+@desc GET all plants
 
-  Example request: GET /api/plants?key=<API_KEY>
-*/
+@route /api/plants
 
-// EXAMPLE RESPONSE BODY
+@access Protected -- API key
+
+Example request: GET /api/plants?key=<API_KEY>
+
+# EXAMPLE RESPONSE BODY
+```
 [
   {
     "_id": "607e399e59c86677e2af6587",
@@ -58,7 +60,7 @@
         "tag_name": "flower"
       },
       {
-        "_id": "607e4qwee59c86677e2ewe5r7",
+        "_id": "607e384559c86677e2af65r7",
         "tag_name": "purple"
       }
     ],
@@ -93,3 +95,6 @@
   },
   // ... Repeat 
 ]
+```
+
+Seems like by default ObjectId are returned as string in response body

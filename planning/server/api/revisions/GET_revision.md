@@ -1,6 +1,8 @@
 # Get revision
 @desc GET single revision
+
 @route /api/revisions/:id
+
 @access Protected -- API key
 
 Example request: GET /api/revisions/607e399e59c86677e2af6587?key=<API_KEY>
