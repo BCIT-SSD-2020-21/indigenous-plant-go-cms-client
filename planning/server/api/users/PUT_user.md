@@ -11,7 +11,7 @@ Example request: PUT /api/users/607e399e59c8feg7e2af65r7
 ```
 {
   "email": "test@email.com",
-  "username": "test",
+  "user_name": "test",
   "password": "test",
   "role": "Admin"
 }

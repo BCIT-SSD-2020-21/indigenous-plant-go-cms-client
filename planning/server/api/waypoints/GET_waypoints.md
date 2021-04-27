@@ -1,12 +1,12 @@
-/*
-  @desc GET all waypoints
-  @route /api/waypoints
-  @access Protected -- API key
+# Get waypoints
+@desc GET all waypoints
+@route /api/waypoints
+@access Protected -- API key
 
-  Example request: GET /api/waypoints?key=<API_KEY>
-*/
+Example request: GET /api/waypoints?key=<API_KEY>
 
-// EXAMPLE RESPONSE BODY
+# EXAMPLE RESPONSE BODY
+```
 [
   {
     "_id": "607e399e59c86677e2af6587",
@@ -178,3 +178,4 @@
   }
   // ...Repeat
 ]
+```

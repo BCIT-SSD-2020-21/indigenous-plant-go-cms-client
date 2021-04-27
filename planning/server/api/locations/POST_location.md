@@ -20,5 +20,10 @@ Descripion will default to an empty string if it is not provided in the request 
 
 # SUCCESS RESPONSE BODY
 ```
-"Location added"
+{ 
+  "_id": "607e3ab0a0d3df815abfcfb1",
+  "location_name": "Lot A",
+  "coordinates": "49°15&#39;16.2&quot;N 122°59&#39;53.7&quot;W",
+  "description": ""
+}
 ```

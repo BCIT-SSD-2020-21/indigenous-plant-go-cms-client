@@ -4,10 +4,10 @@ module.exports = function({database, authorize, verifyKey}) {
   const router = express.Router()
 
   //Get All
-  //GET /api/tags?key=<API_KEY>
+  //GET /api/tours?key=<API_KEY>
   router.get('/', verifyKey, async (req, res) => {
     try {
-      const result = await database.getTags()
+      const result = await database.getTours()
       res.send(result)
     } catch (error) {
       console.error(error)
@@ -16,11 +16,11 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Create
-  //POST /api/tags?key=<API_KEY>
+  //POST /api/tours?key=<API_KEY>
   router.post('/', authorize, verifyKey, async (req, res) => {
     try {
-      const result = await database.createTag(req.body)
-      res.send(result.ops[0])
+      const result = await database.createTour({newTour: req.body, user_id: req.user._id})
+      res.send("Tour added")
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
@@ -28,11 +28,11 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Get One
-  //GET /api/tags/:tagId?key=<API_KEY>
-  router.get('/:tagId', verifyKey, async (req, res) => {
+  //GET /api/tours/:tourId?key=<API_KEY>
+  router.get('/:tourId', verifyKey, async (req, res) => {
     try {
-      const tagId = req.params.tagId
-      const result = await database.getTag({tagId})
+      const tourId = req.params.tourId
+      const result = await database.getTour({tourId})
       res.send(result)
     } catch (error) {
       console.error(error)
@@ -41,12 +41,12 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Update
-  //PUT /api/tags/:tagId?key=<API_KEY>
-  router.put('/:tagId', authorize, verifyKey, async (req, res) => {
+  //PUT /api/tours/:tourId?key=<API_KEY>
+  router.put('/:tourId', authorize, verifyKey, async (req, res) => {
     try {
-      const tagId = req.params.tagId
-      const result = await database.updateTag({tagId, updatedTag: req.body})
-      res.send("Tag updated")
+      const tourId = req.params.tourId
+      const result = await database.updateTour({tourId, updatedTour: req.body, user_id: req.user._id})
+      res.send("Tour updated")
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
@@ -54,12 +54,12 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Delete
-  //DELETE /api/tags/:tagId?key=<API_KEY>
-  router.delete('/:tagId', authorize, verifyKey, async (req, res) => {
+  //DELETE /api/tours/:tourId?key=<API_KEY>
+  router.delete('/:tourId', authorize, verifyKey, async (req, res) => {
     try {
-      const tagId = req.params.tagId
-      const result = await database.deleteTag({tagId})
-      res.send("Tag deleted")
+      const tourId = req.params.tourId
+      const result = await database.deleteTour({tourId})
+      res.send("Tour deleted")
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})

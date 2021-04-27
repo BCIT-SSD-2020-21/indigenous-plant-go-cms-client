@@ -9,7 +9,7 @@ Example request: POST /api/users
 ```
 {
   "email": "test@email.com",
-  "username": "test",
+  "user_name": "test",
   "password": "test",
   "role": "Admin"
 }
@@ -24,7 +24,7 @@ Role is default to Manager if no role is inputed
   "user": {
       "_id": "6081c2dd1d083738f4458862",
       "email": "test@email.com",
-      "username": "test",
+      "user_name": "test",
       "role": "Admin"
   }
 }

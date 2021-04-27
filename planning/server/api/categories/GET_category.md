@@ -11,6 +11,7 @@ Example request: GET /api/categories/607e399e59c86677e2af6587?key=<API_KEY>
 ```
 {
   "_id": "607e399e59c86677e2af6587",
-  "category_name": "Event"
+  "category_name": "Event",
+  "resource": "plant"
 }
 ```

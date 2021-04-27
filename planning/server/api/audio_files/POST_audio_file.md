@@ -21,6 +21,10 @@ The audio file must have key name "audio"
 
 # SUCCESS RESPONSE BODY
 ```
-"Audio file added"
+{
+  "_id": "607e399459c86677e83n65r7",
+  "audio_file_url": "s3.aws.indigenousplantgo.com/audio/roses-speech.mp3",
+  "caption": "A speech about roses"
+}
 ```
 
