@@ -130,21 +130,21 @@ const seed = async () => {
   const waypoint_category1 = await categories.findOne({"category_name" : "waypoint sw1"})
   const waypoint_category2 = await categories.findOne({"category_name" : "waypoint sw2"})
   
-  // 6. Waypoint  Categories
+  // 7. Waypoint  Categories
   await waypoint_categories.insertMany([
     {
       "categories" : [waypoint_category1._id, waypoint_category2._id] 
     }
   ])
   
-  // 7. Insert Plant Categories
+  // 8. Insert Plant Categories
   await plant_categories.insertMany([
     {
       "categories" : [plant_category1._id, plant_category2._id] 
     },
   ])
   
-  // 8. Insert Tour Categories
+  // 9. Insert Tour Categories
   await tour_categories.insertMany([
     {
       "categories" : [tour_category1._id, tour_category2._id] 
