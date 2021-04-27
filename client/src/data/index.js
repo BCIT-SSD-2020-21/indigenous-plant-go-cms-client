@@ -131,7 +131,7 @@ export const plants = [
     categories: [
       {
         _id: "607e4qwee59c86677e2ewe3447",
-        tag_name: "Prennenial",
+        category_name: "Prennenial",
       },
     ],
     custom_fields: [
@@ -219,7 +219,7 @@ export const plants = [
     categories: [
       {
         _id: "607e4qwee59c86677e2ewe3447",
-        tag_name: "Prennenial",
+        category_name: "Prennenial",
       },
     ],
     custom_fields: [
@@ -307,7 +307,1063 @@ export const plants = [
     categories: [
       {
         _id: "607e4qwee59c86677e2ewe3447",
-        tag_name: "Prennenial",
+        category_name: "Prennenial",
+      },
+    ],
+    custom_fields: [
+      {
+        _id: "607e399e59c86677e2af65r7",
+        content: "&lt;p&gt;Helps alleviate headaches and nausea&lt;/p&gt;",
+        field_title: "Medicial Properties",
+      },
+      {
+        _id: "607e399e59c86677e465r7",
+        content: "&lt;p&gt;Sweet&lt;/p&gt;",
+        field_title: "Aroma",
+      },
+    ],
+    images: [
+      {
+        _id: "607e399e59c8feg7e2af65r7",
+        caption: "lavender in a big field",
+        image_url: "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
+      },
+    ],
+    locations: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        coordinates:
+          "49°15&amp;#39;16.2&amp;quot;N 122°59&amp;#39;53.7&amp;quot;W",
+        description: "",
+        location_name: "Lot A",
+      },
+    ],
+    revision_history: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 6:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 2:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+    ],
+    tags: [
+      {
+        _id: "607e4qwee59c86677e2af65r7",
+        tag_name: "flower",
+      },
+      {
+        _id: "607e4qwee59c86677e2ewe5r7",
+        tag_name: "purple",
+      },
+    ],
+    videos: [
+      {
+        _id: "607e384559c86677e2af65r7",
+        caption: "A lavender flower blooming timelapse",
+        video_url: "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+      },
+    ],
+  },
+  {
+    _id: "607e399e586983bhe2af6587",
+    plant_name: "Lavender 4",
+    description:
+      "Lavender is a perennial shrub with purple flowers that bloom during the summer.",
+    scientific_name: "Lavandula 4",
+    audio_files: [
+      {
+        _id: "607e399459c86677e2af65r7",
+        audio_file_url:
+          "s3.aws.indigenousplantgo.com/audio/lavender-speech.mp3",
+        caption: "A speech about lavender",
+      },
+    ],
+    categories: [
+      {
+        _id: "607e4qwee59c86677e2ewe3447",
+        category_name: "Prennenial",
+      },
+    ],
+    custom_fields: [
+      {
+        _id: "607e399e59c86677e2af65r7",
+        content: "&lt;p&gt;Helps alleviate headaches and nausea&lt;/p&gt;",
+        field_title: "Medicial Properties",
+      },
+      {
+        _id: "607e399e59c86677e465r7",
+        content: "&lt;p&gt;Sweet&lt;/p&gt;",
+        field_title: "Aroma",
+      },
+    ],
+    images: [
+      {
+        _id: "607e399e59c8feg7e2af65r7",
+        caption: "lavender in a big field",
+        image_url: "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
+      },
+    ],
+    locations: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        coordinates:
+          "49°15&amp;#39;16.2&amp;quot;N 122°59&amp;#39;53.7&amp;quot;W",
+        description: "",
+        location_name: "Lot A",
+      },
+    ],
+    revision_history: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 6:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 2:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+    ],
+    tags: [
+      {
+        _id: "607e4qwee59c86677e2af65r7",
+        tag_name: "flower",
+      },
+      {
+        _id: "607e4qwee59c86677e2ewe5r7",
+        tag_name: "purple",
+      },
+    ],
+    videos: [
+      {
+        _id: "607e384559c86677e2af65r7",
+        caption: "A lavender flower blooming timelapse",
+        video_url: "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+      },
+    ],
+  },
+  {
+    _id: "607e399e5884bnsdbhe2af6587",
+    plant_name: "Lavender 5",
+    description:
+      "Lavender is a perennial shrub with purple flowers that bloom during the summer.",
+    scientific_name: "Lavandula 5",
+    audio_files: [
+      {
+        _id: "607e399459c86677e2af65r7",
+        audio_file_url:
+          "s3.aws.indigenousplantgo.com/audio/lavender-speech.mp3",
+        caption: "A speech about lavender",
+      },
+    ],
+    categories: [
+      {
+        _id: "607e4qwee59c86677e2ewe3447",
+        category_name: "Prennenial",
+      },
+    ],
+    custom_fields: [
+      {
+        _id: "607e399e59c86677e2af65r7",
+        content: "&lt;p&gt;Helps alleviate headaches and nausea&lt;/p&gt;",
+        field_title: "Medicial Properties",
+      },
+      {
+        _id: "607e399e59c86677e465r7",
+        content: "&lt;p&gt;Sweet&lt;/p&gt;",
+        field_title: "Aroma",
+      },
+    ],
+    images: [
+      {
+        _id: "607e399e59c8feg7e2af65r7",
+        caption: "lavender in a big field",
+        image_url: "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
+      },
+    ],
+    locations: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        coordinates:
+          "49°15&amp;#39;16.2&amp;quot;N 122°59&amp;#39;53.7&amp;quot;W",
+        description: "",
+        location_name: "Lot A",
+      },
+    ],
+    revision_history: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 6:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 2:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+    ],
+    tags: [
+      {
+        _id: "607e4qwee59c86677e2af65r7",
+        tag_name: "flower",
+      },
+      {
+        _id: "607e4qwee59c86677e2ewe5r7",
+        tag_name: "purple",
+      },
+    ],
+    videos: [
+      {
+        _id: "607e384559c86677e2af65r7",
+        caption: "A lavender flower blooming timelapse",
+        video_url: "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+      },
+    ],
+  },
+  {
+    _id: "607e399e586983893hj6587",
+    plant_name: "Lavender 6",
+    description:
+      "Lavender is a perennial shrub with purple flowers that bloom during the summer.",
+    scientific_name: "Lavandula 6",
+    audio_files: [
+      {
+        _id: "607e399459c86677e2af65r7",
+        audio_file_url:
+          "s3.aws.indigenousplantgo.com/audio/lavender-speech.mp3",
+        caption: "A speech about lavender",
+      },
+    ],
+    categories: [
+      {
+        _id: "607e4qwee59c86677e2ewe3447",
+        category_name: "Prennenial",
+      },
+    ],
+    custom_fields: [
+      {
+        _id: "607e399e59c86677e2af65r7",
+        content: "&lt;p&gt;Helps alleviate headaches and nausea&lt;/p&gt;",
+        field_title: "Medicial Properties",
+      },
+      {
+        _id: "607e399e59c86677e465r7",
+        content: "&lt;p&gt;Sweet&lt;/p&gt;",
+        field_title: "Aroma",
+      },
+    ],
+    images: [
+      {
+        _id: "607e399e59c8feg7e2af65r7",
+        caption: "lavender in a big field",
+        image_url: "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
+      },
+    ],
+    locations: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        coordinates:
+          "49°15&amp;#39;16.2&amp;quot;N 122°59&amp;#39;53.7&amp;quot;W",
+        description: "",
+        location_name: "Lot A",
+      },
+    ],
+    revision_history: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 6:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 2:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+    ],
+    tags: [
+      {
+        _id: "607e4qwee59c86677e2af65r7",
+        tag_name: "flower",
+      },
+      {
+        _id: "607e4qwee59c86677e2ewe5r7",
+        tag_name: "purple",
+      },
+    ],
+    videos: [
+      {
+        _id: "607e384559c86677e2af65r7",
+        caption: "A lavender flower blooming timelapse",
+        video_url: "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+      },
+    ],
+  },
+  {
+    _id: "607e399e586972he3hj6587",
+    plant_name: "Lavender 7",
+    description:
+      "Lavender is a perennial shrub with purple flowers that bloom during the summer.",
+    scientific_name: "Lavandula 7",
+    audio_files: [
+      {
+        _id: "607e399459c86677e2af65r7",
+        audio_file_url:
+          "s3.aws.indigenousplantgo.com/audio/lavender-speech.mp3",
+        caption: "A speech about lavender",
+      },
+    ],
+    categories: [
+      {
+        _id: "607e4qwee59c86677e2ewe3447",
+        category_name: "Prennenial",
+      },
+    ],
+    custom_fields: [
+      {
+        _id: "607e399e59c86677e2af65r7",
+        content: "&lt;p&gt;Helps alleviate headaches and nausea&lt;/p&gt;",
+        field_title: "Medicial Properties",
+      },
+      {
+        _id: "607e399e59c86677e465r7",
+        content: "&lt;p&gt;Sweet&lt;/p&gt;",
+        field_title: "Aroma",
+      },
+    ],
+    images: [
+      {
+        _id: "607e399e59c8feg7e2af65r7",
+        caption: "lavender in a big field",
+        image_url: "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
+      },
+    ],
+    locations: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        coordinates:
+          "49°15&amp;#39;16.2&amp;quot;N 122°59&amp;#39;53.7&amp;quot;W",
+        description: "",
+        location_name: "Lot A",
+      },
+    ],
+    revision_history: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 6:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 2:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+    ],
+    tags: [
+      {
+        _id: "607e4qwee59c86677e2af65r7",
+        tag_name: "flower",
+      },
+      {
+        _id: "607e4qwee59c86677e2ewe5r7",
+        tag_name: "purple",
+      },
+    ],
+    videos: [
+      {
+        _id: "607e384559c86677e2af65r7",
+        caption: "A lavender flower blooming timelapse",
+        video_url: "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+      },
+    ],
+  },
+  {
+    _id: "607e3998937hj972he3hj6587",
+    plant_name: "Lavender 8",
+    description:
+      "Lavender is a perennial shrub with purple flowers that bloom during the summer.",
+    scientific_name: "Lavandula 8",
+    audio_files: [
+      {
+        _id: "607e399459c86677e2af65r7",
+        audio_file_url:
+          "s3.aws.indigenousplantgo.com/audio/lavender-speech.mp3",
+        caption: "A speech about lavender",
+      },
+    ],
+    categories: [
+      {
+        _id: "607e4qwee59c86677e2ewe3447",
+        category_name: "Prennenial",
+      },
+    ],
+    custom_fields: [
+      {
+        _id: "607e399e59c86677e2af65r7",
+        content: "&lt;p&gt;Helps alleviate headaches and nausea&lt;/p&gt;",
+        field_title: "Medicial Properties",
+      },
+      {
+        _id: "607e399e59c86677e465r7",
+        content: "&lt;p&gt;Sweet&lt;/p&gt;",
+        field_title: "Aroma",
+      },
+    ],
+    images: [
+      {
+        _id: "607e399e59c8feg7e2af65r7",
+        caption: "lavender in a big field",
+        image_url: "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
+      },
+    ],
+    locations: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        coordinates:
+          "49°15&amp;#39;16.2&amp;quot;N 122°59&amp;#39;53.7&amp;quot;W",
+        description: "",
+        location_name: "Lot A",
+      },
+    ],
+    revision_history: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 6:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 2:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+    ],
+    tags: [
+      {
+        _id: "607e4qwee59c86677e2af65r7",
+        tag_name: "flower",
+      },
+      {
+        _id: "607e4qwee59c86677e2ewe5r7",
+        tag_name: "purple",
+      },
+    ],
+    videos: [
+      {
+        _id: "607e384559c86677e2af65r7",
+        caption: "A lavender flower blooming timelapse",
+        video_url: "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+      },
+    ],
+  },
+  {
+    _id: "607e39988267hj972he3hj6587",
+    plant_name: "Lavender 9",
+    description:
+      "Lavender is a perennial shrub with purple flowers that bloom during the summer.",
+    scientific_name: "Lavandula 9",
+    audio_files: [
+      {
+        _id: "607e399459c86677e2af65r7",
+        audio_file_url:
+          "s3.aws.indigenousplantgo.com/audio/lavender-speech.mp3",
+        caption: "A speech about lavender",
+      },
+    ],
+    categories: [
+      {
+        _id: "607e4qwee59c86677e2ewe3447",
+        category_name: "Prennenial",
+      },
+    ],
+    custom_fields: [
+      {
+        _id: "607e399e59c86677e2af65r7",
+        content: "&lt;p&gt;Helps alleviate headaches and nausea&lt;/p&gt;",
+        field_title: "Medicial Properties",
+      },
+      {
+        _id: "607e399e59c86677e465r7",
+        content: "&lt;p&gt;Sweet&lt;/p&gt;",
+        field_title: "Aroma",
+      },
+    ],
+    images: [
+      {
+        _id: "607e399e59c8feg7e2af65r7",
+        caption: "lavender in a big field",
+        image_url: "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
+      },
+    ],
+    locations: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        coordinates:
+          "49°15&amp;#39;16.2&amp;quot;N 122°59&amp;#39;53.7&amp;quot;W",
+        description: "",
+        location_name: "Lot A",
+      },
+    ],
+    revision_history: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 6:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 2:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+    ],
+    tags: [
+      {
+        _id: "607e4qwee59c86677e2af65r7",
+        tag_name: "flower",
+      },
+      {
+        _id: "607e4qwee59c86677e2ewe5r7",
+        tag_name: "purple",
+      },
+    ],
+    videos: [
+      {
+        _id: "607e384559c86677e2af65r7",
+        caption: "A lavender flower blooming timelapse",
+        video_url: "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+      },
+    ],
+  },
+  {
+    _id: "607e39988267756db24e3hj6587",
+    plant_name: "Lavender 10",
+    description:
+      "Lavender is a perennial shrub with purple flowers that bloom during the summer.",
+    scientific_name: "Lavandula 10",
+    audio_files: [
+      {
+        _id: "607e399459c86677e2af65r7",
+        audio_file_url:
+          "s3.aws.indigenousplantgo.com/audio/lavender-speech.mp3",
+        caption: "A speech about lavender",
+      },
+    ],
+    categories: [
+      {
+        _id: "607e4qwee59c86677e2ewe3447",
+        category_name: "Prennenial",
+      },
+    ],
+    custom_fields: [
+      {
+        _id: "607e399e59c86677e2af65r7",
+        content: "&lt;p&gt;Helps alleviate headaches and nausea&lt;/p&gt;",
+        field_title: "Medicial Properties",
+      },
+      {
+        _id: "607e399e59c86677e465r7",
+        content: "&lt;p&gt;Sweet&lt;/p&gt;",
+        field_title: "Aroma",
+      },
+    ],
+    images: [
+      {
+        _id: "607e399e59c8feg7e2af65r7",
+        caption: "lavender in a big field",
+        image_url: "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
+      },
+    ],
+    locations: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        coordinates:
+          "49°15&amp;#39;16.2&amp;quot;N 122°59&amp;#39;53.7&amp;quot;W",
+        description: "",
+        location_name: "Lot A",
+      },
+    ],
+    revision_history: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 6:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 2:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+    ],
+    tags: [
+      {
+        _id: "607e4qwee59c86677e2af65r7",
+        tag_name: "flower",
+      },
+      {
+        _id: "607e4qwee59c86677e2ewe5r7",
+        tag_name: "purple",
+      },
+    ],
+    videos: [
+      {
+        _id: "607e384559c86677e2af65r7",
+        caption: "A lavender flower blooming timelapse",
+        video_url: "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+      },
+    ],
+  },
+  {
+    _id: "607e3998826774624e3hj6587",
+    plant_name: "Lavender 11",
+    description:
+      "Lavender is a perennial shrub with purple flowers that bloom during the summer.",
+    scientific_name: "Lavandula 11",
+    audio_files: [
+      {
+        _id: "607e399459c86677e2af65r7",
+        audio_file_url:
+          "s3.aws.indigenousplantgo.com/audio/lavender-speech.mp3",
+        caption: "A speech about lavender",
+      },
+    ],
+    categories: [
+      {
+        _id: "607e4qwee59c86677e2ewe3447",
+        category_name: "Prennenial",
+      },
+    ],
+    custom_fields: [
+      {
+        _id: "607e399e59c86677e2af65r7",
+        content: "&lt;p&gt;Helps alleviate headaches and nausea&lt;/p&gt;",
+        field_title: "Medicial Properties",
+      },
+      {
+        _id: "607e399e59c86677e465r7",
+        content: "&lt;p&gt;Sweet&lt;/p&gt;",
+        field_title: "Aroma",
+      },
+    ],
+    images: [
+      {
+        _id: "607e399e59c8feg7e2af65r7",
+        caption: "lavender in a big field",
+        image_url: "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
+      },
+    ],
+    locations: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        coordinates:
+          "49°15&amp;#39;16.2&amp;quot;N 122°59&amp;#39;53.7&amp;quot;W",
+        description: "",
+        location_name: "Lot A",
+      },
+    ],
+    revision_history: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 6:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 2:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+    ],
+    tags: [
+      {
+        _id: "607e4qwee59c86677e2af65r7",
+        tag_name: "flower",
+      },
+      {
+        _id: "607e4qwee59c86677e2ewe5r7",
+        tag_name: "purple",
+      },
+    ],
+    videos: [
+      {
+        _id: "607e384559c86677e2af65r7",
+        caption: "A lavender flower blooming timelapse",
+        video_url: "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+      },
+    ],
+  },
+  {
+    _id: "607e399874jfu2wee3hj6587",
+    plant_name: "Lavender 12",
+    description:
+      "Lavender is a perennial shrub with purple flowers that bloom during the summer.",
+    scientific_name: "Lavandula 12",
+    audio_files: [
+      {
+        _id: "607e399459c86677e2af65r7",
+        audio_file_url:
+          "s3.aws.indigenousplantgo.com/audio/lavender-speech.mp3",
+        caption: "A speech about lavender",
+      },
+    ],
+    categories: [
+      {
+        _id: "607e4qwee59c86677e2ewe3447",
+        category_name: "Prennenial",
+      },
+    ],
+    custom_fields: [
+      {
+        _id: "607e399e59c86677e2af65r7",
+        content: "&lt;p&gt;Helps alleviate headaches and nausea&lt;/p&gt;",
+        field_title: "Medicial Properties",
+      },
+      {
+        _id: "607e399e59c86677e465r7",
+        content: "&lt;p&gt;Sweet&lt;/p&gt;",
+        field_title: "Aroma",
+      },
+    ],
+    images: [
+      {
+        _id: "607e399e59c8feg7e2af65r7",
+        caption: "lavender in a big field",
+        image_url: "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
+      },
+    ],
+    locations: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        coordinates:
+          "49°15&amp;#39;16.2&amp;quot;N 122°59&amp;#39;53.7&amp;quot;W",
+        description: "",
+        location_name: "Lot A",
+      },
+    ],
+    revision_history: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 6:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 2:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+    ],
+    tags: [
+      {
+        _id: "607e4qwee59c86677e2af65r7",
+        tag_name: "flower",
+      },
+      {
+        _id: "607e4qwee59c86677e2ewe5r7",
+        tag_name: "purple",
+      },
+    ],
+    videos: [
+      {
+        _id: "607e384559c86677e2af65r7",
+        caption: "A lavender flower blooming timelapse",
+        video_url: "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+      },
+    ],
+  },
+  {
+    _id: "60787fbh74jfu2wee3hj6587",
+    plant_name: "Lavender 13",
+    description:
+      "Lavender is a perennial shrub with purple flowers that bloom during the summer.",
+    scientific_name: "Lavandula 13",
+    audio_files: [
+      {
+        _id: "607e399459c86677e2af65r7",
+        audio_file_url:
+          "s3.aws.indigenousplantgo.com/audio/lavender-speech.mp3",
+        caption: "A speech about lavender",
+      },
+    ],
+    categories: [
+      {
+        _id: "607e4qwee59c86677e2ewe3447",
+        category_name: "Prennenial",
+      },
+    ],
+    custom_fields: [
+      {
+        _id: "607e399e59c86677e2af65r7",
+        content: "&lt;p&gt;Helps alleviate headaches and nausea&lt;/p&gt;",
+        field_title: "Medicial Properties",
+      },
+      {
+        _id: "607e399e59c86677e465r7",
+        content: "&lt;p&gt;Sweet&lt;/p&gt;",
+        field_title: "Aroma",
+      },
+    ],
+    images: [
+      {
+        _id: "607e399e59c8feg7e2af65r7",
+        caption: "lavender in a big field",
+        image_url: "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
+      },
+    ],
+    locations: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        coordinates:
+          "49°15&amp;#39;16.2&amp;quot;N 122°59&amp;#39;53.7&amp;quot;W",
+        description: "",
+        location_name: "Lot A",
+      },
+    ],
+    revision_history: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 6:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 2:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+    ],
+    tags: [
+      {
+        _id: "607e4qwee59c86677e2af65r7",
+        tag_name: "flower",
+      },
+      {
+        _id: "607e4qwee59c86677e2ewe5r7",
+        tag_name: "purple",
+      },
+    ],
+    videos: [
+      {
+        _id: "607e384559c86677e2af65r7",
+        caption: "A lavender flower blooming timelapse",
+        video_url: "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+      },
+    ],
+  },
+  {
+    _id: "60787fbh787ashjwee3hj6587",
+    plant_name: "Lavender 14",
+    description:
+      "Lavender is a perennial shrub with purple flowers that bloom during the summer.",
+    scientific_name: "Lavandula 14",
+    audio_files: [
+      {
+        _id: "607e399459c86677e2af65r7",
+        audio_file_url:
+          "s3.aws.indigenousplantgo.com/audio/lavender-speech.mp3",
+        caption: "A speech about lavender",
+      },
+    ],
+    categories: [
+      {
+        _id: "607e4qwee59c86677e2ewe3447",
+        category_name: "Prennenial",
+      },
+    ],
+    custom_fields: [
+      {
+        _id: "607e399e59c86677e2af65r7",
+        content: "&lt;p&gt;Helps alleviate headaches and nausea&lt;/p&gt;",
+        field_title: "Medicial Properties",
+      },
+      {
+        _id: "607e399e59c86677e465r7",
+        content: "&lt;p&gt;Sweet&lt;/p&gt;",
+        field_title: "Aroma",
+      },
+    ],
+    images: [
+      {
+        _id: "607e399e59c8feg7e2af65r7",
+        caption: "lavender in a big field",
+        image_url: "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
+      },
+    ],
+    locations: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        coordinates:
+          "49°15&amp;#39;16.2&amp;quot;N 122°59&amp;#39;53.7&amp;quot;W",
+        description: "",
+        location_name: "Lot A",
+      },
+    ],
+    revision_history: [
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 6:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+      {
+        _id: "607e3ab0a0d3df815abfcfb1",
+        date: "April 20, 2021 at 2:30am",
+        user: {
+          _id: "607e3ab0a0d3df815abfcfb1",
+          email: "patrickfortaleza@gmail.com",
+          role: "Manager",
+          user_name: "Patrick Fortaleza",
+        },
+      },
+    ],
+    tags: [
+      {
+        _id: "607e4qwee59c86677e2af65r7",
+        tag_name: "flower",
+      },
+      {
+        _id: "607e4qwee59c86677e2ewe5r7",
+        tag_name: "purple",
+      },
+    ],
+    videos: [
+      {
+        _id: "607e384559c86677e2af65r7",
+        caption: "A lavender flower blooming timelapse",
+        video_url: "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
+      },
+    ],
+  },
+  {
+    _id: "60787fbh837hshjwee3hj6587",
+    plant_name: "Lavender 15",
+    description:
+      "Lavender is a perennial shrub with purple flowers that bloom during the summer.",
+    scientific_name: "Lavandula 15",
+    audio_files: [
+      {
+        _id: "607e399459c86677e2af65r7",
+        audio_file_url:
+          "s3.aws.indigenousplantgo.com/audio/lavender-speech.mp3",
+        caption: "A speech about lavender",
+      },
+    ],
+    categories: [
+      {
+        _id: "607e4qwee59c86677e2ewe3447",
+        category_name: "Prennenial",
       },
     ],
     custom_fields: [

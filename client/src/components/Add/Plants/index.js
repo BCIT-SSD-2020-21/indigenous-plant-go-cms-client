@@ -37,56 +37,66 @@ export default function AddPlants({
         action="Publish"
         method={handlePublish}
       />
-
-      <TextInputCtrl
-        label={"Plant Name"}
-        setter={(data) => plantNameChanged(data)}
-      />
-      <TextInputCtrl
-        label={"Scientific Name"}
-        setter={(data) => scientificNameChanged(data)}
-      />
-      <TextAreaCtrl
-        label={"Description"}
-        setter={(data) => descriptionChanged(data)}
-      />
-      <TextPickerCtrl
-        label={"location"}
-        dataLabel={"location"}
-        data={locations}
-        setter={(data) => locationsChanged(data)}
-      />
-      <TextPickerCtrl
-        label={"category"}
-        dataLabel={"category"}
-        data={categories}
-        setter={(data) => categoriesChanged(data)}
-      />
-      <TextPickerCtrl
-        label={"tag"}
-        dataLabel={"tag"}
-        data={tags}
-        setter={(data) => tagsChanged(data)}
-      />
-      <MediaPickerCtrl
-        label={"image"}
-        dataLabel={"image"}
-        data={images}
-        setter={(data) => imagesChanged(data)}
-      />
-      <MediaPickerCtrl
-        label={"Audio File"}
-        dataLabel={"audio_file"}
-        data={audio}
-        setter={(data) => audioFilesChanged(data)}
-      />
-      <MediaPickerCtrl
-        label={"video"}
-        dataLabel={"video"}
-        data={videos}
-        setter={(data) => videosChanged(data)}
-      />
-      {/* <ContentPickerCtrl
+      <div className="form__grid">
+        <div className="col">
+          <TextInputCtrl
+            label={"Plant Name"}
+            setter={(data) => plantNameChanged(data)}
+          />
+          <TextInputCtrl
+            label={"Scientific Name"}
+            setter={(data) => scientificNameChanged(data)}
+          />
+          <CustomFieldPickerCtrl
+            label={"Custom Field"}
+            setter={(data) => customFieldsChanged(data)}
+          />
+          <TextAreaCtrl
+            label={"Description"}
+            setter={(data) => descriptionChanged(data)}
+          />
+          <TextPickerCtrl
+            label={"location"}
+            dataLabel={"location"}
+            data={locations}
+            setter={(data) => locationsChanged(data)}
+          />
+        </div>
+        <div className="col">
+          <MediaPickerCtrl
+            label={"image"}
+            dataLabel={"image"}
+            data={images}
+            setter={(data) => imagesChanged(data)}
+          />
+          <MediaPickerCtrl
+            label={"Audio File"}
+            dataLabel={"audio_file"}
+            data={audio}
+            setter={(data) => audioFilesChanged(data)}
+          />
+          <MediaPickerCtrl
+            label={"video"}
+            dataLabel={"video"}
+            data={videos}
+            setter={(data) => videosChanged(data)}
+          />
+        </div>
+        <div className="col">
+          <TextPickerCtrl
+            label={"category"}
+            dataLabel={"category"}
+            data={categories}
+            setter={(data) => categoriesChanged(data)}
+          />
+          <TextPickerCtrl
+            label={"tag"}
+            dataLabel={"tag"}
+            data={tags}
+            setter={(data) => tagsChanged(data)}
+          />
+        </div>
+        {/* <ContentPickerCtrl
         label={"plant"}
         dataLabel={"plant"}
         data={plants}
@@ -99,10 +109,7 @@ export default function AddPlants({
         data={waypoints}
         setter={(data) => videosChanged(data)}
       /> */}
-      <CustomFieldPickerCtrl
-        label={"Custom Field"}
-        setter={(data) => customFieldsChanged(data)}
-      />
+      </div>
     </div>
   );
 }

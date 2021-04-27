@@ -1,6 +1,6 @@
 .textpicker {
   margin-top: 30px;
-  max-width: 400px;
+  width: 360px;
 
   label {
     font-weight: 700;
@@ -41,7 +41,7 @@
         }
 
         .selected__media__meta {
-          max-width: 300px;
+          max-width: 250px;
           padding: 0 7px;
           label {
             white-space: nowrap;
@@ -83,6 +83,7 @@
       background: var(--highlight);
       color: var(--lightprimary);
       transition: 0.2s ease-in-out;
+      font-size: 12px !important;
 
       &:hover,
       &:focus {
