@@ -1268,78 +1268,86 @@ module.exports = async function() {
 
   //Create
   //POST /api/tours
-  async function createTour({newtour, user_id}) {
+  async function createTour({newTour, user_id}) {
     //Check required none array field first
-    if(!newtour.tour_name) {
+    if(!newTour.tour_name) {
       throw Error("Missing tour name")
     }
 
-    if(!newtour.description) {
+    if(!newTour.description) {
       throw Error("Missing description")
     }
 
     //Convert all passed in array of id to ObjectId
     //Require passing in array of string
     //Default to empty array if the field is not given
-    if(newtour.images) {
-      newtour.images.forEach((image, index, self) => {
+    if(newTour.images) {
+      newTour.images.forEach((image, index, self) => {
         self[index] = ObjectID(image)
       })
     } else {
-      newtour.images = []
+      newTour.images = []
     }
 
-    if(newtour.audio_files) {
-      newtour.audio_files.forEach((audio, index, self) => {
+    if(newTour.audio_files) {
+      newTour.audio_files.forEach((audio, index, self) => {
         self[index] = ObjectID(audio)
       })
     } else {
-      newtour.audio_files = []
+      newTour.audio_files = []
     }
 
-    if(newtour.videos) {
-      newtour.videos.forEach((video, index, self) => {
+    if(newTour.videos) {
+      newTour.videos.forEach((video, index, self) => {
         self[index] = ObjectID(video)
       })
     } else {
-      newtour.videos = []
+      newTour.videos = []
     }
 
-    if(newtour.tags) {
-      newtour.tags.forEach((tag, index, self) => {
+    if(newTour.tags) {
+      newTour.tags.forEach((tag, index, self) => {
         self[index] = ObjectID(tag)
       })
     } else {
-      newtour.tags = []
+      newTour.tags = []
     }
 
-    if(newtour.categories) {
-      newtour.categories.forEach((category, index, self) => {
+    if(newTour.categories) {
+      newTour.categories.forEach((category, index, self) => {
         self[index] = ObjectID(category)
       })
     } else {
-      newtour.categories = []
+      newTour.categories = []
     }
 
-    if(newtour.plants) {
-      newtour.plants.forEach((plant, index, self) => {
+    if(newTour.plants) {
+      newTour.plants.forEach((plant, index, self) => {
         self[index] = ObjectID(plant)
       })
     } else {
-      newtour.plants = []
+      newTour.plants = []
     }
 
-    if(!newtour.custom_fields) {
-      newtour.custom_fields = []
+    if(newTour.waypoints) {
+      newTour.waypoints.forEach((waypoint, index, self) => {
+        self[index] = ObjectID(waypoint)
+      })
+    } else {
+      newTour.waypoints = []
+    }
+
+    if(!newTour.custom_fields) {
+      newTour.custom_fields = []
     }
 
     //New revision for when tour is created
     const revision = await createRevision({user_id: user_id})
 
-    newtour.revision_history = [ObjectID(revision.ops[0]._id)]
+    newTour.revision_history = [ObjectID(revision.ops[0]._id)]
 
     const result = await tours.insertOne({
-      ...newtour
+      ...newTour
     })
     return result
   }
@@ -1424,42 +1432,48 @@ module.exports = async function() {
 
   //Update
   //PUT /api/tours/:tourId
-  async function updateTour({tourId, updatedtour, user_id}) {
+  async function updateTour({tourId, updatedTour, user_id}) {
     //Convert all passed in array of id to ObjectId
     //User should get data of the tour when they start editing
-    if(updatedtour.images) {
-      updatedtour.images.forEach((image, index, self) => {
+    if(updatedTour.images) {
+      updatedTour.images.forEach((image, index, self) => {
         self[index] = ObjectID(image)
       })
     }
 
-    if(updatedtour.audio_files) {
-      updatedtour.audio_files.forEach((audio, index, self) => {
+    if(updatedTour.audio_files) {
+      updatedTour.audio_files.forEach((audio, index, self) => {
         self[index] = ObjectID(audio)
       })
     }
 
-    if(updatedtour.videos) {
-      updatedtour.videos.forEach((video, index, self) => {
+    if(updatedTour.videos) {
+      updatedTour.videos.forEach((video, index, self) => {
         self[index] = ObjectID(video)
       })
     }
 
-    if(updatedtour.tags) {
-      updatedtour.tags.forEach((tag, index, self) => {
+    if(updatedTour.tags) {
+      updatedTour.tags.forEach((tag, index, self) => {
         self[index] = ObjectID(tag)
       })
     }
 
-    if(updatedtour.categories) {
-      updatedtour.categories.forEach((category, index, self) => {
+    if(updatedTour.categories) {
+      updatedTour.categories.forEach((category, index, self) => {
         self[index] = ObjectID(category)
       })
     }
 
-    if(updatedtour.plants) {
-      updatedtour.plants.forEach((plant, index, self) => {
+    if(updatedTour.plants) {
+      updatedTour.plants.forEach((plant, index, self) => {
         self[index] = ObjectID(plant)
+      })
+    }
+
+    if(updatedTour.waypoints) {
+      updatedTour.waypoints.forEach((waypoint, index, self) => {
+        self[index] = ObjectID(waypoint)
       })
     }
 
@@ -1467,12 +1481,12 @@ module.exports = async function() {
     const revision = await createRevision({user_id: user_id})
 
     const tour = await tours.findOne({_id: ObjectID(tourId)})
-    updatedtour.revision_history = tour.revision_history
-    updatedtour.revision_history.push(ObjectID(revision.ops[0]._id))
+    updatedTour.revision_history = tour.revision_history
+    updatedTour.revision_history.push(ObjectID(revision.ops[0]._id))
 
     const result = await tours.findOneAndUpdate(
       {_id: ObjectID(tourId)},
-      {$set: {...updatedtour}}
+      {$set: {...updatedTour}}
     )
     return result
   }

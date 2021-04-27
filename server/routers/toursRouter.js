@@ -19,7 +19,7 @@ module.exports = function({database, authorize, verifyKey}) {
   //POST /api/tours?key=<API_KEY>
   router.post('/', authorize, verifyKey, async (req, res) => {
     try {
-      const result = await database.createTour({newtour: req.body, user_id: req.user._id})
+      const result = await database.createTour({newTour: req.body, user_id: req.user._id})
       res.send("Tour added")
     } catch (error) {
       console.error(error)
@@ -45,7 +45,7 @@ module.exports = function({database, authorize, verifyKey}) {
   router.put('/:tourId', authorize, verifyKey, async (req, res) => {
     try {
       const tourId = req.params.tourId
-      const result = await database.updateTour({tourId, updatedtour: req.body, user_id: req.user._id})
+      const result = await database.updateTour({tourId, updatedTour: req.body, user_id: req.user._id})
       res.send("Tour updated")
     } catch (error) {
       console.error(error)
