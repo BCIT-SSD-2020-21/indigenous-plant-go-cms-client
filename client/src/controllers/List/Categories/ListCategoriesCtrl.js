@@ -186,7 +186,6 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
     const updatedCategory = {
       category_name: editCat,
       resource: pendingEdit.resource,
-      _id: pendingEdit._id,
     };
     const result = await updateCategory(id, updatedCategory);
     if (result.error) return console.log("Unable to edit category");
