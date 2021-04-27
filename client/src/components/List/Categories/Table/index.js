@@ -4,6 +4,7 @@ export default function Table({
   categories,
   handleSelected,
   selectedCategories,
+  handleDelete,
 }) {
   return (
     <ul className="table__list">
@@ -35,7 +36,11 @@ export default function Table({
                   <button type="button" value={category._id}>
                     Edit&nbsp;
                   </button>
-                  <button type="button" value={category._id}>
+                  <button
+                    type="button"
+                    value={category._id}
+                    onClick={(e) => handleDelete(e)}
+                  >
                     &nbsp;Delete
                   </button>
                 </span>

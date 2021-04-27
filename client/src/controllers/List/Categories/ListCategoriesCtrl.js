@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import ListCategories from "../../../components/List/Categories";
-import { getCategoryGroup, createCategory } from "../../../network";
+import {
+  getCategoryGroup,
+  createCategory,
+  deleteCategory,
+} from "../../../network";
 
 export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   const [eCategories, setECategories] = useState([]);
@@ -12,6 +16,8 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   const [page, setPage] = useState(1);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [newCat, setNewCat] = useState("");
+  const [pendingDelete, setPendingDelete] = useState({});
+  const [modalActive, setModalActive] = useState(false);
 
   useEffect(() => {
     queryCategories();
@@ -133,6 +139,30 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
     setNewCat("");
   };
 
+  const closeModal = () => {
+    setModalActive(false);
+  };
+
+  const handleDelete = async (e) => {
+    const id = e.target.value;
+    const foundCategory = eCategories.filter(
+      (category) => category._id === id
+    )[0];
+    if (!foundCategory) return console.log("Unable to find category");
+    await setPendingDelete(foundCategory);
+    setModalActive(true);
+  };
+
+  const applyDelete = async () => {
+    const id = pendingDelete._id;
+    if (!id) return console.log("Unable to delete category");
+    const result = await deleteCategory(id);
+    if (result.error) return console.log("Unable to delete category");
+    closeModal();
+    setPendingDelete({});
+    queryCategories();
+  };
+
   return (
     <ListCategories
       dataLabel={dataLabel}
@@ -151,9 +181,14 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
       handleSelected={handleSelected}
       batchSelect={batchSelect}
       newCategory={setNewCat}
+      handleDelete={handleDelete}
       newCategoryValue={newCat}
       selectedCategories={selectedCategories}
+      pendingDelete={pendingDelete}
       submitNewCategory={submitNewCategory}
+      closeModal={closeModal}
+      applyDelete={applyDelete}
+      modalActive={modalActive}
     />
   );
 }

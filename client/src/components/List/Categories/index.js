@@ -1,6 +1,7 @@
 import React from "react";
 import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
+import Modal from "../../Modal";
 import Table from "./Table";
 
 export default function ListCategories({
@@ -22,6 +23,11 @@ export default function ListCategories({
   newCategory,
   newCategoryValue,
   submitNewCategory,
+  handleDelete,
+  pendingDelete,
+  closeModal,
+  modalActive,
+  applyDelete,
 }) {
   return (
     <div>
@@ -95,6 +101,7 @@ export default function ListCategories({
             </div>
           </div>
           <Table
+            handleDelete={handleDelete}
             categories={hasPages ? pages[page - 1] : categories}
             handleSelected={handleSelected}
             selectedCategories={selectedCategories}
@@ -117,6 +124,31 @@ export default function ListCategories({
               </div>
             </div>
           )}
+
+          <Modal
+            isActive={modalActive}
+            title={`Delete ${pendingDelete.category_name}?`}
+            subtitle={`id: ${pendingDelete._id}`}
+            closeModal={closeModal}
+          >
+            <p>
+              Deleting this category will remove all instances of the
+              category&nbsp;
+              <strong style={{ color: "var(--danger)" }}>
+                {pendingDelete.category_name}
+              </strong>
+              . Do you wish to proceed?
+            </p>
+            <button onClick={() => applyDelete()} className="field__button">
+              Yes, I know what I am doing.
+            </button>
+            <button
+              onClick={() => closeModal()}
+              className="field__button secondary"
+            >
+              No, cancel my request.
+            </button>
+          </Modal>
         </div>
       </div>
     </div>
