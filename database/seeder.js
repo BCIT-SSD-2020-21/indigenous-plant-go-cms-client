@@ -102,10 +102,28 @@ const seed = async () => {
   // 6. Insert Categories
   await categories.insertMany([
     {
-      "category_name": "Caryophyllaceae"
+      "category_name": "medicinal properties",
+      "resource": "plants",
     },
     {
-      "category_name": "Asteraceae"
+      "category_name": "color",
+      "resource": "plants",
+    },
+    {
+      "category_name": "color",
+      "resource": "plants",
+    },
+    {
+      "category_name": "CategoryName2",
+      "resource": "waypoints",
+    },
+    {
+      "category_name": "CategoryName3",
+      "resource": "tours",
+    },
+    {
+      "category_name": "CategoryName4",
+      "resource": "learn_more",
     }
   ])
 
@@ -155,8 +173,8 @@ const seed = async () => {
   const audio2 = await audios.findOne({"caption": "kinnikinnick"})
   const location1 = await locations.findOne({"location_name": "SW1"})
   const location2 = await locations.findOne({"location_name": "SW2"})
-  const category1 = await categories.findOne({"category_name": "Caryophyllaceae"})
-  const category2 = await categories.findOne({"category_name": "Asteraceae"})
+  const category1 = await categories.findOne({"resource": "plants"})
+  const category2 = await categories.findOne({ "resource": "plants"})
   const tag1 = await tags.findOne({"tag_name": "healing"})
   const tag2 = await tags.findOne({"tag_name": "luck"})
   // const custom_field1 = await custom_fields.findOne({"field_title" : "Water Intake"})
