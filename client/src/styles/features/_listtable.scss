@@ -6,6 +6,12 @@
   display: flex;
   width: 100%;
   max-width: 1200px;
+  transition: 0.2s ease-in-out;
+
+  &.selected {
+    background: #cefab2;
+    border: 1px solid #90e858;
+  }
 
   p {
     margin: 0;

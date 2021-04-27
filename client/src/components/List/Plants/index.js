@@ -13,6 +13,8 @@ export default function ListPlants({
   searchQuery,
   categoryFilter,
   resetFilters,
+  handleSelected,
+  selectedPlants,
 }) {
   return (
     <div>
@@ -85,7 +87,7 @@ export default function ListPlants({
       <form>
         <div className="table__heading table__row">
           <div className="table__col head select">
-            <Checkbox />
+            <input type="checkbox" value={"select all"} />
           </div>
           <div className="table__col head title">
             <h3>Title</h3>
@@ -118,9 +120,23 @@ export default function ListPlants({
               };
 
               return (
-                <li className="table__row" key={index}>
+                <li
+                  className={
+                    selectedPlants.includes(plant._id)
+                      ? "table__row selected"
+                      : "table__row"
+                  }
+                  key={index}
+                >
                   <div className="table__col select">
-                    <Checkbox value={plant._id} />
+                    <input
+                      type="checkbox"
+                      value={plant._id}
+                      checked={
+                        selectedPlants.includes(plant._id) ? true : false
+                      }
+                      onChange={(e) => handleSelected(e)}
+                    />
                   </div>
                   <div className="table__col title">
                     <p>{plant.plant_name}</p>

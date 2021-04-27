@@ -9,6 +9,7 @@ export default function ListPlantsCtrl() {
   const [formattedCategories, setFormattedCategories] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState("default");
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedPlants, setSelectedPlants] = useState([]);
 
   useEffect(() => {
     setPlantData_(plantData);
@@ -77,17 +78,35 @@ export default function ListPlantsCtrl() {
     setCategoryFilter("default");
   };
 
+  const handleSelected = (e) => {
+    const id = e.target.value;
+    let newSelected = [...selectedPlants];
+
+    if (selectedPlants.includes(id)) {
+      console.log("id is inside, remove it");
+      newSelected = newSelected.filter((item) => item !== id);
+      console.log(newSelected);
+    } else {
+      console.log("id is NOT inside, add it");
+      newSelected = [...newSelected, id];
+    }
+
+    setSelectedPlants(newSelected);
+  };
+
   return (
     <ListPlants
       plantData={plantData_}
       categories={formattedCategories}
       searchQuery={searchQuery}
       categoryFilter={categoryFilter}
+      selectedPlants={selectedPlants}
       handleFilterChange={handleFilterChange}
       handleQueryChange={handleQueryChange}
       clearSearch={clearSearch}
       applyFilters={applyFilter}
       resetFilters={resetFilters}
+      handleSelected={handleSelected}
     />
   );
 }
