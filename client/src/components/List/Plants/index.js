@@ -1,12 +1,18 @@
 import React from "react";
 import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Checkbox } from "semantic-ui-react";
+import { ResetIcon } from "../../../icons";
 
 export default function ListPlants({
   plantData,
   categories,
   handleFilterChange,
-  applyFilter,
+  handleQueryChange,
+  applyFilters,
+  clearSearch,
+  searchQuery,
+  categoryFilter,
+  resetFilters,
 }) {
   return (
     <div>
@@ -33,24 +39,46 @@ export default function ListPlants({
           </div>
 
           <div className="table__action">
+            {categoryFilter !== "default" && (
+              <button
+                onClick={() => resetFilters()}
+                className="sub__action resets"
+              >
+                <span>
+                  <ResetIcon />
+                </span>
+                Reset Filters
+              </button>
+            )}
             <Dropdown
               placeholder={"All Categories"}
               selection
               search
               onChange={(e, data) => handleFilterChange(e, data)}
+              value={categoryFilter}
               options={[
                 { key: "default", value: "default", text: "All Categories" },
                 ...categories,
               ]}
             />
-            <button onClick={() => applyFilter()}>Filter</button>
+            <button onClick={() => applyFilters()}>Filter</button>
           </div>
         </div>
 
         <div>
           <div className="table__action" style={{ marginRight: 0 }}>
-            <Input style={style.input} placeholder={`Enter search query`} />
-            <button>Search</button>
+            {searchQuery && (
+              <button onClick={() => clearSearch()} className="sub__action">
+                Clear search
+              </button>
+            )}
+            <Input
+              onChange={(e) => handleQueryChange(e)}
+              style={style.input}
+              value={searchQuery}
+              placeholder={`Enter search query`}
+            />
+            <button onClick={() => applyFilters()}>Search</button>
           </div>
         </div>
       </div>
