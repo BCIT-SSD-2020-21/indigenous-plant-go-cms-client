@@ -18,6 +18,7 @@ Example request: PUT /api/waypoints/607e399e59c8feg7e2af65r7
   "tags": ["607fa01931325a2e700a4307", "607fa01931325a2e700a4307"],
   "categories": ["607fa01931325a2e700a4307"],
   "location": "607fa01931325a2e700a4307",
+  "plants": ["607fa01931325a2e700a4307"],
   "custom_fields": "custom_fields": [
     {
       custom_field_id: "607e399e59c86677e2af65r7",

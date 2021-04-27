@@ -1,25 +1,25 @@
-# Create waypoint
-@desc POST single waypoint
+# Update tour
+@desc PUT single tour
 
-@route /api/waypoints
+@route /api/tours/:id
 
-@access Protected -- API key, require user login
+@access Protected -- require user login
 
-Example request: POST /api/waypoints?key=<API_KEY>
+Example request: PUT /api/tours/607e399e59c8feg7e2af65r7
 
 # EXAMPLE REQUEST BODY
 ```
 {
-  "waypoint_name": "test",
+  "tour_name": "test",
   "description": "test",
   "images": ["607fa01931325a2e700a4307"],
   "audio_files": ["607fa01931325a2e700a4307"],
   "videos": ["607fa01931325a2e700a4307"],
   "tags": ["607fa01931325a2e700a4307", "607fa01931325a2e700a4307"],
   "categories": ["607fa01931325a2e700a4307"],
-  "location": "607fa01931325a2e700a4307",
   "plants": ["607fa01931325a2e700a4307"],
-  "custom_fields": [
+  "waypoints": ["607fa01931325a2e700a4307"],
+  "custom_fields": "custom_fields": [
     {
       custom_field_id: "607e399e59c86677e2af65r7",
       field_title: "Medical",
@@ -29,13 +29,11 @@ Example request: POST /api/waypoints?key=<API_KEY>
 }
 ```
 
-Waypoint_name, description, and location are required fields
+We set it to overwrite existing data
 
-If an array field is not provided it will default to empty array
-
-On create, a new revision will be set base on the user creating the waypoint
+New revision is added on whenever update is made
 
 # SUCCESS RESPONSE BODY
 ```
-"Waypoint added"
+"Tour updated"
 ```

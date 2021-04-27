@@ -1,12 +1,14 @@
-/*
-  @desc GET all tours
-  @route /api/tours
-  @access Protected -- API key
+# Get tours
+@desc GET all tours
 
-  Example request: GET /api/tours?key=<API_KEY>
-*/
+@route /api/tours
 
-// EXAMPLE RESPONSE BODY
+@access Protected -- API key
+
+Example request: GET /api/tours?key=<API_KEY>
+
+# EXAMPLE RESPONSE BODY
+```
 [
   {
     "_id": "607e399e59c86677e2af6587",
@@ -338,3 +340,4 @@
   }
   // ... Repeat 
 ]
+```

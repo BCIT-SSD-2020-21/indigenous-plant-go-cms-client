@@ -1,12 +1,14 @@
-/*
-  @desc GET a single tour
-  @route /api/tour/:id
-  @access Protected -- API key
+# Get tour
+@desc GET a single tour
 
-  Example request: GET /api/tour/607e399e59c86677e2af6587?key=<API_KEY>
-*/
+@route /api/tour/:id
 
-// EXAMPLE RESPONSE BODY
+@access Protected -- API key
+
+Example request: GET /api/tour/607e399e59c86677e2af6587?key=<API_KEY>
+
+# EXAMPLE RESPONSE BODY
+```
 {
   "_id": "607e399e59c86677e2af6587",
   "tour_name": "The English Walk",
@@ -335,3 +337,4 @@
     },
   ]
 }
+```
