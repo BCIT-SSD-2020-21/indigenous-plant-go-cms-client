@@ -4,6 +4,7 @@ import {
   getCategoryGroup,
   createCategory,
   deleteCategory,
+  updateCategory,
 } from "../../../network";
 
 export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
@@ -16,8 +17,11 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   const [page, setPage] = useState(1);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [newCat, setNewCat] = useState("");
+  const [editCat, setEditCat] = useState("");
   const [pendingDelete, setPendingDelete] = useState({});
+  const [pendingEdit, setPendingEdit] = useState({});
   const [modalActive, setModalActive] = useState(false);
+  const [modalState, setModalState] = useState("delete");
 
   useEffect(() => {
     queryCategories();
@@ -144,6 +148,7 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   };
 
   const handleDelete = async (e) => {
+    setModalState("delete");
     const id = e.target.value;
     const foundCategory = eCategories.filter(
       (category) => category._id === id
@@ -160,6 +165,33 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
     if (result.error) return console.log("Unable to delete category");
     closeModal();
     setPendingDelete({});
+    queryCategories();
+  };
+
+  const handleEdit = async (e) => {
+    setModalState("edit");
+    const id = e.target.value;
+    const foundCategory = eCategories.filter(
+      (category) => category._id === id
+    )[0];
+    if (!foundCategory) return console.log("Unable to find category");
+    await setPendingEdit(foundCategory);
+    setEditCat(foundCategory.category_name);
+    setModalActive(true);
+  };
+
+  const applyEdit = async (e) => {
+    const id = pendingEdit._id;
+    if (!id) return console.log("Unable to edit category");
+    const updatedCategory = {
+      category_name: editCat,
+      resource: pendingEdit.resource,
+      _id: pendingEdit._id,
+    };
+    const result = await updateCategory(id, updatedCategory);
+    if (result.error) return console.log("Unable to edit category");
+    closeModal();
+    setPendingEdit({});
     queryCategories();
   };
 
@@ -185,10 +217,16 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
       newCategoryValue={newCat}
       selectedCategories={selectedCategories}
       pendingDelete={pendingDelete}
+      pendingEdit={pendingEdit}
       submitNewCategory={submitNewCategory}
       closeModal={closeModal}
       applyDelete={applyDelete}
       modalActive={modalActive}
+      modalState={modalState}
+      handleEdit={handleEdit}
+      editCategory={setEditCat}
+      editCategoryValue={editCat}
+      applyEdit={applyEdit}
     />
   );
 }
