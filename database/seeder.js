@@ -103,39 +103,39 @@ const seed = async () => {
   await categories.insertMany([
     {
       "category_name": "caryophyllaceae",
-      "resource": "plants",
+      "resource": "plant",
     },
     {
       "category_name": "asteraceae",
-      "resource": "plants",
+      "resource": "plant",
     },
     {
       "category_name": "medicinal",
-      "resource": "plants",
+      "resource": "plant",
     },
     {
       "category_name": "SE14",
-      "resource": "waypoints",
+      "resource": "waypoint",
     },
     {
       "category_name": "SW01",
-      "resource": "waypoints",
+      "resource": "waypoint",
     },
     {
       "category_name": "SW02",
-      "resource": "waypoints",
+      "resource": "waypoint",
     },
     {
       "category_name": "english walk",
-      "resource": "tours",
+      "resource": "tour",
     },
     {
       "category_name": "hidden gem",
-      "resource": "tours",
+      "resource": "tour",
     },
     {
       "category_name": "scenic",
-      "resource": "tours",
+      "resource": "tour",
     },
     {
       "category_name": "historic",
@@ -265,6 +265,7 @@ const seed = async () => {
   ])
 
   // 12. Insert Waypoint
+  const category3 = await categories.findOne({"category_name": "SW01"})
   await waypoints.insertMany([
     {
       "waypoint_name": "Location A",
@@ -275,19 +276,20 @@ const seed = async () => {
      "audio_files": [audio1._id],
       "videos": [video1._id],
       "tags": [tag1._id],
-      "categories": [category1._id],
+      "categories": [category3._id],
       "revision_history": [revision_history1._id],
     }
   ])
 
   // 13. Insert Learnmore
+  const category5 = await categories.findOne({"category_name": "historic"})
   await learn_more.insertMany([
     {
       "learn_more_title": "Other information",
       "description": "Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. ", // Should be stringified HTML
       //"custom_fields": [custom_field1._id] ,
       "revision_history": [revision_history1._id],
-      "categories": [category1._id],
+      "categories": [category5._id],
     }
   ])
   
