@@ -185,7 +185,16 @@ const seed = async () => {
     {
       "user": user2._id,
       "date": 1619552956
-    }
+    },
+    {
+      "user": user1._id,
+      "date": 1619561239
+    },
+    {
+      "user": user1._id,
+      "date": 1619129239
+    },
+    
   ])
 
   // 10. Insert Plants
@@ -205,6 +214,8 @@ const seed = async () => {
   // const custom_field2 = await custom_fields.findOne({"content" : "Daily"})
   const revision_history1 = await revisions.findOne({"user": user1._id})
   const revision_history2 = await revisions.findOne({"user": user2._id})
+  const revision_history3 = await revisions.findOne({"date": 1619561239})
+  const revision_history4 = await revisions.findOne({"date": 1619129239})
   
   await plants.insertMany([
     {
@@ -218,7 +229,10 @@ const seed = async () => {
       "categories" : [category1._id],
       "tags" : [tag1._id],
       //"custom_fields" : [custom_field1._id],
-      "revision_history" : [revision_history1._id],
+      "revision_history" : [
+        revision_history1._id, 
+        revision_history3._id, 
+        revision_history4._id],
       "custom_fields" : [
         { 
           "field_title": "Medicial Properties",
@@ -288,7 +302,7 @@ const seed = async () => {
       "learn_more_title": "Other information",
       "description": "Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. ", // Should be stringified HTML
       //"custom_fields": [custom_field1._id] ,
-      "revision_history": [revision_history1._id],
+      "revisions": [revision_history1._id],
       "categories": [category5._id],
     }
   ])

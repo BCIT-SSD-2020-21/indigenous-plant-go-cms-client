@@ -20,7 +20,7 @@ module.exports = async function() {
   const locations = db.collection('locations')
   const revisions = db.collection('revisions')
   const plants= db.collection('plants')
-  const learnmore = db.collection('learnmore')
+  const learn_more = db.collection('learn_more')
 
   //Users
 
@@ -886,6 +886,62 @@ module.exports = async function() {
     return result
   }
 
+  // LEARN MORE---------------------
+  // GET ALL | 
+  async function getLearnMore(){
+    const aggregateOptions = [
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'categories',
+          foreignField: '_id',
+          as: 'categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'revisions',
+          foreignField: '_id',
+          as: 'revisions'
+        }
+      }
+    ]
+    return await learn_more.aggregate(aggregateOptions).toArray()
+  }
+
+    //Get One
+  //GET /api/learn_more/:learn_more_id
+  async function getPlant({learn_more_id}) {
+    const aggregateOptions = [
+      {
+        $match: {
+          _id: ObjectID(learn_more_id)
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'categories',
+          foreignField: '_id',
+          as: 'categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'revisions',
+          foreignField: '_id',
+          as: 'revisions'
+        }
+      }
+    ]
+
+    return await plants.aggregate(aggregateOptions).next()
+  }
+
+
+
   return {
     //User
     createUser,
@@ -938,6 +994,8 @@ module.exports = async function() {
     createPlant,
     getPlant,
     updatePlant,
-    deletePlant
+    deletePlant,
+    //Learn More
+    getLearnMore
   }
 }
