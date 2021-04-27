@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8080/api";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const getToken = () => {
   const userData = JSON.parse(
@@ -21,7 +21,7 @@ export const ping = async () => {
     };
 
   try {
-    const response = await axios.get(`api/ping`, {
+    const response = await axios.get(`${BASE_URL}/ping`, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ export const ping = async () => {
 
 export const login = async ({ username, password }) => {
   try {
-    const response = await axios.post(`api/users/login`, {
+    const response = await axios.post(`${BASE_URL}/users/login`, {
       username: username,
       password: password,
     });
