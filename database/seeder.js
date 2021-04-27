@@ -28,6 +28,8 @@ const seed = async () => {
   const waypoint = db.collection('waypoint')
   const learn_more = db.collection('learn_more')
   const tour = db.collection('tour')
+  const plant_categories = db.collection('plant_categories')
+  const tour_categories = db.collection('tour_categories')
 
   // III. Insert Data to mongoDB
   // 1. Insert Users
@@ -102,14 +104,54 @@ const seed = async () => {
   // 6. Insert Categories
   await categories.insertMany([
     {
+      "category_name" : "waypoint sw1",
+    },
+    {
+      "category_name" : "waypoint sw2",
+    },
+    {
       "category_name": "Caryophyllaceae"
     },
     {
       "category_name": "Asteraceae"
+    },
+    {
+      "category_name" : "english walk"
+    },
+    {
+      "category_name" : "scenic"
     }
   ])
-
-  // 7. Insert Tags
+  
+  const plant_category1 = await categories.findOne({"category_name": "Caryophyllaceae"})
+  const plant_category2 = await categories.findOne({"category_name": "Asteraceae"})
+  const tour_category1 = await categories.findOne({"category_name" : "english walk"})
+  const tour_category2 = await categories.findOne({"category_name" : "scenic"})
+  const waypoint_category1 = await categories.findOne({"category_name" : "waypoint sw1"})
+  const waypoint_category2 = await categories.findOne({"category_name" : "waypoint sw2"})
+  
+  // 7. Waypoint  Categories
+  await waypoint_categories.insertMany([
+    {
+      "categories" : [waypoint_category1._id, waypoint_category2._id] 
+    }
+  ])
+  
+  // 8. Insert Plant Categories
+  await plant_categories.insertMany([
+    {
+      "categories" : [plant_category1._id, plant_category2._id] 
+    },
+  ])
+  
+  // 9. Insert Tour Categories
+  await tour_categories.insertMany([
+    {
+      "categories" : [tour_category1._id, tour_category2._id] 
+    }
+  ])
+  
+  // 10. Insert Tags
   await tags.insertMany([
     {
       "tag_name": "healing"
@@ -119,7 +161,7 @@ const seed = async () => {
     }
   ])
 
-  // 8. Insert Custom Fields
+  // 11. Insert Custom Fields
   await custom_fields.insertMany([
     {
       "field_title" : "Water Intake",
@@ -131,7 +173,7 @@ const seed = async () => {
     }
   ])
 
-  // 9. Insert Revision Histroy
+  // 12. Insert Revision Histroy
   const user1 = await users.findOne({username: "Bob"})
   const user2 = await users.findOne({username: "charli"})
 
@@ -146,7 +188,7 @@ const seed = async () => {
     }
   ])
 
-  // 10. Insert Plants
+  // 13. Insert Plants
   const image1 = await images.findOne({"caption": "lavender"})
   const image2 = await images.findOne({"caption": "kinnikinnick"})
   const video1 = await videos.findOne({"video_url": "https://www.youtube.com/watch?v=-EfK8OhRElI"})
@@ -155,8 +197,7 @@ const seed = async () => {
   const audio2 = await audios.findOne({"caption": "kinnikinnick"})
   const location1 = await locations.findOne({"location_name": "SW1"})
   const location2 = await locations.findOne({"location_name": "SW2"})
-  const category1 = await categories.findOne({"category_name": "Caryophyllaceae"})
-  const category2 = await categories.findOne({"category_name": "Asteraceae"})
+  
   const tag1 = await tags.findOne({"tag_name": "healing"})
   const tag2 = await tags.findOne({"tag_name": "luck"})
   const custom_field1 = await custom_fields.findOne({"field_title" : "Water Intake"})
@@ -173,7 +214,7 @@ const seed = async () => {
       "videos" : [video1._id],
       "audios" : [audio1._id],
       "locations" : [location1._id],
-      "categories" : [category1._id],
+      "categories" : [plant_category1._id],
       "tags" : [tag1._id],
       "custom_fields" : [custom_field1._id],
       "revision_histories" : [revision_history1._id]
@@ -186,7 +227,7 @@ const seed = async () => {
       "videos" : [video2._id],
       "audios" : [audio2._id],
       "locations" : [location2._id],
-      "categories" : [category2._id],
+      "categories" : [plant_category2._id],
       "tags" : [tag2._id],
       "custom_fields" : [custom_field2._id],
       "revision_histories" : [revision_history2._id]
@@ -194,18 +235,7 @@ const seed = async () => {
 
   ])
 
-  // 11. Insert Waypoint Categories
-  await waypoint_categories.insertMany([
-    {
-      "categories" : [
-        category1._id, 
-        category2._id
-      ]
-    }
-
-  ])
-
-  // 12. Insert Waypoint
+  // 14. Insert Waypoint
   await waypoint.insertMany([
     {
       "waypoint_name": "Location A",
@@ -216,28 +246,25 @@ const seed = async () => {
      " audio_files": [audio1._id],
       "videos": [video1._id],
       "tags": [tag1._id],
-      "categories": [category1._id],
+      "categories": [waypoint_category1._id],
       "revision_history": [revision_history1._id],
     }
   ])
 
-  // 13. Insert Learnmore
+  // 15. Insert Learnmore
   await learn_more.insertMany([
     {
       "learn_more_title": "Other information",
       "description": "Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. ", // Should be stringified HTML
       "custom_fields": [custom_field1._id] ,
       "revision_history": [revision_history1._id],
-      "categories": [category1._id],
     }
   ])
   
-  // 14. Insert Tours
-
+  // 16. Insert Tours
   const waypoint1 = await waypoint.findOne({"waypoint_name": "Location A"})
   const plant1 = await plants.findOne({ "plant_name": "lavender"})
  
-
   await tour.insertMany([
     {
       "tour_name": "The English Walk",
@@ -247,7 +274,7 @@ const seed = async () => {
       "audio_files" : [audio1._id, audio2._id],
       "videos" : [video1._id, video2._id],
       "tags" : [tag1._id, tag2._id],
-      "categories" : [category1._id, category2._id],
+      "categories" : [tour_category1._id],
       "waypoints" : [waypoint1],
       "plants" : [plant1._id],
       "revision_history" : [revision_history1._id]
