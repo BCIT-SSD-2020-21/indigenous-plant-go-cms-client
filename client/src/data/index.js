@@ -24,7 +24,7 @@ export const locations = [
 export const categories = [
   {
     _id: "0fb14ca5-8548-4361-82c3-361c9d23e125",
-    category_name: "perenniel",
+    category_name: "prennenial",
   },
   {
     _id: "0fb14ca5-8548-4361-82c3-3870dm7e2125",
@@ -748,6 +748,10 @@ export const plants = [
       {
         _id: "607e4qwee59c86677e2ewe3447",
         category_name: "Prennenial",
+      },
+      {
+        _id: "0fb14ca5-kjds-827b-82c3-387c9d7e228b",
+        category_name: "exotic",
       },
     ],
     custom_fields: [
