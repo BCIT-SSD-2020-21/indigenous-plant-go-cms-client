@@ -5,6 +5,8 @@ import {
   getImages,
   getAudios,
   getVideos,
+  getTags,
+  getAllCategories,
 } from "../../../network";
 
 export default function AddPlantsCtrl() {
@@ -28,12 +30,16 @@ export default function AddPlantsCtrl() {
   const [eImages, setEImages] = useState([]);
   const [eAudios, setEAudios] = useState([]);
   const [eVideos, setEVideos] = useState([]);
+  const [eTags, setETags] = useState([]);
+  const [eCategories, setECategories] = useState([]);
 
   useEffect(async () => {
     await queryLocations();
     await queryImages();
     await queryAudios();
     await queryVideos();
+    await queryTags();
+    await queryCategories();
   }, []);
 
   // ===============================================================
@@ -61,6 +67,18 @@ export default function AddPlantsCtrl() {
     const result = await getVideos();
     if (result.error) return console.log("error getting videos");
     setEVideos(result);
+  };
+
+  const queryTags = async () => {
+    const result = await getTags();
+    if (result.error) return console.log("error getting tags");
+    setETags(result);
+  };
+
+  const queryCategories = async () => {
+    const result = await getAllCategories();
+    if (result.error) return console.log("error getting categories");
+    setECategories(result);
   };
 
   // ===============================================================
@@ -135,6 +153,8 @@ export default function AddPlantsCtrl() {
       eImages={eImages}
       eAudios={eAudios}
       eVideos={eVideos}
+      eTags={eTags}
+      eCategories={eCategories}
     />
   );
 }

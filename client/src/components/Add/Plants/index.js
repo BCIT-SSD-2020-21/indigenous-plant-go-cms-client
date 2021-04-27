@@ -34,6 +34,8 @@ export default function AddPlants({
   eImages,
   eAudios,
   eVideos,
+  eTags,
+  eCategories,
 }) {
   return (
     <div>
@@ -91,13 +93,13 @@ export default function AddPlants({
           <TextPickerCtrl
             label={"category"}
             dataLabel={"category"}
-            data={categories}
+            data={eCategories}
             setter={(data) => categoriesChanged(data)}
           />
           <TextPickerCtrl
             label={"tag"}
             dataLabel={"tag"}
-            data={tags}
+            data={eTags}
             setter={(data) => tagsChanged(data)}
           />
         </div>

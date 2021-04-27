@@ -102,3 +102,29 @@ export const getVideos = async () => {
     };
   }
 };
+
+export const getTags = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/tags`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const getAllCategories = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/categories`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
