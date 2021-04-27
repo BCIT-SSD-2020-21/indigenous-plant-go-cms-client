@@ -7,7 +7,7 @@ import {
   getAudios,
   getVideos,
   getTags,
-  getAllCategories,
+  getCategoryGroup,
   createPlant,
 } from "../../../network";
 
@@ -79,7 +79,7 @@ export default function AddPlantsCtrl() {
   };
 
   const queryCategories = async () => {
-    const result = await getAllCategories();
+    const result = await getCategoryGroup("plant");
     if (result.error) return console.log("error getting categories");
     setECategories(result);
   };

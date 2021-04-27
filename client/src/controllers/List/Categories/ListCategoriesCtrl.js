@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ListCategories from "../../../components/List/Categories";
-import { getAllCategories } from "../../../network";
+import { getCategoryGroup, createCategory } from "../../../network";
 
 export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   const [eCategories, setECategories] = useState([]);
@@ -11,6 +11,7 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   const [pages, setPages] = useState([]);
   const [page, setPage] = useState(1);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [newCat, setNewCat] = useState("");
 
   useEffect(() => {
     queryCategories();
@@ -49,7 +50,7 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   };
 
   const queryCategories = async () => {
-    const result = await getAllCategories();
+    const result = await getCategoryGroup(dataLabel);
     if (result.error) return console.log("error fetching categories");
     setECategories(result);
   };
@@ -119,6 +120,19 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
     }
   };
 
+  const submitNewCategory = async () => {
+    if (!newCat) return console.log("Cannot populate an empty category");
+    const category = {
+      category_name: newCat,
+      resource: `${dataLabel}`,
+    };
+
+    const result = await createCategory(category);
+    if (result.error) return console.log("error creating a category");
+    queryCategories();
+    setNewCat("");
+  };
+
   return (
     <ListCategories
       dataLabel={dataLabel}
@@ -136,7 +150,10 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
       prevPage={prevPage}
       handleSelected={handleSelected}
       batchSelect={batchSelect}
+      newCategory={setNewCat}
+      newCategoryValue={newCat}
       selectedCategories={selectedCategories}
+      submitNewCategory={submitNewCategory}
     />
   );
 }

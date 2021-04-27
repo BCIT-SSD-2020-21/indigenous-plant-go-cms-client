@@ -6,7 +6,6 @@ import Table from "./Table";
 export default function ListCategories({
   categories,
   label,
-  dataLabel,
   labelPlural,
   searchQuery,
   handleQueryChange,
@@ -20,6 +19,9 @@ export default function ListCategories({
   handleSelected,
   selectedCategories,
   batchSelect,
+  newCategory,
+  newCategoryValue,
+  submitNewCategory,
 }) {
   return (
     <div>
@@ -32,10 +34,17 @@ export default function ListCategories({
             <p style={style.label}>
               Category name <span style={style.req}>*</span>
             </p>
-            <Input style={style.input} placeholder="Enter category name" />
+            <Input
+              onChange={(e) => newCategory(e.target.value)}
+              value={newCategoryValue}
+              style={style.input}
+              placeholder="Enter category name"
+            />
           </fieldset>
 
-          <button className="field__button">Create new category</button>
+          <button onClick={() => submitNewCategory()} className="field__button">
+            Create new category
+          </button>
         </div>
         <div className="resource__col right">
           <p>

@@ -129,6 +129,19 @@ export const getAllCategories = async () => {
   }
 };
 
+export const getCategoryGroup = async (group) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/categories/group/${group}`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
 export const getAllPlants = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/plants`);
@@ -152,6 +165,31 @@ export const createPlant = async (plant) => {
 
   try {
     const response = await axios.post(`${BASE_URL}/plants`, plant, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const createCategory = async (category) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const response = await axios.post(`${BASE_URL}/categories`, category, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,

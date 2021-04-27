@@ -5,7 +5,7 @@ export default function PlantCategories() {
   return (
     <main>
       <ListCategoriesCtrl
-        dataLabel={"plants"}
+        dataLabel={"plant"}
         label={"Plant"}
         labelPlural={"Plants"}
       />
