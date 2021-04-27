@@ -912,11 +912,11 @@ module.exports = async function() {
 
     //Get One
   //GET /api/learn_more/:learn_more_id
-  async function getPlant({learn_more_id}) {
+  async function getLearnMoreById({learnMoreId}) {
     const aggregateOptions = [
       {
         $match: {
-          _id: ObjectID(learn_more_id)
+          _id: ObjectID(learnMoreId)
         }
       },
       {
@@ -937,7 +937,7 @@ module.exports = async function() {
       }
     ]
 
-    return await plants.aggregate(aggregateOptions).next()
+    return await learn_more.aggregate(aggregateOptions).next()
   }
 
 
@@ -996,6 +996,7 @@ module.exports = async function() {
     updatePlant,
     deletePlant,
     //Learn More
-    getLearnMore
+    getLearnMore,
+    getLearnMoreById
   }
 }

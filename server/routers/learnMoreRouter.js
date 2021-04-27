@@ -13,6 +13,18 @@ module.exports = function({database, authorize, verifyKey}) {
     }
   })
 
+  //Get One
+  router.get('/:learnMoreId', verifyKey, async (req, res) => {
+    try {
+      const learnMoreId = req.params.learnMoreId
+      const result = await database.getLearnMoreById({learnMoreId})
+      res.send(result)
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
   
   return router
 }
