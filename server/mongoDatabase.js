@@ -964,6 +964,20 @@ module.exports = async function() {
     return result
   }
 
+  //Delete
+  //DELETE /api/learn_more/:learnMoreId
+  async function deleteLearnMore({learnMoreId}) {
+    const learnMore = await learn_more.findOne({_id: ObjectID(learnMoreId)})
+    learnMore.revisions.forEach(async(revision) => {
+      await deleteRevision({revisionId: revision})
+    })
+
+    const result = await learn_more.findOneAndDelete({
+      _id: ObjectID(learnMoreId)
+    })
+    return result
+  }
+
 
 
   return {
@@ -1022,6 +1036,8 @@ module.exports = async function() {
     //Learn More
     getLearnMore,
     getLearnMoreById,
-    updateLearnMore
+    updateLearnMore,
+    deleteLearnMore
+
   }
 }

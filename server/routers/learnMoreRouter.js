@@ -3,6 +3,7 @@ const express = require('express')
 module.exports = function({database, authorize, verifyKey}) {
   const router = express.Router()
 
+  //GET ALL
   router.get('/', verifyKey, async (req, res) => {
     try {
       const result = await database.getLearnMore()
@@ -36,5 +37,19 @@ module.exports = function({database, authorize, verifyKey}) {
       res.status(401).send({error: error.message})
     }
   })
+
+
+  //DELETE 
+  router.delete('/:learnMoreId', authorize, verifyKey, async (req, res) => {
+    try {
+      const learnMoreId = req.params.learnMoreId
+      const result = await database.deleteLearnMore({learnMoreId})
+      res.send(result)
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
   return router
 }
