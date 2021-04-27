@@ -1,5 +1,6 @@
 
 
+//============== Version 1 
 await categories.insertMany([
   {
     "category_name" : "waypoint sw1",
@@ -22,12 +23,12 @@ await categories.insertMany([
 ])
 
 
-const plant_category1 = await plant_categories.findOne({"category_name": "Caryophyllaceae"})
-const plant_category2 = await plant_categories.findOne({"category_name": "Asteraceae"})
-const tour_category1 = await tour_categories.findOne({"category_name" : "english walk"})
-const tour_category2 = await tour_categories.findOne({"category_name" : "scenic"})
-const waypoint_category1 = await waypoint_categories.findOne({"category_name" : "waypoint sw1"})
-const waypoint_category2 = await waypoint_categories.findOne({"category_name" : "waypoint sw2"})
+const plant_category1 = await categories.findOne({"category_name": "Caryophyllaceae"})
+const plant_category2 = await categories.findOne({"category_name": "Asteraceae"})
+const tour_category1 = await categories.findOne({"category_name" : "english walk"})
+const tour_category2 = await categories.findOne({"category_name" : "scenic"})
+const waypoint_category1 = await categories.findOne({"category_name" : "waypoint sw1"})
+const waypoint_category2 = await categories.findOne({"category_name" : "waypoint sw2"})
 
 // 6. Waypoint  Categories
 await waypoint_categories.insertMany([
@@ -51,7 +52,7 @@ await tour_categories.insertMany([
 ])
 
 
-///==============
+//============== Version 2
 
 // 6. Insert Waypoint Categories
 await waypoint_categories.insertMany([
