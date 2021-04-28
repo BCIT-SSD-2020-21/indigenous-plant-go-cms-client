@@ -1,5 +1,5 @@
 export const parseDate = (unix) => {
-  let milliseconds = +unix * 1000;
+  let milliseconds = +unix;
   let date = new Date(milliseconds);
   // Parse data into a date string
   let parsedDate = Date.parse(date);

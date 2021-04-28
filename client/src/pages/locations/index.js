@@ -1,5 +1,10 @@
 import React from "react";
+import ListLocationsCtrl from "../../controllers/List/Locations/ListLocationsCtrl";
 
 export default function Locations() {
-  return <main>Locations</main>;
+  return (
+    <main>
+      <ListLocationsCtrl />
+    </main>
+  );
 }
