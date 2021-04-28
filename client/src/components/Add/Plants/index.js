@@ -26,6 +26,13 @@ export default function AddPlants({
   eVideos,
   eTags,
   eCategories,
+  // QUERIES
+  queryLocations,
+  queryImages,
+  queryAudios,
+  queryVideos,
+  queryTags,
+  queryCategories,
 }) {
   return (
     <div>
@@ -56,6 +63,7 @@ export default function AddPlants({
             label={"location"}
             dataLabel={"location"}
             data={eLocations}
+            query={queryLocations}
             setter={(data) => locationsChanged(data)}
           />
         </div>
@@ -84,12 +92,15 @@ export default function AddPlants({
             label={"category"}
             dataLabel={"category"}
             data={eCategories}
+            query={queryCategories}
+            resource="plant"
             setter={(data) => categoriesChanged(data)}
           />
           <TextPickerCtrl
             label={"tag"}
             dataLabel={"tag"}
             data={eTags}
+            query={queryTags}
             setter={(data) => tagsChanged(data)}
           />
         </div>

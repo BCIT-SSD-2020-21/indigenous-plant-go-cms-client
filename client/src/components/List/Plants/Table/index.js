@@ -9,12 +9,8 @@ export default function Table({ plantData, handleSelected, selectedPlants }) {
         plantData.length > 0 &&
         plantData.map((plant, index) => {
           const lastRevision = {
-            date: parseDate(
-              plant.revision_history[plant.revision_history.length - 1].date
-            ),
-            user:
-              plant.revision_history[plant.revision_history.length - 1].user[0]
-                .user_name,
+            date: parseDate(plant.revision_history[0].date),
+            user: plant.revision_history[0].user[0]?.user_name,
           };
 
           return (
@@ -50,7 +46,12 @@ export default function Table({ plantData, handleSelected, selectedPlants }) {
                 </span>
               </div>
               <div className="table__col author">
-                <p>{plant.revision_history[0].user[0].user_name}</p>
+                <p>
+                  {
+                    plant.revision_history[plant.revision_history.length - 1]
+                      .user[0]?.user_name
+                  }
+                </p>
               </div>
               <div className="table__col categories">
                 <p>
