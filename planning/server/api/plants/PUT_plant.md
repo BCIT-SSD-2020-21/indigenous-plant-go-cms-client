@@ -21,9 +21,9 @@ Example request: PUT /api/plants/607e399e59c8feg7e2af65r7
   "locations": ["607e3ab0a0d3df815abfcfb1"],
   "custom_fields": [
     {
-      custom_field_id: "607e399e59c86677e2af65r7",
-      field_title: "Medical",
-      content: "Use in medical"
+      "custom_field_id": "607e399e59c86677e2af65r7",
+      "field_title": "Medical",
+      "content": "Use in medical"
     }
   ]
 }

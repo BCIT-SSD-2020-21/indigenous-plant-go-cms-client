@@ -21,9 +21,9 @@ Example request: POST /api/waypoints?key=<API_KEY>
   "plants": ["607fa01931325a2e700a4307"],
   "custom_fields": [
     {
-      custom_field_id: "607e399e59c86677e2af65r7",
-      field_title: "Medical",
-      content: "Use in medical"
+      "custom_field_id": "607e399e59c86677e2af65r7",
+      "field_title": "Medical",
+      "content": "Use in medical"
     }
   ]
 }
