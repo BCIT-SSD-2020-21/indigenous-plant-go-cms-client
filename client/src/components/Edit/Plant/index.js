@@ -27,6 +27,13 @@ export default function EditPlant({
   eVideos,
   eTags,
   eCategories,
+  // QUERIES
+  queryLocations,
+  queryImages,
+  queryAudios,
+  queryVideos,
+  queryTags,
+  queryCategories,
 }) {
   return (
     <div>
@@ -68,6 +75,7 @@ export default function EditPlant({
             dataLabel={"location"}
             data={eLocations}
             selected={plantData.locations}
+            query={queryLocations}
             setter={(data) => locationsChanged(data)}
           />
         </div>
@@ -99,7 +107,9 @@ export default function EditPlant({
             label={"category"}
             dataLabel={"category"}
             data={eCategories}
+            query={queryCategories}
             selected={plantData.categories}
+            resource="plant"
             setter={(data) => categoriesChanged(data)}
           />
           <TextPickerCtrl
@@ -107,6 +117,7 @@ export default function EditPlant({
             dataLabel={"tag"}
             data={eTags}
             selected={plantData.tags}
+            query={queryTags}
             setter={(data) => tagsChanged(data)}
           />
         </div>

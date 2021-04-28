@@ -63,6 +63,7 @@ export default function AddPlants({
             label={"location"}
             dataLabel={"location"}
             data={eLocations}
+            query={queryLocations}
             setter={(data) => locationsChanged(data)}
           />
         </div>

@@ -190,6 +190,13 @@ export default function EditPlantCtrl({ match }) {
       eTags={eTags}
       eCategories={eCategories}
       plantData={plantData}
+      // QUERIES
+      queryLocations={queryLocations}
+      queryImages={queryImages}
+      queryAudios={queryAudios}
+      queryVideos={queryVideos}
+      queryTags={queryTags}
+      queryCategories={queryCategories}
     />
   );
 }
