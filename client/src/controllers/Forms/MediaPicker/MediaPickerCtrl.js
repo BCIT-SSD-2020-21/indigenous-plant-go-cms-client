@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import MediaPicker from "../../../components/Forms/MediaPicker";
 
-export default function MediaPickerCtrl({ label, dataLabel, data, setter }) {
+export default function MediaPickerCtrl({
+  label,
+  dataLabel,
+  data,
+  setter,
+  selected,
+}) {
   const [activeSelection, setActiveSelection] = useState([]);
   const [formattedOptions, setFormattedOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
@@ -13,12 +19,29 @@ export default function MediaPickerCtrl({ label, dataLabel, data, setter }) {
   }, [data]);
 
   useEffect(() => {
+    formatSelection();
+  }, [selected]);
+
+  useEffect(() => {
     setter(activeSelection);
   }, [activeSelection]);
 
   useEffect(() => {
     formatOptions();
   }, [options, activeSelection]);
+
+  const formatSelection = () => {
+    if (!selected) return console.log("Error formatting selection");
+    const formatted = selected.map((option) => {
+      return {
+        _id: option._id,
+        url: option[`${dataLabel}_url`],
+        title: option.caption,
+      };
+    });
+
+    setActiveSelection(formatted);
+  };
 
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;

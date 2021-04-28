@@ -66,18 +66,21 @@ export default function EditPlant({
             label={"image"}
             dataLabel={"image"}
             data={eImages}
+            selected={plantData.images}
             setter={(data) => imagesChanged(data)}
           />
           <MediaPickerCtrl
             label={"Audio File"}
             dataLabel={"audio_file"}
             data={eAudios}
+            selected={plantData.audio_files}
             setter={(data) => audioFilesChanged(data)}
           />
           <MediaPickerCtrl
             label={"video"}
             dataLabel={"video"}
             data={eVideos}
+            selected={plantData.videos}
             setter={(data) => videosChanged(data)}
           />
         </div>
