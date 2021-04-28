@@ -46,6 +46,7 @@ export default function EditPlant({
           />
           <CustomFieldPickerCtrl
             label={"Custom Field"}
+            selected={plantData.custom_fields}
             setter={(data) => customFieldsChanged(data)}
           />
           <TextAreaCtrl
