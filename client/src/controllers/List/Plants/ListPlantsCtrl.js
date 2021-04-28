@@ -51,6 +51,7 @@ export default function ListPlantsCtrl() {
   const queryPlants = async () => {
     const result = await getAllPlants();
     if (result.error) return console.log("error getting plants");
+    if (result.length < 1) setPlantData([]);
     setPlantData(result);
   };
 
