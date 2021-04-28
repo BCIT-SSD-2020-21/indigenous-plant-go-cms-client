@@ -155,6 +155,19 @@ export const getAllPlants = async () => {
   }
 };
 
+export const getPlant = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/plants/${id}`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.reponse);
+    return {
+      error: error.response,
+    };
+  }
+};
+
 export const createPlant = async (plant) => {
   const token = getToken();
 

@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import TextPicker from "../../../components/Forms/TextPicker";
 
-export default function TextPickerCtrl({ label, dataLabel, data, setter }) {
+export default function TextPickerCtrl({
+  label,
+  dataLabel,
+  data,
+  selected,
+  setter,
+}) {
   const [activeSelection, setActiveSelection] = useState([]);
   const [formattedOptions, setFormattedOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
@@ -11,6 +17,10 @@ export default function TextPickerCtrl({ label, dataLabel, data, setter }) {
     setOptions(data);
     formatOptions();
   }, [data]);
+
+  useEffect(() => {
+    formatSelection();
+  }, [selected]);
 
   useEffect(() => {
     setter(activeSelection);
@@ -47,6 +57,18 @@ export default function TextPickerCtrl({ label, dataLabel, data, setter }) {
     });
 
     setFormattedOptions(formatted);
+  };
+
+  const formatSelection = () => {
+    if (!selected) return console.log("Error formatting selection");
+    const formatted = selected.map((option) => {
+      return {
+        _id: option._id,
+        title: option[`${dataLabel}_name`],
+      };
+    });
+
+    setActiveSelection(formatted);
   };
 
   const handleSelectChange = (e, data) => {
