@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 import ListPlants from "../../../components/List/Plants/index";
 import {
   getAllPlants,
-  getAllCategories,
   deletePlant,
-  bulkDeletePlant,
+  getCategoryGroup,
   bulkDeletePlants,
 } from "../../../network";
 
@@ -56,7 +55,7 @@ export default function ListPlantsCtrl() {
   };
 
   const queryCategories = async () => {
-    const result = await getAllCategories();
+    const result = await getCategoryGroup("plant");
     if (result.error) return console.log("error getting categories");
     setECategories(result);
   };
