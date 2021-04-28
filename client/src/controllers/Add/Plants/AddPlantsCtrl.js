@@ -139,8 +139,6 @@ export default function AddPlantsCtrl() {
   // ===============================================================
 
   const handlePublish = async () => {
-    console.log("Attempt publish");
-
     const plant = {
       plant_name: plantName,
       scientific_name: scientificName,

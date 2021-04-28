@@ -168,6 +168,30 @@ export const getPlant = async (id) => {
   }
 };
 
+export const updatePlant = async (id, plant) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+  try {
+    const response = await axios.put(`${BASE_URL}/plants/${id}`, plant, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.message,
+    };
+  }
+};
+
 export const createPlant = async (plant) => {
   const token = getToken();
 

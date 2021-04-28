@@ -8,6 +8,7 @@ import TextInputCtrl from "../../../controllers/Forms/TextInput/TextInputCtrl";
 import TextAreaCtrl from "../../../controllers/Forms/TextArea/TextAreaCtrl";
 
 export default function EditPlant({
+  handleUpdate,
   plantData,
   categoriesChanged,
   tagsChanged,
@@ -30,9 +31,15 @@ export default function EditPlant({
   return (
     <div>
       <DashHeader
-        title="Edit Plant"
+        title={
+          plantData && plantData.plant_name
+            ? `Edit ${plantData.plant_name[0].toUpperCase()}${plantData.plant_name.substr(
+                1
+              )}`
+            : "Edit Plant"
+        }
         action="Update"
-        method={() => console.log("attempt update")}
+        method={() => handleUpdate()}
       />
       <div className="form__grid">
         <div className="col">

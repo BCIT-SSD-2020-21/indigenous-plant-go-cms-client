@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import EditPlant from "../../../components/Edit/Plant";
 import { getPlant } from "../../../network";
 import { useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import {
   getLocations,
   getImages,
@@ -9,9 +10,11 @@ import {
   getVideos,
   getTags,
   getCategoryGroup,
+  updatePlant,
 } from "../../../network";
 
 export default function EditPlantCtrl({ match }) {
+  const history = useHistory();
   const [plantData, setPlantData] = useState({});
   const { plantId } = useParams();
   // ===============================================================
@@ -143,8 +146,32 @@ export default function EditPlantCtrl({ match }) {
     setDescription(data);
   };
 
+  // ===============================================================
+  // POST
+  // ===============================================================
+
+  const handleUpdate = async () => {
+    const plant = {
+      plant_name: plantName,
+      scientific_name: scientificName,
+      description: description,
+      images: images,
+      audio_files: audioFiles,
+      videos: videos,
+      tags: tags,
+      categories: categories,
+      locations: locations,
+      custom_fields: customFields,
+    };
+
+    const result = await updatePlant(plantId, plant);
+    if (result.error) return console.log("error creating plant");
+    history.push("/plants");
+  };
+
   return (
     <EditPlant
+      handleUpdate={handleUpdate}
       categoriesChanged={categoriesChanged}
       tagsChanged={tagsChanged}
       locationsChanged={locationsChanged}
