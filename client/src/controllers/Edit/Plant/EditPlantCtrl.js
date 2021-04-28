@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import AddPlants from "../../../components/Add/Plants";
+import EditPlant from "../../../components/Edit/Plant";
+import { getPlant } from "../../../network";
+import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import {
   getLocations,
@@ -8,11 +10,13 @@ import {
   getVideos,
   getTags,
   getCategoryGroup,
-  createPlant,
+  updatePlant,
 } from "../../../network";
 
-export default function AddPlantsCtrl() {
+export default function EditPlantCtrl({ match }) {
   const history = useHistory();
+  const [plantData, setPlantData] = useState({});
+  const { plantId } = useParams();
   // ===============================================================
   // FORM DATA
   // ===============================================================
@@ -37,6 +41,7 @@ export default function AddPlantsCtrl() {
   const [eCategories, setECategories] = useState([]);
 
   useEffect(async () => {
+    await queryPlant();
     await queryLocations();
     await queryImages();
     await queryAudios();
@@ -82,6 +87,13 @@ export default function AddPlantsCtrl() {
     const result = await getCategoryGroup("plant");
     if (result.error) return console.log("error getting categories");
     setECategories(result);
+  };
+
+  const queryPlant = async () => {
+    if (!plantId) return console.log("plant id is invalid");
+    const result = await getPlant(plantId);
+    if (result.error) return console.log("unable to get plant");
+    setPlantData(result);
   };
 
   // ===============================================================
@@ -138,7 +150,7 @@ export default function AddPlantsCtrl() {
   // POST
   // ===============================================================
 
-  const handlePublish = async () => {
+  const handleUpdate = async () => {
     const plant = {
       plant_name: plantName,
       scientific_name: scientificName,
@@ -152,13 +164,14 @@ export default function AddPlantsCtrl() {
       custom_fields: customFields,
     };
 
-    const result = await createPlant(plant);
+    const result = await updatePlant(plantId, plant);
     if (result.error) return console.log("error creating plant");
     history.push("/plants");
   };
 
   return (
-    <AddPlants
+    <EditPlant
+      handleUpdate={handleUpdate}
       categoriesChanged={categoriesChanged}
       tagsChanged={tagsChanged}
       locationsChanged={locationsChanged}
@@ -169,7 +182,6 @@ export default function AddPlantsCtrl() {
       plantNameChanged={plantNameChanged}
       scientificNameChanged={scientificNameChanged}
       descriptionChanged={descriptionChanged}
-      handlePublish={handlePublish}
       // SELECTION DATA
       eLocations={eLocations}
       eImages={eImages}
@@ -177,6 +189,7 @@ export default function AddPlantsCtrl() {
       eVideos={eVideos}
       eTags={eTags}
       eCategories={eCategories}
+      plantData={plantData}
     />
   );
 }

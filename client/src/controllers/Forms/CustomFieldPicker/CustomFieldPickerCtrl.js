@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import CustomFieldPicker from "../../../components/Forms/CustomFieldPicker";
 import { v4 as uuidv4 } from "uuid";
 
-export default function CustomFieldPickerCtrl({ label, setter }) {
+export default function CustomFieldPickerCtrl({ label, setter, selected }) {
   const [activeSelection, setActiveSelection] = useState([]);
   const [modalActive, setModalActive] = useState(false);
   const [title, setTitle] = useState("");
@@ -13,6 +13,23 @@ export default function CustomFieldPickerCtrl({ label, setter }) {
   useEffect(() => {
     setter(activeSelection);
   }, [activeSelection]);
+
+  useEffect(() => {
+    formatSelection();
+  }, [selected]);
+
+  const formatSelection = () => {
+    if (!selected) return console.log("Error formatting selection");
+    const formatted = selected.map((option) => {
+      return {
+        _id: uuidv4(),
+        title: option.field_title,
+        content: option.content,
+      };
+    });
+
+    setActiveSelection(formatted);
+  };
 
   const clearFields = () => {
     setTitle("");

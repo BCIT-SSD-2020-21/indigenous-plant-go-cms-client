@@ -1,5 +1,6 @@
 import React from "react";
 import { parseDate } from "../../../../utility";
+import { Link } from "react-router-dom";
 
 export default function Table({ plantData, handleSelected, selectedPlants }) {
   return (
@@ -36,9 +37,13 @@ export default function Table({ plantData, handleSelected, selectedPlants }) {
               <div className="table__col title">
                 <p>{plant.plant_name}</p>
                 <span className="action">
-                  <button type="button" value={plant._id}>
+                  <Link
+                    to={`/plants/edit/${plant._id}`}
+                    type="button"
+                    value={plant._id}
+                  >
                     Edit&nbsp;
-                  </button>
+                  </Link>
                   <button type="button" value={plant._id}>
                     &nbsp;Delete
                   </button>
