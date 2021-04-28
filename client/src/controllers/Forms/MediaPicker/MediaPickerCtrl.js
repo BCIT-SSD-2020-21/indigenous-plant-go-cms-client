@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MediaPicker from "../../../components/Forms/MediaPicker";
+import { createImage, createAudio, createVideo } from "../../../network";
 
 export default function MediaPickerCtrl({
   label,
@@ -7,11 +8,15 @@ export default function MediaPickerCtrl({
   data,
   setter,
   selected,
+  query,
 }) {
   const [activeSelection, setActiveSelection] = useState([]);
   const [formattedOptions, setFormattedOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [options, setOptions] = useState([]);
+  const [modalActive, setModalActive] = useState(false);
+  const [file, setFile] = useState(null);
+  const [caption, setCaption] = useState("");
 
   useEffect(() => {
     setOptions(data);
@@ -29,6 +34,11 @@ export default function MediaPickerCtrl({
   useEffect(() => {
     formatOptions();
   }, [options, activeSelection]);
+
+  const resetFields = () => {
+    setCaption("");
+    setFile(null);
+  };
 
   const formatSelection = () => {
     if (!selected) return console.log("Error formatting selection");
@@ -98,8 +108,55 @@ export default function MediaPickerCtrl({
     selected = selected.filter((item) => item._id !== id);
     setActiveSelection(selected);
   };
+
+  const openModal = () => {
+    setModalActive(true);
+  };
+
+  const closeModal = () => {
+    setModalActive(false);
+  };
+
+  const handleUpload = async () => {
+    let result, formatted, currSelection;
+    if (!file || !caption) return console.log("Error uploading file");
+
+    const formData = new FormData();
+
+    switch (dataLabel) {
+      case "image":
+        formData.append("image", file);
+        formData.append("caption", caption);
+        result = await createImage(formData);
+        break;
+      case "audio_file":
+        formData.append("audio", file);
+        formData.append("caption", caption);
+        result = await createAudio(formData);
+        break;
+      case "video":
+        formData.append("video", file);
+        formData.append("caption", caption);
+        result = await createVideo(formData);
+        break;
+    }
+
+    if (result.error) return console.log("Error uploading file");
+    formatted = {
+      _id: result._id,
+      url: result[`${dataLabel}_url`],
+      title: result.caption,
+    };
+    currSelection = [...activeSelection, formatted];
+    closeModal();
+    resetFields();
+    setActiveSelection(currSelection);
+    query();
+  };
+
   return (
     <MediaPicker
+      dataLabel={dataLabel}
       handleSelectChange={handleSelectChange}
       handleRemove={handleRemove}
       confirmSelection={confirmSelection}
@@ -107,6 +164,14 @@ export default function MediaPickerCtrl({
       activeSelection={activeSelection}
       options={formattedOptions}
       label={label}
+      openModal={openModal}
+      closeModal={closeModal}
+      modalActive={modalActive}
+      file={file}
+      setFile={setFile}
+      caption={caption}
+      setCaption={setCaption}
+      handleUpload={handleUpload}
     />
   );
 }

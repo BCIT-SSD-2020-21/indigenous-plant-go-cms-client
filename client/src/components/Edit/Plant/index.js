@@ -84,6 +84,7 @@ export default function EditPlant({
             label={"image"}
             dataLabel={"image"}
             data={eImages}
+            query={queryImages}
             selected={plantData.images}
             setter={(data) => imagesChanged(data)}
           />
@@ -91,6 +92,7 @@ export default function EditPlant({
             label={"Audio File"}
             dataLabel={"audio_file"}
             data={eAudios}
+            query={queryAudios}
             selected={plantData.audio_files}
             setter={(data) => audioFilesChanged(data)}
           />
@@ -98,6 +100,7 @@ export default function EditPlant({
             label={"video"}
             dataLabel={"video"}
             data={eVideos}
+            query={queryVideos}
             selected={plantData.videos}
             setter={(data) => videosChanged(data)}
           />

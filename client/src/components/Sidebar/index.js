@@ -34,11 +34,11 @@ export default function Sidebar({
             >
               <span style={style.initial}>
                 {" "}
-                {userData?.user?.username[0].toUpperCase()}
+                {userData?.user?.user_name[0].toUpperCase()}
               </span>
               <span className="menu__item item__label">
                 {" "}
-                {userData?.user?.username}
+                {userData?.user?.user_name}
               </span>
             </span>
           </Link>

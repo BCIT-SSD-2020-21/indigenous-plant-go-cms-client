@@ -105,6 +105,46 @@ button.field__button {
   }
 }
 
+.field__file {
+  display: flex;
+  margin-bottom: 14px;
+
+  .file__meta {
+    width: 100%;
+    border: 1px solid lightgray;
+    max-height: 205px;
+    display: flex;
+    align-items: center;
+    padding: 0px 10px;
+    overflow: hidden;
+    max-width: 200px;
+
+    p {
+      width: 100%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+  }
+
+  button {
+    padding: 0;
+  }
+
+  button,
+  label {
+    // max-width: 50%;
+    width: 100%;
+    cursor: pointer;
+    font-weight: normal !important;
+    margin-bottom: 0 !important;
+  }
+
+  label {
+    padding: 14px 7px;
+  }
+}
+
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .form__actions {
     flex-direction: column-reverse;

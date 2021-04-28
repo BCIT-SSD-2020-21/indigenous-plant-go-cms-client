@@ -72,18 +72,21 @@ export default function AddPlants({
             label={"image"}
             dataLabel={"image"}
             data={eImages}
+            query={queryImages}
             setter={(data) => imagesChanged(data)}
           />
           <MediaPickerCtrl
             label={"Audio File"}
             dataLabel={"audio_file"}
             data={eAudios}
+            query={queryAudios}
             setter={(data) => audioFilesChanged(data)}
           />
           <MediaPickerCtrl
             label={"video"}
             dataLabel={"video"}
             data={eVideos}
+            query={queryVideos}
             setter={(data) => videosChanged(data)}
           />
         </div>

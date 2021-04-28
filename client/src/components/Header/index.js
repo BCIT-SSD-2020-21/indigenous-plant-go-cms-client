@@ -38,10 +38,10 @@ export default function Header({ handleSignout, userData, navigateToProfile }) {
                     cursor: "pointer",
                   }}
                 >
-                  {userData?.user?.username}
+                  {userData?.user?.user_name}
                 </span>
                 <span style={style.initial}>
-                  {userData?.user?.username[0].toUpperCase()}
+                  {userData?.user?.user_name[0].toUpperCase()}
                 </span>
               </button>
             </li>
