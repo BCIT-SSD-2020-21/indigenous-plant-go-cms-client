@@ -151,12 +151,12 @@ const seed = async () => {
     }
   ])
   
-  const plant_category1 = await categories.findOne({"category_name": "Caryophyllaceae"})
-  const plant_category2 = await categories.findOne({"category_name": "Asteraceae"})
+  const plant_category1 = await categories.findOne({"category_name": "caryophyllaceae"})
+  const plant_category2 = await categories.findOne({"category_name": "asteraceae"})
   const tour_category1 = await categories.findOne({"category_name" : "english walk"})
   const tour_category2 = await categories.findOne({"category_name" : "scenic"})
-  const waypoint_category1 = await categories.findOne({"category_name" : "waypoint sw1"})
-  const waypoint_category2 = await categories.findOne({"category_name" : "waypoint sw2"})
+  const waypoint_category1 = await categories.findOne({"category_name": "SW01"})
+  const waypoint_category2 = await categories.findOne({"category_name": "SW02"})
   
   // 7. Waypoint  Categories
   await waypoint_categories.insertMany([
@@ -165,19 +165,19 @@ const seed = async () => {
     }
   ])
   
-  // 8. Insert Plant Categories
-  await plant_categories.insertMany([
-    {
-      "categories" : [plant_category1._id, plant_category2._id] 
-    },
-  ])
+  // // 8. Insert Plant Categories
+  // await plant_categories.insertMany([
+  //   {
+  //     "categories" : [plant_category1._id, plant_category2._id] 
+  //   },
+  // ])
   
-  // 9. Insert Tour Categories
-  await tour_categories.insertMany([
-    {
-      "categories" : [tour_category1._id, tour_category2._id] 
-    }
-  ])
+  // // 9. Insert Tour Categories
+  // await tour_categories.insertMany([
+  //   {
+  //     "categories" : [tour_category1._id, tour_category2._id] 
+  //   }
+  // ])
   
   // 10. Insert Tags
   await tags.insertMany([
