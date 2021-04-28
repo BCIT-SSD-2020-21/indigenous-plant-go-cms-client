@@ -26,7 +26,7 @@ module.exports = function({database, authorize, verifyKey}) {
     }
   })
 
-    //Create
+  //Create
   //POST /api/learn_more
   router.post('/', authorize, verifyKey, async (req, res) => {
     try {
@@ -38,8 +38,8 @@ module.exports = function({database, authorize, verifyKey}) {
     }
   })
 
-
   //Update
+  // PUT /api/learn_more/:learnMoreId
   router.put('/:learnMoreId', authorize, verifyKey, async (req, res) => {
     try {
       const learnMoreId = req.params.learnMoreId
@@ -51,8 +51,8 @@ module.exports = function({database, authorize, verifyKey}) {
     }
   })
 
-
   //DELETE 
+  // DELETE /api/learn_more/:learnMoreId
   router.delete('/:learnMoreId', authorize, verifyKey, async (req, res) => {
     try {
       const learnMoreId = req.params.learnMoreId
