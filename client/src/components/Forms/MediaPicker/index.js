@@ -1,7 +1,8 @@
 import React from "react";
 import { TrashIcon, ImageIcon, AudioIcon, VideoIcon } from "../../../icons";
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown, Input } from "semantic-ui-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Modal from "../../Modal";
 
 export default function MediaPicker({
   options,
@@ -11,7 +12,76 @@ export default function MediaPicker({
   confirmSelection,
   handleOnDragEnd,
   label,
+  openModal,
+  closeModal,
+  modalActive,
+  file,
+  setFile,
+  caption,
+  setCaption,
+  handleUpload,
+  dataLabel,
 }) {
+  const renderModal = () => {
+    return (
+      <>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+          }}
+        >
+          <fieldset style={style.fieldset}>
+            <p style={style.label}>
+              Caption <span style={style.req}>*</span>
+            </p>
+            <Input
+              value={caption}
+              onChange={(e) => setCaption(e.target.value)}
+              style={style.input}
+              placeholder="Enter caption"
+            />
+          </fieldset>
+          <p style={style.label}>
+            Upload file: <span style={style.req}>*</span>
+          </p>
+          <fieldset style={style.fieldset}>
+            <div className="field__file">
+              <div className="file__meta">
+                <p>{file?.name}</p>
+              </div>
+              <input
+                filename={file}
+                onChange={(e) => {
+                  setFile(e.target.files[0]);
+                }}
+                style={{ display: "none" }}
+                id="file--upload"
+                type="file"
+                accept={
+                  dataLabel === "image"
+                    ? "image/*"
+                    : dataLabel === "audio_file"
+                    ? "audio/*"
+                    : "video/*"
+                }
+              />
+              <button className="field__button">
+                <label htmlFor="file--upload">Choose File</label>
+              </button>
+            </div>
+            <button className="field__button" onClick={() => handleUpload()}>
+              Upload {label[0].toUpperCase()}
+              {label.substring(1)}
+            </button>
+            <button className="modal__cancel" onClick={() => closeModal()}>
+              Cancel
+            </button>
+          </fieldset>
+        </form>
+      </>
+    );
+  };
+
   return (
     <div className="textpicker">
       <label>
@@ -84,10 +154,17 @@ export default function MediaPicker({
         </button>
       </div>
       <div className="textpicker__footer">
-        <button>
+        <button onClick={() => openModal()}>
           + Upload A New {`${label[0].toUpperCase()}${label.substring(1)}`}
         </button>
       </div>
+      <Modal
+        title={`Upload a new ${label[0].toUpperCase()}${label.substring(1)}`}
+        isActive={modalActive}
+        closeModal={closeModal}
+      >
+        {renderModal()}
+      </Modal>
     </div>
   );
 }
@@ -103,4 +180,48 @@ const renderIcon = (label) => {
     default:
       return <ImageIcon />;
   }
+};
+
+const style = {
+  form: {
+    background: "var(--lightprimary)",
+    border: "1px solid lightgrey",
+    minWidth: "350px",
+    margin: "auto",
+    padding: 20,
+    boxShadow: "var(--shadow)",
+  },
+  formFooter: {
+    padding: "20px 0",
+  },
+  input: {
+    width: "100%",
+    color: "var(--darksecondary)",
+  },
+  textarea: {
+    height: 200,
+    border: "1px solid lightgrey",
+    color: "var(--darkprimary)",
+    padding: "7px 14px",
+    background: "var(--lighttertiary)",
+  },
+  label: {
+    color: "var(--darksecondary)",
+    margin: 0,
+    fontSize: 11,
+    marginBottom: "3px",
+  },
+  fieldset: {
+    marginBottom: "10px",
+    padding: 0,
+  },
+  submit: {
+    width: "100%",
+    background: "var(--highlight)",
+    borderRadius: "unset",
+  },
+  req: {
+    color: "red",
+    fontSize: 14,
+  },
 };
