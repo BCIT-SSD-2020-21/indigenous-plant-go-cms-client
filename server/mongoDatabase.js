@@ -1756,9 +1756,11 @@ module.exports = async function() {
     return result
   }
 
-  // LEARN MORE---------------------
-  // GET ALL | 
-  async function getLearnMore(){
+  //Learn more
+
+  //Get all
+  //GET /api/learn_more
+  async function getLearnMores(){
     const aggregateOptions = [
       {
         $lookup: {
@@ -1803,77 +1805,55 @@ module.exports = async function() {
       {
         $lookup: {
           from: 'revisions',
-          localField: 'revisions',
+          localField: 'revision_history',
           foreignField: '_id',
-          as: 'revisions'
+          as: 'revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$revision_history'
+        }
+      },
+      {
+        $sort: {
+          'revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'revision_history.user',
+          foreignField: '_id',
+          as: 'revision_history.user'
+        }
+      },
+      {
+        $group: {
+          _id: '$_id',
+          learn_more_title: {$first: '$learn_more_title'},
+          description: {$first: '$description'},
+          images: {$first: '$images'},
+          audio_files: {$first: '$audio_files'},
+          videos: {$first: '$videos'},
+          tags: {$first: '$tags'},
+          categories: {$first: '$categories'},
+          custom_fields: {$first: '$custom_fields'},
+          revision_history: {$push: '$revision_history'}
+        }
+      },
+      {
+        $project: {
+          'revision_history.user.password': 0,
+          'revision_history.user.role': 0
         }
       }
     ]
     return await learn_more.aggregate(aggregateOptions).toArray()
   }
 
-    //Get One
-  //GET /api/learn_more/:learnMoreId
-  async function getLearnMoreById({learnMoreId}) {
-    const aggregateOptions = [
-      {
-        $match: {
-          _id: ObjectID(learnMoreId)
-        }
-      },
-      {
-        $lookup: {
-          from: 'images',
-          localField: 'images',
-          foreignField: '_id',
-          as: 'images'
-        }
-      },
-      {
-        $lookup: {
-          from: 'audios',
-          localField: 'audio_files',
-          foreignField: '_id',
-          as: 'audio_files'
-        }
-      },
-      {
-        $lookup: {
-          from: 'videos',
-          localField: 'videos',
-          foreignField: '_id',
-          as: 'videos'
-        }
-      },
-      {
-        $lookup: {
-          from: 'tags',
-          localField: 'tags',
-          foreignField: '_id',
-          as: 'tags'
-        }
-      },
-      {
-        $lookup: {
-          from: 'categories',
-          localField: 'categories',
-          foreignField: '_id',
-          as: 'categories'
-        }
-      },
-      {
-        $lookup: {
-          from: 'revisions',
-          localField: 'revisions',
-          foreignField: '_id',
-          as: 'revisions'
-        }
-      }
-    ]
-
-    return await learn_more.aggregate(aggregateOptions).next()
-  }
-
+  //Create
+  //POST /api/learn_more
   async function createLearnMore({newLearnMore, user_id}) {
     //Check required none array field first
     if(!newLearnMore.learn_more_title) {
@@ -1947,6 +1927,105 @@ module.exports = async function() {
     return result
   }
 
+  //Get One
+  //GET /api/learn_more/:learnMoreId
+  async function getLearnMore({learnMoreId}) {
+    const aggregateOptions = [
+      {
+        $match: {
+          _id: ObjectID(learnMoreId)
+        }
+      },
+      {
+        $lookup: {
+          from: 'images',
+          localField: 'images',
+          foreignField: '_id',
+          as: 'images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'audio_files',
+          foreignField: '_id',
+          as: 'audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'videos',
+          foreignField: '_id',
+          as: 'videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'tags',
+          foreignField: '_id',
+          as: 'tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'categories',
+          foreignField: '_id',
+          as: 'categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'revision_history',
+          foreignField: '_id',
+          as: 'revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$revision_history'
+        }
+      },
+      {
+        $sort: {
+          'revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'revision_history.user',
+          foreignField: '_id',
+          as: 'revision_history.user'
+        }
+      },
+      {
+        $group: {
+          _id: '$_id',
+          learn_more_title: {$first: '$learn_more_title'},
+          description: {$first: '$description'},
+          images: {$first: '$images'},
+          audio_files: {$first: '$audio_files'},
+          videos: {$first: '$videos'},
+          tags: {$first: '$tags'},
+          categories: {$first: '$categories'},
+          custom_fields: {$first: '$custom_fields'},
+          revision_history: {$push: '$revision_history'}
+        }
+      },
+      {
+        $project: {
+          'revision_history.user.password': 0,
+          'revision_history.user.role': 0
+        }
+      }
+    ]
+
+    return await learn_more.aggregate(aggregateOptions).next()
+  }
 
   //Update
   //PUT /api/learn_more/:learnMoreId
@@ -2040,8 +2119,6 @@ module.exports = async function() {
     getPlant,
     updatePlant,
     deletePlant,
-    
-
     //Waypoint
     getWaypoints,
     createWaypoint,
@@ -2055,10 +2132,10 @@ module.exports = async function() {
     updateTour,
     deleteTour,
     //Learn More
+    getLearnMores,
+    createLearnMore,
     getLearnMore,
-    getLearnMoreById,
     updateLearnMore,
-    deleteLearnMore,
-    createLearnMore
+    deleteLearnMore
   }
 }
