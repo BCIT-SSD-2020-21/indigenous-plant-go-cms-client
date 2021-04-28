@@ -38,10 +38,12 @@ export default function EditPlant({
         <div className="col">
           <TextInputCtrl
             label={"Plant Name"}
+            eValue={plantData.plant_name}
             setter={(data) => plantNameChanged(data)}
           />
           <TextInputCtrl
             label={"Scientific Name"}
+            eValue={plantData.scientific_name}
             setter={(data) => scientificNameChanged(data)}
           />
           <CustomFieldPickerCtrl
@@ -51,6 +53,7 @@ export default function EditPlant({
           />
           <TextAreaCtrl
             label={"Description"}
+            eValue={plantData.description}
             setter={(data) => descriptionChanged(data)}
           />
           <TextPickerCtrl
