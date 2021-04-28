@@ -1029,6 +1029,7 @@ module.exports = async function() {
           as: 'location'
         }
       },
+      //Plant
       {
         $lookup: {
           from: 'plants',
@@ -1037,6 +1038,87 @@ module.exports = async function() {
           as: 'plants'
         }
       },
+      {
+        $unwind: {
+          path: '$plants'
+        }
+      },
+      {
+        $lookup: {
+          from: 'images',
+          localField: 'plants.images',
+          foreignField: '_id',
+          as: 'plants.images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'plants.audio_files',
+          foreignField: '_id',
+          as: 'plants.audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'plants.videos',
+          foreignField: '_id',
+          as: 'plants.videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'plants.tags',
+          foreignField: '_id',
+          as: 'plants.tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'plants.categories',
+          foreignField: '_id',
+          as: 'plants.categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'locations',
+          localField: 'plants.locations',
+          foreignField: '_id',
+          as: 'plants.locations'
+        }
+      },
+      //Plant Revision
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'plants.revision_history',
+          foreignField: '_id',
+          as: 'plants.revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$plants.revision_history'
+        }
+      },
+      {
+        $sort: {
+          'plants.revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'plants.revision_history.user',
+          foreignField: '_id',
+          as: 'plants.revision_history.user'
+        }
+      },
+      //Revision
       {
         $lookup: {
           from: 'revisions',
@@ -1081,6 +1163,8 @@ module.exports = async function() {
       },
       {
         $project: {
+          'plants.revision_history.user.password': 0,
+          'plants.revision_history.user.role': 0,
           'revision_history.user.password': 0,
           'revision_history.user.role': 0
         }
@@ -1231,6 +1315,7 @@ module.exports = async function() {
           as: 'location'
         }
       },
+      //Plant
       {
         $lookup: {
           from: 'plants',
@@ -1239,6 +1324,87 @@ module.exports = async function() {
           as: 'plants'
         }
       },
+      {
+        $unwind: {
+          path: '$plants'
+        }
+      },
+      {
+        $lookup: {
+          from: 'images',
+          localField: 'plants.images',
+          foreignField: '_id',
+          as: 'plants.images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'plants.audio_files',
+          foreignField: '_id',
+          as: 'plants.audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'plants.videos',
+          foreignField: '_id',
+          as: 'plants.videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'plants.tags',
+          foreignField: '_id',
+          as: 'plants.tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'plants.categories',
+          foreignField: '_id',
+          as: 'plants.categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'locations',
+          localField: 'plants.locations',
+          foreignField: '_id',
+          as: 'plants.locations'
+        }
+      },
+      //Plant Revision
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'plants.revision_history',
+          foreignField: '_id',
+          as: 'plants.revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$plants.revision_history'
+        }
+      },
+      {
+        $sort: {
+          'plants.revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'plants.revision_history.user',
+          foreignField: '_id',
+          as: 'plants.revision_history.user'
+        }
+      },
+      //Revision
       {
         $lookup: {
           from: 'revisions',
@@ -1283,6 +1449,8 @@ module.exports = async function() {
       },
       {
         $project: {
+          'plants.revision_history.user.password': 0,
+          'plants.revision_history.user.role': 0,
           'revision_history.user.password': 0,
           'revision_history.user.role': 0
         }
@@ -1413,6 +1581,7 @@ module.exports = async function() {
           as: 'categories'
         }
       },
+      //Plants
       {
         $lookup: {
           from: 'plants',
@@ -1422,6 +1591,86 @@ module.exports = async function() {
         }
       },
       {
+        $unwind: {
+          path: '$plants'
+        }
+      },
+      {
+        $lookup: {
+          from: 'images',
+          localField: 'plants.images',
+          foreignField: '_id',
+          as: 'plants.images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'plants.audio_files',
+          foreignField: '_id',
+          as: 'plants.audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'plants.videos',
+          foreignField: '_id',
+          as: 'plants.videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'plants.tags',
+          foreignField: '_id',
+          as: 'plants.tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'plants.categories',
+          foreignField: '_id',
+          as: 'plants.categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'locations',
+          localField: 'plants.locations',
+          foreignField: '_id',
+          as: 'plants.locations'
+        }
+      },
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'plants.revision_history',
+          foreignField: '_id',
+          as: 'plants.revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$plants.revision_history'
+        }
+      },
+      {
+        $sort: {
+          'plants.revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'plants.revision_history.user',
+          foreignField: '_id',
+          as: 'plants.revision_history.user'
+        }
+      },
+      //Waypoint
+      {
         $lookup: {
           from: 'waypoints',
           localField: 'waypoints',
@@ -1429,6 +1678,176 @@ module.exports = async function() {
           as: 'waypoints'
         }
       },
+      {
+        $unwind: {
+          path: '$waypoints'
+        }
+      },
+      {
+        $lookup: {
+          from: 'images',
+          localField: 'waypoints.images',
+          foreignField: '_id',
+          as: 'waypoints.images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'waypoints.audio_files',
+          foreignField: '_id',
+          as: 'waypoints.audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'waypoints.videos',
+          foreignField: '_id',
+          as: 'waypoints.videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'waypoints.tags',
+          foreignField: '_id',
+          as: 'waypoints.tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'waypoints.categories',
+          foreignField: '_id',
+          as: 'waypoints.categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'locations',
+          localField: 'waypoints.location',
+          foreignField: '_id',
+          as: 'waypoints.location'
+        }
+      },
+      //Waypoint Plant
+      {
+        $lookup: {
+          from: 'plants',
+          localField: 'waypoints.plants',
+          foreignField: '_id',
+          as: 'waypoints.plants'
+        }
+      },
+      {
+        $unwind: {
+          path: '$waypoints.plants'
+        }
+      },
+      {
+        $lookup: {
+          from: 'images',
+          localField: 'waypoints.plants.images',
+          foreignField: '_id',
+          as: 'waypoints.plants.images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'waypoints.plants.audio_files',
+          foreignField: '_id',
+          as: 'waypoints.plants.audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'waypoints.plants.videos',
+          foreignField: '_id',
+          as: 'waypoints.plants.videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'waypoints.plants.tags',
+          foreignField: '_id',
+          as: 'waypoints.plants.tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'waypoints.plants.categories',
+          foreignField: '_id',
+          as: 'waypoints.plants.categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'locations',
+          localField: 'waypoints.plants.locations',
+          foreignField: '_id',
+          as: 'waypoints.plants.locations'
+        }
+      },
+      //Waypoint Plant Revision
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'waypoints.plants.revision_history',
+          foreignField: '_id',
+          as: 'waypoints.plants.revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$waypoints.plants.revision_history'
+        }
+      },
+      {
+        $sort: {
+          'waypoints.plants.revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'waypoints.plants.revision_history.user',
+          foreignField: '_id',
+          as: 'waypoints.plants.revision_history.user'
+        }
+      },
+      //Waypoint Revision
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'waypoints.revision_history',
+          foreignField: '_id',
+          as: 'waypoints.revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$waypoints.revision_history'
+        }
+      },
+      {
+        $sort: {
+          'waypoints.revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'waypoints.revision_history.user',
+          foreignField: '_id',
+          as: 'waypoints.revision_history.user'
+        }
+      },
+      //Revision
       {
         $lookup: {
           from: 'revisions',
@@ -1473,6 +1892,12 @@ module.exports = async function() {
       },
       {
         $project: {
+          'plants.revision_history.user.password': 0,
+          'plants.revision_history.user.role': 0,
+          'waypoints.plants.revision_history.user.password': 0,
+          'waypoints.plants.revision_history.user.role': 0,
+          'waypoints.revision_history.user.password': 0,
+          'waypoints.revision_history.user.role': 0,
           'revision_history.user.password': 0,
           'revision_history.user.role': 0
         }
@@ -1617,6 +2042,7 @@ module.exports = async function() {
           as: 'categories'
         }
       },
+      //Plant
       {
         $lookup: {
           from: 'plants',
@@ -1626,6 +2052,87 @@ module.exports = async function() {
         }
       },
       {
+        $unwind: {
+          path: '$plants'
+        }
+      },
+      {
+        $lookup: {
+          from: 'images',
+          localField: 'plants.images',
+          foreignField: '_id',
+          as: 'plants.images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'plants.audio_files',
+          foreignField: '_id',
+          as: 'plants.audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'plants.videos',
+          foreignField: '_id',
+          as: 'plants.videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'plants.tags',
+          foreignField: '_id',
+          as: 'plants.tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'plants.categories',
+          foreignField: '_id',
+          as: 'plants.categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'locations',
+          localField: 'plants.locations',
+          foreignField: '_id',
+          as: 'plants.locations'
+        }
+      },
+      //Plant Revision
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'plants.revision_history',
+          foreignField: '_id',
+          as: 'plants.revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$plants.revision_history'
+        }
+      },
+      {
+        $sort: {
+          'plants.revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'plants.revision_history.user',
+          foreignField: '_id',
+          as: 'plants.revision_history.user'
+        }
+      },
+      //Waypoint
+      {
         $lookup: {
           from: 'waypoints',
           localField: 'waypoints',
@@ -1633,6 +2140,176 @@ module.exports = async function() {
           as: 'waypoints'
         }
       },
+      {
+        $unwind: {
+          path: '$waypoints'
+        }
+      },
+      {
+        $lookup: {
+          from: 'images',
+          localField: 'waypoints.images',
+          foreignField: '_id',
+          as: 'waypoints.images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'waypoints.audio_files',
+          foreignField: '_id',
+          as: 'waypoints.audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'waypoints.videos',
+          foreignField: '_id',
+          as: 'waypoints.videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'waypoints.tags',
+          foreignField: '_id',
+          as: 'waypoints.tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'waypoints.categories',
+          foreignField: '_id',
+          as: 'waypoints.categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'locations',
+          localField: 'waypoints.location',
+          foreignField: '_id',
+          as: 'waypoints.location'
+        }
+      },
+      //Waypoint Plant
+      {
+        $lookup: {
+          from: 'plants',
+          localField: 'waypoints.plants',
+          foreignField: '_id',
+          as: 'waypoints.plants'
+        }
+      },
+      {
+        $unwind: {
+          path: '$waypoints.plants'
+        }
+      },
+      {
+        $lookup: {
+          from: 'images',
+          localField: 'waypoints.plants.images',
+          foreignField: '_id',
+          as: 'waypoints.plants.images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'waypoints.plants.audio_files',
+          foreignField: '_id',
+          as: 'waypoints.plants.audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'waypoints.plants.videos',
+          foreignField: '_id',
+          as: 'waypoints.plants.videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'waypoints.plants.tags',
+          foreignField: '_id',
+          as: 'waypoints.plants.tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'waypoints.plants.categories',
+          foreignField: '_id',
+          as: 'waypoints.plants.categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'locations',
+          localField: 'waypoints.plants.locations',
+          foreignField: '_id',
+          as: 'waypoints.plants.locations'
+        }
+      },
+      //Waypoint Plant Revision
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'waypoints.plants.revision_history',
+          foreignField: '_id',
+          as: 'waypoints.plants.revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$waypoints.plants.revision_history'
+        }
+      },
+      {
+        $sort: {
+          'waypoints.plants.revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'waypoints.plants.revision_history.user',
+          foreignField: '_id',
+          as: 'waypoints.plants.revision_history.user'
+        }
+      },
+      //Waypoint Revision
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'waypoints.revision_history',
+          foreignField: '_id',
+          as: 'waypoints.revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$waypoints.revision_history'
+        }
+      },
+      {
+        $sort: {
+          'waypoints.revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'waypoints.revision_history.user',
+          foreignField: '_id',
+          as: 'waypoints.revision_history.user'
+        }
+      },
+      //Revision
       {
         $lookup: {
           from: 'revisions',
@@ -1677,6 +2354,12 @@ module.exports = async function() {
       },
       {
         $project: {
+          'plants.revision_history.user.password': 0,
+          'plants.revision_history.user.role': 0,
+          'waypoints.plants.revision_history.user.password': 0,
+          'waypoints.plants.revision_history.user.role': 0,
+          'waypoints.revision_history.user.password': 0,
+          'waypoints.revision_history.user.role': 0,
           'revision_history.user.password': 0,
           'revision_history.user.role': 0
         }
