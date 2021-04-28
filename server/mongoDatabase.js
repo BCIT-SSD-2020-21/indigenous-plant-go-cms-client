@@ -1042,7 +1042,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$plants'
+          path: '$plants',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1104,7 +1105,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$plants.revision_history'
+          path: '$plants.revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1329,7 +1331,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$plants'
+          path: '$plants',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1391,7 +1394,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$plants.revision_history'
+          path: '$plants.revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1596,7 +1600,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$plants'
+          path: '$plants',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1647,6 +1652,7 @@ module.exports = async function() {
           as: 'plants.locations'
         }
       },
+      //Plant Revision
       {
         $lookup: {
           from: 'revisions',
@@ -1657,7 +1663,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$plants.revision_history'
+          path: '$plants.revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1684,7 +1691,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$waypoints'
+          path: '$waypoints',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1746,7 +1754,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$waypoints.plants'
+          path: '$waypoints.plants',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1808,7 +1817,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$waypoints.plants.revision_history'
+          path: '$waypoints.plants.revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1835,7 +1845,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$waypoints.revision_history'
+          path: '$waypoints.revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -2058,7 +2069,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$plants'
+          path: '$plants',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -2120,7 +2132,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$plants.revision_history'
+          path: '$plants.revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -2147,7 +2160,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$waypoints'
+          path: '$waypoints',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -2209,7 +2223,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$waypoints.plants'
+          path: '$waypoints.plants',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -2271,7 +2286,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$waypoints.plants.revision_history'
+          path: '$waypoints.plants.revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -2298,7 +2314,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$waypoints.revision_history'
+          path: '$waypoints.revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
