@@ -39,7 +39,7 @@ export const ping = async () => {
 export const login = async ({ username, password }) => {
   try {
     const response = await axios.post(`${BASE_URL}/users/login`, {
-      username: username,
+      user_name: username,
       password: password,
     });
     return response.data;
@@ -328,6 +328,81 @@ export const createLocation = async (location) => {
     const response = await axios.post(`${BASE_URL}/locations`, location, {
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const createImage = async (formData) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const response = await axios.post(`${BASE_URL}/images`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const createAudio = async (formData) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const response = await axios.post(`${BASE_URL}/audios`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const createVideo = async (formData) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const response = await axios.post(`${BASE_URL}/videos`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
     });
