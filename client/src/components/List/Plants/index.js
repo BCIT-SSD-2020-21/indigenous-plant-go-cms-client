@@ -3,6 +3,7 @@ import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 import { ResetIcon } from "../../../icons";
 import Table from "./Table";
+import Modal from "../../Modal";
 
 export default function ListPlants({
   plantData,
@@ -22,6 +23,11 @@ export default function ListPlants({
   page,
   prevPage,
   nextPage,
+  closeModal,
+  handleDelete,
+  modalActive,
+  pendingDelete,
+  applyDelete,
 }) {
   return (
     <div>
@@ -121,6 +127,7 @@ export default function ListPlants({
           plantData={hasPages ? pages[page - 1] : plantData}
           handleSelected={handleSelected}
           selectedPlants={selectedPlants}
+          handleDelete={handleDelete}
         />
       </form>
       {hasPages && (
@@ -141,6 +148,31 @@ export default function ListPlants({
           </div>
         </div>
       )}
+      <Modal
+        isActive={modalActive}
+        title={`Delete ${pendingDelete.plant_name}?`}
+        subtitle={`id: ${pendingDelete._id}`}
+        closeModal={closeModal}
+      >
+        <>
+          <p>
+            Deleting this category will remove all instances of the plant&nbsp;
+            <strong style={{ color: "var(--danger)" }}>
+              {pendingDelete.plant_name}
+            </strong>
+            . Do you wish to proceed?
+          </p>
+          <button onClick={() => applyDelete()} className="field__button">
+            Yes, I know what I am doing.
+          </button>
+          <button
+            onClick={() => closeModal()}
+            className="field__button secondary"
+          >
+            No, cancel my request.
+          </button>
+        </>
+      </Modal>
     </div>
   );
 }

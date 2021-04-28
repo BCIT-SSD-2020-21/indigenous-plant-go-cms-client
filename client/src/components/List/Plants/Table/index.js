@@ -2,7 +2,12 @@ import React from "react";
 import { parseDate } from "../../../../utility";
 import { Link } from "react-router-dom";
 
-export default function Table({ plantData, handleSelected, selectedPlants }) {
+export default function Table({
+  plantData,
+  handleSelected,
+  selectedPlants,
+  handleDelete,
+}) {
   return (
     <ul className="table__list">
       {plantData &&
@@ -40,7 +45,11 @@ export default function Table({ plantData, handleSelected, selectedPlants }) {
                   >
                     Edit&nbsp;
                   </Link>
-                  <button type="button" value={plant._id}>
+                  <button
+                    type="button"
+                    onClick={(e) => handleDelete(e)}
+                    value={plant._id}
+                  >
                     &nbsp;Delete
                   </button>
                 </span>

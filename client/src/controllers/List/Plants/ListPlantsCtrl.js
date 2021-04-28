@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ListPlants from "../../../components/List/Plants/index";
-import { getAllPlants, getAllCategories } from "../../../network";
+import { getAllPlants, getAllCategories, deletePlant } from "../../../network";
 
 export default function ListPlantsCtrl() {
   const [plantData, setPlantData] = useState([]);
@@ -14,6 +14,8 @@ export default function ListPlantsCtrl() {
   const [pages, setPages] = useState([]);
   const [page, setPage] = useState(1);
   const [eCategories, setECategories] = useState([]);
+  const [modalActive, setModalActive] = useState(false);
+  const [pendingDelete, setPendingDelete] = useState({});
 
   useEffect(() => {
     queryPlants();
@@ -175,6 +177,28 @@ export default function ListPlantsCtrl() {
     setPage(currentPage);
   };
 
+  const handleDelete = async (e) => {
+    const id = e.target.value;
+    const foundPlant = plantData.filter((plant) => plant._id === id)[0];
+    if (!foundPlant) return console.log("Unable to find plant");
+    await setPendingDelete(foundPlant);
+    setModalActive(true);
+  };
+
+  const applyDelete = async () => {
+    const id = pendingDelete._id;
+    if (!id) return console.log("Unable to delete plant");
+    const result = await deletePlant(id);
+    if (result.error) return console.log("Unable to delete plant");
+    closeModal();
+    setPendingDelete({});
+    queryPlants();
+  };
+
+  const closeModal = () => {
+    setModalActive(false);
+  };
+
   return (
     <ListPlants
       plantData={plantData_}
@@ -194,6 +218,11 @@ export default function ListPlantsCtrl() {
       batchSelect={batchSelect}
       prevPage={prevPage}
       nextPage={nextPage}
+      closeModal={closeModal}
+      handleDelete={handleDelete}
+      modalActive={modalActive}
+      pendingDelete={pendingDelete}
+      applyDelete={applyDelete}
     />
   );
 }
