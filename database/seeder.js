@@ -263,6 +263,7 @@ const seed = async () => {
         revision_history4._id],
       "custom_fields" : [
         { 
+          "_id" : new ObjectID(),
           "field_title": "Medicial Properties",
           "content": "Helps alleviate headaches and nausea"
         }
@@ -282,11 +283,13 @@ const seed = async () => {
       "revision_history" : [revision_history2._id],
       "custom_fields" : [
         { 
+          "_id" : new ObjectID(),
           "field_title": "Medicial Properties",
           "content": "It contains the glycoside arbutin, which has antimicrobial properties and acts as a mild diuretic."
         }
         ,
         {
+          "_id" : new ObjectID(),
           "field_title": "Color",
           "content": "White"
         }
