@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import ListPlants from "../../../components/List/Plants/index";
-import { getAllPlants, getAllCategories, deletePlant } from "../../../network";
+import {
+  getAllPlants,
+  getAllCategories,
+  deletePlant,
+  bulkDeletePlant,
+  bulkDeletePlants,
+} from "../../../network";
 
 export default function ListPlantsCtrl() {
   const [plantData, setPlantData] = useState([]);
@@ -16,6 +22,8 @@ export default function ListPlantsCtrl() {
   const [eCategories, setECategories] = useState([]);
   const [modalActive, setModalActive] = useState(false);
   const [pendingDelete, setPendingDelete] = useState({});
+  const [modalState, setModalState] = useState("single");
+  const [bulkAction, setBulkAction] = useState("");
 
   useEffect(() => {
     queryPlants();
@@ -178,6 +186,7 @@ export default function ListPlantsCtrl() {
   };
 
   const handleDelete = async (e) => {
+    setModalState("single");
     const id = e.target.value;
     const foundPlant = plantData.filter((plant) => plant._id === id)[0];
     if (!foundPlant) return console.log("Unable to find plant");
@@ -197,6 +206,28 @@ export default function ListPlantsCtrl() {
 
   const closeModal = () => {
     setModalActive(false);
+  };
+
+  const handleBulkActionChange = (_, data) => {
+    const value = data.value;
+    console.log(data.value);
+    setBulkAction(value);
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedPlants.length < 1) return console.log("no plants selected");
+    if (bulkAction === "default")
+      return console.log("cannot bulk delete if bulk action is set to default");
+    setModalState("bulk");
+    setModalActive(true);
+  };
+
+  const applyBulkDelete = async () => {
+    const result = await bulkDeletePlants(selectedPlants);
+    if (result.error) return console.log("Unable to bulk delete plants");
+    closeModal();
+    setSelectedPlants([]);
+    queryPlants();
   };
 
   return (
@@ -223,6 +254,11 @@ export default function ListPlantsCtrl() {
       modalActive={modalActive}
       pendingDelete={pendingDelete}
       applyDelete={applyDelete}
+      modalState={modalState}
+      handleBulkActionChange={handleBulkActionChange}
+      bulkAction={bulkAction}
+      handleBulkDelete={handleBulkDelete}
+      applyBulkDelete={applyBulkDelete}
     />
   );
 }

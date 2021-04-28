@@ -440,3 +440,31 @@ export const deletePlant = async (id) => {
     };
   }
 };
+
+export const bulkDeletePlants = async (array) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const deleteRequests = array.map((plantId) =>
+      axios.delete(`${BASE_URL}/plants/${plantId}`, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    );
+
+    const responses = await Promise.all(deleteRequests);
+    return responses;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};

@@ -28,7 +28,68 @@ export default function ListPlants({
   modalActive,
   pendingDelete,
   applyDelete,
+  modalState,
+  handleBulkActionChange,
+  bulkAction,
+  handleBulkDelete,
+  applyBulkDelete,
 }) {
+  const renderModal = () => {
+    switch (modalState) {
+      case "single":
+        return (
+          <>
+            <p>
+              Deleting this plant will remove all instances of the plant&nbsp;
+              <strong style={{ color: "var(--danger)" }}>
+                {pendingDelete.plant_name}
+              </strong>
+              . Do you wish to proceed?
+            </p>
+            <button onClick={() => applyDelete()} className="field__button">
+              Yes, I know what I am doing.
+            </button>
+            <button
+              onClick={() => closeModal()}
+              className="field__button secondary"
+            >
+              No, cancel my request.
+            </button>
+          </>
+        );
+      case "bulk":
+        return (
+          <>
+            <p>
+              Deleting&nbsp;
+              <strong style={{ color: "var(--danger)" }}>
+                {selectedPlants.length}
+              </strong>
+              &nbsp;plants will remove{" "}
+              <strong
+                style={{
+                  color: "var(--danger)",
+                  fontWeight: "700",
+                  textTransform: "uppercase",
+                }}
+              >
+                all
+              </strong>{" "}
+              instances of the deleted plants. Do you wish to proceed?
+            </p>
+            <button onClick={() => applyBulkDelete()} className="field__button">
+              Yes, I know what I am doing.
+            </button>
+            <button
+              onClick={() => closeModal()}
+              className="field__button secondary"
+            >
+              No, cancel my request.
+            </button>
+          </>
+        );
+    }
+  };
   return (
     <div>
       <DashHeader
@@ -44,13 +105,15 @@ export default function ListPlants({
           <div className="table__action">
             <Dropdown
               placeholder={"Bulk Actions"}
+              onChange={(e, data) => handleBulkActionChange(e, data)}
+              value={bulkAction}
               selection
               options={[
                 { key: "default", value: "default", text: "Bulk Actions" },
                 { key: "delete", value: "delete", text: "Delete" },
               ]}
             />
-            <button>Apply</button>
+            <button onClick={() => handleBulkDelete()}>Apply</button>
           </div>
 
           <div className="table__action">
@@ -150,28 +213,15 @@ export default function ListPlants({
       )}
       <Modal
         isActive={modalActive}
-        title={`Delete ${pendingDelete.plant_name}?`}
-        subtitle={`id: ${pendingDelete._id}`}
+        title={
+          modalState === "single"
+            ? `Delete ${pendingDelete.plant_name}?`
+            : `Delete all ${selectedPlants.length} plants?`
+        }
+        subtitle={`Bulk Delete`}
         closeModal={closeModal}
       >
-        <>
-          <p>
-            Deleting this category will remove all instances of the plant&nbsp;
-            <strong style={{ color: "var(--danger)" }}>
-              {pendingDelete.plant_name}
-            </strong>
-            . Do you wish to proceed?
-          </p>
-          <button onClick={() => applyDelete()} className="field__button">
-            Yes, I know what I am doing.
-          </button>
-          <button
-            onClick={() => closeModal()}
-            className="field__button secondary"
-          >
-            No, cancel my request.
-          </button>
-        </>
+        {renderModal()}
       </Modal>
     </div>
   );
