@@ -1762,6 +1762,38 @@ module.exports = async function() {
     const aggregateOptions = [
       {
         $lookup: {
+          from: 'images',
+          localField: 'images',
+          foreignField: '_id',
+          as: 'images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'audio_files',
+          foreignField: '_id',
+          as: 'audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'videos',
+          foreignField: '_id',
+          as: 'videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'tags',
+          foreignField: '_id',
+          as: 'tags'
+        }
+      },
+      {
+        $lookup: {
           from: 'categories',
           localField: 'categories',
           foreignField: '_id',
@@ -1791,6 +1823,38 @@ module.exports = async function() {
       },
       {
         $lookup: {
+          from: 'images',
+          localField: 'images',
+          foreignField: '_id',
+          as: 'images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'audio_files',
+          foreignField: '_id',
+          as: 'audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'videos',
+          foreignField: '_id',
+          as: 'videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'tags',
+          foreignField: '_id',
+          as: 'tags'
+        }
+      },
+      {
+        $lookup: {
           from: 'categories',
           localField: 'categories',
           foreignField: '_id',
@@ -1810,7 +1874,81 @@ module.exports = async function() {
     return await learn_more.aggregate(aggregateOptions).next()
   }
 
-   //Update
+  async function createLearnMore({newLearnMore, user_id}) {
+    //Check required none array field first
+    if(!newLearnMore.learn_more_title) {
+      throw Error("Missing title")
+    }
+
+    if(!newLearnMore.description) {
+      throw Error("Missing description")
+    }
+   
+    if(newLearnMore.images) {
+      newLearnMore.images.forEach((image, index, self) => {
+        self[index] = ObjectID(image)
+      })
+    } else {
+      newLearnMore.images = []
+    }
+
+    if(newLearnMore.audio_files) {
+      newLearnMore.audio_files.forEach((audio, index, self) => {
+        self[index] = ObjectID(audio)
+      })
+    } else {
+      newLearnMore.audio_files = []
+    }
+
+    if(newLearnMore.videos) {
+      newLearnMore.videos.forEach((video, index, self) => {
+        self[index] = ObjectID(video)
+      })
+    } else {
+      newLearnMore.videos = []
+    }
+
+    if(newLearnMore.tags) {
+      newLearnMore.tags.forEach((tag, index, self) => {
+        self[index] = ObjectID(tag)
+      })
+    } else {
+      newLearnMore.tags = []
+    }
+
+    if(newLearnMore.categories) {
+      newLearnMore.categories.forEach((category, index, self) => {
+        self[index] = ObjectID(category)
+      })
+    } else {
+      newLearnMore.categories = []
+    }
+
+    if(newLearnMore.locations) {
+      nnewLearnMore.locations.forEach((location, index, self) => {
+        self[index] = ObjectID(location)
+      })
+    } else {
+      newLearnMore.locations = []
+    }
+
+    if(!newLearnMore.custom_fields) {
+      newLearnMore.custom_fields = []
+    }
+
+    //New revision for when plant is created
+    const revision = await createRevision({user_id: user_id})
+
+    newLearnMore.revision_history = [ObjectID(revision.ops[0]._id)]
+
+    const result = await plants.insertOne({
+      ...newLearnMore
+    })
+    return result
+  }
+
+
+  //Update
   //PUT /api/learn_more/:learnMoreId
   async function updateLearnMore({learnMoreId, updatedLearnMore, user_id}) {
 
@@ -1920,6 +2058,7 @@ module.exports = async function() {
     getLearnMore,
     getLearnMoreById,
     updateLearnMore,
-    deleteLearnMore
+    deleteLearnMore,
+    createLearnMore
   }
 }

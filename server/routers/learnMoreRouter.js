@@ -26,6 +26,19 @@ module.exports = function({database, authorize, verifyKey}) {
     }
   })
 
+    //Create
+  //POST /api/learn_more
+  router.post('/', authorize, verifyKey, async (req, res) => {
+    try {
+      const result = await database.createPlant({newLearnMore: req.body, user_id: req.user._id})
+      res.send(result)
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
+
   //Update
   router.put('/:learnMoreId', authorize, verifyKey, async (req, res) => {
     try {
