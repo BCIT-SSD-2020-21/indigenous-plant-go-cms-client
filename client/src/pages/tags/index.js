@@ -1,5 +1,10 @@
 import React from "react";
+import ListTagsCtrl from "../../controllers/List/Tags/ListTagsCtrl";
 
 export default function Tags() {
-  return <main>Tags</main>;
+  return (
+    <main>
+      <ListTagsCtrl />
+    </main>
+  );
 }
