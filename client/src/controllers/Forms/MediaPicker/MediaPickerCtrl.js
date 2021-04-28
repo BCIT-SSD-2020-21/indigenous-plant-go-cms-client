@@ -9,7 +9,8 @@ export default function MediaPickerCtrl({ label, dataLabel, data, setter }) {
 
   useEffect(() => {
     setOptions(data);
-  }, []);
+    formatOptions();
+  }, [data]);
 
   useEffect(() => {
     setter(activeSelection);
@@ -31,7 +32,7 @@ export default function MediaPickerCtrl({ label, dataLabel, data, setter }) {
   const formatOptions = () => {
     const activeOptions = [...activeSelection].map((item) => item._id);
 
-    const filtered = options.filter(
+    const filtered = data.filter(
       (option) => !activeOptions.includes(option._id)
     );
 

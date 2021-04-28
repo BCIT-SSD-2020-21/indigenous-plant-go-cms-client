@@ -1,6 +1,5 @@
 const {MongoClient, ObjectID} = require('mongodb')
 const bcrypt = require('bcryptjs')
-const e = require('express')
 require('dotenv').config()
 
 const url = process.env.MONGO_DB_URL
@@ -19,7 +18,9 @@ module.exports = async function() {
   const categories = db.collection('categories')
   const locations = db.collection('locations')
   const revisions = db.collection('revisions')
-  const plants= db.collection('plants')
+  const plants = db.collection('plants')
+  const waypoints = db.collection('waypoints')
+  const tours = db.collection('tours')
   const learn_more = db.collection('learn_more')
 
   //Users
@@ -27,10 +28,10 @@ module.exports = async function() {
   //Create new user, use for register
   //Takes in email, username and password, role default to Manager
   //POST /api/users
-  async function createUser({email, username, password, role="Manager"}) {
+  async function createUser({email, user_name, password, role="Manager"}) {
     //Check if email or username is repeating
     const user = await users.findOne({
-      $or: [{email: email}, {username: username}]
+      $or: [{email: email}, {user_name: user_name}]
     })
     if (user) {
       throw Error("Username or email is already taken")
@@ -49,7 +50,7 @@ module.exports = async function() {
 
     const result = await users.insertOne({
       email,
-      username,
+      user_name,
       password: encrypted,
       role
     })
@@ -61,9 +62,9 @@ module.exports = async function() {
   //Get One user, use for login
   //Takes in email/username and password and find one user that match
   //POST /api/users/login
-  async function getUser({username, password}) {
+  async function getUser({user_name, password}) {
     const user = await users.findOne({
-      $or: [{email: username}, {username: username}]
+      $or: [{email: user_name}, {user_name: user_name}]
     })
     if (!user) {
       throw Error("Invalid user")
@@ -81,9 +82,9 @@ module.exports = async function() {
   //Update base on userId
   //PUT /api/users/:userId
   async function updateUser({userId, updatedUser, userRole}) {
-    if (updatedUser.email || updatedUser.username) {
+    if (updatedUser.email || updatedUser.user_name) {
       const user = await users.findOne({
-        $or: [{email: updatedUser.email}, {username: updatedUser.username}]
+        $or: [{email: updatedUser.email}, {user_name: updatedUser.user_name}]
       })
       if (user) {
         if (user._id != userId) {
@@ -461,13 +462,18 @@ module.exports = async function() {
 
   //Create
   //POST /api/categories
-  async function createCategory({category_name}) {
+  async function createCategory({category_name, resource}) {
     if (!category_name) {
       throw Error("Require a category name")
     }
 
+    if (!resource) {
+      throw Error("Require a resource")
+    }
+
     const result = await categories.insertOne({
-      category_name
+      category_name,
+      resource
     })
     return result
   }
@@ -495,6 +501,12 @@ module.exports = async function() {
       _id: ObjectID(categoryId)
     })
     return result
+  }
+
+  //Get base on resource
+  //GET /api/categories/group/:group?key=<API_KEY>
+  async function getCategoryGroup({group}) {
+    return await categories.find({resource: group}).toArray()
   }
 
   //Locations
@@ -565,8 +577,8 @@ module.exports = async function() {
     }
 
     const result = await revisions.insertOne({
-      user_id,
-      date: Date.now().toString()
+      user_id: ObjectID(user_id),
+      date: Date.now()
     })
     return result
   }
@@ -605,9 +617,9 @@ module.exports = async function() {
       {
         $lookup: {
           from: 'audios',
-          localField: 'audios',
+          localField: 'audio_files',
           foreignField: '_id',
-          as: 'audios'
+          as: 'audio_files'
         }
       },
       {
@@ -645,9 +657,49 @@ module.exports = async function() {
       {
         $lookup: {
           from: 'revisions',
-          localField: 'revisions',
+          localField: 'revision_history',
           foreignField: '_id',
-          as: 'revisions'
+          as: 'revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$revision_history'
+        }
+      },
+      {
+        $sort: {
+          'revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'revision_history.user',
+          foreignField: '_id',
+          as: 'revision_history.user'
+        }
+      },
+      {
+        $group: {
+          _id: '$_id',
+          plant_name: {$first: '$plant_name'},
+          scientific_name: {$first: '$scientific_name'},
+          description: {$first: '$description'},
+          images: {$first: '$images'},
+          audio_files: {$first: '$audio_files'},
+          videos: {$first: '$videos'},
+          tags: {$first: '$tags'},
+          categories: {$first: '$categories'},
+          locations: {$first: '$locations'},
+          custom_fields: {$first: '$custom_fields'},
+          revision_history: {$push: '$revision_history'}
+        }
+      },
+      {
+        $project: {
+          'revision_history.user.password': 0,
+          'revision_history.user.role': 0
         }
       }
     ]
@@ -722,18 +774,14 @@ module.exports = async function() {
       newPlant.locations = []
     }
 
-    if(newPlant.custom_fields) {
-      newPlant.custom_fields.forEach((custom_field, index, self) => {
-        self[index] = ObjectID(custom_field)
-      })
-    } else {
+    if(!newPlant.custom_fields) {
       newPlant.custom_fields = []
     }
 
     //New revision for when plant is created
     const revision = await createRevision({user_id: user_id})
 
-    newPlant.revisions = [ObjectID(revision.ops[0]._id)]
+    newPlant.revision_history = [ObjectID(revision.ops[0]._id)]
 
     const result = await plants.insertOne({
       ...newPlant
@@ -761,9 +809,9 @@ module.exports = async function() {
       {
         $lookup: {
           from: 'audios',
-          localField: 'audios',
+          localField: 'audio_files',
           foreignField: '_id',
-          as: 'audios'
+          as: 'audio_files'
         }
       },
       {
@@ -801,9 +849,49 @@ module.exports = async function() {
       {
         $lookup: {
           from: 'revisions',
-          localField: 'revisions',
+          localField: 'revision_history',
           foreignField: '_id',
-          as: 'revisions'
+          as: 'revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$revision_history'
+        }
+      },
+      {
+        $sort: {
+          'revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'revision_history.user',
+          foreignField: '_id',
+          as: 'revision_history.user'
+        }
+      },
+      {
+        $group: {
+          _id: '$_id',
+          plant_name: {$first: '$plant_name'},
+          scientific_name: {$first: '$scientific_name'},
+          description: {$first: '$description'},
+          images: {$first: '$images'},
+          audio_files: {$first: '$audio_files'},
+          videos: {$first: '$videos'},
+          tags: {$first: '$tags'},
+          categories: {$first: '$categories'},
+          locations: {$first: '$locations'},
+          custom_fields: {$first: '$custom_fields'},
+          revision_history: {$push: '$revision_history'}
+        }
+      },
+      {
+        $project: {
+          'revision_history.user.password': 0,
+          'revision_history.user.role': 0
         }
       }
     ]
@@ -852,18 +940,12 @@ module.exports = async function() {
       })
     }
 
-    if(updatedPlant.custom_fields) {
-      updatedPlant.custom_fields.forEach((custom_field, index, self) => {
-        self[index] = ObjectID(custom_field)
-      })
-    }
-
     //New revision for when plant is updated
     const revision = await createRevision({user_id: user_id})
 
     const plant = await plants.findOne({_id: ObjectID(plantId)})
-    updatedPlant.revisions = plant.revisions
-    updatedPlant.revisions.push(ObjectID(revision.ops[0]._id))
+    updatedPlant.revision_history = plant.revision_history
+    updatedPlant.revision_history.push(ObjectID(revision.ops[0]._id))
 
     const result = await plants.findOneAndUpdate(
       {_id: ObjectID(plantId)},
@@ -876,12 +958,800 @@ module.exports = async function() {
   //DELETE /api/plants/:plantId
   async function deletePlant({plantId}) {
     const plant = await plants.findOne({_id: ObjectID(plantId)})
-    plant.revisions.forEach(async(revision) => {
+    plant.revision_history.forEach(async(revision) => {
       await deleteRevision({revisionId: revision})
     })
 
     const result = await plants.findOneAndDelete({
       _id: ObjectID(plantId)
+    })
+    return result
+  }
+
+  //Waypoint
+
+  //Get All
+  //GET /api/waypoints
+  async function getWaypoints() {
+    //Fields like images must be array of ObjectId
+    //Should convert all the ObjectId array to array of their respective item
+    const aggregateOptions = [
+      {
+        $lookup: {
+          from: 'images',
+          localField: 'images',
+          foreignField: '_id',
+          as: 'images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'audio_files',
+          foreignField: '_id',
+          as: 'audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'videos',
+          foreignField: '_id',
+          as: 'videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'tags',
+          foreignField: '_id',
+          as: 'tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'categories',
+          foreignField: '_id',
+          as: 'categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'locations',
+          localField: 'location',
+          foreignField: '_id',
+          as: 'location'
+        }
+      },
+      {
+        $lookup: {
+          from: 'plants',
+          localField: 'plants',
+          foreignField: '_id',
+          as: 'plants'
+        }
+      },
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'revision_history',
+          foreignField: '_id',
+          as: 'revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$revision_history'
+        }
+      },
+      {
+        $sort: {
+          'revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'revision_history.user',
+          foreignField: '_id',
+          as: 'revision_history.user'
+        }
+      },
+      {
+        $group: {
+          _id: '$_id',
+          waypoint_name: {$first: '$waypoint_name'},
+          description: {$first: '$description'},
+          images: {$first: '$images'},
+          audio_files: {$first: '$audio_files'},
+          videos: {$first: '$videos'},
+          tags: {$first: '$tags'},
+          categories: {$first: '$categories'},
+          location: {$first: '$location'},
+          plants: {$first: '$plants'},
+          custom_fields: {$first: '$custom_fields'},
+          revision_history: {$push: '$revision_history'}
+        }
+      },
+      {
+        $project: {
+          'revision_history.user.password': 0,
+          'revision_history.user.role': 0
+        }
+      }
+    ]
+
+    return await waypoints.aggregate(aggregateOptions).toArray()
+  }
+
+  //Create
+  //POST /api/waypoints
+  async function createWaypoint({newWaypoint, user_id}) {
+    //Check required none array field first
+    if(!newWaypoint.waypoint_name) {
+      throw Error("Missing waypoint name")
+    }
+
+    if(!newWaypoint.description) {
+      throw Error("Missing description")
+    }
+
+    //Convert all passed in array of id to ObjectId
+    //Require passing in array of string
+    //Default to empty array if the field is not given
+    if(newWaypoint.images) {
+      newWaypoint.images.forEach((image, index, self) => {
+        self[index] = ObjectID(image)
+      })
+    } else {
+      newWaypoint.images = []
+    }
+
+    if(newWaypoint.audio_files) {
+      newWaypoint.audio_files.forEach((audio, index, self) => {
+        self[index] = ObjectID(audio)
+      })
+    } else {
+      newWaypoint.audio_files = []
+    }
+
+    if(newWaypoint.videos) {
+      newWaypoint.videos.forEach((video, index, self) => {
+        self[index] = ObjectID(video)
+      })
+    } else {
+      newWaypoint.videos = []
+    }
+
+    if(newWaypoint.tags) {
+      newWaypoint.tags.forEach((tag, index, self) => {
+        self[index] = ObjectID(tag)
+      })
+    } else {
+      newWaypoint.tags = []
+    }
+
+    if(newWaypoint.categories) {
+      newWaypoint.categories.forEach((category, index, self) => {
+        self[index] = ObjectID(category)
+      })
+    } else {
+      newWaypoint.categories = []
+    }
+
+    if(newWaypoint.location) {
+      newWaypoint.location = ObjectID(newWaypoint.location)
+    } else {
+      throw Error("Missing location")
+    }
+
+    if(newWaypoint.plants) {
+      newWaypoint.plants.forEach((plant, index, self) => {
+        self[index] = ObjectID(plant)
+      })
+    } else {
+      newWaypoint.plants = []
+    }
+
+    if(!newWaypoint.custom_fields) {
+      newWaypoint.custom_fields = []
+    }
+
+    //New revision for when waypoint is created
+    const revision = await createRevision({user_id: user_id})
+
+    newWaypoint.revision_history = [ObjectID(revision.ops[0]._id)]
+
+    const result = await waypoints.insertOne({
+      ...newWaypoint
+    })
+    return result
+  }
+
+  //Get One
+  //GET /api/waypoints/:waypointId
+  async function getWaypoint({waypointId}) {
+    const aggregateOptions = [
+      {
+        $match: {
+          _id: ObjectID(waypointId)
+        }
+      },
+      {
+        $lookup: {
+          from: 'images',
+          localField: 'images',
+          foreignField: '_id',
+          as: 'images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'audio_files',
+          foreignField: '_id',
+          as: 'audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'videos',
+          foreignField: '_id',
+          as: 'videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'tags',
+          foreignField: '_id',
+          as: 'tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'categories',
+          foreignField: '_id',
+          as: 'categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'locations',
+          localField: 'location',
+          foreignField: '_id',
+          as: 'location'
+        }
+      },
+      {
+        $lookup: {
+          from: 'plants',
+          localField: 'plants',
+          foreignField: '_id',
+          as: 'plants'
+        }
+      },
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'revision_history',
+          foreignField: '_id',
+          as: 'revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$revision_history'
+        }
+      },
+      {
+        $sort: {
+          'revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'revision_history.user',
+          foreignField: '_id',
+          as: 'revision_history.user'
+        }
+      },
+      {
+        $group: {
+          _id: '$_id',
+          waypoint_name: {$first: '$waypoint_name'},
+          description: {$first: '$description'},
+          images: {$first: '$images'},
+          audio_files: {$first: '$audio_files'},
+          videos: {$first: '$videos'},
+          tags: {$first: '$tags'},
+          categories: {$first: '$categories'},
+          location: {$first: '$location'},
+          plants: {$first: '$plants'},
+          custom_fields: {$first: '$custom_fields'},
+          revision_history: {$push: '$revision_history'}
+        }
+      },
+      {
+        $project: {
+          'revision_history.user.password': 0,
+          'revision_history.user.role': 0
+        }
+      }
+    ]
+
+    return await waypoints.aggregate(aggregateOptions).next()
+  }
+
+  //Update
+  //PUT /api/waypoints/:waypointId
+  async function updateWaypoint({waypointId, updatedWaypoint, user_id}) {
+    //Convert all passed in array of id to ObjectId
+    //User should get data of the waypoint when they start editing
+    if(updatedWaypoint.images) {
+      updatedWaypoint.images.forEach((image, index, self) => {
+        self[index] = ObjectID(image)
+      })
+    }
+
+    if(updatedWaypoint.audio_files) {
+      updatedWaypoint.audio_files.forEach((audio, index, self) => {
+        self[index] = ObjectID(audio)
+      })
+    }
+
+    if(updatedWaypoint.videos) {
+      updatedWaypoint.videos.forEach((video, index, self) => {
+        self[index] = ObjectID(video)
+      })
+    }
+
+    if(updatedWaypoint.tags) {
+      updatedWaypoint.tags.forEach((tag, index, self) => {
+        self[index] = ObjectID(tag)
+      })
+    }
+
+    if(updatedWaypoint.categories) {
+      updatedWaypoint.categories.forEach((category, index, self) => {
+        self[index] = ObjectID(category)
+      })
+    }
+
+    if(updatedWaypoint.location) {
+      updatedWaypoint.location = ObjectID(updatedWaypoint.location)
+    }
+
+    if(updatedWaypoint.plants) {
+      updatedWaypoint.plants.forEach((plant, index, self) => {
+        self[index] = ObjectID(plant)
+      })
+    }
+
+    //New revision for when waypoint is updated
+    const revision = await createRevision({user_id: user_id})
+
+    const waypoint = await waypoints.findOne({_id: ObjectID(waypointId)})
+    updatedWaypoint.revision_history = waypoint.revision_history
+    updatedWaypoint.revision_history.push(ObjectID(revision.ops[0]._id))
+
+    const result = await waypoints.findOneAndUpdate(
+      {_id: ObjectID(waypointId)},
+      {$set: {...updatedWaypoint}}
+    )
+    return result
+  }
+  
+  //Delete
+  //DELETE /api/waypoints/:waypointId
+  async function deleteWaypoint({waypointId}) {
+    const waypoint = await waypoints.findOne({_id: ObjectID(waypointId)})
+    waypoint.revision_history.forEach(async(revision) => {
+      await deleteRevision({revisionId: revision})
+    })
+
+    const result = await waypoints.findOneAndDelete({
+      _id: ObjectID(waypointId)
+    })
+    return result
+  }
+
+  //Tour
+
+  //Get All
+  //GET /api/tours
+  async function getTours() {
+    //Fields like images must be array of ObjectId
+    //Should convert all the ObjectId array to array of their respective item
+    const aggregateOptions = [
+      {
+        $lookup: {
+          from: 'images',
+          localField: 'images',
+          foreignField: '_id',
+          as: 'images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'audio_files',
+          foreignField: '_id',
+          as: 'audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'videos',
+          foreignField: '_id',
+          as: 'videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'tags',
+          foreignField: '_id',
+          as: 'tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'categories',
+          foreignField: '_id',
+          as: 'categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'plants',
+          localField: 'plants',
+          foreignField: '_id',
+          as: 'plants'
+        }
+      },
+      {
+        $lookup: {
+          from: 'waypoints',
+          localField: 'waypoints',
+          foreignField: '_id',
+          as: 'waypoints'
+        }
+      },
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'revision_history',
+          foreignField: '_id',
+          as: 'revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$revision_history'
+        }
+      },
+      {
+        $sort: {
+          'revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'revision_history.user',
+          foreignField: '_id',
+          as: 'revision_history.user'
+        }
+      },
+      {
+        $group: {
+          _id: '$_id',
+          tour_name: {$first: '$tour_name'},
+          description: {$first: '$description'},
+          images: {$first: '$images'},
+          audio_files: {$first: '$audio_files'},
+          videos: {$first: '$videos'},
+          tags: {$first: '$tags'},
+          categories: {$first: '$categories'},
+          plants: {$first: '$plants'},
+          waypoints: {$first: '$waypoints'},
+          custom_fields: {$first: '$custom_fields'},
+          revision_history: {$push: '$revision_history'}
+        }
+      },
+      {
+        $project: {
+          'revision_history.user.password': 0,
+          'revision_history.user.role': 0
+        }
+      }
+    ]
+
+    return await tours.aggregate(aggregateOptions).toArray()
+  }
+
+  //Create
+  //POST /api/tours
+  async function createTour({newTour, user_id}) {
+    //Check required none array field first
+    if(!newTour.tour_name) {
+      throw Error("Missing tour name")
+    }
+
+    if(!newTour.description) {
+      throw Error("Missing description")
+    }
+
+    //Convert all passed in array of id to ObjectId
+    //Require passing in array of string
+    //Default to empty array if the field is not given
+    if(newTour.images) {
+      newTour.images.forEach((image, index, self) => {
+        self[index] = ObjectID(image)
+      })
+    } else {
+      newTour.images = []
+    }
+
+    if(newTour.audio_files) {
+      newTour.audio_files.forEach((audio, index, self) => {
+        self[index] = ObjectID(audio)
+      })
+    } else {
+      newTour.audio_files = []
+    }
+
+    if(newTour.videos) {
+      newTour.videos.forEach((video, index, self) => {
+        self[index] = ObjectID(video)
+      })
+    } else {
+      newTour.videos = []
+    }
+
+    if(newTour.tags) {
+      newTour.tags.forEach((tag, index, self) => {
+        self[index] = ObjectID(tag)
+      })
+    } else {
+      newTour.tags = []
+    }
+
+    if(newTour.categories) {
+      newTour.categories.forEach((category, index, self) => {
+        self[index] = ObjectID(category)
+      })
+    } else {
+      newTour.categories = []
+    }
+
+    if(newTour.plants) {
+      newTour.plants.forEach((plant, index, self) => {
+        self[index] = ObjectID(plant)
+      })
+    } else {
+      newTour.plants = []
+    }
+
+    if(newTour.waypoints) {
+      newTour.waypoints.forEach((waypoint, index, self) => {
+        self[index] = ObjectID(waypoint)
+      })
+    } else {
+      newTour.waypoints = []
+    }
+
+    if(!newTour.custom_fields) {
+      newTour.custom_fields = []
+    }
+
+    //New revision for when tour is created
+    const revision = await createRevision({user_id: user_id})
+
+    newTour.revision_history = [ObjectID(revision.ops[0]._id)]
+
+    const result = await tours.insertOne({
+      ...newTour
+    })
+    return result
+  }
+
+  //Get One
+  //GET /api/tours/:tourId
+  async function getTour({tourId}) {
+    const aggregateOptions = [
+      {
+        $match: {
+          _id: ObjectID(tourId)
+        }
+      },
+      {
+        $lookup: {
+          from: 'images',
+          localField: 'images',
+          foreignField: '_id',
+          as: 'images'
+        }
+      },
+      {
+        $lookup: {
+          from: 'audios',
+          localField: 'audio_files',
+          foreignField: '_id',
+          as: 'audio_files'
+        }
+      },
+      {
+        $lookup: {
+          from: 'videos',
+          localField: 'videos',
+          foreignField: '_id',
+          as: 'videos'
+        }
+      },
+      {
+        $lookup: {
+          from: 'tags',
+          localField: 'tags',
+          foreignField: '_id',
+          as: 'tags'
+        }
+      },
+      {
+        $lookup: {
+          from: 'categories',
+          localField: 'categories',
+          foreignField: '_id',
+          as: 'categories'
+        }
+      },
+      {
+        $lookup: {
+          from: 'plants',
+          localField: 'plants',
+          foreignField: '_id',
+          as: 'plants'
+        }
+      },
+      {
+        $lookup: {
+          from: 'waypoints',
+          localField: 'waypoints',
+          foreignField: '_id',
+          as: 'waypoints'
+        }
+      },
+      {
+        $lookup: {
+          from: 'revisions',
+          localField: 'revision_history',
+          foreignField: '_id',
+          as: 'revision_history'
+        }
+      },
+      {
+        $unwind: {
+          path: '$revision_history'
+        }
+      },
+      {
+        $sort: {
+          'revision_history.date': -1
+        }
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'revision_history.user',
+          foreignField: '_id',
+          as: 'revision_history.user'
+        }
+      },
+      {
+        $group: {
+          _id: '$_id',
+          tour_name: {$first: '$tour_name'},
+          description: {$first: '$description'},
+          images: {$first: '$images'},
+          audio_files: {$first: '$audio_files'},
+          videos: {$first: '$videos'},
+          tags: {$first: '$tags'},
+          categories: {$first: '$categories'},
+          plants: {$first: '$plants'},
+          waypoints: {$first: '$waypoints'},
+          custom_fields: {$first: '$custom_fields'},
+          revision_history: {$push: '$revision_history'}
+        }
+      },
+      {
+        $project: {
+          'revision_history.user.password': 0,
+          'revision_history.user.role': 0
+        }
+      }
+    ]
+
+    return await tours.aggregate(aggregateOptions).next()
+  }
+
+  //Update
+  //PUT /api/tours/:tourId
+  async function updateTour({tourId, updatedTour, user_id}) {
+    //Convert all passed in array of id to ObjectId
+    //User should get data of the tour when they start editing
+    if(updatedTour.images) {
+      updatedTour.images.forEach((image, index, self) => {
+        self[index] = ObjectID(image)
+      })
+    }
+
+    if(updatedTour.audio_files) {
+      updatedTour.audio_files.forEach((audio, index, self) => {
+        self[index] = ObjectID(audio)
+      })
+    }
+
+    if(updatedTour.videos) {
+      updatedTour.videos.forEach((video, index, self) => {
+        self[index] = ObjectID(video)
+      })
+    }
+
+    if(updatedTour.tags) {
+      updatedTour.tags.forEach((tag, index, self) => {
+        self[index] = ObjectID(tag)
+      })
+    }
+
+    if(updatedTour.categories) {
+      updatedTour.categories.forEach((category, index, self) => {
+        self[index] = ObjectID(category)
+      })
+    }
+
+    if(updatedTour.plants) {
+      updatedTour.plants.forEach((plant, index, self) => {
+        self[index] = ObjectID(plant)
+      })
+    }
+
+    if(updatedTour.waypoints) {
+      updatedTour.waypoints.forEach((waypoint, index, self) => {
+        self[index] = ObjectID(waypoint)
+      })
+    }
+
+    //New revision for when tour is updated
+    const revision = await createRevision({user_id: user_id})
+
+    const tour = await tours.findOne({_id: ObjectID(tourId)})
+    updatedTour.revision_history = tour.revision_history
+    updatedTour.revision_history.push(ObjectID(revision.ops[0]._id))
+
+    const result = await tours.findOneAndUpdate(
+      {_id: ObjectID(tourId)},
+      {$set: {...updatedTour}}
+    )
+    return result
+  }
+  
+  //Delete
+  //DELETE /api/tours/:tourId
+  async function deleteTour({tourId}) {
+    const tour = await tours.findOne({_id: ObjectID(tourId)})
+    tour.revision_history.forEach(async(revision) => {
+      await deleteRevision({revisionId: revision})
+    })
+
+    const result = await tours.findOneAndDelete({
+      _id: ObjectID(tourId)
     })
     return result
   }
@@ -978,8 +1848,6 @@ module.exports = async function() {
     return result
   }
 
-
-
   return {
     //User
     createUser,
@@ -1016,6 +1884,7 @@ module.exports = async function() {
     getCategory,
     updateCategory,
     deleteCategory,
+    getCategoryGroup,
     //Location
     getLocations,
     createLocation,
@@ -1033,11 +1902,24 @@ module.exports = async function() {
     getPlant,
     updatePlant,
     deletePlant,
+    
+
+    //Waypoint
+    getWaypoints,
+    createWaypoint,
+    getWaypoint,
+    updateWaypoint,
+    deleteWaypoint,
+    //Tour
+    getTours,
+    createTour,
+    getTour,
+    updateTour,
+    deleteTour,
     //Learn More
     getLearnMore,
     getLearnMoreById,
     updateLearnMore,
     deleteLearnMore
-
   }
 }

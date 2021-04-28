@@ -150,8 +150,36 @@ const seed = async () => {
       "resource": "learn_more",
     }
   ])
-
-  // 7. Insert Tags
+  
+  const plant_category1 = await categories.findOne({"category_name": "Caryophyllaceae"})
+  const plant_category2 = await categories.findOne({"category_name": "Asteraceae"})
+  const tour_category1 = await categories.findOne({"category_name" : "english walk"})
+  const tour_category2 = await categories.findOne({"category_name" : "scenic"})
+  const waypoint_category1 = await categories.findOne({"category_name" : "waypoint sw1"})
+  const waypoint_category2 = await categories.findOne({"category_name" : "waypoint sw2"})
+  
+  // 7. Waypoint  Categories
+  await waypoint_categories.insertMany([
+    {
+      "categories" : [waypoint_category1._id, waypoint_category2._id] 
+    }
+  ])
+  
+  // 8. Insert Plant Categories
+  await plant_categories.insertMany([
+    {
+      "categories" : [plant_category1._id, plant_category2._id] 
+    },
+  ])
+  
+  // 9. Insert Tour Categories
+  await tour_categories.insertMany([
+    {
+      "categories" : [tour_category1._id, tour_category2._id] 
+    }
+  ])
+  
+  // 10. Insert Tags
   await tags.insertMany([
     {
       "tag_name": "healing"
@@ -197,7 +225,7 @@ const seed = async () => {
     
   ])
 
-  // 10. Insert Plants
+  // 13. Insert Plants
   const image1 = await images.findOne({"caption": "lavender"})
   const image2 = await images.findOne({"caption": "kinnikinnick"})
   const video1 = await videos.findOne({"video_url": "https://www.youtube.com/watch?v=-EfK8OhRElI"})
@@ -226,7 +254,7 @@ const seed = async () => {
       "videos" : [video1._id],
       "audio_files" : [audio1._id],
       "locations" : [location1._id],
-      "categories" : [category1._id],
+      "categories" : [plant_category1._id],
       "tags" : [tag1._id],
       //"custom_fields" : [custom_field1._id],
       "revision_history" : [
@@ -248,7 +276,7 @@ const seed = async () => {
       "videos" : [video2._id],
       "audio_files" : [audio2._id],
       "locations" : [location2._id],
-      "categories" : [category2._id],
+      "categories" : [plant_category2._id],
       "tags" : [tag2._id],
       //"custom_fields" : [custom_field2._id],
       "revision_history" : [revision_history2._id],

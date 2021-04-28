@@ -16,5 +16,8 @@ Example request: POST /api/tags?key=<API_KEY>
 
 # SUCCESS RESPONSE BODY
 ```
-"Tag added"
+{
+  "_id": "607e399e59c86677e2af6587",
+  "tag_name": "Event"
+}
 ```

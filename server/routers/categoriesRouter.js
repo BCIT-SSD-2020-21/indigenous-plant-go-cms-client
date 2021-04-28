@@ -20,7 +20,7 @@ module.exports = function({database, authorize, verifyKey}) {
   router.post('/', authorize, verifyKey, async (req, res) => {
     try {
       const result = await database.createCategory(req.body)
-      res.send("Category added")
+      res.send(result.ops[0])
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
@@ -60,6 +60,19 @@ module.exports = function({database, authorize, verifyKey}) {
       const categoryId = req.params.categoryId
       const result = await database.deleteCategory({categoryId})
       res.send("Category deleted")
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
+  //Get base on resource
+  //GET /api/categories/group/:group?key=<API_KEY>
+  router.get('/group/:group', verifyKey, async (req, res) => {
+    try {
+      const group = req.params.group
+      const result = await database.getCategoryGroup({group})
+      res.send(result)
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})

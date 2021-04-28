@@ -12,15 +12,18 @@ Example request: GET /api/categories?key=<API_KEY>
 [
   {
     "_id": "607e399e59c86677e2af6587",
-    "category_name": "Event"
+    "category_name": "Event",
+    "resource": "plant"
   },
   {
     "_id": "607e399e59c86677e2asda77",
-    "category_name": "Community Outreach"
+    "category_name": "Community Outreach",
+    "resource": "waypoint"
   },
   {
     "_id": "607e399e59c86677s72sda77",
-    "category_name": "Students"
+    "category_name": "Students",
+    "resource": "tour"
   }
   // ... Repeat
 ]

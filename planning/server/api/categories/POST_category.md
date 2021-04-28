@@ -10,11 +10,18 @@ Example request: POST /api/categories?key=<API_KEY>
 # EXAMPLE REQUEST BODY
 ```
 {
-  "category_name": "Event"
+  "category_name": "Event",
+  "resource": "plant"
 }
 ```
 
+Resource field is provided by the frontend depending on where the category is created under
+
 # SUCCESS RESPONSE BODY
 ```
-"Category added"
+{
+  "_id": "607e399e59c86677e2af6587",
+  "category_name": "Event",
+  "resource": "plant"
+}
 ```

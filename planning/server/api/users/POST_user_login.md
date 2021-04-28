@@ -8,15 +8,15 @@ Example request: POST /api/users/login
 # EXAMPLE REQUEST BODY
 ```
 {
-  "username": "test",
+  "user_name": "test",
   "password": "<encrypted>"
 }
 ```
 
-For the username input you can also put the email like such:
+For the user_name input you can also put the email like such:
 ```
 {
-  "username": "test@email.com",
+  "user_name": "test@email.com",
   "password": "<encrypted>"
 }
 ```
@@ -28,7 +28,7 @@ For the username input you can also put the email like such:
   "user": {
       "_id": "6081c2dd1d083738f4458862",
       "email": "test@email.com",
-      "username": "test",
+      "user_name": "test",
       "role": "Admin"
   }
 }

@@ -1,0 +1,11 @@
+.resource__container {
+  display: flex;
+
+  .resource__col {
+    width: 100%;
+  }
+
+  & > .resource__col:first-of-type {
+    margin-right: 40px;
+  }
+}

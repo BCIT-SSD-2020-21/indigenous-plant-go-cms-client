@@ -78,6 +78,33 @@ button {
   background-color: green !important;
 }
 
+.form__grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  .col {
+    margin-right: 30px;
+  }
+
+  & > .col:last-of-type {
+    margin-right: 0;
+  }
+}
+
+button.field__button {
+  background: var(--highlight);
+  padding: 14px 10px;
+  color: var(--lightprimary);
+  margin-bottom: 7px;
+
+  &.secondary {
+    background: var(--lightprimary);
+    color: var(--highlight);
+    border: 2px solid var(--highlight);
+  }
+}
+
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .form__actions {
     flex-direction: column-reverse;
