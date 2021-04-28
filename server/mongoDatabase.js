@@ -1936,12 +1936,12 @@ module.exports = async function() {
       newLearnMore.custom_fields = []
     }
 
-    //New revision for when plant is created
+    //New revision for when learn_more is created
     const revision = await createRevision({user_id: user_id})
 
     newLearnMore.revision_history = [ObjectID(revision.ops[0]._id)]
 
-    const result = await plants.insertOne({
+    const result = await learn_more.insertOne({
       ...newLearnMore
     })
     return result
