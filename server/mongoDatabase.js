@@ -669,7 +669,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$revision_history'
+          path: '$revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -861,7 +862,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$revision_history'
+          path: '$revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1047,7 +1049,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$revision_history'
+          path: '$revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1249,7 +1252,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$revision_history'
+          path: '$revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1439,7 +1443,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$revision_history'
+          path: '$revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1643,7 +1648,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$revision_history'
+          path: '$revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1817,7 +1823,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$revision_history'
+          path: '$revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
@@ -1984,7 +1991,8 @@ module.exports = async function() {
       },
       {
         $unwind: {
-          path: '$revision_history'
+          path: '$revision_history',
+          preserveNullAndEmptyArrays: true
         }
       },
       {
