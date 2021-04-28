@@ -779,7 +779,15 @@ module.exports = async function() {
       newPlant.locations = []
     }
 
-    if(!newPlant.custom_fields) {
+    if(newPlant.custom_fields) {
+      console.log("Accept", newPlant)
+      newPlant.custom_fields.forEach((custom_field, index, self) =>{
+        let temp = custom_field
+        temp._id = ObjectID(temp._id)
+        self[index] = temp
+      })
+    }else {
+      console.log("Reject", newPlant.custom_fields)
       newPlant.custom_fields = []
     }
 

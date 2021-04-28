@@ -159,11 +159,11 @@ const seed = async () => {
   const waypoint_category2 = await categories.findOne({"category_name": "SW02"})
   
   // 7. Waypoint  Categories
-  await waypoint_categories.insertMany([
-    {
-      "categories" : [waypoint_category1._id, waypoint_category2._id] 
-    }
-  ])
+  // await waypoint_categories.insertMany([
+  //   {
+  //     "categories" : [waypoint_category1._id, waypoint_category2._id] 
+  //   }
+  // ])
   
   // // 8. Insert Plant Categories
   // await plant_categories.insertMany([
@@ -299,15 +299,15 @@ const seed = async () => {
   ])
 
   // 11. Insert Waypoint Categories
-  await waypoint_categories.insertMany([
-    {
-      "categories" : [
-        category1._id, 
-        category2._id
-      ]
-    }
+  // await waypoint_categories.insertMany([
+  //   {
+  //     "categories" : [
+  //       category1._id, 
+  //       category2._id
+  //     ]
+  //   }
 
-  ])
+  // ])
 
   // 12. Insert Waypoint
   const category3 = await categories.findOne({"category_name": "SW01"})
