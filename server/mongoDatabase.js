@@ -577,7 +577,7 @@ module.exports = async function() {
     }
 
     const result = await revisions.insertOne({
-      user_id: ObjectID(user_id),
+      user: ObjectID(user_id),
       date: Date.now()
     })
     return result
@@ -1756,9 +1756,9 @@ module.exports = async function() {
     return result
   }
 
-  //Learn more
+  //Learn More
 
-  //Get all
+  //Get All
   //GET /api/learn_more
   async function getLearnMores(){
     const aggregateOptions = [
@@ -1849,6 +1849,7 @@ module.exports = async function() {
         }
       }
     ]
+    console.log(await learn_more.find().toArray())
     return await learn_more.aggregate(aggregateOptions).toArray()
   }
 
@@ -1902,14 +1903,6 @@ module.exports = async function() {
       })
     } else {
       newLearnMore.categories = []
-    }
-
-    if(newLearnMore.locations) {
-      nnewLearnMore.locations.forEach((location, index, self) => {
-        self[index] = ObjectID(location)
-      })
-    } else {
-      newLearnMore.locations = []
     }
 
     if(!newLearnMore.custom_fields) {
@@ -2030,7 +2023,30 @@ module.exports = async function() {
   //Update
   //PUT /api/learn_more/:learnMoreId
   async function updateLearnMore({learnMoreId, updatedLearnMore, user_id}) {
+    if(updatedLearnMore.images) {
+      updatedLearnMore.images.forEach((image, index, self) => {
+        self[index] = ObjectID(image)
+      })
+    }
 
+    if(updatedLearnMore.audio_files) {
+      updatedLearnMore.audio_files.forEach((audio, index, self) => {
+        self[index] = ObjectID(audio)
+      })
+    }
+
+    if(updatedLearnMore.videos) {
+      updatedLearnMore.videos.forEach((video, index, self) => {
+        self[index] = ObjectID(video)
+      })
+    }
+
+    if(updatedLearnMore.tags) {
+      updatedLearnMore.tags.forEach((tag, index, self) => {
+        self[index] = ObjectID(tag)
+      })
+    }
+    
     if(updatedLearnMore.categories) {
       updatedLearnMore.categories.forEach((category, index, self) => {
         self[index] = ObjectID(category)
@@ -2040,9 +2056,8 @@ module.exports = async function() {
     const revision = await createRevision({user_id: user_id})
     
     const learnmore = await learn_more.findOne({_id: ObjectID(learnMoreId)})
-
-    updatedLearnMore.revisions = learnmore.revisions
-    updatedLearnMore.revisions.push(ObjectID(revision.ops[0]._id))
+    updatedLearnMore.revision_history = learnmore.revision_history
+    updatedLearnMore.revision_history.push(ObjectID(revision.ops[0]._id))
 
     const result = await learn_more.findOneAndUpdate(
       {_id: ObjectID(learnMoreId)},
@@ -2055,7 +2070,7 @@ module.exports = async function() {
   //DELETE /api/learn_more/:learnMoreId
   async function deleteLearnMore({learnMoreId}) {
     const learnMore = await learn_more.findOne({_id: ObjectID(learnMoreId)})
-    learnMore.revisions.forEach(async(revision) => {
+    learnMore.revision_history.forEach(async(revision) => {
       await deleteRevision({revisionId: revision})
     })
 

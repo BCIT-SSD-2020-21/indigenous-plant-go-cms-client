@@ -17,9 +17,9 @@ const makeCategoriesRouter = require('./routers/categoriesRouter')
 const makeLocationsRouter = require('./routers/locationsRouter')
 const makeRevisionsRouter = require('./routers/revisionsRouter')
 const makePlantsRouter = require('./routers/plantsRouter')
-const makeLearnMoreRouter = require('./routers/learnMoreRouter')
 const makeWaypointsRouter = require('./routers/waypointsRouter')
 const makeToursRouter = require('./routers/toursRouter')
+const makeLearnMoreRouter = require('./routers/learnMoreRouter')
 
 const app = express()
 app.use(express.json())
@@ -81,13 +81,14 @@ mongoDatabase().then((database) => {
   const plantsRouter = makePlantsRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
   app.use('/api/plants', plantsRouter)
 
-  const learnMoreRouter = makeLearnMoreRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
-  app.use('/api/learn_more', learnMoreRouter)
   const waypointsRouter = makeWaypointsRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
   app.use('/api/waypoints', waypointsRouter)
 
   const toursRouter = makeToursRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
   app.use('/api/tours', toursRouter)
+
+  const learnMoreRouter = makeLearnMoreRouter({database, authorize: jwt.authorize, verifyKey: apikey.verifyKey})
+  app.use('/api/learn_more', learnMoreRouter)
 })
 
 const port = process.env.PORT || 8080

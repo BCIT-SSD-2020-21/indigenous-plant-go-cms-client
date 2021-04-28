@@ -3,22 +3,10 @@ const express = require('express')
 module.exports = function({database, authorize, verifyKey}) {
   const router = express.Router()
 
-  //GET ALL
+  //Get All
   router.get('/', verifyKey, async (req, res) => {
     try {
-      const result = await database.getLearnMore()
-      res.send(result)
-    } catch (error) {
-      console.error(error)
-      res.status(401).send({error: error.message})
-    }
-  })
-
-  //Get One
-  router.get('/:learnMoreId', verifyKey, async (req, res) => {
-    try {
-      const learnMoreId = req.params.learnMoreId
-      const result = await database.getLearnMoreById({learnMoreId})
+      const result = await database.getLearnMores()
       res.send(result)
     } catch (error) {
       console.error(error)
@@ -30,7 +18,20 @@ module.exports = function({database, authorize, verifyKey}) {
   //POST /api/learn_more
   router.post('/', authorize, verifyKey, async (req, res) => {
     try {
-      const result = await database.createPlant({newLearnMore: req.body, user_id: req.user._id})
+      const result = await database.createLearnMore({newLearnMore: req.body, user_id: req.user._id})
+      res.send("Learn more added")
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
+  //Get One
+  //
+  router.get('/:learnMoreId', verifyKey, async (req, res) => {
+    try {
+      const learnMoreId = req.params.learnMoreId
+      const result = await database.getLearnMore({learnMoreId})
       res.send(result)
     } catch (error) {
       console.error(error)
@@ -44,7 +45,7 @@ module.exports = function({database, authorize, verifyKey}) {
     try {
       const learnMoreId = req.params.learnMoreId
       const result = await database.updateLearnMore({learnMoreId, updatedLearnMore : req.body, user_id: req.user._id})
-      res.send(result)
+      res.send("Learn more updated")
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
@@ -57,7 +58,7 @@ module.exports = function({database, authorize, verifyKey}) {
     try {
       const learnMoreId = req.params.learnMoreId
       const result = await database.deleteLearnMore({learnMoreId})
-      res.send(result)
+      res.send("Learn more deleted")
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
