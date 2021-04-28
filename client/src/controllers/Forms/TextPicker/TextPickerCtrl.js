@@ -8,10 +8,26 @@ export default function TextPickerCtrl({
   selected,
   setter,
 }) {
+  const fieldInputs = {
+    location: {
+      name: "",
+      latitude: 0,
+      longitude: 0,
+      description: "",
+    },
+    category: {
+      name: "",
+    },
+    tag: {
+      name: "",
+    },
+  };
   const [activeSelection, setActiveSelection] = useState([]);
   const [formattedOptions, setFormattedOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
   const [options, setOptions] = useState(data);
+  const [modalActive, setModalActive] = useState(false);
+  const [fields, setFields] = useState(fieldInputs);
 
   useEffect(() => {
     setOptions(data);
@@ -98,6 +114,25 @@ export default function TextPickerCtrl({
     setActiveSelection(selected);
   };
 
+  const openModal = () => {
+    setModalActive(true);
+  };
+
+  const closeModal = () => {
+    setModalActive(false);
+  };
+
+  const handleFieldChange = (e, label_) => {
+    let target = e.target.name,
+      fieldLabel = label_,
+      value = e.target.value;
+
+    let currentFields = { ...fields };
+    currentFields[`${fieldLabel}`][`${target}`] = value;
+
+    setFields(currentFields);
+  };
+
   return (
     <TextPicker
       handleSelectChange={handleSelectChange}
@@ -107,6 +142,12 @@ export default function TextPickerCtrl({
       activeSelection={activeSelection}
       options={formattedOptions}
       label={label}
+      dataLabel={dataLabel}
+      modalActive={modalActive}
+      openModal={openModal}
+      closeModal={closeModal}
+      fields={fields}
+      handleFieldChange={handleFieldChange}
     />
   );
 }

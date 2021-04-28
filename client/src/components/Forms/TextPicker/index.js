@@ -1,7 +1,8 @@
 import React from "react";
 import { TrashIcon, HamburgerIcon } from "../../../icons";
-import { Dropdown } from "semantic-ui-react";
+import { Dropdown, Input, TextArea } from "semantic-ui-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import Modal from "../../Modal";
 
 export default function TextPicker({
   options,
@@ -11,7 +12,136 @@ export default function TextPicker({
   confirmSelection,
   handleOnDragEnd,
   label,
+  dataLabel,
+  modalActive,
+  openModal,
+  closeModal,
+  fields,
+  handleFieldChange,
 }) {
+  const renderModal = () => {
+    let label_;
+    switch (dataLabel) {
+      case "location":
+        label_ = "location";
+        return (
+          <>
+            <fieldset style={style.fieldset}>
+              <p style={style.label}>
+                Location Name <span style={style.req}>*</span>
+              </p>
+              <Input
+                onChange={(e) => handleFieldChange(e, label_)}
+                style={style.input}
+                value={fields.location.name}
+                name="name"
+                placeholder="Enter location name"
+              />
+            </fieldset>
+
+            <fieldset style={style.fieldset}>
+              <p style={style.label}>
+                Latitude <span style={style.req}>*</span>
+              </p>
+              <Input
+                onChange={(e) => handleFieldChange(e, label_)}
+                value={fields.location.latitude}
+                name="latitude"
+                type="number"
+                style={style.input}
+                placeholder="Enter latitude (number)"
+              />
+            </fieldset>
+
+            <fieldset style={style.fieldset}>
+              <p style={style.label}>
+                Longitude <span style={style.req}>*</span>
+              </p>
+              <Input
+                onChange={(e) => handleFieldChange(e, label_)}
+                value={fields.location.longitude}
+                name="longitude"
+                type="number"
+                style={style.input}
+                placeholder="Enter longitude (number)"
+              />
+            </fieldset>
+
+            <fieldset style={style.fieldset}>
+              <p style={style.label}>Description</p>
+              <TextArea
+                onChange={(e) => handleFieldChange(e, label_)}
+                value={fields.location.description}
+                name="description"
+                style={{
+                  ...style.input,
+                  ...style.textarea,
+                }}
+              />
+            </fieldset>
+
+            <fieldset style={style.fieldset}>
+              <button className="field__button">Create new Location</button>
+
+              <button className="modal__cancel" onClick={() => closeModal()}>
+                Cancel
+              </button>
+            </fieldset>
+          </>
+        );
+      case "category":
+        label_ = "category";
+        return (
+          <>
+            <fieldset style={style.fieldset}>
+              <p style={style.label}>
+                Category Name <span style={style.req}>*</span>
+              </p>
+              <Input
+                onChange={(e) => handleFieldChange(e, label_)}
+                style={style.input}
+                value={fields.category.name}
+                name="name"
+                placeholder="Enter category name"
+              />
+            </fieldset>
+            <fieldset style={style.fieldset}>
+              <button className="field__button">Create new Category</button>
+
+              <button className="modal__cancel" onClick={() => closeModal()}>
+                Cancel
+              </button>
+            </fieldset>
+          </>
+        );
+      case "tag":
+        label_ = "tag";
+        return (
+          <>
+            <fieldset style={style.fieldset}>
+              <p style={style.label}>
+                Tag Name <span style={style.req}>*</span>
+              </p>
+              <Input
+                onChange={(e) => handleFieldChange(e, label_)}
+                style={style.input}
+                value={fields.tag.name}
+                name="name"
+                placeholder="Enter tag name"
+              />
+            </fieldset>
+            <fieldset style={style.fieldset}>
+              <button className="field__button">Create new Tag</button>
+
+              <button className="modal__cancel" onClick={() => closeModal()}>
+                Cancel
+              </button>
+            </fieldset>
+          </>
+        );
+    }
+  };
+
   return (
     <div className="textpicker">
       <label>
@@ -75,10 +205,61 @@ export default function TextPicker({
         </button>
       </div>
       <div className="textpicker__footer">
-        <button>
+        <button onClick={() => openModal()}>
           + Create A New {`${label[0].toUpperCase()}${label.substring(1)}`}
         </button>
       </div>
+      <Modal
+        title={`Upload a new ${label[0].toUpperCase()}${label.substring(1)}`}
+        isActive={modalActive}
+        closeModal={closeModal}
+      >
+        {renderModal()}
+      </Modal>
     </div>
   );
 }
+
+const style = {
+  form: {
+    background: "var(--lightprimary)",
+    border: "1px solid lightgrey",
+    minWidth: "350px",
+    margin: "auto",
+    padding: 20,
+    boxShadow: "var(--shadow)",
+  },
+  formFooter: {
+    padding: "20px 0",
+  },
+  input: {
+    width: "100%",
+    color: "var(--darksecondary)",
+  },
+  textarea: {
+    height: 200,
+    border: "1px solid lightgrey",
+    color: "var(--darkprimary)",
+    padding: "7px 14px",
+    background: "var(--lighttertiary)",
+  },
+  label: {
+    color: "var(--darksecondary)",
+    margin: 0,
+    fontSize: 11,
+    marginBottom: "3px",
+  },
+  fieldset: {
+    marginBottom: "10px",
+    padding: 0,
+  },
+  submit: {
+    width: "100%",
+    background: "var(--highlight)",
+    borderRadius: "unset",
+  },
+  req: {
+    color: "red",
+    fontSize: 14,
+  },
+};
