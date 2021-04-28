@@ -177,6 +177,13 @@ export default function AddPlantsCtrl() {
       eVideos={eVideos}
       eTags={eTags}
       eCategories={eCategories}
+      // QUERIES
+      queryLocations={queryLocations}
+      queryImages={queryImages}
+      queryAudios={queryAudios}
+      queryVideos={queryVideos}
+      queryTags={queryTags}
+      queryCategories={queryCategories}
     />
   );
 }

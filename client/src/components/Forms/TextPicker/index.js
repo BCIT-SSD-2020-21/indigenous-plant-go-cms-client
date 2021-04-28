@@ -18,6 +18,7 @@ export default function TextPicker({
   closeModal,
   fields,
   handleFieldChange,
+  handleFieldUpload,
 }) {
   const renderModal = () => {
     let label_;
@@ -81,7 +82,12 @@ export default function TextPicker({
             </fieldset>
 
             <fieldset style={style.fieldset}>
-              <button className="field__button">Create new Location</button>
+              <button
+                className="field__button"
+                onClick={() => handleFieldUpload(label_)}
+              >
+                Create new Location
+              </button>
 
               <button className="modal__cancel" onClick={() => closeModal()}>
                 Cancel
@@ -106,7 +112,12 @@ export default function TextPicker({
               />
             </fieldset>
             <fieldset style={style.fieldset}>
-              <button className="field__button">Create new Category</button>
+              <button
+                className="field__button"
+                onClick={() => handleFieldUpload(label_)}
+              >
+                Create new Category
+              </button>
 
               <button className="modal__cancel" onClick={() => closeModal()}>
                 Cancel
@@ -131,7 +142,12 @@ export default function TextPicker({
               />
             </fieldset>
             <fieldset style={style.fieldset}>
-              <button className="field__button">Create new Tag</button>
+              <button
+                className="field__button"
+                onClick={() => handleFieldUpload(label_)}
+              >
+                Create new Tag
+              </button>
 
               <button className="modal__cancel" onClick={() => closeModal()}>
                 Cancel
