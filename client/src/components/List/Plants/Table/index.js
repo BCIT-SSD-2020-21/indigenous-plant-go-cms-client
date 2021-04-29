@@ -57,7 +57,7 @@ export default function Table({
               <div className="table__col author">
                 <p>
                   {plant &&
-                    plant.revision_history.length > 1 &&
+                    plant.revision_history.length > 0 &&
                     plant.revision_history[plant.revision_history.length - 1]
                       .user[0]?.user_name}
                 </p>
@@ -74,7 +74,7 @@ export default function Table({
               </div>
               <div className="table__col updated">
                 <p>
-                  {plant && plant.revision_history.length > 1 && (
+                  {plant && plant.revision_history.length > 0 && (
                     <>
                       {lastRevision.date} by {lastRevision.user}
                     </>

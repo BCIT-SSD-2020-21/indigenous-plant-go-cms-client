@@ -64,6 +64,55 @@ export const getLocations = async () => {
   }
 };
 
+export const deleteLocation = async (id) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const response = await axios.delete(`${BASE_URL}/locations/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const updateLocation = async (id, location) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+  try {
+    const response = await axios.put(`${BASE_URL}/locations/${id}`, location, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.message,
+    };
+  }
+};
+
 export const getImages = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/images`);
@@ -301,6 +350,55 @@ export const createTag = async (tag) => {
 
   try {
     const response = await axios.post(`${BASE_URL}/tags`, tag, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const deleteTag = async (id) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const response = await axios.delete(`${BASE_URL}/tags/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const updateTag = async (id, tag) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+  try {
+    const response = await axios.put(`${BASE_URL}/tags/${id}`, tag, {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
