@@ -126,6 +126,50 @@ export const getImages = async () => {
   }
 };
 
+export const deleteImage = async (id) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+  try {
+    const response = await axios.delete(`${BASE_URL}/images/${id}`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const updateImage = async (image, id) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const response = await axios.put(`${BASE_URL}/images/${id}`, image, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
 export const getAudios = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/audios`);

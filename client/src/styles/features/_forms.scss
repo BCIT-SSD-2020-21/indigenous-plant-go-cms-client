@@ -108,10 +108,12 @@ button.field__button {
 .field__file {
   display: flex;
   margin-bottom: 14px;
+  min-height: 40px;
 
   .file__meta {
     width: 100%;
     border: 1px solid lightgray;
+    background: var(--lighttertiary);
     max-height: 205px;
     display: flex;
     align-items: center;
