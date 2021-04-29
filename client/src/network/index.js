@@ -723,3 +723,16 @@ export const updateUser = async (userData, id) => {
     };
   }
 };
+
+export const getUser = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/users/${id}`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};

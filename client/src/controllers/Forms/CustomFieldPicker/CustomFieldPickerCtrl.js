@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import CustomFieldPicker from "../../../components/Forms/CustomFieldPicker";
-import { v4 as uuidv4 } from "uuid";
 import { ObjectID } from "bson";
 
 export default function CustomFieldPickerCtrl({ label, setter, selected }) {

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
-import { ping } from "../network";
+import { ping, getUser } from "../network";
 const AuthContext = React.createContext();
 
 export function useAuth() {
@@ -19,6 +19,20 @@ export function AuthProvider({ children }) {
   const validateToken = async () => {
     const result = await ping();
     if (result.error) return signOut();
+  };
+
+  const queryUser = async () => {
+    const id = userData.user._id;
+    if (!id) return console.log("missing user id");
+    const result = await getUser(id);
+    if (result.error) return console.log("error fetching user data");
+    const updatedUser = {
+      accessToken: userData.accessToken,
+      user: {
+        ...result,
+      },
+    };
+    setUserData(updatedUser);
   };
 
   useEffect(() => {
@@ -45,6 +59,7 @@ export function AuthProvider({ children }) {
     // Methods
     setUserData,
     signOut,
+    queryUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

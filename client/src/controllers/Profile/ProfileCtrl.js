@@ -5,7 +5,7 @@ import { updateUser } from "../../network";
 
 export default function ProfileCtrl() {
   const authContext = useAuth();
-  const { userData } = authContext;
+  const { userData, queryUser } = authContext;
   const [changePassword, setChangePassword] = useState(false);
   const [username, setUsername] = useState(userData?.user.user_name);
   const [email, setEmail] = useState(userData?.user.email);
@@ -45,8 +45,9 @@ export default function ProfileCtrl() {
       };
     }
 
-    const result = await updateUser(JSON.stringify(userData_), id);
+    const result = await updateUser(userData_, id);
     if (result.error) return console.log("Unable to update the user's data.");
+    queryUser();
   };
 
   return (
