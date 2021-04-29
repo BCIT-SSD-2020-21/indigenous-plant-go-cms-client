@@ -2023,7 +2023,13 @@ module.exports = async function() {
       newTour.waypoints = []
     }
 
-    if(!newTour.custom_fields) {
+    if(newTour.custom_fields) {
+      newTour.custom_fields.forEach((custom_field, index, self) =>{
+        let temp = custom_field
+        temp._id = ObjectID(temp._id)
+        self[index] = temp
+      })
+    }else {
       newTour.custom_fields = []
     }
 
@@ -2465,6 +2471,14 @@ module.exports = async function() {
     if(updatedTour.waypoints) {
       updatedTour.waypoints.forEach((waypoint, index, self) => {
         self[index] = ObjectID(waypoint)
+      })
+    }
+
+    if(updatedTour.custom_fields) {
+      updatedTour.custom_fields.forEach((custom_field, index, self) =>{
+        let temp = custom_field
+        temp._id = ObjectID(custom_field._id)
+        self[index] = temp
       })
     }
 
