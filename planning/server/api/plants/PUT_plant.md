@@ -21,7 +21,7 @@ Example request: PUT /api/plants/607e399e59c8feg7e2af65r7
   "locations": ["607e3ab0a0d3df815abfcfb1"],
   "custom_fields": [
     {
-      "custom_field_id": "607e399e59c86677e2af65r7",
+      "_id": "607e399e59c86677e2af65r7",
       "field_title": "Medical",
       "content": "Use in medical"
     }
@@ -32,6 +32,8 @@ Example request: PUT /api/plants/607e399e59c8feg7e2af65r7
 We set it to overwrite existing data
 
 New revision is added on whenever update is made
+
+Custom field's _id must be an valid objectId string, meaning it is hexidecimal string of certain length
 
 # SUCCESS RESPONSE BODY
 ```
