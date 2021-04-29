@@ -59,6 +59,15 @@ export default function Table({
                   </div>
                 </div>
               )}
+
+              {dataLabel === "audio_file" && (
+                <div className="table__col head audio__preview">
+                  <audio controls src={media[`${dataLabel}_url`]}>
+                    Your browser does not support the <code>audio</code>{" "}
+                    element.
+                  </audio>
+                </div>
+              )}
             </li>
           );
         })}

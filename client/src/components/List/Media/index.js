@@ -90,6 +90,18 @@ export default function ListMedia({
           </div>
         </>
       )}
+      {dataLabel === "audio_file" && (
+        <>
+          <p style={style.label}>Audio Preview</p>
+          <div className="thumbnail__container audio">
+            <div className="thumbnail__audio">
+              <audio controls src={editMedia.url}>
+                Your browser does not support the <code>audio</code> element.
+              </audio>
+            </div>
+          </div>
+        </>
+      )}
       <fieldset style={style.fieldset}>
         <p style={style.label}>
           Caption <span style={style.req}>*</span>
@@ -264,6 +276,11 @@ export default function ListMedia({
             {dataLabel === "image" && (
               <div className="table__col head thumbnail">
                 <h3>thumbnail</h3>
+              </div>
+            )}
+            {dataLabel === "audio_file" && (
+              <div className="table__col head audio__preview">
+                <h3>Preview</h3>
               </div>
             )}
           </div>

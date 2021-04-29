@@ -66,6 +66,15 @@
     }
   }
 
+  .audio__preview {
+    width: 100%;
+    max-width: 200px;
+
+    audio {
+      width: 100%;
+    }
+  }
+
   .action {
     display: inline-block;
     margin-top: 3px;

@@ -3,6 +3,10 @@
   margin-bottom: 10px;
   border: 1px solid lightgray;
 
+  &.audio {
+    border: none !important;
+  }
+
   .thumbnail__image {
     max-height: 75px;
     max-width: 100px;
