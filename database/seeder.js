@@ -208,19 +208,19 @@ const seed = async () => {
   await revisions.insertMany([
     { 
       "user": user1._id,
-      "date": 1619552925
+      "date": 1619651670890
     },
     {
       "user": user2._id,
-      "date": 1619552956
+      "date": 1619651681890
     },
     {
       "user": user1._id,
-      "date": 1619561239
+      "date": 1619651051543
     },
     {
       "user": user1._id,
-      "date": 1619129239
+      "date": 1619650526509
     },
     
   ])
@@ -242,8 +242,8 @@ const seed = async () => {
   // const custom_field2 = await custom_fields.findOne({"content" : "Daily"})
   const revision_history1 = await revisions.findOne({"user": user1._id})
   const revision_history2 = await revisions.findOne({"user": user2._id})
-  const revision_history3 = await revisions.findOne({"date": 1619561239})
-  const revision_history4 = await revisions.findOne({"date": 1619129239})
+  const revision_history3 = await revisions.findOne({"date": 1619651051543})
+  const revision_history4 = await revisions.findOne({"date": 1619650526509})
   
   await plants.insertMany([
     {
