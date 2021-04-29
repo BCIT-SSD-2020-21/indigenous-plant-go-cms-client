@@ -150,7 +150,7 @@ export default function ListMedia({
 
   return (
     <div>
-      <DashHeader title={label} />
+      <DashHeader title={`${label}s`} />
       <div className="resource__container">
         <div className="resource__col left">
           <h3>Add New {label}</h3>

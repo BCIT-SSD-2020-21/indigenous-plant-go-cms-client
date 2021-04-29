@@ -6,6 +6,9 @@ import {
   deleteImage,
   updateImage,
   getAudios,
+  createAudio,
+  deleteAudio,
+  updateAudio,
   getVideos,
 } from "../../../network";
 
@@ -89,6 +92,9 @@ export default function ListMediaCtrl({ dataLabel, label }) {
       case "image":
         result = await getImages();
         break;
+      case "audio_file":
+        result = await getAudios();
+        break;
     }
 
     if (result.error) return console.log("Error fetching media");
@@ -156,6 +162,11 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         formData.append("caption", caption);
         result = await createImage(formData);
         break;
+      case "audio_file":
+        formData.append("audio", file);
+        formData.append("caption", caption);
+        result = await createAudio(formData);
+        break;
     }
 
     if (result.error) return console.log("Error uploading file");
@@ -180,6 +191,9 @@ export default function ListMediaCtrl({ dataLabel, label }) {
     switch (dataLabel) {
       case "image":
         result = await deleteImage(id);
+        break;
+      case "audio_file":
+        result = deleteAudio(id);
         break;
     }
 
@@ -236,6 +250,11 @@ export default function ListMediaCtrl({ dataLabel, label }) {
     switch (dataLabel) {
       case "image":
         formData.append("image", editMedia.file);
+        formData.append("caption", editMedia.caption);
+        result = await updateImage(formData, id);
+        break;
+      case "audio_file":
+        formData.append("audio", editMedia.file);
         formData.append("caption", editMedia.caption);
         result = await updateImage(formData, id);
         break;
