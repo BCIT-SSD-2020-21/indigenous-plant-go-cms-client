@@ -1,12 +1,12 @@
-/*
-  @desc GET single learn_more
-  @route /api/learnmore/:id
-  @access Protected -- API key
+# Get learn more
+@desc GET single learn_more
+@route /api/learn_more/:id
+@access Protected -- API key
 
-  Example request: GET /api/learnmore/607e399e59c86677e2af6587?key=<API_KEY>
-*/
+Example request: GET /api/learn_more/607e399e59c86677e2af6587?key=<API_KEY>
 
-// EXAMPLE RESPONSE BODY
+# EXAMPLE RESPONSE BODY
+```
 {
   "_id": "607e399e59c86677e2af6587",
   "learn_more_title": "An epic journey advances through the spring",
@@ -92,3 +92,4 @@
     }
   ]
 }
+```

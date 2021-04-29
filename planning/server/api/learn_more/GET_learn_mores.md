@@ -1,12 +1,12 @@
-/*
-  @desc GET all learn_more
-  @route /api/learnmore
-  @access Protected -- API key
+# Get learn mores
+@desc GET all learn_more
+@route /api/learn_more
+@access Protected -- API key
 
-  Example request: GET /api/learnmore?key=<API_KEY>
-*/
+Example request: GET /api/learn_more?key=<API_KEY>
 
-// EXAMPLE RESPONSE BODY
+# EXAMPLE RESPONSE BODY
+```
 [
   {
     "_id": "607e399e59c86677e2af6587",
@@ -95,3 +95,4 @@
   }
   // ... Repeat
 ]
+```
