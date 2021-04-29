@@ -781,14 +781,12 @@ module.exports = async function() {
     }
 
     if(newPlant.custom_fields) {
-      console.log("Accept", newPlant)
       newPlant.custom_fields.forEach((custom_field, index, self) =>{
         let temp = custom_field
         temp._id = ObjectID(temp._id)
         self[index] = temp
       })
     }else {
-      console.log("Reject", newPlant.custom_fields)
       newPlant.custom_fields = []
     }
 
@@ -1264,7 +1262,13 @@ module.exports = async function() {
       newWaypoint.plants = []
     }
 
-    if(!newWaypoint.custom_fields) {
+    if(newWaypoint.custom_fields) {
+      newWaypoint.custom_fields.forEach((custom_field, index, self) =>{
+        let temp = custom_field
+        temp._id = ObjectID(temp._id)
+        self[index] = temp
+      })
+    }else {
       newWaypoint.custom_fields = []
     }
 
@@ -1528,6 +1532,15 @@ module.exports = async function() {
         self[index] = ObjectID(plant)
       })
     }
+
+    if(updatedWaypoint.custom_fields) {
+      updatedWaypoint.custom_fields.forEach((custom_field, index, self) =>{
+        let temp = custom_field
+        temp._id = ObjectID(custom_field._id)
+        self[index] = temp
+      })
+    }
+
 
     //New revision for when waypoint is updated
     const revision = await createRevision({user_id: user_id})
