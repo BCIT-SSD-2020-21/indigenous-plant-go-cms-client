@@ -736,3 +736,16 @@ export const getUser = async (id) => {
     };
   }
 };
+
+export const getAllUsers = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/users`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
