@@ -13,7 +13,7 @@ import {
   updatePlant,
 } from "../../../network";
 
-export default function EditPlantCtrl({ match }) {
+export default function EditPlantCtrl() {
   const history = useHistory();
   const [plantData, setPlantData] = useState({});
   const { plantId } = useParams();
