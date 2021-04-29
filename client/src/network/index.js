@@ -252,9 +252,78 @@ export const updateAudio = async (audio, id) => {
   }
 };
 
+export const createVideo = async (formData) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const response = await axios.post(`${BASE_URL}/videos`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
 export const getVideos = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/videos`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const deleteVideo = async (id) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+  try {
+    const response = await axios.delete(`${BASE_URL}/videos/${id}`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const updateVideo = async (video, id) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const response = await axios.put(`${BASE_URL}/videos/${id}`, video, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -562,31 +631,6 @@ export const createImage = async (formData) => {
 
   try {
     const response = await axios.post(`${BASE_URL}/images`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    console.log(error.response);
-    return {
-      error: error.response,
-    };
-  }
-};
-
-export const createVideo = async (formData) => {
-  const token = getToken();
-
-  if (!token)
-    return {
-      error: "No token found. Could not authenticate request.",
-    };
-
-  try {
-    const response = await axios.post(`${BASE_URL}/videos`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
