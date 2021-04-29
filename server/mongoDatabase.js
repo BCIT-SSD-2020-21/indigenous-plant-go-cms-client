@@ -2660,9 +2660,16 @@ module.exports = async function() {
       newLearnMore.categories = []
     }
 
-    if(!newLearnMore.custom_fields) {
+    if(newLearnMore.custom_fields) {
+      newLearnMore.custom_fields.forEach((custom_field, index, self) =>{
+        let temp = custom_field
+        temp._id = ObjectID(temp._id)
+        self[index] = temp
+      })
+    }else {
       newLearnMore.custom_fields = []
     }
+
 
     //New revision for when learn_more is created
     const revision = await createRevision({user_id: user_id})
@@ -2806,6 +2813,14 @@ module.exports = async function() {
     if(updatedLearnMore.categories) {
       updatedLearnMore.categories.forEach((category, index, self) => {
         self[index] = ObjectID(category)
+      })
+    }
+
+    if(updatedLearnMore.custom_fields) {
+      updatedLearnMore.custom_fields.forEach((custom_field, index, self) =>{
+        let temp = custom_field
+        temp._id = ObjectID(custom_field._id)
+        self[index] = temp
       })
     }
 
