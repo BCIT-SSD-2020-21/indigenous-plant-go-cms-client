@@ -147,6 +147,7 @@ export default function TextPickerCtrl({
           tag_name: fields.tag.name,
         };
         result = await createTag(tag);
+        break;
       case "category":
         if (!fields.category.name)
           return console.log("Error uploading category");
@@ -155,6 +156,7 @@ export default function TextPickerCtrl({
           resource: resource,
         };
         result = await createCategory(category);
+        break;
       case "location":
         if (
           !fields.location.name ||
@@ -169,6 +171,7 @@ export default function TextPickerCtrl({
           description: fields.location.description,
         };
         result = await createLocation(location);
+        break;
     }
     if (result.error) return console.log("Error uploading tag");
     formatted = {
