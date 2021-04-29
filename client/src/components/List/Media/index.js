@@ -119,7 +119,7 @@ export default function ListMedia({
       <fieldset style={style.fieldset}>
         <div className="field__file">
           <div
-            style={{ padding: "10px 10px", minWidth: 275 }}
+            style={{ padding: "10px 10px", minWidth: 100 }}
             className="file__meta"
           >
             <p>
@@ -184,7 +184,7 @@ export default function ListMedia({
             <form>
               <div className="field__file">
                 <div
-                  style={{ padding: "10px 10px", minWidth: 275 }}
+                  style={{ padding: "10px 10px", minWidth: 100 }}
                   className="file__meta"
                 >
                   <p>{file?.name}</p>
