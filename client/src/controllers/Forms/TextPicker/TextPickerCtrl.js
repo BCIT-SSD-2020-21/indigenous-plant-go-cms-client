@@ -79,7 +79,7 @@ export default function TextPickerCtrl({
   };
 
   const formatSelection = () => {
-    if (!selected) return console.log("Error formatting selection");
+    if (!selected) return;
     const formatted = selected.map((option) => {
       return {
         _id: option._id,

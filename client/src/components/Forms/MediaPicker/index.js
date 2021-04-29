@@ -111,7 +111,7 @@ export default function MediaPicker({
                           className="textpicker__selected"
                         >
                           <span className="selected__title">
-                            <span classname="selected__icon">
+                            <span className="selected__icon">
                               {renderIcon(label)}
                             </span>
                             <div className="selected__media__meta">
