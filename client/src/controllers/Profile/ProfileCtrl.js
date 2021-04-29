@@ -27,7 +27,7 @@ export default function ProfileCtrl() {
     const id = userData.user._id;
     if (!id) return console.log("error updating user data");
 
-    const userData_ = {
+    let userData_ = {
       email: email,
       user_name: username,
       role: role,
@@ -39,10 +39,13 @@ export default function ProfileCtrl() {
       if (newPassword !== confirmPassword)
         return console.log("password don't match.");
 
-      userData.password = newPassword;
+      userData_ = {
+        ...userData_,
+        password: newPassword,
+      };
     }
 
-    const result = await updateUser(userData_, id);
+    const result = await updateUser(JSON.stringify(userData_), id);
     if (result.error) return console.log("Unable to update the user's data.");
   };
 

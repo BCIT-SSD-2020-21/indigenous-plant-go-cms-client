@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import CustomFieldPicker from "../../../components/Forms/CustomFieldPicker";
 import { v4 as uuidv4 } from "uuid";
+import { ObjectID } from "bson";
 
 export default function CustomFieldPickerCtrl({ label, setter, selected }) {
   const [activeSelection, setActiveSelection] = useState([]);
@@ -22,7 +23,7 @@ export default function CustomFieldPickerCtrl({ label, setter, selected }) {
     if (!selected) return;
     const formatted = selected.map((option) => {
       return {
-        _id: uuidv4(),
+        _id: option._id,
         title: option.field_title,
         content: option.content,
       };
@@ -52,8 +53,10 @@ export default function CustomFieldPickerCtrl({ label, setter, selected }) {
   const addToSelection = () => {
     if (!title || !content)
       return console.log("Cannot create empty custom field");
+
+    const id = new ObjectID();
     const field = {
-      _id: uuidv4(),
+      _id: id.toString(),
       title: title,
       content: content,
     };
