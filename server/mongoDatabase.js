@@ -958,11 +958,7 @@ module.exports = async function() {
     if(updatedPlant.custom_fields) {
       updatedPlant.custom_fields.forEach((custom_field, index, self) =>{
         let temp = custom_field
-        if(custom_field._id){
-          temp._id = custom_field._id
-        }else{
-          temp._id = ObjectID(custom_field._id)
-        }
+        temp._id = ObjectID(custom_field._id)
         self[index] = temp
       })
     }
