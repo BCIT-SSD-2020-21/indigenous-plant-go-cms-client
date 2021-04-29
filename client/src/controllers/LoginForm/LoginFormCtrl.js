@@ -21,6 +21,7 @@ export default function LoginFormCtrl() {
   const attemptLogin = async (e) => {
     e.preventDefault();
     const result = await login({ username, password });
+    console.log(result);
     if (result.error) return console.log("Error ocurred when attempting login");
     setUserData(result);
   };
