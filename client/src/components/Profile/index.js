@@ -1,11 +1,22 @@
 import React from "react";
 import DashHeader from "../DashHeader";
-import { Input, Checkbox, Button, Dropdown, Icon } from "semantic-ui-react";
+import { Input, Dropdown, Icon } from "semantic-ui-react";
 
 export default function Profile({
   toggleChangePassword,
   cancelChangePassword,
   changePassword,
+  username,
+  email,
+  role,
+  changeUsername,
+  changeEmail,
+  changeRole,
+  confirmPassword,
+  newPassword,
+  changeNewPassword,
+  changeConfirmPassword,
+  applyUpdate,
 }) {
   return (
     <div>
@@ -34,8 +45,8 @@ export default function Profile({
           </p>
           <Input
             style={style.input}
-            // onChange={(e) => setUsername(e.target.value)}
-            // value={username}
+            onChange={(e) => changeUsername(e.target.value)}
+            value={username}
             icon="user"
             iconPosition="left"
             placeholder="Username"
@@ -44,12 +55,12 @@ export default function Profile({
 
         <fieldset style={style.fieldset}>
           <p style={style.label}>
-            Username:<span style={style.req}>*</span>
+            Email:<span style={style.req}>*</span>
           </p>
           <Input
             style={style.input}
-            // onChange={(e) => setUsername(e.target.value)}
-            // value={username}
+            onChange={(e) => changeEmail(e.target.value)}
+            value={email}
             icon="mail"
             iconPosition="left"
             placeholder="Email"
@@ -88,8 +99,8 @@ export default function Profile({
               <Input
                 type="password"
                 style={style.input}
-                // onChange={(e) => setUsername(e.target.value)}
-                // value={username}
+                onChange={(e) => changeNewPassword(e.target.value)}
+                value={newPassword}
                 icon="key"
                 iconPosition="left"
                 placeholder="New Password"
@@ -103,8 +114,8 @@ export default function Profile({
               <Input
                 type="password"
                 style={style.input}
-                // onChange={(e) => setUsername(e.target.value)}
-                // value={username}
+                onChange={(e) => changeConfirmPassword(e.target.value)}
+                value={confirmPassword}
                 icon="key"
                 iconPosition="left"
                 placeholder="Confirm New Password"
@@ -118,8 +129,9 @@ export default function Profile({
             Role:<span style={style.req}>*</span>
           </p>
           <Dropdown
-            // onChange={(e, data) => handleSelectChange(e, data)}
+            onChange={(e, data) => changeRole(data.value)}
             selection
+            value={role}
             options={[
               {
                 key: "administrator",
@@ -135,16 +147,17 @@ export default function Profile({
           />
         </fieldset>
 
-        <button className="field__button">
+        <button onClick={() => applyUpdate()} className="field__button">
           <Icon name="save" />
           Update My Profile
         </button>
         {changePassword && (
           <p>
             <span style={{ color: "var(--highlight)", fontWeight: "bold" }}>
-              <Icon name="bullhorn" /> WARNING:
+              WARNING:
             </span>{" "}
-            Your password will also be updated.{" "}
+            Your account's password will also be updated. Please ensure that you
+            have entered your desired new password in the password fields.&nbsp;
             <button
               style={{
                 color: "var(--highlight)",
