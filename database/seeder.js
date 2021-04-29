@@ -23,8 +23,6 @@ const seed = async () => {
   const categories = db.collection('categories')
   const tags = db.collection('tags')
   const revisions = db.collection('revisions')
-  //const custom_fields = db.collection('custom_fields')
-  const waypoint_categories = db.collection('waypoint_categories')
   const waypoints = db.collection('waypoints')
   const learn_more = db.collection('learn_more')
   const tours = db.collection('tours')
@@ -158,26 +156,6 @@ const seed = async () => {
   const waypoint_category1 = await categories.findOne({"category_name": "SW01"})
   const waypoint_category2 = await categories.findOne({"category_name": "SW02"})
   
-  // 7. Waypoint  Categories
-  await waypoint_categories.insertMany([
-    {
-      "categories" : [waypoint_category1._id, waypoint_category2._id] 
-    }
-  ])
-  
-  // // 8. Insert Plant Categories
-  // await plant_categories.insertMany([
-  //   {
-  //     "categories" : [plant_category1._id, plant_category2._id] 
-  //   },
-  // ])
-  
-  // // 9. Insert Tour Categories
-  // await tour_categories.insertMany([
-  //   {
-  //     "categories" : [tour_category1._id, tour_category2._id] 
-  //   }
-  // ])
   
   // 10. Insert Tags
   await tags.insertMany([
@@ -189,18 +167,6 @@ const seed = async () => {
     }
   ])
 
-  // 8. Insert Custom Fields
-  // await custom_fields.insertMany([
-  //   {
-  //     "field_title" : "Water Intake",
-  //     "content" : "Daily"
-  //   },
-  //   {
-  //     "field_title" : "Color",
-  //     "content" : "Indigo"
-  //   }
-  // ])
-
   // 9. Insert Revision Histroy
   const user1 = await users.findOne({"user_name": "bob"})
   const user2 = await users.findOne({"user_name": "charli"})
@@ -208,19 +174,19 @@ const seed = async () => {
   await revisions.insertMany([
     { 
       "user": user1._id,
-      "date": 1619552925
+      "date": 1619651670890
     },
     {
       "user": user2._id,
-      "date": 1619552956
+      "date": 1619651681890
     },
     {
       "user": user1._id,
-      "date": 1619561239
+      "date": 1619651051543
     },
     {
       "user": user1._id,
-      "date": 1619129239
+      "date": 1619650526509
     },
     
   ])
@@ -242,8 +208,8 @@ const seed = async () => {
   // const custom_field2 = await custom_fields.findOne({"content" : "Daily"})
   const revision_history1 = await revisions.findOne({"user": user1._id})
   const revision_history2 = await revisions.findOne({"user": user2._id})
-  const revision_history3 = await revisions.findOne({"date": 1619561239})
-  const revision_history4 = await revisions.findOne({"date": 1619129239})
+  const revision_history3 = await revisions.findOne({"date": 1619651051543})
+  const revision_history4 = await revisions.findOne({"date": 1619650526509})
   
   await plants.insertMany([
     {
@@ -279,7 +245,6 @@ const seed = async () => {
       "locations" : [location2._id],
       "categories" : [plant_category2._id],
       "tags" : [tag2._id],
-      //"custom_fields" : [custom_field2._id],
       "revision_history" : [revision_history2._id],
       "custom_fields" : [
         { 
@@ -298,17 +263,7 @@ const seed = async () => {
 
   ])
 
-  // 11. Insert Waypoint Categories
-  await waypoint_categories.insertMany([
-    {
-      "categories" : [
-        category1._id, 
-        category2._id
-      ]
-    }
-
-  ])
-
+  
   // 12. Insert Waypoint
   const category3 = await categories.findOne({"category_name": "SW01"})
   await waypoints.insertMany([
@@ -316,13 +271,19 @@ const seed = async () => {
       "waypoint_name": "Location A",
       "description": "Infront of SW1",
       "location": location1._id,
-      //"custom_fields": [custom_field1._id],
       "images": [image1._id],
      "audio_files": [audio1._id],
       "videos": [video1._id],
       "tags": [tag1._id],
       "categories": [category3._id],
       "revision_history": [revision_history1._id],
+      "custom_fields" : [
+        { 
+          "_id" : new ObjectID(),
+          "field_title": "Foot Traffic",
+          "content": "Light"
+        }
+      ]
     }
   ])
 
@@ -331,10 +292,20 @@ const seed = async () => {
   await learn_more.insertMany([
     {
       "learn_more_title": "Other information",
-      "description": "Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. ", // Should be stringified HTML
-      //"custom_fields": [custom_field1._id] ,
-      "revisions": [revision_history1._id],
+      "description": "Curabitur in libero ut massa volutpat convallis. Morbi odio odio, elementum eu, interdum eu, tincidunt in, leo. ", 
+      "images":[],
+      "audios":[],
+      "videos":[],
+      "tags":[],
+      "revision_history":[revision_history1._id],
       "categories": [category5._id],
+      "custom_fields" : [
+        { 
+          "_id" : new ObjectID(),
+          "field_title": "Other Fields",
+          "content": "Morbi odio odio, elementum eu"
+        }
+      ]
     }
   ])
   
@@ -347,7 +318,6 @@ const seed = async () => {
     {
       "tour_name": "The English Walk",
       "description:": "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-      //"custom_fields" : [custom_field1._id, custom_field2._id],
       "images" : [image1._id, image2._id],
       "audio_files" : [audio1._id, audio2._id],
       "videos" : [video1._id, video2._id],
@@ -355,7 +325,14 @@ const seed = async () => {
       "categories" : [category1._id, category2._id],
       "waypoints" : [waypoint1._id],
       "plants" : [plant1._id],
-      "revision_history" : [revision_history1._id]
+      "revision_history" : [revision_history1._id],
+      "custom_fields" : [
+        { 
+          "_id" : new ObjectID(),
+          "field_title": "Popularity",
+          "content": "Highly Recommended"
+        }
+      ]
     }
   ])
 
