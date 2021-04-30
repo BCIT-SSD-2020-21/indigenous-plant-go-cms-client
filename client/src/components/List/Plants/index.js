@@ -218,7 +218,7 @@ export default function ListPlants({
             ? `Delete ${pendingDelete.plant_name}?`
             : `Delete all ${selectedPlants.length} plants?`
         }
-        subtitle={`Bulk Delete`}
+        subtitle={modalState === "single" ? null : `Bulk Delete`}
         closeModal={closeModal}
       >
         {renderModal()}

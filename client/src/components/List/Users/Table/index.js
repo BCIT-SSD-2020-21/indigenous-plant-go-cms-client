@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Table({ userDatas, selectedUsers, handleSelected }) {
+export default function Table({
+  userDatas,
+  selectedUsers,
+  handleSelected,
+  handleDelete,
+}) {
   return (
     <ul className="table__list">
       {userDatas &&
@@ -36,7 +41,7 @@ export default function Table({ userDatas, selectedUsers, handleSelected }) {
                   </Link>
                   <button
                     type="button"
-                    // onClick={(e) => handleDelete(e)}
+                    onClick={(e) => handleDelete(e)}
                     value={user._id}
                   >
                     &nbsp;Delete

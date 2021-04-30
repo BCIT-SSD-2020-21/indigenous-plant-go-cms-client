@@ -3,6 +3,7 @@ import Table from "./Table";
 import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 import { ResetIcon } from "../../../icons";
+import Modal from "../../Modal";
 
 export default function ListUsers({
   userDatas,
@@ -25,7 +26,42 @@ export default function ListUsers({
   pages,
   nextPage,
   prevPage,
+  modalActive,
+  modalState,
+  closeModal,
+  handleDelete,
+  pendingDelete,
+  applyDelete,
 }) {
+  const renderModal = () => {
+    switch (modalState) {
+      case "single":
+        return (
+          <>
+            <p>
+              Deleting{" "}
+              <strong style={{ color: "var(--danger)" }}>
+                {pendingDelete.user_name}'s
+              </strong>{" "}
+              account is
+              <strong style={{ color: "var(--danger)" }}>
+                &nbsp;permanent
+              </strong>
+              . Do you wish to proceed?
+            </p>
+            <button onClick={() => applyDelete()} className="field__button">
+              Yes, I know what I am doing.
+            </button>
+            <button
+              onClick={() => closeModal()}
+              className="field__button secondary"
+            >
+              No, cancel my request.
+            </button>
+          </>
+        );
+    }
+  };
   return (
     <div>
       <DashHeader
@@ -124,6 +160,7 @@ export default function ListUsers({
         userDatas={hasPages ? pages[page - 1] : userDatas}
         selectedUsers={selectedUsers}
         handleSelected={handleSelected}
+        handleDelete={handleDelete}
       />
       {hasPages && (
         <div className="pagination__control">
@@ -143,6 +180,16 @@ export default function ListUsers({
           </div>
         </div>
       )}
+      <Modal
+        isActive={modalActive}
+        title={
+          modalState === "single" ? `Delete ${pendingDelete.user_name}?` : null
+        }
+        subtitle={modalState === "single" ? null : `Bulk Delete`}
+        closeModal={closeModal}
+      >
+        {renderModal()}
+      </Modal>
     </div>
   );
 }

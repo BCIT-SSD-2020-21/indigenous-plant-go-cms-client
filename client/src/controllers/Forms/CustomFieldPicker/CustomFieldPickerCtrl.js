@@ -23,7 +23,7 @@ export default function CustomFieldPickerCtrl({ label, setter, selected }) {
     const formatted = selected.map((option) => {
       return {
         _id: option._id,
-        title: option.field_title,
+        field_title: option.field_title,
         content: option.content,
       };
     });
@@ -56,7 +56,7 @@ export default function CustomFieldPickerCtrl({ label, setter, selected }) {
     const id = new ObjectID();
     const field = {
       _id: id.toString(),
-      title: title,
+      field_title: title,
       content: content,
     };
 
@@ -108,7 +108,7 @@ export default function CustomFieldPickerCtrl({ label, setter, selected }) {
 
     const updatedField = {
       _id: _id,
-      title: title,
+      field_title: title,
       content: content,
     };
 

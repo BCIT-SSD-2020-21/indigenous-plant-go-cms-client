@@ -657,7 +657,7 @@ export const deletePlant = async (id) => {
   try {
     const response = await axios.delete(`${BASE_URL}/plants/${id}`, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
@@ -740,6 +740,31 @@ export const getUser = async (id) => {
 export const getAllUsers = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/users`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const deleteUser = async (id) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const response = await axios.delete(`${BASE_URL}/users/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data;
   } catch (error) {

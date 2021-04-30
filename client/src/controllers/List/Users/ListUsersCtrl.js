@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ListUsers from "../../../components/List/Users";
-import { getAllUsers } from "../../../network";
+import { getAllUsers, deleteUser } from "../../../network";
 
 export default function ListUsersCtrl() {
   const [userDatas, setUserDatas] = useState([]);
@@ -15,6 +15,7 @@ export default function ListUsersCtrl() {
   const [hasPages, setHasPages] = useState(false);
   const [pages, setPages] = useState([]);
   const [page, setPage] = useState(1);
+  const [pendingDelete, setPendingDelete] = useState({});
 
   useEffect(() => {
     queryUsers();
@@ -184,6 +185,29 @@ export default function ListUsersCtrl() {
     setPage(currentPage);
   };
 
+  const closeModal = () => {
+    setModalActive(false);
+  };
+
+  const handleDelete = async (e) => {
+    setModalState("single");
+    const id = e.target.value;
+    const foundUser = userDatas.filter((userData) => userData._id === id)[0];
+    if (!foundUser) return console.log("Unable to find user");
+    await setPendingDelete(foundUser);
+    setModalActive(true);
+  };
+
+  const applyDelete = async () => {
+    const id = pendingDelete._id;
+    if (!id) return console.log("Unable to delete user");
+    const result = await deleteUser(id);
+    if (result.error) return console.log("Unable to delete user");
+    closeModal();
+    setPendingDelete({});
+    queryUsers();
+  };
+
   return (
     <ListUsers
       userDatas={userDatas_}
@@ -206,6 +230,12 @@ export default function ListUsersCtrl() {
       pages={pages}
       nextPage={nextPage}
       prevPage={prevPage}
+      closeModal={closeModal}
+      handleDelete={handleDelete}
+      pendingDelete={pendingDelete}
+      applyDelete={applyDelete}
+      modalActive={modalActive}
+      modalState={modalState}
     />
   );
 }
