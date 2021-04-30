@@ -13,15 +13,20 @@ import {
 
 
 export default function Home({action, method}) {
-
+  const history = useHistory();
   const authContext = useAuth();
   const {userData } = authContext;
+  
+  //Get Signed in User
   const user = userData.user.user_name
-  const dateToday = Date()
- 
-  const history = useHistory();
-  const [time, setTime]=useState()
 
+  //Get Date
+  const dateToday = new Date()
+  const options = {  year: 'numeric', month: 'short', day: 'numeric' };
+  const displayDate = dateToday.toLocaleDateString("en-US", options)
+ 
+  //Get Clock
+  const [time, setTime]=useState()
   const clock = ()=>{
     var d = new Date();
     var s = d.getSeconds();
@@ -42,11 +47,9 @@ export default function Home({action, method}) {
           // src="/assets/images/iip_logo.png"
           alt="Indigenous Initiatives and Partnerships Logo"
               />
-        <div> {time
-          
-          }</div>
+        <div> {time}</div>
         <div> Greetings {user}</div>
-        <div> {dateToday}</div>
+        <div> {displayDate}</div>
           
       </div>
 
