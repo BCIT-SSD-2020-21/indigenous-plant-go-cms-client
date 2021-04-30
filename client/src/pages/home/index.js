@@ -47,10 +47,11 @@ export default function Home({action, method}) {
           // src="/assets/images/iip_logo.png"
           alt="Indigenous Initiatives and Partnerships Logo"
               />
-        <div> {time}</div>
-        <div> Greetings {user}</div>
-        <div> {displayDate}</div>
-          
+        <span style={style.textDisplay}>
+          <h1 style={style.time}> {time}</h1>
+          <h3 style={style.greeting}>Hello,  {user}</h3>
+          <div style={style.date}> {displayDate}</div>
+        </span>
       </div>
 
       {/* QUICKLINK SECTION */}
@@ -118,14 +119,34 @@ export default function Home({action, method}) {
 
 const style = {
   hero : {
+    position: "relative",
     border : "1px solid",
     borderColor : "black",
     minHeight : "500px",
     textAlign : "center",
+   
   },
   image: {
     width: "100%",
-    height: "10%",
+    maxHeight: "500px",
+  },
+  textDisplay : {
+    position : "absolute",
+    top : "30%",
+    left : "47%",
+    // color: "white"
+    color : "gray"
+  },
+  greeting:{
+    textTransform : "capitalize",
+    marginTop :"10px",
+    marginBottom :"5px"
+  },
+  time :{
+    marginBottom: "0"
+  },
+  date :{
+
   },
   subhead :{
     paddingTop: "10px",
