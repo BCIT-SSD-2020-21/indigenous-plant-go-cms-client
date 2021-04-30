@@ -93,7 +93,7 @@ module.exports = function({database, authorize, generateToken, verifyKey}) {
   router.post('/reset_password', async (req, res) => {
     try {
       const result = await database.resetPassword(req.body)
-      res.send(result)
+      res.send('Email sent')
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
