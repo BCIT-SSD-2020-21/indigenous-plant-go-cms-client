@@ -1,5 +1,10 @@
 import React from "react";
+import AddUserCtrl from "../../controllers/Add/Users/AddUserCtrl";
 
 export default function AddUser() {
-  return <main>AddUser</main>;
+  return (
+    <main>
+      <AddUserCtrl />
+    </main>
+  );
 }

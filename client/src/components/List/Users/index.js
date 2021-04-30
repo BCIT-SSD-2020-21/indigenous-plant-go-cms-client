@@ -1,38 +1,37 @@
 import React from "react";
+import Table from "./Table";
 import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 import { ResetIcon } from "../../../icons";
-import Table from "./Table";
 import Modal from "../../Modal";
 
-export default function ListPlants({
-  plantData,
-  categories,
-  handleFilterChange,
-  handleQueryChange,
-  applyFilters,
-  clearSearch,
-  searchQuery,
-  categoryFilter,
-  resetFilters,
-  handleSelected,
-  selectedPlants,
-  batchSelect,
-  pages,
-  hasPages,
-  page,
-  prevPage,
-  nextPage,
-  closeModal,
-  handleDelete,
-  modalActive,
-  pendingDelete,
-  applyDelete,
-  modalState,
+export default function ListUsers({
+  userDatas,
+  roleSelection,
   handleBulkActionChange,
   bulkAction,
   handleBulkDelete,
-  applyBulkDelete,
+  roleFilter,
+  resetFilters,
+  searchQuery,
+  handleFilterChange,
+  applyFilters,
+  clearSearch,
+  handleQueryChange,
+  batchSelect,
+  handleSelected,
+  selectedUsers,
+  page,
+  hasPages,
+  pages,
+  nextPage,
+  prevPage,
+  modalActive,
+  modalState,
+  closeModal,
+  handleDelete,
+  pendingDelete,
+  applyDelete,
 }) {
   const renderModal = () => {
     switch (modalState) {
@@ -40,44 +39,17 @@ export default function ListPlants({
         return (
           <>
             <p>
-              Deleting this plant will remove all instances of the plant&nbsp;
+              Deleting{" "}
               <strong style={{ color: "var(--danger)" }}>
-                {pendingDelete.plant_name}
+                {pendingDelete.user_name}'s
+              </strong>{" "}
+              account is
+              <strong style={{ color: "var(--danger)" }}>
+                &nbsp;permanent
               </strong>
               . Do you wish to proceed?
             </p>
             <button onClick={() => applyDelete()} className="field__button">
-              Yes, I know what I am doing.
-            </button>
-            <button
-              onClick={() => closeModal()}
-              className="field__button secondary"
-            >
-              No, cancel my request.
-            </button>
-          </>
-        );
-      case "bulk":
-        return (
-          <>
-            <p>
-              Deleting&nbsp;
-              <strong style={{ color: "var(--danger)" }}>
-                {selectedPlants.length}
-              </strong>
-              &nbsp;plants will remove{" "}
-              <strong
-                style={{
-                  color: "var(--danger)",
-                  fontWeight: "700",
-                  textTransform: "uppercase",
-                }}
-              >
-                all
-              </strong>{" "}
-              instances of the deleted plants. Do you wish to proceed?
-            </p>
-            <button onClick={() => applyBulkDelete()} className="field__button">
               Yes, I know what I am doing.
             </button>
             <button
@@ -93,13 +65,15 @@ export default function ListPlants({
   return (
     <div>
       <DashHeader
-        title="Plants"
+        title="All Users"
+        subtitle="Manage Users"
         action="Add New"
-        method={() => console.log("Add new")}
+        method={() => console.log("Add New")}
       />
       <p>
-        <strong>Results</strong> ({plantData.length})
+        <strong>Results</strong> ({userDatas.length})
       </p>
+
       <div className="table__controls">
         <div style={{ display: "flex" }}>
           <div className="table__action">
@@ -117,7 +91,7 @@ export default function ListPlants({
           </div>
 
           <div className="table__action">
-            {categoryFilter !== "default" && (
+            {roleFilter !== "default" && (
               <button
                 onClick={() => resetFilters()}
                 className="sub__action resets"
@@ -129,14 +103,14 @@ export default function ListPlants({
               </button>
             )}
             <Dropdown
-              placeholder={"All Categories"}
+              placeholder={"All Roles"}
               selection
               search
               onChange={(e, data) => handleFilterChange(e, data)}
-              value={categoryFilter}
+              value={roleFilter}
               options={[
-                { key: "default", value: "default", text: "All Categories" },
-                ...categories,
+                { key: "default", value: "default", text: "All Roles" },
+                ...roleSelection,
               ]}
             />
             <button onClick={() => applyFilters()}>Filter</button>
@@ -160,6 +134,7 @@ export default function ListPlants({
           </div>
         </div>
       </div>
+
       <form>
         <div className="table__heading table__row">
           <div className="table__col head select">
@@ -170,29 +145,23 @@ export default function ListPlants({
             />
           </div>
           <div className="table__col head title">
-            <h3>Title</h3>
+            <h3>Username</h3>
           </div>
           <div className="table__col head author">
-            <h3>Author</h3>
+            <h3>Role</h3>
           </div>
           <div className="table__col head categories">
-            <h3>Categories</h3>
-          </div>
-          <div className="table__col head tags">
-            <h3>Tags</h3>
-          </div>
-          <div className="table__col head updated">
-            <h3>Last Updated</h3>
+            <h3>Email</h3>
           </div>
         </div>
-
-        <Table
-          plantData={hasPages ? pages[page - 1] : plantData}
-          handleSelected={handleSelected}
-          selectedPlants={selectedPlants}
-          handleDelete={handleDelete}
-        />
       </form>
+
+      <Table
+        userDatas={hasPages ? pages[page - 1] : userDatas}
+        selectedUsers={selectedUsers}
+        handleSelected={handleSelected}
+        handleDelete={handleDelete}
+      />
       {hasPages && (
         <div className="pagination__control">
           <div>
@@ -214,9 +183,7 @@ export default function ListPlants({
       <Modal
         isActive={modalActive}
         title={
-          modalState === "single"
-            ? `Delete ${pendingDelete.plant_name}?`
-            : `Delete all ${selectedPlants.length} plants?`
+          modalState === "single" ? `Delete ${pendingDelete.user_name}?` : null
         }
         subtitle={modalState === "single" ? null : `Bulk Delete`}
         closeModal={closeModal}
