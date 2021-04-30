@@ -4,8 +4,8 @@ module.exports = function({database, authorize, generateToken, verifyKey}) {
   const router = express.Router()
 
   //Get All
-  //GET /api/users?key=<API_KEY>
-  router.get('/', verifyKey, async (req, res) => {
+  //GET /api/users
+  router.get('/', async (req, res) => {
     try {
       const result = await database.getUsers()
       const filteredResult = []
@@ -49,8 +49,8 @@ module.exports = function({database, authorize, generateToken, verifyKey}) {
   })
 
   //Get One
-  //GET /api/users/:userId?key=<API_KEY>
-  router.get('/:userId', verifyKey, async (req, res) => {
+  //GET /api/users/:userId
+  router.get('/:userId', async (req, res) => {
     try {
       const userId = req.params.userId
       const result = await database.getUser({userId})
@@ -82,6 +82,18 @@ module.exports = function({database, authorize, generateToken, verifyKey}) {
       const userId = req.params.userId
       const result = await database.deleteUser({userId})
       res.send("User deleted")
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
+  //Reset password
+  //POST /api/users/reset_password
+  router.post('/reset_password', async (req, res) => {
+    try {
+      const result = await database.resetPassword(req.body)
+      res.send(result)
     } catch (error) {
       console.error(error)
       res.status(401).send({error: error.message})
