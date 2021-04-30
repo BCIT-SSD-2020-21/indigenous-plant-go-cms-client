@@ -12,10 +12,11 @@ import {
 } from "../../icons";
 
 export default function Home({action, method}) {
-  
+
   const authContext = useAuth();
   const {userData } = authContext;
   const user = userData.user.user_name
+  const dateToday = Date()
  
   const history = useHistory();
   return (
@@ -28,6 +29,7 @@ export default function Home({action, method}) {
           alt="Indigenous Initiatives and Partnerships Logo"
               />
         <div> Greetings {user}</div>
+        <div> {dateToday}</div>
           
       </div>
 
