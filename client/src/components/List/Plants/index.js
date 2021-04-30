@@ -3,6 +3,7 @@ import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 import { ResetIcon } from "../../../icons";
 import Table from "./Table";
+import { useHistory } from "react-router-dom";
 import Modal from "../../Modal";
 
 export default function ListPlants({
@@ -34,6 +35,7 @@ export default function ListPlants({
   handleBulkDelete,
   applyBulkDelete,
 }) {
+  const history = useHistory();
   const renderModal = () => {
     switch (modalState) {
       case "single":
@@ -95,7 +97,7 @@ export default function ListPlants({
       <DashHeader
         title="Plants"
         action="Add New"
-        method={() => console.log("Add new")}
+        method={() => history.push("/plants/add")}
       />
       <p>
         <strong>Results</strong> ({plantData.length})
