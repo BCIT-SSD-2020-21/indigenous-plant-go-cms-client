@@ -87,7 +87,7 @@ export default function CustomFieldPickerCtrl({ label, setter, selected }) {
     selected = selected.filter((item) => item._id === id)[0];
     if (!selected) return console.log("error editing a custom field");
     setId(selected._id);
-    setTitle(selected.title);
+    setTitle(selected.field_title);
     setContent(selected.content);
     setModalActive(true);
   };
