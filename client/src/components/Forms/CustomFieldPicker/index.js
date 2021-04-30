@@ -53,7 +53,7 @@ export default function CustomFieldPicker({
                             <div className="selected__media__meta">
                               <label className="caption">
                                 <strong>Title: </strong>
-                                {item.title}
+                                {item.field_title}
                               </label>
                               <label className="url">
                                 <strong>Content: </strong>
