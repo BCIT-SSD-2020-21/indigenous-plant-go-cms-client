@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState}from "react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import {
@@ -11,6 +11,7 @@ import {
   TourIcon,
 } from "../../icons";
 
+
 export default function Home({action, method}) {
 
   const authContext = useAuth();
@@ -19,6 +20,7 @@ export default function Home({action, method}) {
   const dateToday = Date()
  
   const history = useHistory();
+  const [time, setTime]=useState()
 
   const clock = ()=>{
     var d = new Date();
@@ -26,10 +28,10 @@ export default function Home({action, method}) {
     var m = d.getMinutes();
     var h = d.getHours();
     var time = ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2)
+    setTime(time)
     console.log(time)
   }
   setInterval(clock,1000)
-
 
   return (
     <main>
@@ -40,7 +42,7 @@ export default function Home({action, method}) {
           // src="/assets/images/iip_logo.png"
           alt="Indigenous Initiatives and Partnerships Logo"
               />
-        <div> {
+        <div> {time
           
           }</div>
         <div> Greetings {user}</div>
