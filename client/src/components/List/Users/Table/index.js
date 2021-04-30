@@ -33,7 +33,7 @@ export default function Table({
                 <p>{user.user_name}</p>
                 <span className="action">
                   <Link
-                    // to={`/plants/edit/${plant._id}`}
+                    to={`/users/edit/${user._id}`}
                     type="button"
                     value={user._id}
                   >
