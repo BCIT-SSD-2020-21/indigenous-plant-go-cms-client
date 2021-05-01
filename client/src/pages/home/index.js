@@ -82,7 +82,7 @@ export default function Home({action, method}) {
         <div className="grid" style={style.grid}>
           <div className="col1" style={style.col} >
             <button className="link__button" style={style.button} onClick={() => history.push("/plants/add")}>
-              <div style={style.icon}>
+              <div className="quickicons"  style={style.icon}>
                 <PlantIcon />
               </div>
               <div>

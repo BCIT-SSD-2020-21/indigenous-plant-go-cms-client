@@ -119,9 +119,10 @@ button.link__button {
 }
 button.link__button:hover{
   transform: scale(1.04);
-  transition: all 0.1s linear;
+  transition: all 0.2s linear;
+  background-color: black;
+  fill: white;
 }
-
 
 .field__file {
   display: flex;
