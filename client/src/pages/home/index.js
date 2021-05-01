@@ -44,7 +44,7 @@ export default function Home({action, method}) {
       <div style={style.hero}>
         <img
           style={style.image}
-          // src="/assets/images/iip_logo.png"
+          src="/assets/images/hero.jpg"
           alt="Indigenous Initiatives and Partnerships Logo"
               />
         <span style={style.textDisplay}>
@@ -120,8 +120,8 @@ export default function Home({action, method}) {
 const style = {
   hero : {
     position: "relative",
-    border : "1px solid",
-    borderColor : "black",
+    // border : "1px solid",
+    // borderColor : "black",
     minHeight : "500px",
     textAlign : "center",
    
@@ -129,13 +129,14 @@ const style = {
   image: {
     width: "100%",
     maxHeight: "500px",
+    // objectFit: "cover"
   },
   textDisplay : {
     position : "absolute",
     top : "30%",
     left : "47%",
     // color: "white"
-    color : "gray"
+    color : "#d9d9d9"
   },
   greeting:{
     textTransform : "capitalize",
@@ -143,10 +144,11 @@ const style = {
     marginBottom :"5px"
   },
   time :{
-    marginBottom: "0"
+    marginBottom: "0",
+    fontSize : "300%"
   },
   date :{
-
+   
   },
   subhead :{
     paddingTop: "10px",
