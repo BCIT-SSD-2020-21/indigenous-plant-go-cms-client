@@ -36,10 +36,24 @@ export default function Home({action, method}) {
     var second = date.getSeconds();
     var minute = date.getMinutes();
     var hour = date.getHours() 
-    var time = ("0" + hour).substr(-2) + ":" + ("0" + minute).substr(-2) + ":" + ("0" + second).substr(-2)
+    var formathour;
+    if(hour > 12){
+      formathour = hour - 12
+    }
+    if(hour == 0){
+     formathour = 12
+    }
+
+    var amOrPm;
+    if(hour >= 12){
+      amOrPm = "PM"
+    }
+  
+    
+    var time = ("0" + formathour).substr(-2) + ":" + ("0" + minute).substr(-2) + ` ${amOrPm}`
     setTime(time)
   }
-  setInterval(clock,1000)
+  setInterval(clock,60000)
 
   return (
     <main>
