@@ -1,4 +1,4 @@
-import React, {useState}from "react";
+import React, {useState, useEffect}from "react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import {
@@ -15,11 +15,15 @@ import {
 export default function Home({action, method}) {
   const history = useHistory();
   const authContext = useAuth();
-  const {userData } = authContext;
+  const {userData} = authContext;
   
   //Get Signed in User
-  const user = userData.user.user_name
+  const [user, setUser] = useState()
+  useEffect(() => {
+    setUser(userData.user.user_name);
+  }, []);
 
+ 
   //Get Date
   const dateToday = new Date()
   const options = {  year: 'numeric', month: 'short', day: 'numeric' };
