@@ -66,7 +66,7 @@ export default function Home({action, method}) {
     <main>
       {/* HERO SECTION */}
       <div style={style.hero}>
-        <Carousel fade>
+        <Carousel fade interval="8000">
           <Carousel.Item>
             <img className="carousel" style={style.image} src="/assets/images/hero.jpg" alt="Indigenous Initiatives and Partnerships Logo"/>
           </Carousel.Item>
