@@ -126,7 +126,11 @@ button.link__button:hover{
 
 .carousel{
   // transition: all 3s linear;
-  transition: opacity 3s ease-in-out;
+  transition: all 5s ease-in-out;
+}
+.carousel-items{
+  // transition: all 3s linear;
+  transition: all 2s ease-in-out;
 }
 
 .field__file {
