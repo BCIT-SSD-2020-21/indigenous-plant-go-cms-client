@@ -111,7 +111,7 @@ export default function Home({action, method}) {
               <div style={style.icon}><LocationIcon /></div>
               <div>
                 <label style={style.addnew}>Add New </label>
-                <p>User</p>
+                <p>Location</p>
               </div>
             </button>
           </div>
