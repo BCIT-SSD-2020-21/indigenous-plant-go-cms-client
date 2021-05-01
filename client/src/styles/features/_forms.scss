@@ -124,6 +124,10 @@ button.link__button:hover{
   fill: white;
 }
 
+.carousel{
+  transition: all 3s linear;
+}
+
 .field__file {
   display: flex;
   margin-bottom: 14px;

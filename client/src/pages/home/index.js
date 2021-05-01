@@ -10,7 +10,8 @@ import {
   MediaIcon,
   TourIcon,
 } from "../../icons";
-
+import 'bootstrap/dist/css/bootstrap.min.css';   
+import Carousel from 'react-bootstrap/Carousel' 
 
 export default function Home({action, method}) {
   const history = useHistory();
@@ -65,11 +66,15 @@ export default function Home({action, method}) {
     <main>
       {/* HERO SECTION */}
       <div style={style.hero}>
-        <img
-          style={style.image}
-          src="/assets/images/hero.jpg"
-          alt="Indigenous Initiatives and Partnerships Logo"
-              />
+        <Carousel fade>
+          <Carousel.Item>
+            <img className="carousel" style={style.image} src="/assets/images/hero.jpg" alt="Indigenous Initiatives and Partnerships Logo"/>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img className="carousel" style={style.image} src="/assets/images/hero-3.jpg" alt="Indigenous Initiatives and Partnerships Logo"/>
+          </Carousel.Item>
+        </Carousel>
+      
         <span style={style.textDisplay}>
           <h1 style={style.time}> {time}</h1>
           <h3 style={style.greeting}>Halq’emeylem,  {user}!</h3>
@@ -84,7 +89,7 @@ export default function Home({action, method}) {
         </div>
         
         <div className="grid" style={style.grid}>
-          <div className="col1" style={style.col} >
+          <div className="col" style={style.col} >
             <button className="link__button" style={style.button} onClick={() => history.push("/plants/add")}>
               <div className="quickicons"  style={style.icon}>
                 <PlantIcon />
@@ -158,7 +163,8 @@ const style = {
     position : "absolute",
     top : "30%",
     left : "47%",
-    color : "#d9d9d9"
+    color : "#d9d9d9",
+    zIndex: "1"
   },
   greeting:{
     textTransform : "capitalize",
