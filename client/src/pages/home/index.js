@@ -81,7 +81,7 @@ export default function Home({action, method}) {
         
         <div className="grid" style={style.grid}>
           <div className="col1" style={style.col} >
-            <button className="field__button" style={style.button} onClick={() => history.push("/plants/add")}>
+            <button className="link__button" style={style.button} onClick={() => history.push("/plants/add")}>
               <div style={style.icon}>
                 <PlantIcon />
               </div>
@@ -90,7 +90,7 @@ export default function Home({action, method}) {
                 <p>Plant</p>
               </div>
             </button>
-            <button className="field__button"  style={style.button} onClick={() => history.push("/users/add")}>
+            <button className="link__button"  style={style.button} onClick={() => history.push("/users/add")}>
               <div style={style.icon}><UsersIcon /></div>
               <div>
                 <label style={style.addnew}>Add New </label>
@@ -100,14 +100,14 @@ export default function Home({action, method}) {
           </div>
 
           <div className="col" style={style.col} >
-            <button className="field__button" style={style.button} onClick={() => history.push("/waypoints/add")}>
+            <button className="link__button" style={style.button} onClick={() => history.push("/waypoints/add")}>
               <div style={style.icon}><CompassIcon /></div>
               <div>
                 <label style={style.addnew}>Add New </label>
                 <p>Waypoint</p>
               </div>
             </button>
-            <button className="field__button" style={style.button} onClick={() => history.push("/locations/add")}>
+            <button className="link__button" style={style.button} onClick={() => history.push("/locations/add")}>
               <div style={style.icon}><LocationIcon /></div>
               <div>
                 <label style={style.addnew}>Add New </label>
@@ -116,14 +116,14 @@ export default function Home({action, method}) {
             </button>
           </div>
           <div className="col" style={style.col} >
-            <button className="field__button"  style={style.button}  onClick={() => history.push("/tours/add")}>
+            <button className="link__button"  style={style.button}  onClick={() => history.push("/tours/add")}>
             <div style={style.icon}><TourIcon /></div>
               <div>
                 <label style={style.addnew} >Add New </label>
                 <p>Tour</p>
               </div>
             </button>
-            <button className="field__button"  style={style.button} onClick={() => history.push("/learnmore/add")}>
+            <button className="link__button"  style={style.button} onClick={() => history.push("/learnmore/add")}>
               <div style={style.icon}><InfoIcon /></div>
               <div>
                 <label style={style.addnew}>Add New </label>
