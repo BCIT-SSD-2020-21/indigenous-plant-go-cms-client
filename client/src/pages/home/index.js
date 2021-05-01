@@ -28,13 +28,12 @@ export default function Home({action, method}) {
   //Get Clock
   const [time, setTime]=useState()
   const clock = ()=>{
-    var d = new Date();
-    var s = d.getSeconds();
-    var m = d.getMinutes();
-    var h = d.getHours();
-    var time = ("0" + h).substr(-2) + ":" + ("0" + m).substr(-2) + ":" + ("0" + s).substr(-2)
+    var date = new Date();
+    var second = date.getSeconds();
+    var minute = date.getMinutes();
+    var hour = date.getHours() 
+    var time = ("0" + hour).substr(-2) + ":" + ("0" + minute).substr(-2) + ":" + ("0" + second).substr(-2)
     setTime(time)
-    console.log(time)
   }
   setInterval(clock,1000)
 
@@ -49,7 +48,7 @@ export default function Home({action, method}) {
               />
         <span style={style.textDisplay}>
           <h1 style={style.time}> {time}</h1>
-          <h3 style={style.greeting}>Hello,  {user}</h3>
+          <h3 style={style.greeting}>Halq’emeylem,  {user}!</h3>
           <div style={style.date}> {displayDate}</div>
         </span>
       </div>
@@ -128,27 +127,27 @@ const style = {
   },
   image: {
     width: "100%",
-    maxHeight: "500px",
+    maxHeight: "600px",
     // objectFit: "cover"
   },
   textDisplay : {
     position : "absolute",
     top : "30%",
     left : "47%",
-    // color: "white"
     color : "#d9d9d9"
   },
   greeting:{
     textTransform : "capitalize",
+    fontSize : "175%",
     marginTop :"10px",
     marginBottom :"5px"
   },
   time :{
     marginBottom: "0",
-    fontSize : "300%"
+    fontSize : "350%"
   },
   date :{
-   
+    fontSize : "145%"
   },
   subhead :{
     paddingTop: "10px",
