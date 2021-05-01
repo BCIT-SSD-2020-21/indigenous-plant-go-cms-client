@@ -51,8 +51,12 @@ export default function Home({action, method}) {
       amOrPm = "AM"
     }
   
+    if(hour> 12){
+      var time = ("0" + formathour).substr(-2) + ":" + ("0" + minute).substr(-2) +  ` ${amOrPm}`
+    } else {
+      var time = ("0" + hour).substr(-2) + ":" + ("0" + minute).substr(-2) +  ` ${amOrPm}`
+    }
     
-    var time = ("0" + formathour).substr(-2) + ":" + ("0" + minute).substr(-2) +  ` ${amOrPm}`
     setTime(time)
   }
   setInterval(clock,1000)
