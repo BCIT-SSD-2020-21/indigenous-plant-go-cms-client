@@ -47,6 +47,8 @@ export default function Home({action, method}) {
     var amOrPm;
     if(hour >= 12){
       amOrPm = "PM"
+    } else {
+      amOrPm = "AM"
     }
   
     
