@@ -750,23 +750,22 @@ module.exports = async function() {
       {
         $group: {
           _id: '$_id',
-          plant_name: {$first: '$plant_name'},
-          scientific_name: {$first: '$scientific_name'},
-          description: {$first: '$description'},
-          images: {$first: '$images'},
-          audio_files: {$first: '$audio_files'},
-          videos: {$first: '$videos'},
-          tags: {$first: '$tags'},
-          categories: {$first: '$categories'},
-          locations: {$first: '$locations'},
-          custom_fields: {$first: '$custom_fields'},
+          root: {$mergeObjects: '$$ROOT'},
           revision_history: {$push: '$revision_history'}
+        }
+      },
+      {
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: ['$root', '$$ROOT']
+          }
         }
       },
       {
         $project: {
           'revision_history.user.password': 0,
-          'revision_history.user.role': 0
+          'revision_history.user.role': 0,
+          root: 0
         }
       }
     ]
@@ -1023,23 +1022,22 @@ module.exports = async function() {
       {
         $group: {
           _id: '$_id',
-          plant_name: {$first: '$plant_name'},
-          scientific_name: {$first: '$scientific_name'},
-          description: {$first: '$description'},
-          images: {$first: '$images'},
-          audio_files: {$first: '$audio_files'},
-          videos: {$first: '$videos'},
-          tags: {$first: '$tags'},
-          categories: {$first: '$categories'},
-          locations: {$first: '$locations'},
-          custom_fields: {$first: '$custom_fields'},
+          root: {$mergeObjects: '$$ROOT'},
           revision_history: {$push: '$revision_history'}
+        }
+      },
+      {
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: ['$root', '$$ROOT']
+          }
         }
       },
       {
         $project: {
           'revision_history.user.password': 0,
-          'revision_history.user.role': 0
+          'revision_history.user.role': 0,
+          root: 0
         }
       }
     ]
@@ -1376,7 +1374,10 @@ module.exports = async function() {
       {
         $group: {
           //Waypoint
-          _id: '$_id',
+          _id: 
+          {
+            _id: '$_id'
+          },
           waypoint_name: {$first: '$waypoint_name'},
           description: {$first: '$description'},
           images: {$first: '$images'},
