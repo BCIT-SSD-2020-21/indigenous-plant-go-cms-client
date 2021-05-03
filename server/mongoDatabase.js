@@ -794,58 +794,132 @@ module.exports = async function() {
     //Require passing in array of string
     //Default to empty array if the field is not given
     if (newPlant.images) {
-      newPlant.images.forEach((image, index, self) => {
-        self[index] = ObjectID(image)
-      })
+      if (!Array.isArray(newPlant.images)) {
+        throw Error("The field images must be array")
+      }
+
+      try {
+        newPlant.images.forEach((image, index, self) => {
+          self[index] = ObjectID(image)
+        })
+      } catch {
+        throw Error("Not all elements under images are valid ObjectId")
+      }
     } else {
       newPlant.images = []
     }
 
     if (newPlant.audio_files) {
-      newPlant.audio_files.forEach((audio, index, self) => {
-        self[index] = ObjectID(audio)
-      })
+      if (!Array.isArray(newPlant.audio_files)) {
+        throw Error("The field audio_files must be array")
+      }
+
+      try {
+        newPlant.audio_files.forEach((audio, index, self) => {
+          self[index] = ObjectID(audio)
+        })
+      } catch {
+        throw Error("Not all elements under audio_files are valid ObjectId")
+      }
     } else {
       newPlant.audio_files = []
     }
 
     if (newPlant.videos) {
-      newPlant.videos.forEach((video, index, self) => {
-        self[index] = ObjectID(video)
-      })
+      if (!Array.isArray(newPlant.videos)) {
+        throw Error("The field videos must be array")
+      }
+
+      try {
+        newPlant.videos.forEach((video, index, self) => {
+          self[index] = ObjectID(video)
+        })
+      } catch {
+        throw Error("Not all elements under videos are valid ObjectId")
+      }
     } else {
       newPlant.videos = []
     }
 
     if (newPlant.tags) {
-      newPlant.tags.forEach((tag, index, self) => {
-        self[index] = ObjectID(tag)
-      })
+      if (!Array.isArray(newPlant.tags)) {
+        throw Error("The field tags must be array")
+      }
+
+      try {
+        newPlant.tags.forEach((tag, index, self) => {
+          self[index] = ObjectID(tag)
+        })
+      } catch {
+        throw Error("Not all elements under tags are valid ObjectId")
+      }
     } else {
       newPlant.tags = []
     }
 
     if (newPlant.categories) {
-      newPlant.categories.forEach((category, index, self) => {
-        self[index] = ObjectID(category)
-      })
+      if (!Array.isArray(newPlant.categories)) {
+        throw Error("The field categories must be array")
+      }
+
+      try {
+        newPlant.categories.forEach((category, index, self) => {
+          self[index] = ObjectID(category)
+        })
+      } catch {
+        throw Error("Not all elements under categories are valid ObjectId")
+      }
     } else {
       newPlant.categories = []
     }
 
     if (newPlant.locations) {
-      newPlant.locations.forEach((location, index, self) => {
-        self[index] = ObjectID(location)
-      })
+      if (!Array.isArray(newPlant.locations)) {
+        throw Error("The field locations must be array")
+      }
+
+      try {
+        newPlant.locations.forEach((location, index, self) => {
+          self[index] = ObjectID(location)
+        })
+      } catch {
+        throw Error("Not all elements under locations are valid ObjectId")
+      }
     } else {
       newPlant.locations = []
     }
 
     if (newPlant.custom_fields) {
-      newPlant.custom_fields.forEach((custom_field, index, self) =>{
-        let temp = custom_field
-        temp._id = ObjectID(temp._id)
-        self[index] = temp
+      if (!Array.isArray(newPlant.custom_fields)) {
+        throw Error("The field custom_fields must be array")
+      }
+
+      //If custom_fields exist, it must have _id, field_title, and content
+      newPlant.custom_fields.forEach((custom_field, index, self) => {
+        //Check if element is type object
+        if (!(typeof custom_field === 'object' && custom_field !== null)) {
+          throw Error("At least one of the custom_field is not of type object or is null")
+        }
+
+        if (!custom_field._id) {
+          throw Error("At least one of the custom_field is missing _id")
+        }
+
+        if (!custom_field.field_title) {
+          throw Error("At least one of the custom_field is missing field_title")
+        }
+
+        if (!custom_field.content) {
+          throw Error("At least one of the custom_field is missing content")
+        }
+
+        try {
+          let temp = custom_field
+          temp._id = ObjectID(temp._id)
+          self[index] = temp
+        } catch {
+          throw Error("A _id under custom_field is not valid ObjectId")
+        }
       })
     } else {
       newPlant.custom_fields = []
@@ -979,46 +1053,120 @@ module.exports = async function() {
     //Convert all passed in array of id to ObjectId
     //User should get data of the plant when they start editing
     if (updatedPlant.images) {
-      updatedPlant.images.forEach((image, index, self) => {
-        self[index] = ObjectID(image)
-      })
+      if (!Array.isArray(updatedPlant.images)) {
+        throw Error("The field images must be array")
+      }
+
+      try {
+        updatedPlant.images.forEach((image, index, self) => {
+          self[index] = ObjectID(image)
+        })
+      } catch {
+        throw Error("Not all elements under images are valid ObjectId")
+      }
     }
 
     if (updatedPlant.audio_files) {
-      updatedPlant.audio_files.forEach((audio, index, self) => {
-        self[index] = ObjectID(audio)
-      })
+      if (!Array.isArray(updatedPlant.audio_files)) {
+        throw Error("The field audio_files must be array")
+      }
+
+      try {
+        updatedPlant.audio_files.forEach((audio, index, self) => {
+          self[index] = ObjectID(audio)
+        })
+      } catch {
+        throw Error("Not all elements under audio_files are valid ObjectId")
+      }
     }
 
     if (updatedPlant.videos) {
-      updatedPlant.videos.forEach((video, index, self) => {
-        self[index] = ObjectID(video)
-      })
+      if (!Array.isArray(updatedPlant.videos)) {
+        throw Error("The field videos must be array")
+      }
+
+      try {
+        updatedPlant.videos.forEach((video, index, self) => {
+          self[index] = ObjectID(video)
+        })
+      } catch {
+        throw Error("Not all elements under videos are valid ObjectId")
+      }
     }
 
     if (updatedPlant.tags) {
-      updatedPlant.tags.forEach((tag, index, self) => {
-        self[index] = ObjectID(tag)
-      })
+      if (!Array.isArray(updatedPlant.tags)) {
+        throw Error("The field tags must be array")
+      }
+
+      try {
+        updatedPlant.tags.forEach((tag, index, self) => {
+          self[index] = ObjectID(tag)
+        })
+      } catch {
+        throw Error("Not all elements under tags are valid ObjectId")
+      }
     }
 
     if (updatedPlant.categories) {
-      updatedPlant.categories.forEach((category, index, self) => {
-        self[index] = ObjectID(category)
-      })
+      if (!Array.isArray(updatedPlant.categories)) {
+        throw Error("The field categories must be array")
+      }
+
+      try {
+        updatedPlant.categories.forEach((category, index, self) => {
+          self[index] = ObjectID(category)
+        })
+      } catch {
+        throw Error("Not all elements under categories are valid ObjectId")
+      }
     }
 
     if (updatedPlant.locations) {
-      updatedPlant.locations.forEach((location, index, self) => {
-        self[index] = ObjectID(location)
-      })
+      if (!Array.isArray(updatedPlant.locations)) {
+        throw Error("The field locations must be array")
+      }
+
+      try {
+        updatedPlant.locations.forEach((location, index, self) => {
+          self[index] = ObjectID(location)
+        })
+      } catch {
+        throw Error("Not all elements under locations are valid ObjectId")
+      }
     }
 
     if (updatedPlant.custom_fields) {
-      updatedPlant.custom_fields.forEach((custom_field, index, self) =>{
-        let temp = custom_field
-        temp._id = ObjectID(custom_field._id)
-        self[index] = temp
+      if (!Array.isArray(updatedPlant.custom_fields)) {
+        throw Error("The field custom_fields must be array")
+      }
+
+      //If custom_fields exist, it must have _id, field_title, and content
+      updatedPlant.custom_fields.forEach((custom_field, index, self) => {
+        //Check if element is type object
+        if (!(typeof custom_field === 'object' && custom_field !== null)) {
+          throw Error("At least one of the custom_field is not of type object or is null")
+        }
+
+        if (!custom_field._id) {
+          throw Error("At least one of the custom_field is missing _id")
+        }
+
+        if (!custom_field.field_title) {
+          throw Error("At least one of the custom_field is missing field_title")
+        }
+
+        if (!custom_field.content) {
+          throw Error("At least one of the custom_field is missing content")
+        }
+
+        try {
+          let temp = custom_field
+          temp._id = ObjectID(custom_field._id)
+          self[index] = temp
+        } catch {
+          throw Error("A _id under custom_field is not valid ObjectId")
+        }
       })
     }
    
