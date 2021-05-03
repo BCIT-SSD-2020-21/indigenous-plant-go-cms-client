@@ -57,7 +57,21 @@ export default function ListMedia({
   // EDIT -- Attributes
   pendingEdit,
   editMedia,
+  // BULK DELETE -- Methods
+  handleBulkActionChange,
+  handleBulkDelete,
+  applyBulkDelete,
 }) {
+  const renderModal = () => {
+    switch (modalState) {
+      case "edit":
+        return editModal();
+      case "delete":
+        return deleteModal();
+      case "bulk":
+        return bulkDeleteModal();
+    }
+  };
   const deleteModal = () => (
     <>
       {dataLabel === "image" && (
@@ -180,6 +194,34 @@ export default function ListMedia({
     </>
   );
 
+  const bulkDeleteModal = () => (
+    <>
+      <p>
+        Deleting&nbsp;
+        <strong style={{ color: "var(--danger)" }}>
+          {selectedMedias.length}
+        </strong>
+        &nbsp;{label}s will remove{" "}
+        <strong
+          style={{
+            color: "var(--danger)",
+            fontWeight: "700",
+            textTransform: "uppercase",
+          }}
+        >
+          all
+        </strong>{" "}
+        instances of the deleted {label}s. Do you wish to proceed?
+      </p>
+      <button onClick={() => applyBulkDelete()} className="field__button">
+        Yes, I know what I am doing.
+      </button>
+      <button onClick={() => closeModal()} className="field__button secondary">
+        No, cancel my request.
+      </button>
+    </>
+  );
+
   return (
     <div>
       <DashHeader title={`${label}s`} />
@@ -251,13 +293,14 @@ export default function ListMedia({
               <div className="table__action">
                 <Dropdown
                   placeholder={"Bulk Actions"}
+                  onChange={(e, data) => handleBulkActionChange(e, data)}
                   selection
                   options={[
                     { key: "default", value: "default", text: "Bulk Actions" },
                     { key: "delete", value: "delete", text: "Delete" },
                   ]}
                 />
-                <button>Apply</button>
+                <button onClick={() => handleBulkDelete()}>Apply</button>
               </div>
             </div>
 
@@ -336,11 +379,13 @@ export default function ListMedia({
             title={
               modalState === "delete"
                 ? `Delete ${pendingDelete.caption}?`
-                : `Edit ${pendingEdit.caption}`
+                : modalState === "edit"
+                ? `Edit ${pendingEdit.caption}`
+                : `Delete all ${selectedMedias.length} ${label}s?`
             }
             closeModal={closeModal}
           >
-            {modalState === "delete" ? deleteModal() : editModal()}
+            {renderModal()}
           </Modal>
         </div>
       </div>

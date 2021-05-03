@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ListUsers from "../../../components/List/Users";
-import { getAllUsers, deleteUser } from "../../../network";
+import { getAllUsers, deleteUser, bulkDeleteUsers } from "../../../network";
+import { useAuth } from "../../../context/AuthContext";
 
 export default function ListUsersCtrl() {
+  const authContext = useAuth();
+  const { userData } = authContext;
   const [userDatas, setUserDatas] = useState([]);
   const [userDatas_, setUserDatas_] = useState([]);
   const [roleSelection, setRoleSelection] = useState([]);
@@ -77,24 +80,15 @@ export default function ListUsersCtrl() {
   };
 
   const queryUsers = async () => {
+    let myUserId;
+    if (userData && userData.user) myUserId = userData.user._id;
     const result = await getAllUsers();
     if (result.error) return console.log("error getting users");
     if (result.length < 1) setUserDatas([]);
-    setUserDatas(result);
-  };
-
-  const handleBulkActionChange = (_, data) => {
-    const value = data.value;
-    console.log(data.value);
-    setBulkAction(value);
-  };
-
-  const handleBulkDelete = async () => {
-    if (selectedUsers.length < 1) return console.log("no users selected");
-    if (bulkAction === "default")
-      return console.log("cannot bulk delete if bulk action is set to default");
-    setModalState("bulk");
-    setModalActive(true);
+    const filteredResults = result.filter((user) => user._id !== myUserId);
+    console.log(filteredResults);
+    console.log(myUserId);
+    setUserDatas(filteredResults);
   };
 
   const resetFilters = () => {
@@ -208,6 +202,28 @@ export default function ListUsersCtrl() {
     queryUsers();
   };
 
+  const handleBulkActionChange = (_, data) => {
+    const value = data.value;
+    console.log(data.value);
+    setBulkAction(value);
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedUsers.length < 1) return console.log("no users selected");
+    if (bulkAction === "default")
+      return console.log("cannot bulk delete if bulk action is set to default");
+    setModalState("bulk");
+    setModalActive(true);
+  };
+
+  const applyBulkDelete = async () => {
+    const result = await bulkDeleteUsers(selectedUsers);
+    if (result.error) return console.log("Unable to bulk delete plants");
+    closeModal();
+    setSelectedUsers([]);
+    queryUsers();
+  };
+
   return (
     <ListUsers
       userDatas={userDatas_}
@@ -236,6 +252,7 @@ export default function ListUsersCtrl() {
       applyDelete={applyDelete}
       modalActive={modalActive}
       modalState={modalState}
+      applyBulkDelete={applyBulkDelete}
     />
   );
 }

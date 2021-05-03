@@ -45,7 +45,6 @@ import Profile from "../pages/profile";
 import Login from "../pages/login";
 
 // Routes that should only be visible if authenticated.
-// TO DO: Write authentication context
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const authContext = useAuth();
   const { isAuthenticated } = authContext;
@@ -65,7 +64,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 };
 
 // Routes that should only be visible if NOT authenticated
-// TO DO: Write authentication context
 const AnonymousRoute = ({ component: Component, ...rest }) => {
   const authContext = useAuth();
   const { isAuthenticated } = authContext;

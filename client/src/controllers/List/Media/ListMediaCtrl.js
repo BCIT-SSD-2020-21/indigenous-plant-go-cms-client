@@ -13,6 +13,10 @@ import {
   deleteVideo,
   updateVideo,
   createVideo,
+  bulkDeleteImages,
+  bulkDeleteAudios,
+  bulkDeleteVideos,
+  bulkDeleteLocations,
 } from "../../../network";
 
 export default function ListMediaCtrl({ dataLabel, label }) {
@@ -36,6 +40,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   const [modalState, setModalState] = useState("delete");
   const [pendingEdit, setPendingEdit] = useState({});
   const [editMedia, setEditMedia] = useState(mediaFields);
+  const [bulkAction, setBulkAction] = useState("");
 
   useEffect(() => {
     queryMedia();
@@ -286,6 +291,39 @@ export default function ListMediaCtrl({ dataLabel, label }) {
     queryMedia();
   };
 
+  const handleBulkActionChange = (_, data) => {
+    const value = data.value;
+    setBulkAction(value);
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedMedias.length < 1) return console.log("no media selected");
+    if (bulkAction === "default")
+      return console.log("cannot bulk delete if bulk action is set to default");
+    setModalState("bulk");
+    setModalActive(true);
+  };
+
+  const applyBulkDelete = async () => {
+    let result;
+
+    switch (dataLabel) {
+      case "image":
+        result = await bulkDeleteImages(selectedMedias);
+        break;
+      case "audio_file":
+        result = await bulkDeleteAudios(selectedMedias);
+        break;
+      case "video":
+        result = await bulkDeleteVideos(selectedMedias);
+        break;
+    }
+    if (result.error) return console.log("Unable to bulk delete media");
+    closeModal();
+    setSelectedMedias([]);
+    queryMedia();
+  };
+
   return (
     <ListMedia
       label={label}
@@ -320,6 +358,9 @@ export default function ListMediaCtrl({ dataLabel, label }) {
       handleChangeFile={handleChangeFile}
       handleCaptionChange={handleCaptionChange}
       applyEdit={applyEdit}
+      handleBulkActionChange={handleBulkActionChange}
+      handleBulkDelete={handleBulkDelete}
+      applyBulkDelete={applyBulkDelete}
     />
   );
 }
