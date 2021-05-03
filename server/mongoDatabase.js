@@ -1324,25 +1324,25 @@ module.exports = async function() {
           as: 'plants.revision_history'
         }
       },
-      {
-        $unwind: {
-          path: '$plants.revision_history',
-          preserveNullAndEmptyArrays: true
-        }
-      },
-      {
-        $sort: {
-          'plants.revision_history.date': -1
-        }
-      },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'plants.revision_history.user',
-          foreignField: '_id',
-          as: 'plants.revision_history.user'
-        }
-      },
+      // {
+      //   $unwind: {
+      //     path: '$plants.revision_history',
+      //     preserveNullAndEmptyArrays: true
+      //   }
+      // },
+      // {
+      //   $sort: {
+      //     'plants.revision_history.date': -1
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'users',
+      //     localField: 'plants.revision_history.user',
+      //     foreignField: '_id',
+      //     as: 'plants.revision_history.user'
+      //   }
+      // },
       //Revision
       {
         $lookup: {
@@ -1373,63 +1373,17 @@ module.exports = async function() {
       },
       {
         $group: {
-          //Waypoint
-          _id: 
-          {
-            _id: '$_id'
-          },
-          waypoint_name: {$first: '$waypoint_name'},
-          description: {$first: '$description'},
-          images: {$first: '$images'},
-          audio_files: {$first: '$audio_files'},
-          videos: {$first: '$videos'},
-          tags: {$first: '$tags'},
-          categories: {$first: '$categories'},
-          locations: {$first: '$locations'},
-          custom_fields: {$first: '$custom_fields'},
+          _id: '$_id',
+          root: {$mergeObjects: '$$ROOT'},
+          plants: {$push: '$plants'},
           revision_history: {$push: '$revision_history'},
-          //Plant
-          plant_id: {$first: '$plants._id'},
-          plant_plant_name: {$first: '$plants.plant_name'},
-          plant_scientific_name: {$first: '$plants.scientific_name'},
-          plant_description: {$first: '$plants.description'},
-          plant_images: {$first: '$plants.images'},
-          plant_audio_files: {$first: '$plants.audio_files'},
-          plant_videos: {$first: '$plants.videos'},
-          plant_tags: {$first: '$plants.tags'},
-          plant_categories: {$first: '$plants.categories'},
-          plant_locations: {$first: '$plants.locations'},
-          plant_custom_fields: {$first: '$plants.custom_fields'},
-          plant_revision_history: {$push: '$plants.revision_history'}
         }
       },
       {
-        $group: {
-          _id: '$_id',
-          waypoint_name: {$first: '$waypoint_name'},
-          description: {$first: '$description'},
-          images: {$first: '$images'},
-          audio_files: {$first: '$audio_files'},
-          videos: {$first: '$videos'},
-          tags: {$first: '$tags'},
-          categories: {$first: '$categories'},
-          locations: {$first: '$locations'},
-          plants: {$push: {
-            _id: '$plant_id',
-            plant_name: '$plant_plant_name',
-            scientific_name:'$plant_scientific_name',
-            description: '$plant_description',
-            images: '$plant_images',
-            audio_files: '$plant_audio_files',
-            videos: '$plant_videos',
-            tags: '$plant_tags',
-            categories: '$plant_categories',
-            locations: '$plant_locations',
-            custom_fields: '$plant_custom_fields',
-            revision_history: '$plant_revision_history'
-          }},
-          custom_fields: {$first: '$custom_fields'},
-          revision_history: {$first: '$revision_history'}
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: ['$root', '$$ROOT']
+          }
         }
       },
       {
@@ -1437,7 +1391,8 @@ module.exports = async function() {
           'plants.revision_history.user.password': 0,
           'plants.revision_history.user.role': 0,
           'revision_history.user.password': 0,
-          'revision_history.user.role': 0
+          'revision_history.user.role': 0,
+          root: 0
         }
       }
     ]
@@ -1747,25 +1702,25 @@ module.exports = async function() {
           as: 'plants.revision_history'
         }
       },
-      {
-        $unwind: {
-          path: '$plants.revision_history',
-          preserveNullAndEmptyArrays: true
-        }
-      },
-      {
-        $sort: {
-          'plants.revision_history.date': -1
-        }
-      },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'plants.revision_history.user',
-          foreignField: '_id',
-          as: 'plants.revision_history.user'
-        }
-      },
+      // {
+      //   $unwind: {
+      //     path: '$plants.revision_history',
+      //     preserveNullAndEmptyArrays: true
+      //   }
+      // },
+      // {
+      //   $sort: {
+      //     'plants.revision_history.date': -1
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'users',
+      //     localField: 'plants.revision_history.user',
+      //     foreignField: '_id',
+      //     as: 'plants.revision_history.user'
+      //   }
+      // },
       //Revision
       {
         $lookup: {
@@ -1796,60 +1751,17 @@ module.exports = async function() {
       },
       {
         $group: {
-          //Waypoint
           _id: '$_id',
-          waypoint_name: {$first: '$waypoint_name'},
-          description: {$first: '$description'},
-          images: {$first: '$images'},
-          audio_files: {$first: '$audio_files'},
-          videos: {$first: '$videos'},
-          tags: {$first: '$tags'},
-          categories: {$first: '$categories'},
-          locations: {$first: '$locations'},
-          custom_fields: {$first: '$custom_fields'},
+          root: {$mergeObjects: '$$ROOT'},
+          plants: {$push: '$plants'},
           revision_history: {$push: '$revision_history'},
-          //Plant
-          plant_id: {$first: '$plants._id'},
-          plant_plant_name: {$first: '$plants.plant_name'},
-          plant_scientific_name: {$first: '$plants.scientific_name'},
-          plant_description: {$first: '$plants.description'},
-          plant_images: {$first: '$plants.images'},
-          plant_audio_files: {$first: '$plants.audio_files'},
-          plant_videos: {$first: '$plants.videos'},
-          plant_tags: {$first: '$plants.tags'},
-          plant_categories: {$first: '$plants.categories'},
-          plant_locations: {$first: '$plants.locations'},
-          plant_custom_fields: {$first: '$plants.custom_fields'},
-          plant_revision_history: {$push: '$plants.revision_history'}
         }
       },
       {
-        $group: {
-          _id: '$_id',
-          waypoint_name: {$first: '$waypoint_name'},
-          description: {$first: '$description'},
-          images: {$first: '$images'},
-          audio_files: {$first: '$audio_files'},
-          videos: {$first: '$videos'},
-          tags: {$first: '$tags'},
-          categories: {$first: '$categories'},
-          locations: {$first: '$locations'},
-          plants: {$push: {
-            _id: '$plant_id',
-            plant_name: '$plant_plant_name',
-            scientific_name:'$plant_scientific_name',
-            description: '$plant_description',
-            images: '$plant_images',
-            audio_files: '$plant_audio_files',
-            videos: '$plant_videos',
-            tags: '$plant_tags',
-            categories: '$plant_categories',
-            locations: '$plant_locations',
-            custom_fields: '$plant_custom_fields',
-            revision_history: '$plant_revision_history'
-          }},
-          custom_fields: {$first: '$custom_fields'},
-          revision_history: {$first: '$revision_history'}
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: ['$root', '$$ROOT']
+          }
         }
       },
       {
@@ -1857,7 +1769,8 @@ module.exports = async function() {
           'plants.revision_history.user.password': 0,
           'plants.revision_history.user.role': 0,
           'revision_history.user.password': 0,
-          'revision_history.user.role': 0
+          'revision_history.user.role': 0,
+          root: 0
         }
       }
     ]
