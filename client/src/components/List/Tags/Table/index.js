@@ -1,5 +1,9 @@
 import React from "react";
 
+/*
+  @desc UI component that renders a table of tags.
+  @controller ../Tags/index.js
+*/
 export default function Table({
   tags,
   handleSelected,

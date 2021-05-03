@@ -1,6 +1,10 @@
 import React from "react";
 import { Input } from "semantic-ui-react";
 
+/*
+  @desc UI component for A text input form control.
+  @controller ~/src/controllers/Forms/TextInput/TextInputCtrl.js
+*/
 export default function TextInput({ label, value, setValue }) {
   return (
     <div className="textpicker">

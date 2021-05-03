@@ -1,6 +1,10 @@
 import React from "react";
 import { Input, Checkbox, Button } from "semantic-ui-react";
 
+/*
+  @desc UI component that displays a Login form.
+  @controller ~/src/controllers/LoginForm/LoginFormCtrl.js
+*/
 export default function LoginForm({
   //PROPERTIES
   username,

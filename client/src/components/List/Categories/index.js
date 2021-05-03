@@ -4,36 +4,56 @@ import { Dropdown, Input, Icon } from "semantic-ui-react";
 import Modal from "../../Modal";
 import Table from "./Table";
 
+/*
+  @desc UI component that Lists categories and allows the list to be managed.
+  @controller ~/src/controllers/List/Categories/ListCategoriesCtrl.js
+*/
 export default function ListCategories({
+  // Data to List: Categories
   categories,
+  // Labels
   label,
   labelPlural,
+  // SEARCH -- Attributes
   searchQuery,
+  // SEARCH -- Methods
   handleQueryChange,
   applySearch,
   clearSearch,
+  // PAGINATION -- Attributes
   hasPages,
   pages,
   page,
+  // PAGINATION -- Methods
   prevPage,
   nextPage,
-  handleSelected,
+  // BATCH SELECT -- Attributes
   selectedCategories,
+  // BATCH SELECT -- Methods
+  handleSelected,
   batchSelect,
+  // NEW CATEGORY -- Methods
   newCategory,
-  newCategoryValue,
   submitNewCategory,
-  handleDelete,
-  pendingDelete,
-  pendingEdit,
+  // NEW CATEGORY -- Attributes
+  newCategoryValue,
+  // MODAL -- Methods
   closeModal,
+  // MODAL -- Attributes
   modalActive,
-  applyDelete,
   modalState,
+  // DELETE -- Methods
+  handleDelete,
+  applyDelete,
+  // DELETE -- Attributes
+  pendingDelete,
+  // EDIT -- Methods
+  applyEdit,
   handleEdit,
   editCategory,
+  // EDIT -- Attributes
+  pendingEdit,
   editCategoryValue,
-  applyEdit,
 }) {
   const editModal = () => (
     <>
@@ -81,6 +101,7 @@ export default function ListCategories({
   return (
     <div>
       <DashHeader title={labelPlural} subtitle={`${label} Categories`} />
+
       <div className="resource__container">
         <div className="resource__col left">
           <h3>Add New {label} Category</h3>
@@ -101,10 +122,12 @@ export default function ListCategories({
             Create new category
           </button>
         </div>
+
         <div className="resource__col right">
           <p>
             <strong>Results</strong> ({categories.length})
           </p>
+
           <div className="table__controls">
             <div style={{ display: "flex" }}>
               <div className="table__action">
@@ -137,6 +160,7 @@ export default function ListCategories({
               </div>
             </div>
           </div>
+
           <div className="table__heading table__row">
             <div className="table__col head select">
               <input
@@ -149,6 +173,7 @@ export default function ListCategories({
               <h3>name</h3>
             </div>
           </div>
+
           <Table
             handleDelete={handleDelete}
             handleEdit={handleEdit}
@@ -156,6 +181,7 @@ export default function ListCategories({
             handleSelected={handleSelected}
             selectedCategories={selectedCategories}
           />
+
           {hasPages && (
             <div className="pagination__control">
               <div>

@@ -7,6 +7,9 @@ import { useHistory } from "react-router-dom";
 export default function EditUserCtrl() {
   const history = useHistory();
   const { userId } = useParams();
+  // ===============================================================
+  // FORM DATA
+  // ===============================================================
   const [changePassword, setChangePassword] = useState(false);
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -40,6 +43,9 @@ export default function EditUserCtrl() {
     setConfirmPassword("");
   };
 
+  // ===============================================================
+  // POST
+  // ===============================================================
   const applyUpdate = async () => {
     const id = userId;
     if (!id) return console.log("error updating user data");

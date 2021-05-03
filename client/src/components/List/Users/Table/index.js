@@ -1,6 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+/*
+  @desc UI component that renders a table of users.
+  @controller ../Users/index.js
+*/
 export default function Table({
   userDatas,
   selectedUsers,

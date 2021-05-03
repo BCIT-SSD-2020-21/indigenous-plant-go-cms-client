@@ -2,6 +2,10 @@ import React from "react";
 import { Input, Dropdown, Icon } from "semantic-ui-react";
 import DashHeader from "../../DashHeader";
 
+/*
+  @desc UI component for the EditUser dashboard. Displays form inputs, allows users to update another user's data.
+  @controller ~/src/controllers/Edit/User/EditUserCtrl.js
+*/
 export default function EditUser({
   toggleChangePassword,
   cancelChangePassword,

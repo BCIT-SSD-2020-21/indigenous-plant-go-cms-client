@@ -4,39 +4,59 @@ import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 import Modal from "../../Modal";
 
+/*
+  @desc UI component that Lists media and allows the list to be managed.
+  @controller ~/src/controllers/List/Media/ListMediaCtrl.js
+*/
 export default function ListMedia({
+  // Data to List: Medias
+  medias,
+  // Labels
   label,
   dataLabel,
-  setFile,
-  file,
-  caption,
-  setCaption,
-  medias,
-  handleQueryChange,
+  // SEARCH -- Attributes
   searchQuery,
-  clearSearch,
+  // SEARCH -- METHODS
+  handleQueryChange,
   applySearch,
-  batchSelect,
-  selectedMedias,
-  handleSelected,
-  handleUpload,
+  clearSearch,
+  // PAGINATION -- Attributes
   hasPages,
   page,
   pages,
+  // PAGINATION -- Methods
   nextPage,
   prevPage,
-  handleDelete,
-  pendingDelete,
+  // BATCH SELECT -- Attributes
+  selectedMedias,
+  // BATCH SELECT -- Methods
+  handleSelected,
+  batchSelect,
+  // NEW MEDIA -- METHODS
+  setFile,
+  setCaption,
+  handleUpload,
+  // NEW MEDIA -- Attributes
+  file,
+  caption,
+  // MODAL -- Methods
   closeModal,
+  // MODAL -- Attributes
   modalState,
   modalActive,
+  // DELETE -- Methods
+  handleDelete,
   applyDelete,
+  // DELETE -- Attributes
+  pendingDelete,
+  // EDIT -- Methods
   handleEdit,
-  pendingEdit,
-  editMedia,
   handleChangeFile,
   handleCaptionChange,
   applyEdit,
+  // EDIT -- Attributes
+  pendingEdit,
+  editMedia,
 }) {
   const deleteModal = () => (
     <>

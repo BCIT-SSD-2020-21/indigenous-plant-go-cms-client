@@ -4,34 +4,53 @@ import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon, TextArea } from "semantic-ui-react";
 import Modal from "../../Modal";
 
+/*
+  @desc UI component that Lists locations and allows the list to be managed.
+  @controller ~/src/controllers/List/Locations/ListLocationsCtrl.js
+*/
 export default function ListLocations({
-  newLocation,
-  handleNewLocation,
+  // Data to List: Locations
   locations,
+  // SEARCH -- Attributes
   searchQuery,
+  // SEARCH -- Methods
   handleQueryChange,
-  clearSearch,
   applySearch,
-  batchSelect,
-  handleSelected,
-  selectedLocations,
-  submitNewLocation,
-  closeModal,
-  modalActive,
-  modalState,
-  handleDelete,
-  pendingDelete,
-  applyDelete,
-  editLocation,
-  handleChangeLocation,
-  handleEdit,
-  pendingEdit,
-  applyEdit,
-  page,
-  pages,
+  clearSearch,
+  // PAGINATION -- Attributes
   hasPages,
+  pages,
+  page,
+  // PAGINATION -- Methods
   nextPage,
   prevPage,
+  // BATCH SELECT -- Attributes
+  selectedLocations,
+  // BATCH SELECT -- Methods
+  handleSelected,
+  batchSelect,
+  // NEW LOCATION -- Methods
+  submitNewLocation,
+  handleNewLocation,
+  // NEW LOCATION --Attributes
+  newLocation,
+  // MODAL -- Methods
+  closeModal,
+  // MODAL -- Attributes
+  modalActive,
+  modalState,
+  // DELETE -- Methods
+  handleDelete,
+  applyDelete,
+  // DELETE -- Attributes
+  pendingDelete,
+  // EDIT -- Methods
+  applyEdit,
+  handleEdit,
+  handleChangeLocation,
+  // EDIT -- Attributes
+  editLocation,
+  pendingEdit,
 }) {
   const editModal = () => (
     <>
