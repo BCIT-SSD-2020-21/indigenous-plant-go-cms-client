@@ -9,7 +9,8 @@ export default function ContentPickerCtrl({ label, dataLabel, data, setter }) {
 
   useEffect(() => {
     setOptions(data);
-  }, []);
+    formatOptions();
+  }, [data]);
 
   useEffect(() => {
     setter(activeSelection);
