@@ -8,28 +8,83 @@ export default function ContentPickerCtrl({
   setter,
   selected,
 }) {
+  // ===============================================================
+  // STATE VARIABLES
+  // ===============================================================
+  /*
+    @desc an array of Id's that of selected items
+    @author Patrick Fortaleza
+    @type Array<id>
+  */
   const [activeSelection, setActiveSelection] = useState([]);
+
+  /*
+    @desc an array of formatted options to be parsed by semantic ui's dropdown.
+    @author Patrick Fortaleza
+    @type Array<{formattedOption}>
+  */
   const [formattedOptions, setFormattedOptions] = useState([]);
+
+  /*
+    @desc a string value that holds the focused/selected item's id -- to be added in activeSelection
+    @author Patrick Fortaleza
+    @type String (ObjectId)
+  */
   const [selectedOption, setSelectedOption] = useState("");
+
+  /*
+    @desc An array of raw options, to be formatted and used in dropdowns.
+    @author Patrick Fortaleza
+    @type Array<{option}>
+  */
   const [options, setOptions] = useState([]);
 
+  // ===============================================================
+  // USE EFFECTS
+  // ===============================================================
+  /*
+    @desc once the data mounts, we set our options, then format them.
+    @author Patrick Fortaleza
+  */
   useEffect(() => {
     setOptions(data);
     formatOptions();
   }, [data]);
 
+  /*
+    @desc once the selection data mounts, format it.
+    @author Patrick Fortaleza
+  */
   useEffect(() => {
     formatSelection();
   }, [selected]);
 
+  /*
+    @desc everytime the selection changes, we want to sync up with the parent's data by calling the setter method.
+    @author Patrick Fortaleza
+  */
   useEffect(() => {
     setter(activeSelection);
   }, [activeSelection]);
 
+  /*
+    @desc everytime the activeSelection, or options change, we want to format the options
+    @author Patrick Fortaleza
+  */
   useEffect(() => {
     formatOptions();
   }, [options, activeSelection]);
 
+  // ===============================================================
+  // FUNCTIONS
+  // ===============================================================
+
+  /*
+    @desc formats the existing data into an array that can be accepted by the picker.
+    @author Patrick Fortaleza
+    @param none
+    @return none
+  */
   const formatSelection = () => {
     if (!selected) return;
     const formatted = selected.map((option) => {
@@ -42,6 +97,12 @@ export default function ContentPickerCtrl({
     setActiveSelection(formatted);
   };
 
+  /*
+    @desc listens for drag events to reorder items within the picker.
+    @author Patrick Fortaleza
+    @param result {Object} -- a custom response object from react drag-and-drop.
+    @return null -- if there's no destination, we return null to exit the function. 
+  */
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
     const items = Array.from(activeSelection);
@@ -51,6 +112,12 @@ export default function ContentPickerCtrl({
     setActiveSelection(items);
   };
 
+  /*
+    @desc formats the available option into an array that can be accepted by the dropdown.
+    @author Patrick Fortaleza
+    @param none
+    @return none
+  */
   const formatOptions = () => {
     const activeOptions = [...activeSelection].map((item) => item._id);
 
@@ -72,10 +139,22 @@ export default function ContentPickerCtrl({
     setFormattedOptions(formatted);
   };
 
+  /*
+    @desc watches for changes in drop-down selection, sets the selected option.
+    @author Patrick Fortaleza
+    @param none
+    @return none
+  */
   const handleSelectChange = (e, data) => {
     setSelectedOption(data.value);
   };
 
+  /*
+    @desc formats, finds, and adds the selected content into the picker.
+    @author Patrick Fortaleza
+    @param none
+    @return none
+  */
   const confirmSelection = () => {
     let foundOption = options.filter(
       (option) => option._id === selectedOption
@@ -93,6 +172,12 @@ export default function ContentPickerCtrl({
     setActiveSelection(newActiveSelection);
   };
 
+  /*
+    @desc removes the chosen content from the picker.
+    @author Patrick Fortaleza
+    @param id {String} -- an ObjectId that is unique to the content being picked.
+    @return none
+  */
   const handleRemove = (id) => {
     let selected = [...activeSelection];
     selected = selected.filter((item) => item._id !== id);
@@ -100,10 +185,12 @@ export default function ContentPickerCtrl({
   };
   return (
     <ContentPicker
+      // METHODS
       handleSelectChange={handleSelectChange}
       handleRemove={handleRemove}
       confirmSelection={confirmSelection}
       handleOnDragEnd={handleOnDragEnd}
+      // ATTRIBUTES
       activeSelection={activeSelection}
       options={formattedOptions}
       label={label}
