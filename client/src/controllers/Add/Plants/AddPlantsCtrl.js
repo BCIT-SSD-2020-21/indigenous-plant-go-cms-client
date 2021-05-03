@@ -15,9 +15,7 @@ export default function AddPlantsCtrl() {
   const history = useHistory();
   // ===============================================================
   // FORM DATA
-  // @desc state variables that map back to what the user has selected.
-  //        These variables are updated when the user changes any form
-  //        controls for a plant.
+  // @desc form control data
   // ===============================================================
   const [tags, setTags] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -32,9 +30,7 @@ export default function AddPlantsCtrl() {
 
   // ===============================================================
   // SELECTION DATA
-  // @desc state variables that hold EXISTING data. These variables
-  //        allow the user to see what is currently in the DB, and select
-  //        from that existing data. We immediately query for these on mount.
+  // @desc data that appears as options in select boxes.
   // ===============================================================
   const [eLocations, setELocations] = useState([]);
   const [eImages, setEImages] = useState([]);
@@ -54,8 +50,7 @@ export default function AddPlantsCtrl() {
 
   // ===============================================================
   // NETWORK QUERIES FOR EXISTING DATA
-  // @desc queries locations, media, categories, and tags to display
-  //       available options when creating a plant.
+  // @desc queries for existing data
   // ===============================================================
   const queryLocations = async () => {
     const result = await getLocations();
@@ -95,9 +90,7 @@ export default function AddPlantsCtrl() {
 
   // ===============================================================
   // INPUT WATCHERS AND SETTERS
-  // @desc functions that watch for state updates in child components.
-  //        These functions are used as setters, and when a form-control
-  //        is updated, these functions update this component's state to match.
+  // @desc functions that watch updates in children components, and sets them here.
   // ===============================================================
 
   const categoriesChanged = (data) => {

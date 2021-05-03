@@ -20,6 +20,7 @@ export default function EditWaypointCtrl() {
   const { waypointId } = useParams();
   // ===============================================================
   // FORM DATA
+  // @desc form control data
   // ===============================================================
   const [tags, setTags] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -33,6 +34,7 @@ export default function EditWaypointCtrl() {
   const [plants, setPlants] = useState([]);
   // ===============================================================
   // SELECTION DATA
+  // @desc data that appears as options in select boxes.
   // ===============================================================
   const [eLocations, setELocations] = useState([]);
   const [eImages, setEImages] = useState([]);
@@ -55,8 +57,7 @@ export default function EditWaypointCtrl() {
 
   // ===============================================================
   // NETWORK QUERIES FOR EXISTING DATA
-  // @desc queries locations, media, categories, and tags to display
-  //       available options when creating a plant.
+  // @desc queries for existing data in the database, and delegates to selection data
   // ===============================================================
   const queryLocations = async () => {
     const result = await getLocations();
@@ -109,6 +110,7 @@ export default function EditWaypointCtrl() {
 
   // ===============================================================
   // INPUT WATCHERS AND SETTERS
+  // @desc functions that watch updates in children components, and sets them here.
   // ===============================================================
 
   const categoriesChanged = (data) => {
@@ -160,8 +162,8 @@ export default function EditWaypointCtrl() {
 
   // ===============================================================
   // POST
+  // @desc updates the waypoint
   // ===============================================================
-
   const handleUpdate = async () => {
     const waypoint = {
       waypoint_name: waypointName,
@@ -183,8 +185,9 @@ export default function EditWaypointCtrl() {
 
   return (
     <EditWaypoint
-      // WATCHERS
+      // WAYPOINT DATA
       waypointData={waypointData}
+      // WATCHERS
       categoriesChanged={categoriesChanged}
       tagsChanged={tagsChanged}
       locationsChanged={locationsChanged}

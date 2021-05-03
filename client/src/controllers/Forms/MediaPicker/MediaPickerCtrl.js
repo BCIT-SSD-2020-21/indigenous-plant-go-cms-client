@@ -10,36 +10,115 @@ export default function MediaPickerCtrl({
   selected,
   query,
 }) {
+  // ===============================================================
+  // STATE VARIABLES
+  // ===============================================================
+  /*
+    @desc an array of Id's that of selected items
+    @author Patrick Fortaleza
+    @type Array<id>
+  */
   const [activeSelection, setActiveSelection] = useState([]);
+
+  /*
+    @desc an array of formatted options to be parsed by semantic ui's dropdown.
+    @author Patrick Fortaleza
+    @type Array<{formattedOption}>
+  */
   const [formattedOptions, setFormattedOptions] = useState([]);
+
+  /*
+    @desc a string value that holds the focused/selected item's id -- to be added in activeSelection
+    @author Patrick Fortaleza
+    @type String (ObjectId)
+  */
   const [selectedOption, setSelectedOption] = useState("");
+
+  /*
+    @desc An array of raw options, to be formatted and used in dropdowns.
+    @author Patrick Fortaleza
+    @type Array<{option}>
+  */
   const [options, setOptions] = useState([]);
+
+  /*
+    @desc a variable that holds the active state of the modal
+    @author Patrick Fortaleza
+    @type boolean
+  */
   const [modalActive, setModalActive] = useState(false);
+
+  /*
+    @desc a variable that holds the file being uploaded
+    @author Patrick Fortaleza
+    @type {Object}
+  */
   const [file, setFile] = useState(null);
+
+  /*
+    @desc a variable that holds the caption for the file being uploaded
+    @author Patrick Fortaleza
+    @type String
+  */
   const [caption, setCaption] = useState("");
 
+  // ===============================================================
+  // USE EFFECTS
+  // ===============================================================
+  /*
+    @desc once the data mounts, we set our options, then format them.
+    @author Patrick Fortaleza
+  */
   useEffect(() => {
     setOptions(data);
     formatOptions();
   }, [data]);
 
+  /*
+    @desc once the selection data mounts, format it.
+    @author Patrick Fortaleza
+  */
   useEffect(() => {
     formatSelection();
   }, [selected]);
 
+  /*
+    @desc everytime the selection changes, we want to sync up with the parent's data by calling the setter method.
+    @author Patrick Fortaleza
+  */
   useEffect(() => {
     setter(activeSelection);
   }, [activeSelection]);
 
+  /*
+    @desc everytime the activeSelection, or options change, we want to format the options
+    @author Patrick Fortaleza
+  */
   useEffect(() => {
     formatOptions();
   }, [options, activeSelection]);
 
+  // ===============================================================
+  // FUNCTIONS
+  // ===============================================================
+
+  /*
+    @desc resets fields related to uploading new media
+    @author Patrick Fortaleza
+    @param none
+    @return none
+  */
   const resetFields = () => {
     setCaption("");
     setFile(null);
   };
 
+  /*
+    @desc formats the existing data into an array that can be accepted by the picker.
+    @author Patrick Fortaleza
+    @param none
+    @return none
+  */
   const formatSelection = () => {
     if (!selected) return;
     const formatted = selected.map((option) => {
@@ -53,15 +132,12 @@ export default function MediaPickerCtrl({
     setActiveSelection(formatted);
   };
 
-  const handleOnDragEnd = (result) => {
-    if (!result.destination) return;
-    const items = Array.from(activeSelection);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setActiveSelection(items);
-  };
-
+  /*
+    @desc formats the available option into an array that can be accepted by the dropdown.
+    @author Patrick Fortaleza
+    @param none
+    @return none
+  */
   const formatOptions = () => {
     const activeOptions = [...activeSelection].map((item) => item._id);
 
@@ -81,10 +157,37 @@ export default function MediaPickerCtrl({
     setFormattedOptions(formatted);
   };
 
+  /*
+    @desc listens for drag events to reorder items within the picker.
+    @author Patrick Fortaleza
+    @param result {Object} -- a custom response object from react drag-and-drop.
+    @return null -- if there's no destination, we return null to exit the function. 
+  */
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return;
+    const items = Array.from(activeSelection);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setActiveSelection(items);
+  };
+
+  /*
+    @desc watches for changes in drop-down selection, sets the selected option.
+    @author Patrick Fortaleza
+    @param none
+    @return none
+  */
   const handleSelectChange = (e, data) => {
     setSelectedOption(data.value);
   };
 
+  /*
+    @desc formats, finds, and adds the selected content into the picker.
+    @author Patrick Fortaleza
+    @param none
+    @return none
+  */
   const confirmSelection = () => {
     let foundOption = options.filter(
       (option) => option._id === selectedOption
@@ -103,6 +206,12 @@ export default function MediaPickerCtrl({
     setActiveSelection(newActiveSelection);
   };
 
+  /*
+    @desc removes the chosen media from the picker.
+    @author Patrick Fortaleza
+    @param id {String} -- an ObjectId that is unique to the content being picked.
+    @return none
+  */
   const handleRemove = (id) => {
     let selected = [...activeSelection];
     selected = selected.filter((item) => item._id !== id);
@@ -117,6 +226,12 @@ export default function MediaPickerCtrl({
     setModalActive(false);
   };
 
+  /*
+    @desc uploads media, and adds the uploaded media to the picker.
+    @author Patrick Fortaleza
+    @param none
+    @return none
+  */
   const handleUpload = async () => {
     let result, formatted, currSelection;
     if (!file || !caption) return console.log("Error uploading file");

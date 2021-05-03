@@ -17,15 +17,22 @@ export default function EditUserCtrl() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  /* 
+    @desc invoke queryUser on mount
+    @author Patrick Fortaleza
+  */
   useEffect(() => {
     queryUser();
   }, []);
 
+  /* 
+    @desc queries the user's data and delegates to state variables
+    @author Patrick Fortaleza
+  */
   const queryUser = async () => {
     if (!userId) return console.log("unable to find user id");
     const result = await getUser(userId);
     if (result.error) return console.log("unable to fetch user data");
-    console.log(result);
 
     // delegate
     setEmail(result.email);
@@ -33,10 +40,18 @@ export default function EditUserCtrl() {
     setUsername(result.user_name);
   };
 
+  /* 
+    @desc toggles changePassword to true
+    @author Patrick Fortaleza
+  */
   const toggleChangePassword = () => {
     setChangePassword(true);
   };
 
+  /* 
+    @desc toggles changePassword to false and resets form controls related to passwords.
+    @author Patrick Fortaleza
+  */
   const cancelChangePassword = () => {
     setChangePassword(false);
     setNewPassword("");
@@ -45,6 +60,7 @@ export default function EditUserCtrl() {
 
   // ===============================================================
   // POST
+  // @desc applies the updates to the given user.
   // ===============================================================
   const applyUpdate = async () => {
     const id = userId;
@@ -75,20 +91,22 @@ export default function EditUserCtrl() {
 
   return (
     <EditUser
+      // METHODS
       toggleChangePassword={toggleChangePassword}
       cancelChangePassword={cancelChangePassword}
-      changePassword={changePassword}
-      username={username}
       changeUsername={setUsername}
       changeEmail={setEmail}
       changeRole={setRole}
+      changeNewPassword={setNewPassword}
+      changeConfirmPassword={setConfirmPassword}
+      applyUpdate={applyUpdate}
+      // ATTRIBUTES
+      changePassword={changePassword}
+      username={username}
       email={email}
       role={role}
       newPassword={newPassword}
       confirmPassword={confirmPassword}
-      changeNewPassword={setNewPassword}
-      changeConfirmPassword={setConfirmPassword}
-      applyUpdate={applyUpdate}
     />
   );
 }
