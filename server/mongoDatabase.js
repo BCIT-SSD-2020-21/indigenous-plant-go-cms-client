@@ -2062,25 +2062,25 @@ module.exports = async function() {
           as: 'plants.revision_history'
         }
       },
-      {
-        $unwind: {
-          path: '$plants.revision_history',
-          preserveNullAndEmptyArrays: true
-        }
-      },
-      {
-        $sort: {
-          'plants.revision_history.date': -1
-        }
-      },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'plants.revision_history.user',
-          foreignField: '_id',
-          as: 'plants.revision_history.user'
-        }
-      },
+      // {
+      //   $unwind: {
+      //     path: '$plants.revision_history',
+      //     preserveNullAndEmptyArrays: true
+      //   }
+      // },
+      // {
+      //   $sort: {
+      //     'plants.revision_history.date': -1
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'users',
+      //     localField: 'plants.revision_history.user',
+      //     foreignField: '_id',
+      //     as: 'plants.revision_history.user'
+      //   }
+      // },
       //Waypoint
       {
         $lookup: {
@@ -2153,88 +2153,88 @@ module.exports = async function() {
           as: 'waypoints.plants'
         }
       },
-      {
-        $unwind: {
-          path: '$waypoints.plants',
-          preserveNullAndEmptyArrays: true
-        }
-      },
-      {
-        $lookup: {
-          from: 'images',
-          localField: 'waypoints.plants.images',
-          foreignField: '_id',
-          as: 'waypoints.plants.images'
-        }
-      },
-      {
-        $lookup: {
-          from: 'audios',
-          localField: 'waypoints.plants.audio_files',
-          foreignField: '_id',
-          as: 'waypoints.plants.audio_files'
-        }
-      },
-      {
-        $lookup: {
-          from: 'videos',
-          localField: 'waypoints.plants.videos',
-          foreignField: '_id',
-          as: 'waypoints.plants.videos'
-        }
-      },
-      {
-        $lookup: {
-          from: 'tags',
-          localField: 'waypoints.plants.tags',
-          foreignField: '_id',
-          as: 'waypoints.plants.tags'
-        }
-      },
-      {
-        $lookup: {
-          from: 'categories',
-          localField: 'waypoints.plants.categories',
-          foreignField: '_id',
-          as: 'waypoints.plants.categories'
-        }
-      },
-      {
-        $lookup: {
-          from: 'locations',
-          localField: 'waypoints.plants.locations',
-          foreignField: '_id',
-          as: 'waypoints.plants.locations'
-        }
-      },
-      //Waypoint Plant Revision
-      {
-        $lookup: {
-          from: 'revisions',
-          localField: 'waypoints.plants.revision_history',
-          foreignField: '_id',
-          as: 'waypoints.plants.revision_history'
-        }
-      },
-      {
-        $unwind: {
-          path: '$waypoints.plants.revision_history',
-          preserveNullAndEmptyArrays: true
-        }
-      },
-      {
-        $sort: {
-          'waypoints.plants.revision_history.date': -1
-        }
-      },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'waypoints.plants.revision_history.user',
-          foreignField: '_id',
-          as: 'waypoints.plants.revision_history.user'
-        }
-      },
+      // {
+      //   $unwind: {
+      //     path: '$waypoints.plants',
+      //     preserveNullAndEmptyArrays: true
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'images',
+      //     localField: 'waypoints.plants.images',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.images'
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'audios',
+      //     localField: 'waypoints.plants.audio_files',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.audio_files'
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'videos',
+      //     localField: 'waypoints.plants.videos',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.videos'
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'tags',
+      //     localField: 'waypoints.plants.tags',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.tags'
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'categories',
+      //     localField: 'waypoints.plants.categories',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.categories'
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'locations',
+      //     localField: 'waypoints.plants.locations',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.locations'
+      //   }
+      // },
+      // //Waypoint Plant Revision
+      // {
+      //   $lookup: {
+      //     from: 'revisions',
+      //     localField: 'waypoints.plants.revision_history',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.revision_history'
+      //   }
+      // },
+      // {
+      //   $unwind: {
+      //     path: '$waypoints.plants.revision_history',
+      //     preserveNullAndEmptyArrays: true
+      //   }
+      // },
+      // {
+      //   $sort: {
+      //     'waypoints.plants.revision_history.date': -1
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'users',
+      //     localField: 'waypoints.plants.revision_history.user',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.revision_history.user'
+      //   }
+      // },
       //Waypoint Revision
       {
         $lookup: {
@@ -2293,139 +2293,18 @@ module.exports = async function() {
       },
       {
         $group: {
-          //Tour
           _id: '$_id',
-          tour_name: {$first: '$tour_name'},
-          description: {$first: '$description'},
-          images: {$first: '$images'},
-          audio_files: {$first: '$audio_files'},
-          videos: {$first: '$videos'},
-          tags: {$first: '$tags'},
-          categories: {$first: '$categories'},
-          custom_fields: {$first: '$custom_fields'},
+          root: {$mergeObjects: '$$ROOT'},
+          plants: {$push: '$plants'},
+          waypoints: {$push: '$waypoints'},
           revision_history: {$push: '$revision_history'},
-          //Plant
-          plant_id: {$first: '$plants._id'},
-          plant_plant_name: {$first: '$plants.plant_name'},
-          plant_scientific_name: {$first: '$plants.scientific_name'},
-          plant_description: {$first: '$plants.description'},
-          plant_images: {$first: '$plants.images'},
-          plant_audio_files: {$first: '$plants.audio_files'},
-          plant_videos: {$first: '$plants.videos'},
-          plant_tags: {$first: '$plants.tags'},
-          plant_categories: {$first: '$plants.categories'},
-          plant_locations: {$first: '$plants.locations'},
-          plant_custom_fields: {$first: '$plants.custom_fields'},
-          plant_revision_history: {$push: '$plants.revision_history'},
-          //Waypoint
-          waypoint_id: {$first: '$waypoints._id'},
-          waypoint_waypoint_name: {$first: '$waypoints.waypoint_name'},
-          waypoint_description: {$first: '$waypoints.description'},
-          waypoint_images: {$first: '$waypoints.images'},
-          waypoint_audio_files: {$first: '$waypoints.audio_files'},
-          waypoint_videos: {$first: '$waypoints.videos'},
-          waypoint_tags: {$first: '$waypoints.tags'},
-          waypoint_categories: {$first: '$waypoints.categories'},
-          waypoint_locations: {$first: '$waypoints.locations'},
-          waypoint_custom_fields: {$first: '$waypoints.custom_fields'},
-          waypoint_revision_history: {$push: '$waypoints.revision_history'},
-          //Waypoint Plant
-          waypoint_plant_id: {$first: '$waypoints.plants._id'},
-          waypoint_plant_plant_name: {$first: '$waypoints.plants.plant_name'},
-          waypoint_plant_scientific_name: {$first: '$waypoints.plants.scientific_name'},
-          waypoint_plant_description: {$first: '$waypoints.plants.description'},
-          waypoint_plant_images: {$first: '$waypoints.plants.images'},
-          waypoint_plant_audio_files: {$first: '$waypoints.plants.audio_files'},
-          waypoint_plant_videos: {$first: '$waypoints.plants.videos'},
-          waypoint_plant_tags: {$first: '$waypoints.plants.tags'},
-          waypoint_plant_categories: {$first: '$waypoints.plants.categories'},
-          waypoint_plant_locations: {$first: '$waypoints.plants.locations'},
-          waypoint_plant_custom_fields: {$first: '$waypoints.plants.custom_fields'},
-          waypoint_plant_revision_history: {$push: '$waypoints.plants.revision_history'}
         }
       },
       {
-        $group: {
-          //Tour
-          _id: '$_id',
-          tour_name: {$first: '$tour_name'},
-          description: {$first: '$description'},
-          images: {$first: '$images'},
-          audio_files: {$first: '$audio_files'},
-          videos: {$first: '$videos'},
-          tags: {$first: '$tags'},
-          categories: {$first: '$categories'},
-          plants: {$push: {
-            _id: '$plant_id',
-            plant_name: '$plant_plant_name',
-            scientific_name:'$plant_scientific_name',
-            description: '$plant_description',
-            images: '$plant_images',
-            audio_files: '$plant_audio_files',
-            videos: '$plant_videos',
-            tags: '$plant_tags',
-            categories: '$plant_categories',
-            locations: '$plant_locations',
-            custom_fields: '$plant_custom_fields',
-            revision_history: '$plant_revision_history'
-          }},
-          custom_fields: {$first: '$custom_fields'},
-          revision_history: {$push: '$revision_history'},
-          //Waypoint
-          waypoint_id: {$first: '$waypoint_id'},
-          waypoint_waypoint_name: {$first: '$waypoint_waypoint_name'},
-          waypoint_description: {$first: '$waypoint_description'},
-          waypoint_images: {$first: '$waypoint_images'},
-          waypoint_audio_files: {$first: '$waypoint_audio_files'},
-          waypoint_videos: {$first: '$waypoint_videos'},
-          waypoint_tags: {$first: '$waypoint_tags'},
-          waypoint_categories: {$first: '$waypoint_categories'},
-          waypoint_locations: {$first: '$waypoint_locations'},
-          waypoint_plants: {$push: {
-            _id: '$waypoint_plant_id',
-            plant_name: '$waypoint_plant_plant_name',
-            scientific_name:'$waypoint_plant_scientific_name',
-            description: '$waypoint_plant_description',
-            images: '$waypoint_plant_images',
-            audio_files: '$waypoint_plant_audio_files',
-            videos: '$waypoint_plant_videos',
-            tags: '$waypoint_plant_tags',
-            categories: '$waypoint_plant_categories',
-            locations: '$waypoint_plant_locations',
-            custom_fields: '$waypoint_plant_custom_fields',
-            revision_history: '$waypoint_plant_revision_history'
-          }},
-          waypoint_custom_fields: {$first: '$waypoint_custom_fields'},
-          waypoint_revision_history: {$first: '$waypoint_revision_history'}
-        }
-      },
-      {
-        $group: {
-          _id: '$_id',
-          tour_name: {$first: '$tour_name'},
-          description: {$first: '$description'},
-          images: {$first: '$images'},
-          audio_files: {$first: '$audio_files'},
-          videos: {$first: '$videos'},
-          tags: {$first: '$tags'},
-          categories: {$first: '$categories'},
-          plants: {$first: '$plants'},
-          waypoints: {$push: {
-            _id: '$waypoint_id',
-            waypoint_name: '$waypoint_waypoint_name',
-            description: '$waypoint_description',
-            images: '$waypoint_images',
-            audio_files: '$waypoint_audio_files',
-            videos: '$waypoint_videos',
-            tags: '$waypoint_tags',
-            categories: '$waypoint_categories',
-            locations: '$waypoint_locations',
-            plants: '$waypoint_plants',
-            custom_fields: '$waypoint_custom_fields',
-            revision_history: '$waypoint_revision_history'
-          }},
-          custom_fields: {$first: '$custom_fields'},
-          revision_history: {$first: '$revision_history'}
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: ['$root', '$$ROOT']
+          }
         }
       },
       {
@@ -2437,7 +2316,8 @@ module.exports = async function() {
           'waypoints.revision_history.user.password': 0,
           'waypoints.revision_history.user.role': 0,
           'revision_history.user.password': 0,
-          'revision_history.user.role': 0
+          'revision_history.user.role': 0,
+          root: 0
         }
       }
     ]
@@ -2739,25 +2619,25 @@ module.exports = async function() {
           as: 'plants.revision_history'
         }
       },
-      {
-        $unwind: {
-          path: '$plants.revision_history',
-          preserveNullAndEmptyArrays: true
-        }
-      },
-      {
-        $sort: {
-          'plants.revision_history.date': -1
-        }
-      },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'plants.revision_history.user',
-          foreignField: '_id',
-          as: 'plants.revision_history.user'
-        }
-      },
+      // {
+      //   $unwind: {
+      //     path: '$plants.revision_history',
+      //     preserveNullAndEmptyArrays: true
+      //   }
+      // },
+      // {
+      //   $sort: {
+      //     'plants.revision_history.date': -1
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'users',
+      //     localField: 'plants.revision_history.user',
+      //     foreignField: '_id',
+      //     as: 'plants.revision_history.user'
+      //   }
+      // },
       //Waypoint
       {
         $lookup: {
@@ -2830,88 +2710,88 @@ module.exports = async function() {
           as: 'waypoints.plants'
         }
       },
-      {
-        $unwind: {
-          path: '$waypoints.plants',
-          preserveNullAndEmptyArrays: true
-        }
-      },
-      {
-        $lookup: {
-          from: 'images',
-          localField: 'waypoints.plants.images',
-          foreignField: '_id',
-          as: 'waypoints.plants.images'
-        }
-      },
-      {
-        $lookup: {
-          from: 'audios',
-          localField: 'waypoints.plants.audio_files',
-          foreignField: '_id',
-          as: 'waypoints.plants.audio_files'
-        }
-      },
-      {
-        $lookup: {
-          from: 'videos',
-          localField: 'waypoints.plants.videos',
-          foreignField: '_id',
-          as: 'waypoints.plants.videos'
-        }
-      },
-      {
-        $lookup: {
-          from: 'tags',
-          localField: 'waypoints.plants.tags',
-          foreignField: '_id',
-          as: 'waypoints.plants.tags'
-        }
-      },
-      {
-        $lookup: {
-          from: 'categories',
-          localField: 'waypoints.plants.categories',
-          foreignField: '_id',
-          as: 'waypoints.plants.categories'
-        }
-      },
-      {
-        $lookup: {
-          from: 'locations',
-          localField: 'waypoints.plants.locations',
-          foreignField: '_id',
-          as: 'waypoints.plants.locations'
-        }
-      },
-      //Waypoint Plant Revision
-      {
-        $lookup: {
-          from: 'revisions',
-          localField: 'waypoints.plants.revision_history',
-          foreignField: '_id',
-          as: 'waypoints.plants.revision_history'
-        }
-      },
-      {
-        $unwind: {
-          path: '$waypoints.plants.revision_history',
-          preserveNullAndEmptyArrays: true
-        }
-      },
-      {
-        $sort: {
-          'waypoints.plants.revision_history.date': -1
-        }
-      },
-      {
-        $lookup: {
-          from: 'users',
-          localField: 'waypoints.plants.revision_history.user',
-          foreignField: '_id',
-          as: 'waypoints.plants.revision_history.user'
-        }
-      },
+      // {
+      //   $unwind: {
+      //     path: '$waypoints.plants',
+      //     preserveNullAndEmptyArrays: true
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'images',
+      //     localField: 'waypoints.plants.images',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.images'
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'audios',
+      //     localField: 'waypoints.plants.audio_files',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.audio_files'
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'videos',
+      //     localField: 'waypoints.plants.videos',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.videos'
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'tags',
+      //     localField: 'waypoints.plants.tags',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.tags'
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'categories',
+      //     localField: 'waypoints.plants.categories',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.categories'
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'locations',
+      //     localField: 'waypoints.plants.locations',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.locations'
+      //   }
+      // },
+      // //Waypoint Plant Revision
+      // {
+      //   $lookup: {
+      //     from: 'revisions',
+      //     localField: 'waypoints.plants.revision_history',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.revision_history'
+      //   }
+      // },
+      // {
+      //   $unwind: {
+      //     path: '$waypoints.plants.revision_history',
+      //     preserveNullAndEmptyArrays: true
+      //   }
+      // },
+      // {
+      //   $sort: {
+      //     'waypoints.plants.revision_history.date': -1
+      //   }
+      // },
+      // {
+      //   $lookup: {
+      //     from: 'users',
+      //     localField: 'waypoints.plants.revision_history.user',
+      //     foreignField: '_id',
+      //     as: 'waypoints.plants.revision_history.user'
+      //   }
+      // },
       //Waypoint Revision
       {
         $lookup: {
@@ -2970,139 +2850,18 @@ module.exports = async function() {
       },
       {
         $group: {
-          //Tour
           _id: '$_id',
-          tour_name: {$first: '$tour_name'},
-          description: {$first: '$description'},
-          images: {$first: '$images'},
-          audio_files: {$first: '$audio_files'},
-          videos: {$first: '$videos'},
-          tags: {$first: '$tags'},
-          categories: {$first: '$categories'},
-          custom_fields: {$first: '$custom_fields'},
+          root: {$mergeObjects: '$$ROOT'},
+          plants: {$push: '$plants'},
+          waypoints: {$push: '$waypoints'},
           revision_history: {$push: '$revision_history'},
-          //Plant
-          plant_id: {$first: '$plants._id'},
-          plant_plant_name: {$first: '$plants.plant_name'},
-          plant_scientific_name: {$first: '$plants.scientific_name'},
-          plant_description: {$first: '$plants.description'},
-          plant_images: {$first: '$plants.images'},
-          plant_audio_files: {$first: '$plants.audio_files'},
-          plant_videos: {$first: '$plants.videos'},
-          plant_tags: {$first: '$plants.tags'},
-          plant_categories: {$first: '$plants.categories'},
-          plant_locations: {$first: '$plants.locations'},
-          plant_custom_fields: {$first: '$plants.custom_fields'},
-          plant_revision_history: {$push: '$plants.revision_history'},
-          //Waypoint
-          waypoint_id: {$first: '$waypoints._id'},
-          waypoint_waypoint_name: {$first: '$waypoints.waypoint_name'},
-          waypoint_description: {$first: '$waypoints.description'},
-          waypoint_images: {$first: '$waypoints.images'},
-          waypoint_audio_files: {$first: '$waypoints.audio_files'},
-          waypoint_videos: {$first: '$waypoints.videos'},
-          waypoint_tags: {$first: '$waypoints.tags'},
-          waypoint_categories: {$first: '$waypoints.categories'},
-          waypoint_locations: {$first: '$waypoints.locations'},
-          waypoint_custom_fields: {$first: '$waypoints.custom_fields'},
-          waypoint_revision_history: {$push: '$waypoints.revision_history'},
-          //Waypoint Plant
-          waypoint_plant_id: {$first: '$waypoints.plants._id'},
-          waypoint_plant_plant_name: {$first: '$waypoints.plants.plant_name'},
-          waypoint_plant_scientific_name: {$first: '$waypoints.plants.scientific_name'},
-          waypoint_plant_description: {$first: '$waypoints.plants.description'},
-          waypoint_plant_images: {$first: '$waypoints.plants.images'},
-          waypoint_plant_audio_files: {$first: '$waypoints.plants.audio_files'},
-          waypoint_plant_videos: {$first: '$waypoints.plants.videos'},
-          waypoint_plant_tags: {$first: '$waypoints.plants.tags'},
-          waypoint_plant_categories: {$first: '$waypoints.plants.categories'},
-          waypoint_plant_locations: {$first: '$waypoints.plants.locations'},
-          waypoint_plant_custom_fields: {$first: '$waypoints.plants.custom_fields'},
-          waypoint_plant_revision_history: {$push: '$waypoints.plants.revision_history'}
         }
       },
       {
-        $group: {
-          //Tour
-          _id: '$_id',
-          tour_name: {$first: '$tour_name'},
-          description: {$first: '$description'},
-          images: {$first: '$images'},
-          audio_files: {$first: '$audio_files'},
-          videos: {$first: '$videos'},
-          tags: {$first: '$tags'},
-          categories: {$first: '$categories'},
-          plants: {$push: {
-            _id: '$plant_id',
-            plant_name: '$plant_plant_name',
-            scientific_name:'$plant_scientific_name',
-            description: '$plant_description',
-            images: '$plant_images',
-            audio_files: '$plant_audio_files',
-            videos: '$plant_videos',
-            tags: '$plant_tags',
-            categories: '$plant_categories',
-            locations: '$plant_locations',
-            custom_fields: '$plant_custom_fields',
-            revision_history: '$plant_revision_history'
-          }},
-          custom_fields: {$first: '$custom_fields'},
-          revision_history: {$push: '$revision_history'},
-          //Waypoint
-          waypoint_id: {$first: '$waypoint_id'},
-          waypoint_waypoint_name: {$first: '$waypoint_waypoint_name'},
-          waypoint_description: {$first: '$waypoint_description'},
-          waypoint_images: {$first: '$waypoint_images'},
-          waypoint_audio_files: {$first: '$waypoint_audio_files'},
-          waypoint_videos: {$first: '$waypoint_videos'},
-          waypoint_tags: {$first: '$waypoint_tags'},
-          waypoint_categories: {$first: '$waypoint_categories'},
-          waypoint_locations: {$first: '$waypoint_locations'},
-          waypoint_plants: {$push: {
-            _id: '$waypoint_plant_id',
-            plant_name: '$waypoint_plant_plant_name',
-            scientific_name:'$waypoint_plant_scientific_name',
-            description: '$waypoint_plant_description',
-            images: '$waypoint_plant_images',
-            audio_files: '$waypoint_plant_audio_files',
-            videos: '$waypoint_plant_videos',
-            tags: '$waypoint_plant_tags',
-            categories: '$waypoint_plant_categories',
-            locations: '$waypoint_plant_locations',
-            custom_fields: '$waypoint_plant_custom_fields',
-            revision_history: '$waypoint_plant_revision_history'
-          }},
-          waypoint_custom_fields: {$first: '$waypoint_custom_fields'},
-          waypoint_revision_history: {$first: '$waypoint_revision_history'}
-        }
-      },
-      {
-        $group: {
-          _id: '$_id',
-          tour_name: {$first: '$tour_name'},
-          description: {$first: '$description'},
-          images: {$first: '$images'},
-          audio_files: {$first: '$audio_files'},
-          videos: {$first: '$videos'},
-          tags: {$first: '$tags'},
-          categories: {$first: '$categories'},
-          plants: {$first: '$plants'},
-          waypoints: {$push: {
-            _id: '$waypoint_id',
-            waypoint_name: '$waypoint_waypoint_name',
-            description: '$waypoint_description',
-            images: '$waypoint_images',
-            audio_files: '$waypoint_audio_files',
-            videos: '$waypoint_videos',
-            tags: '$waypoint_tags',
-            categories: '$waypoint_categories',
-            locations: '$waypoint_locations',
-            plants: '$waypoint_plants',
-            custom_fields: '$waypoint_custom_fields',
-            revision_history: '$waypoint_revision_history'
-          }},
-          custom_fields: {$first: '$custom_fields'},
-          revision_history: {$first: '$revision_history'}
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: ['$root', '$$ROOT']
+          }
         }
       },
       {
@@ -3114,7 +2873,8 @@ module.exports = async function() {
           'waypoints.revision_history.user.password': 0,
           'waypoints.revision_history.user.role': 0,
           'revision_history.user.password': 0,
-          'revision_history.user.role': 0
+          'revision_history.user.role': 0,
+          root: 0
         }
       }
     ]
