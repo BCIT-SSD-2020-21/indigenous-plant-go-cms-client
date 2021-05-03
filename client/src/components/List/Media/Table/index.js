@@ -1,5 +1,9 @@
 import React from "react";
 
+/*
+  @desc UI component that renders a table of media.
+  @controller ../Media/index.js
+*/
 export default function Table({
   medias,
   selectedMedias,

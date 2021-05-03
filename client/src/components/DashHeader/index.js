@@ -1,5 +1,9 @@
 import React from "react";
 
+/*
+  @desc UI component for the Dashboard header. Displays A title, and a controlled button.
+  @controller null
+*/
 export default function DashHeader({ title, subtitle, action, method }) {
   return (
     <>

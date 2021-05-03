@@ -1,6 +1,10 @@
 import React from "react";
 import { TextArea as TextArea_ } from "semantic-ui-react";
 
+/*
+  @desc UI component for A text area form control.
+  @controller ~/src/controllers/Forms/TextArea/TextAreaCtrl.js
+*/
 export default function TextArea({ label, setValue, value }) {
   return (
     <div className="textpicker">

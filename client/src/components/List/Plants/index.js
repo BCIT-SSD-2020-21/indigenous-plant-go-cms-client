@@ -6,34 +6,53 @@ import Table from "./Table";
 import { useHistory } from "react-router-dom";
 import Modal from "../../Modal";
 
+/*
+  @desc UI component that Lists Plants and allows the list to be managed.
+  @controller ~/src/controllers/List/Plants/ListPlantsCtrl.js
+*/
 export default function ListPlants({
+  // Data to List: plantData
   plantData,
-  categories,
-  handleFilterChange,
-  handleQueryChange,
-  applyFilters,
-  clearSearch,
+  // SEARCH -- Attributes
   searchQuery,
+  // SEARCH -- Methods
+  handleQueryChange,
+  clearSearch,
+  // FILTERS -- Attributes
   categoryFilter,
+  categories,
+  // FILTERS -- Methods
+  handleFilterChange,
+  applyFilters,
   resetFilters,
-  handleSelected,
-  selectedPlants,
-  batchSelect,
-  pages,
+  // PAGINATION -- Attributes
   hasPages,
+  pages,
   page,
+  // PAGINATION -- Methods
   prevPage,
   nextPage,
-  closeModal,
-  handleDelete,
-  modalActive,
-  pendingDelete,
-  applyDelete,
-  modalState,
-  handleBulkActionChange,
+  // BATCH SELECT -- Attributes
+  selectedPlants,
+  // BATCH SELECT -- Methods
+  batchSelect,
+  handleSelected,
+  // BULK ACTION -- Attributes
   bulkAction,
+  // BULK ACTION -- Methods
+  handleBulkActionChange,
   handleBulkDelete,
   applyBulkDelete,
+  // MODAL -- Attributes
+  modalActive,
+  modalState,
+  // MODAL -- Methods
+  closeModal,
+  // DELETE -- Attributes
+  pendingDelete,
+  // DELET -- Methods
+  handleDelete,
+  applyDelete,
 }) {
   const history = useHistory();
   const renderModal = () => {

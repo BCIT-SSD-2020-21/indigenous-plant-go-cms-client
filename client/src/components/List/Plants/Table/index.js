@@ -2,6 +2,10 @@ import React from "react";
 import { parseDate } from "../../../../utility";
 import { Link } from "react-router-dom";
 
+/*
+  @desc UI component that renders a table of plants.
+  @controller ../Plants/index.js
+*/
 export default function Table({
   plantData,
   handleSelected,

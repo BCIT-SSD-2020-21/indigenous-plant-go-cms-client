@@ -4,6 +4,11 @@ import { Dropdown, Input } from "semantic-ui-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Modal from "../../Modal";
 
+/*
+  @desc UI component for A media picker form control. Allows the user to select existing media,
+        or upload their own to a given content type.
+  @controller ~/src/controllers/Forms/MediaPicker/MediaPickerCtrl.js
+*/
 export default function MediaPicker({
   options,
   activeSelection,

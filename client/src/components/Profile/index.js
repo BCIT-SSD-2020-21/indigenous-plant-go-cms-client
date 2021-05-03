@@ -2,20 +2,29 @@ import React from "react";
 import DashHeader from "../DashHeader";
 import { Input, Dropdown, Icon } from "semantic-ui-react";
 
+/*
+  @desc UI component that displays a profile screen.
+  @controller ~/src/controllers/Profile/ProfileCtrl.js
+*/
 export default function Profile({
-  toggleChangePassword,
-  cancelChangePassword,
-  changePassword,
+  // User Data
   username,
   email,
   role,
+  confirmPassword,
+  newPassword,
+  // Change Fields
   changeUsername,
   changeEmail,
   changeRole,
-  confirmPassword,
-  newPassword,
+  // Change Fields -- Password
   changeNewPassword,
   changeConfirmPassword,
+  // Toggle -- Password Update
+  toggleChangePassword,
+  cancelChangePassword,
+  changePassword,
+  // Apply Update
   applyUpdate,
 }) {
   return (

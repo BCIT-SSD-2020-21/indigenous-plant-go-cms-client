@@ -7,7 +7,12 @@ import CustomFieldPickerCtrl from "../../../controllers/Forms/CustomFieldPicker/
 import TextInputCtrl from "../../../controllers/Forms/TextInput/TextInputCtrl";
 import TextAreaCtrl from "../../../controllers/Forms/TextArea/TextAreaCtrl";
 
+/*
+  @desc UI component for the AddPlants dashboard. Displays form inputs.
+  @controller ~/src/controllers/Add/Plants/AddPlantCtrl.js
+*/
 export default function AddPlants({
+  // METHODS
   handlePublish,
   categoriesChanged,
   tagsChanged,

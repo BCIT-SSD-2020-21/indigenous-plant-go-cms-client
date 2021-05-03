@@ -9,6 +9,11 @@ import {
 import { Dropdown } from "semantic-ui-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
+/*
+  @desc UI component for A content picker form control. Allows the user to associate other content-types to another content-type.
+        ie. associating a waypoint to a plant, or a tour to a waypoint.
+  @controller ~/src/controllers/Forms/ContentPicker/ContentPickerCtrl.js
+*/
 export default function ContentPicker({
   options,
   activeSelection,

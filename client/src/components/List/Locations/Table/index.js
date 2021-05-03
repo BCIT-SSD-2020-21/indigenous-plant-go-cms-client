@@ -1,5 +1,9 @@
 import React from "react";
 
+/*
+  @desc UI component that renders a table of locations.
+  @controller ../Locations/index.js
+*/
 export default function Table({
   locations,
   handleSelected,

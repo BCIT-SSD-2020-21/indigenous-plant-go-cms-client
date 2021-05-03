@@ -4,34 +4,53 @@ import Table from "./Table";
 import Modal from "../../Modal";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 
+/*
+  @desc UI component that Lists tags and allows the list to be managed.
+  @controller ~/src/controllers/List/Tags/ListTagsCtrl.js
+*/
 export default function ListTags({
-  newTag,
-  newTagValue,
+  // Datas to List: Tags
   tags,
-  handleQueryChange,
+  // SEARCH -- Attributes
   searchQuery,
+  // SEARCH -- Methods
+  handleQueryChange,
+  applySearch,
   clearSearch,
-  selectedTags,
-  batchSelect,
-  handleSelected,
-  page,
-  pages,
+  // PAGINATION -- Attributes
   hasPages,
+  pages,
+  page,
+  // PAGINATION -- Methods
   nextPage,
   prevPage,
-  applySearch,
+  // BATCH SELECT -- Attributes
+  selectedTags,
+  // BATCH SELECT -- Methods
+  handleSelected,
+  batchSelect,
+  // NEW TAG -- Methods
+  newTag,
   submitNewTag,
+  // NEW TAG -- Attributes
+  newTagValue,
+  // MODAL -- Methods
   closeModal,
-  handleDelete,
+  // MODAL -- Attributes
   modalActive,
   modalState,
-  pendingDelete,
+  // DELETE -- Methods
+  handleDelete,
   applyDelete,
+  // DELETE -- Attributes
+  pendingDelete,
+  // EDIT -- Methods
+  applyEdit,
   handleEdit,
   editTag,
-  editTagValue,
-  applyEdit,
+  // EDIT -- Attributes
   pendingEdit,
+  editTagValue,
 }) {
   const editModal = () => (
     <>
