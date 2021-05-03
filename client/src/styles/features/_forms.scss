@@ -105,6 +105,34 @@ button.field__button {
   }
 }
 
+button.link__button {
+  background: var(--highlight);
+  padding: 14px 10px;
+  color: var(--lightprimary);
+  margin-bottom: 7px;
+
+  &.secondary {
+    background: var(--lightprimary);
+    color: var(--highlight);
+    border: 3px solid var(--highlight);
+  }
+}
+button.link__button:hover{
+  transform: scale(1.04);
+  transition: all 0.2s linear;
+  background-color: black;
+  fill: white;
+}
+
+.carousel{
+  // transition: all 3s linear;
+  transition: all 5s ease-in-out;
+}
+.carousel-items{
+  // transition: all 3s linear;
+  transition: all 2s ease-in-out;
+}
+
 .field__file {
   display: flex;
   margin-bottom: 14px;
