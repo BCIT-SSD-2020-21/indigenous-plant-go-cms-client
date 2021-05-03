@@ -2,17 +2,23 @@ import React from "react";
 import DashHeader from "../../DashHeader";
 import { Input, Dropdown, Icon } from "semantic-ui-react";
 
+/*
+  @desc UI component for the AddUsers dashboard. Displays form inputs.
+  @controller ~/src/controllers/Add/Users/AddUserCtrl.js
+*/
 export default function AddUsers({
+  // Properties
+  email,
   username,
+  role,
+  password,
+  confirmPassword,
+  // Methods
   changeUsername,
   changeEmail,
   changeRole,
-  email,
-  role,
   changePassword,
   changeConfirmPassword,
-  password,
-  confirmPassword,
   registerUser,
 }) {
   return (

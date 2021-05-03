@@ -4,6 +4,10 @@ import Modal from "../../Modal";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { Input, TextArea } from "semantic-ui-react";
 
+/*
+  @desc UI component for A custom field form control. Allows the user to create "custom" fields within a content-type.
+  @controller ~/src/controllers/Forms/CustomFieldPicker/CustomFieldPickerCtrl.js
+*/
 export default function CustomFieldPicker({
   activeSelection,
   handleRemove,

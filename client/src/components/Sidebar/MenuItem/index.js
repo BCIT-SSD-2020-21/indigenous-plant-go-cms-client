@@ -12,6 +12,10 @@ import {
   TourIcon,
 } from "../../../icons";
 
+/*
+  @desc UI component that renders a menu item.
+  @controller ../Sidebar/index.js
+*/
 export default function MenuItem({
   label,
   formattedLabel,

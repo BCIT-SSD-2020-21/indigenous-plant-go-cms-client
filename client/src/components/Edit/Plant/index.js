@@ -7,7 +7,12 @@ import CustomFieldPickerCtrl from "../../../controllers/Forms/CustomFieldPicker/
 import TextInputCtrl from "../../../controllers/Forms/TextInput/TextInputCtrl";
 import TextAreaCtrl from "../../../controllers/Forms/TextArea/TextAreaCtrl";
 
+/*
+  @desc UI component for the EditPlant dashboard. Displays form inputs, allows users to update a plant's data.
+  @controller ~/src/controllers/Edit/Plant/EditPlantCtrl.js
+*/
 export default function EditPlant({
+  // METHODS
   handleUpdate,
   plantData,
   categoriesChanged,

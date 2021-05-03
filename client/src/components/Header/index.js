@@ -1,5 +1,9 @@
 import React from "react";
 
+/*
+  @desc UI component that displays the Header.
+  @controller ~/src/controllers/Header/HeaderCtrl.js
+*/
 export default function Header({ handleSignout, userData, navigateToProfile }) {
   return (
     <header style={style.header}>

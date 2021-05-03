@@ -1,9 +1,15 @@
 import React from "react";
 
+/*
+  @desc UI component that renders a table of categories.
+  @controller ../Categories/index.js
+*/
 export default function Table({
+  // Attributes
   categories,
-  handleSelected,
   selectedCategories,
+  // Methods
+  handleSelected,
   handleDelete,
   handleEdit,
 }) {

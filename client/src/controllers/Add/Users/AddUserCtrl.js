@@ -5,12 +5,18 @@ import { useHistory } from "react-router-dom";
 
 export default function AddUserCtrl() {
   const history = useHistory();
+  // ===============================================================
+  // FORM DATA
+  // ===============================================================
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("Manager");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  // ===============================================================
+  // POST
+  // ===============================================================
   const registerUser = async () => {
     if (!username || !email || !role || !password)
       return console.log("Required fields are missing");
@@ -29,14 +35,16 @@ export default function AddUserCtrl() {
 
   return (
     <AddUser
+      // Attributes
       username={username}
-      changeUsername={setUsername}
-      changeEmail={setEmail}
-      changeRole={setRole}
       email={email}
       role={role}
       password={password}
       confirmPassword={confirmPassword}
+      // Methods
+      changeUsername={setUsername}
+      changeEmail={setEmail}
+      changeRole={setRole}
       changePassword={setPassword}
       changeConfirmPassword={setConfirmPassword}
       registerUser={registerUser}

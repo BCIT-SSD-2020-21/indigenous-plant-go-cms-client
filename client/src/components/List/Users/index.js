@@ -5,32 +5,51 @@ import { Dropdown, Input, Icon } from "semantic-ui-react";
 import { ResetIcon } from "../../../icons";
 import Modal from "../../Modal";
 
+/*
+  @desc UI component that Lists Users and allows the list to be managed.
+  @controller ~/src/controllers/List/Users/ListUsersCtrl.js
+*/
 export default function ListUsers({
+  // Data to List: userDatas
   userDatas,
-  roleSelection,
-  handleBulkActionChange,
-  bulkAction,
-  handleBulkDelete,
-  roleFilter,
-  resetFilters,
+  // SEARCH -- Attributes
   searchQuery,
+  // SEARCH -- Methods
+  handleQueryChange,
+  clearSearch,
+  // FILTERS -- Attributes
+  roleFilter,
+  // FILTERS -- Methods
+  roleSelection,
   handleFilterChange,
   applyFilters,
-  clearSearch,
-  handleQueryChange,
-  batchSelect,
-  handleSelected,
-  selectedUsers,
-  page,
+  resetFilters,
+  // PAGINATION -- Attributes
   hasPages,
   pages,
+  page,
+  // PAGINATION -- Methods
   nextPage,
   prevPage,
+  // BATCH SELECT -- Attributes
+  selectedUsers,
+  // BATCH SELECT -- Methods
+  batchSelect,
+  handleSelected,
+  // BULK ACTION -- Attributes
+  bulkAction,
+  // BULK ACTION -- Methods
+  handleBulkActionChange,
+  handleBulkDelete,
+  // MODAL -- Attributes
   modalActive,
   modalState,
+  // MODAL -- Methods
   closeModal,
-  handleDelete,
+  // DELETE -- Attributes
   pendingDelete,
+  // DELETE -- Methods
+  handleDelete,
   applyDelete,
 }) {
   const renderModal = () => {
