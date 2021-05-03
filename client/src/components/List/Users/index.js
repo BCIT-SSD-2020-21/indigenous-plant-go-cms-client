@@ -51,6 +51,8 @@ export default function ListUsers({
   // DELETE -- Methods
   handleDelete,
   applyDelete,
+  // BULK DELETE -- Methods
+  applyBulkDelete,
 }) {
   const renderModal = () => {
     switch (modalState) {
@@ -69,6 +71,37 @@ export default function ListUsers({
               . Do you wish to proceed?
             </p>
             <button onClick={() => applyDelete()} className="field__button">
+              Yes, I know what I am doing.
+            </button>
+            <button
+              onClick={() => closeModal()}
+              className="field__button secondary"
+            >
+              No, cancel my request.
+            </button>
+          </>
+        );
+      case "bulk":
+        return (
+          <>
+            <p>
+              Deleting&nbsp;
+              <strong style={{ color: "var(--danger)" }}>
+                {selectedUsers.length}
+              </strong>
+              &nbsp;users will remove{" "}
+              <strong
+                style={{
+                  color: "var(--danger)",
+                  fontWeight: "700",
+                  textTransform: "uppercase",
+                }}
+              >
+                all
+              </strong>{" "}
+              instances of the deleted users. Do you wish to proceed?
+            </p>
+            <button onClick={() => applyBulkDelete()} className="field__button">
               Yes, I know what I am doing.
             </button>
             <button
@@ -202,7 +235,9 @@ export default function ListUsers({
       <Modal
         isActive={modalActive}
         title={
-          modalState === "single" ? `Delete ${pendingDelete.user_name}?` : null
+          modalState === "single"
+            ? `Delete ${pendingDelete.user_name}?`
+            : `Delete all ${selectedUsers.length} users?`
         }
         subtitle={modalState === "single" ? null : `Bulk Delete`}
         closeModal={closeModal}

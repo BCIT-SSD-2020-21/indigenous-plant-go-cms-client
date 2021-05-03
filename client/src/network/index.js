@@ -1039,3 +1039,31 @@ export const updateWaypoint = async (id, waypoint) => {
     };
   }
 };
+
+export const bulkDeleteUsers = async (array) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const deleteRequests = array.map((userId) =>
+      axios.delete(`${BASE_URL}/users/${userId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    );
+
+    const responses = await Promise.all(deleteRequests);
+    return responses;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
