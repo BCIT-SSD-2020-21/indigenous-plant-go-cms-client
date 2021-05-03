@@ -702,6 +702,90 @@ export const createImage = async (formData) => {
   }
 };
 
+export const bulkDeleteImages = async (array) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const deleteRequests = array.map((imageId) =>
+      axios.delete(`${BASE_URL}/images/${imageId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    );
+
+    const responses = await Promise.all(deleteRequests);
+    return responses;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const bulkDeleteAudios = async (array) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const deleteRequests = array.map((audioId) =>
+      axios.delete(`${BASE_URL}/audios/${audioId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    );
+
+    const responses = await Promise.all(deleteRequests);
+    return responses;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const bulkDeleteVideos = async (array) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const deleteRequests = array.map((videoId) =>
+      axios.delete(`${BASE_URL}/videos/${videoId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    );
+
+    const responses = await Promise.all(deleteRequests);
+    return responses;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
 export const deletePlant = async (id) => {
   const token = getToken();
 
