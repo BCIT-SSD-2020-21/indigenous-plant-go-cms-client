@@ -799,3 +799,103 @@ export const createUser = async (user) => {
     };
   }
 };
+
+export const getAllWaypoints = async () => {
+  try {
+    const response = await axios.get(`${BASE_URL}/waypoints`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const deleteWaypoint = async (id) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const response = await axios.delete(`${BASE_URL}/waypoints/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const createWaypoint = async (waypoint) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const response = await axios.post(`${BASE_URL}/waypoints`, waypoint, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const getWaypoint = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/waypoints/${id}`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.reponse);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const updateWaypoint = async (id, waypoint) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+  try {
+    const response = await axios.put(`${BASE_URL}/waypoints/${id}`, waypoint, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.message,
+    };
+  }
+};

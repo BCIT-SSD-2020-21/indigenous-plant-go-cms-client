@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ContentPicker from "../../../components/Forms/ContentPicker";
 
-export default function ContentPickerCtrl({ label, dataLabel, data, setter }) {
+export default function ContentPickerCtrl({
+  label,
+  dataLabel,
+  data,
+  setter,
+  selected,
+}) {
   const [activeSelection, setActiveSelection] = useState([]);
   const [formattedOptions, setFormattedOptions] = useState([]);
   const [selectedOption, setSelectedOption] = useState("");
@@ -9,7 +15,12 @@ export default function ContentPickerCtrl({ label, dataLabel, data, setter }) {
 
   useEffect(() => {
     setOptions(data);
-  }, []);
+    formatOptions();
+  }, [data]);
+
+  useEffect(() => {
+    formatSelection();
+  }, [selected]);
 
   useEffect(() => {
     setter(activeSelection);
@@ -18,6 +29,18 @@ export default function ContentPickerCtrl({ label, dataLabel, data, setter }) {
   useEffect(() => {
     formatOptions();
   }, [options, activeSelection]);
+
+  const formatSelection = () => {
+    if (!selected) return;
+    const formatted = selected.map((option) => {
+      return {
+        _id: option._id,
+        title: option[`${dataLabel}_name`],
+      };
+    });
+
+    setActiveSelection(formatted);
+  };
 
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
