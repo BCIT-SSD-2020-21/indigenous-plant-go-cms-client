@@ -649,6 +649,34 @@ export const createLocation = async (location) => {
   }
 };
 
+export const bulkDeleteLocations = async (array) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const deleteRequests = array.map((locationId) =>
+      axios.delete(`${BASE_URL}/locations/${locationId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    );
+
+    const responses = await Promise.all(deleteRequests);
+    return responses;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
 export const createImage = async (formData) => {
   const token = getToken();
 

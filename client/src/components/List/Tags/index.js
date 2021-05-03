@@ -119,7 +119,7 @@ export default function ListTags({
         <strong style={{ color: "var(--danger)" }}>
           {selectedTags.length}
         </strong>
-        &nbsp;plants will remove{" "}
+        &nbsp;tags will remove{" "}
         <strong
           style={{
             color: "var(--danger)",
