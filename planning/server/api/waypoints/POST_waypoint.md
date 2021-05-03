@@ -17,7 +17,7 @@ Example request: POST /api/waypoints?key=<API_KEY>
   "videos": ["607fa01931325a2e700a4307"],
   "tags": ["607fa01931325a2e700a4307", "607fa01931325a2e700a4307"],
   "categories": ["607fa01931325a2e700a4307"],
-  "location": "607fa01931325a2e700a4307",
+  "locations": ["607fa01931325a2e700a4307"],
   "plants": ["607fa01931325a2e700a4307"],
   "custom_fields": [
     {

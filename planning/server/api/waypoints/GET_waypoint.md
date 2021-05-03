@@ -10,12 +10,12 @@ Example request: GET /api/waypoint/607e399e59c86677e2af6587?key=<API_KEY>
 {
   "_id": "607e399e59c86677e2af6587",
   "waypoint_name": "The Indigenous Initiatives Gathering Place",
-  "location": {
+  "locations": [{
     "_id": "607e3ab0a0d3df815abfcfb1",
     "location_name": "SW1",
     "coordinates": "49.2508575,-123.0030182",
     "description": ""
-  },
+  }],
   "description:": "The Indigenous Gathering Place is a comfortable, welcoming and safe space for students, families and staff. Mi Chap Tukw, the BCIT Indigenous Gathering Place (IGP) is located on the Burnaby campus at SW1-1521.",
   "custom_fields": [
     {
@@ -130,22 +130,12 @@ Example request: GET /api/waypoint/607e399e59c86677e2af6587?key=<API_KEY>
       "revision_history": [
         {
           "_id": "607e3ab0a0d3df815abfcfb1",
-          "user": {
-            "_id": "607e3ab0a0d3df815abfcfb1",
-            "user_name": "Patrick Fortaleza",
-            "email": "patrickfortaleza@gmail.com",
-            "role": "Manager"
-          },
+          "user": "607e3ab0a0d3df815abfcfb1",
           "date": "April 20, 2021 at 6:30am"
         },
         {
           "_id": "607e3ab0a0d3df815abfcfb1",
-          "user": {
-            "_id": "607e3ab0a0d3df815abfcfb1",
-            "user_name": "Patrick Fortaleza",
-            "email": "patrickfortaleza@gmail.com",
-            "role": "Manager"
-          },
+          "user": "607e3ab0a0d3df815abfcfb1",
           "date": "April 20, 2021 at 2:30am"
         },
       ]

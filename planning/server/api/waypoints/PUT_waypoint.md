@@ -17,7 +17,7 @@ Example request: PUT /api/waypoints/607e399e59c8feg7e2af65r7
   "videos": ["607fa01931325a2e700a4307"],
   "tags": ["607fa01931325a2e700a4307", "607fa01931325a2e700a4307"],
   "categories": ["607fa01931325a2e700a4307"],
-  "location": "607fa01931325a2e700a4307",
+  "locations": ["607fa01931325a2e700a4307"],
   "plants": ["607fa01931325a2e700a4307"],
   "custom_fields": "custom_fields": [
     {
