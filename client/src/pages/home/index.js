@@ -70,12 +70,6 @@ export default function Home({action, method}) {
           <Carousel.Item>
             <img className="carousel" style={style.image} src="/assets/images/hero.jpg" alt="Indigenous Initiatives and Partnerships Logo Red"/>
           </Carousel.Item>
-          <Carousel.Item>
-            <img className="carousel" style={style.image} src="/assets/images/hero-3.jpg" alt="Indigenous Initiatives and Partnerships Logo Bue"/>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img className="carousel" style={style.image} src="/assets/images/hero-4.jpg" alt="Indigenous Initiatives and Partnerships Logo Yellow"/>
-          </Carousel.Item>
         </Carousel>
       
         <span style={style.textDisplay}>
