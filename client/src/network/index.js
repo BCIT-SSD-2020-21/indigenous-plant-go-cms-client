@@ -862,3 +862,40 @@ export const createWaypoint = async (waypoint) => {
     };
   }
 };
+
+export const getWaypoint = async (id) => {
+  try {
+    const response = await axios.get(`${BASE_URL}/waypoints/${id}`);
+
+    return response.data;
+  } catch (error) {
+    console.log(error.reponse);
+    return {
+      error: error.response,
+    };
+  }
+};
+
+export const updateWaypoint = async (id, waypoint) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+  try {
+    const response = await axios.put(`${BASE_URL}/waypoints/${id}`, waypoint, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.message,
+    };
+  }
+};

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import AddWaypoints from "../../../components/Add/Waypoints";
+import EditWaypoint from "../../../components/Edit/Waypoint";
+import { getWaypoint } from "../../../network";
 import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   getLocations,
   getImages,
@@ -9,16 +11,15 @@ import {
   getTags,
   getCategoryGroup,
   getAllPlants,
-  createWaypoint,
+  updateWaypoint,
 } from "../../../network";
 
-export default function AddWaypointsCtrl() {
+export default function EditWaypointCtrl() {
   const history = useHistory();
+  const [waypointData, setWaypointData] = useState({});
+  const { waypointId } = useParams();
   // ===============================================================
   // FORM DATA
-  // @desc state variables that map back to what the user has selected.
-  //        These variables are updated when the user changes any form
-  //        controls for a waypoint.
   // ===============================================================
   const [tags, setTags] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -30,12 +31,8 @@ export default function AddWaypointsCtrl() {
   const [waypointName, setWaypointName] = useState("");
   const [description, setDescription] = useState("");
   const [plants, setPlants] = useState([]);
-
   // ===============================================================
   // SELECTION DATA
-  // @desc state variables that hold EXISTING data. These variables
-  //        allow the user to see what is currently in the DB, and select
-  //        from that existing data. We immediately query for these on mount.
   // ===============================================================
   const [eLocations, setELocations] = useState([]);
   const [eImages, setEImages] = useState([]);
@@ -46,6 +43,7 @@ export default function AddWaypointsCtrl() {
   const [ePlants, setEPlants] = useState([]);
 
   useEffect(async () => {
+    await queryWaypoint();
     await queryLocations();
     await queryImages();
     await queryAudios();
@@ -102,11 +100,15 @@ export default function AddWaypointsCtrl() {
     setEPlants(result);
   };
 
+  const queryWaypoint = async () => {
+    if (!waypointId) return console.log("waypoint id is invalid");
+    const result = await getWaypoint(waypointId);
+    if (result.error) return console.log("unable to fetch waypoint");
+    setWaypointData(result);
+  };
+
   // ===============================================================
   // INPUT WATCHERS AND SETTERS
-  // @desc functions that watch for state updates in child components.
-  //        These functions are used as setters, and when a form-control
-  //        is updated, these functions update this component's state to match.
   // ===============================================================
 
   const categoriesChanged = (data) => {
@@ -156,7 +158,11 @@ export default function AddWaypointsCtrl() {
     setPlants(mappedData);
   };
 
-  const handlePublish = async () => {
+  // ===============================================================
+  // POST
+  // ===============================================================
+
+  const handleUpdate = async () => {
     const waypoint = {
       waypoint_name: waypointName,
       description: description,
@@ -170,14 +176,15 @@ export default function AddWaypointsCtrl() {
       plants: plants,
     };
 
-    const result = await createWaypoint(waypoint);
-    if (result.error) return console.log("error creating waypoint");
+    const result = await updateWaypoint(waypointId, waypoint);
+    if (result.error) return console.log("error updating waypoint");
     history.push("/waypoints");
   };
 
   return (
-    <AddWaypoints
+    <EditWaypoint
       // WATCHERS
+      waypointData={waypointData}
       categoriesChanged={categoriesChanged}
       tagsChanged={tagsChanged}
       locationsChanged={locationsChanged}
@@ -188,6 +195,7 @@ export default function AddWaypointsCtrl() {
       waypointNameChanged={waypointNameChanged}
       descriptionChanged={descriptionChanged}
       plantsChanged={plantsChanged}
+      handleUpdate={handleUpdate}
       // SELECTION DATA
       eLocations={eLocations}
       eImages={eImages}
@@ -203,8 +211,6 @@ export default function AddWaypointsCtrl() {
       queryVideos={queryVideos}
       queryTags={queryTags}
       queryCategories={queryCategories}
-      // PUBLISH
-      handlePublish={handlePublish}
     />
   );
 }
