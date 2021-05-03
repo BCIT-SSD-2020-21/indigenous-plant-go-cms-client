@@ -18,15 +18,15 @@ import AddWaypoint from "../pages/waypoints/AddWaypoint";
 import EditWaypoint from "../pages/waypoints/EditWaypoint";
 import WaypointCategories from "../pages/waypoints/WaypointCategories";
 // 4.0 TOURS
-import AllTours from "../pages/tours/AllTours";
-import AddTour from "../pages/tours/AddTour";
-import EditTour from "../pages/tours/EditTour";
-import TourCategories from "../pages/tours/TourCategories";
+// import AllTours from "../pages/tours/AllTours";
+// import AddTour from "../pages/tours/AddTour";
+// import EditTour from "../pages/tours/EditTour";
+// import TourCategories from "../pages/tours/TourCategories";
 // 5.0 LEARN MORE
-import AllLearnMore from "../pages/learnmore/AllLearnMore";
-import AddLearnMore from "../pages/learnmore/AddLearnMore";
-import EditLearnMore from "../pages/learnmore/EditLearnMore";
-import LearnMoreCategories from "../pages/learnmore/LearnMoreCategories";
+// import AllLearnMore from "../pages/learnmore/AllLearnMore";
+// import AddLearnMore from "../pages/learnmore/AddLearnMore";
+// import EditLearnMore from "../pages/learnmore/EditLearnMore";
+// import LearnMoreCategories from "../pages/learnmore/LearnMoreCategories";
 // 6.0 USERS
 import AllUsers from "../pages/users/AllUsers";
 import AddUser from "../pages/users/AddUser";
