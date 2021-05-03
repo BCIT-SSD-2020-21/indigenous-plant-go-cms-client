@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ListTags from "../../../components/List/Tags";
-import { getTags, createTag, deleteTag, updateTag } from "../../../network";
+import {
+  getTags,
+  createTag,
+  deleteTag,
+  updateTag,
+  bulkDeleteTags,
+} from "../../../network";
 
 export default function ListTagsCtrl() {
   const [newTag, setNewTag] = useState("");
@@ -16,6 +22,7 @@ export default function ListTagsCtrl() {
   const [pendingEdit, setPendingEdit] = useState({});
   const [modalActive, setModalActive] = useState(false);
   const [modalState, setModalState] = useState("delete");
+  const [bulkAction, setBulkAction] = useState("");
   const [editTag, setEditTag] = useState("");
 
   useEffect(() => {
@@ -183,6 +190,28 @@ export default function ListTagsCtrl() {
     queryTags();
   };
 
+  const handleBulkActionChange = (_, data) => {
+    const value = data.value;
+    console.log(data.value);
+    setBulkAction(value);
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedTags.length < 1) return console.log("no tags selected");
+    if (bulkAction === "default")
+      return console.log("cannot bulk delete if bulk action is set to default");
+    setModalState("bulk");
+    setModalActive(true);
+  };
+
+  const applyBulkDelete = async () => {
+    const result = await bulkDeleteTags(selectedTags);
+    if (result.error) return console.log("Unable to bulk delete plants");
+    closeModal();
+    setSelectedTags([]);
+    queryTags();
+  };
+
   return (
     <ListTags
       tags={tags_}
@@ -212,6 +241,9 @@ export default function ListTagsCtrl() {
       handleEdit={handleEdit}
       applyEdit={applyEdit}
       pendingEdit={pendingEdit}
+      handleBulkActionChange={handleBulkActionChange}
+      handleBulkDelete={handleBulkDelete}
+      applyBulkDelete={applyBulkDelete}
     />
   );
 }

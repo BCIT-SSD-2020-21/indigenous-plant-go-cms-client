@@ -51,7 +51,21 @@ export default function ListTags({
   // EDIT -- Attributes
   pendingEdit,
   editTagValue,
+  // BULK DELETE
+  handleBulkActionChange,
+  handleBulkDelete,
+  applyBulkDelete,
 }) {
+  const renderModal = () => {
+    switch (modalState) {
+      case "edit":
+        return editModal();
+      case "delete":
+        return deleteModal();
+      case "bulk":
+        return bulkDeleteModal();
+    }
+  };
   const editModal = () => (
     <>
       <fieldset style={style.fieldset}>
@@ -97,6 +111,35 @@ export default function ListTags({
       </button>
     </>
   );
+
+  const bulkDeleteModal = () => (
+    <>
+      <p>
+        Deleting&nbsp;
+        <strong style={{ color: "var(--danger)" }}>
+          {selectedTags.length}
+        </strong>
+        &nbsp;plants will remove{" "}
+        <strong
+          style={{
+            color: "var(--danger)",
+            fontWeight: "700",
+            textTransform: "uppercase",
+          }}
+        >
+          all
+        </strong>{" "}
+        instances of the deleted tags. Do you wish to proceed?
+      </p>
+      <button onClick={() => applyBulkDelete()} className="field__button">
+        Yes, I know what I am doing.
+      </button>
+      <button onClick={() => closeModal()} className="field__button secondary">
+        No, cancel my request.
+      </button>
+    </>
+  );
+
   return (
     <div>
       <DashHeader title="Tags" />
@@ -128,13 +171,14 @@ export default function ListTags({
               <div className="table__action">
                 <Dropdown
                   placeholder={"Bulk Actions"}
+                  onChange={(e, data) => handleBulkActionChange(e, data)}
                   selection
                   options={[
                     { key: "default", value: "default", text: "Bulk Actions" },
                     { key: "delete", value: "delete", text: "Delete" },
                   ]}
                 />
-                <button>Apply</button>
+                <button onClick={() => handleBulkDelete()}>Apply</button>
               </div>
             </div>
 
@@ -200,11 +244,13 @@ export default function ListTags({
             title={
               modalState === "delete"
                 ? `Delete ${pendingDelete.tag_name}?`
-                : `Edit ${pendingEdit?.tag_name}`
+                : modalState === "edit"
+                ? `Edit ${pendingEdit?.tag_name}`
+                : `Delete all ${selectedTags.length} tags?`
             }
             closeModal={closeModal}
           >
-            {modalState === "delete" ? deleteModal() : editModal()}
+            {renderModal()}
           </Modal>
         </div>
       </div>

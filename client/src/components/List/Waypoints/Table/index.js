@@ -70,7 +70,7 @@ export default function Table({
                     ? waypoint.revision_history[
                         waypoint.revision_history.length - 1
                       ].user[0].user_name
-                    : "deleted user"}
+                    : "user not found"}
                 </p>
               </div>
               <div className="table__col categories">
@@ -87,8 +87,10 @@ export default function Table({
                 <p>
                   {waypoint && waypoint.revision_history.length > 0 && (
                     <>
-                      {lastRevision.date} by{" "}
-                      {lastRevision.user ? lastRevision.user : "deleted user"}
+                      {typeof lastRevision.date === "string" &&
+                      typeof lastRevision.user === "string"
+                        ? `${lastRevision.user} by ${lastRevision.date}`
+                        : "Sorry, could not fetch revision history."}
                     </>
                   )}
                 </p>

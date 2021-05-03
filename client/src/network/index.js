@@ -347,6 +347,34 @@ export const getTags = async () => {
   }
 };
 
+export const bulkDeleteTags = async (array) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const deleteRequests = array.map((tagId) =>
+      axios.delete(`${BASE_URL}/tags/${tagId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    );
+
+    const responses = await Promise.all(deleteRequests);
+    return responses;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
 export const getAllCategories = async () => {
   try {
     const response = await axios.get(`${BASE_URL}/categories`);
