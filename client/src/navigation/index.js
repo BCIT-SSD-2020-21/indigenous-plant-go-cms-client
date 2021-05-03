@@ -120,17 +120,17 @@ export default function Navigation() {
         />
 
         {/* 4.0 TOURS */}
-        <PrivateRoute exact path="/tours" component={AllTours} />
+        {/* <PrivateRoute exact path="/tours" component={AllTours} />
         <PrivateRoute exact path="/tours/add" component={AddTour} />
         <PrivateRoute exact path="/tours/edit/:tourId" component={EditTour} />
         <PrivateRoute
           exact
           path="/tours/categories"
           component={TourCategories}
-        />
+        /> */}
 
         {/* 5.0 LEARN MORE */}
-        <PrivateRoute exact path="/learnmore" component={AllLearnMore} />
+        {/* <PrivateRoute exact path="/learnmore" component={AllLearnMore} />
         <PrivateRoute exact path="/learnmore/add" component={AddLearnMore} />
         <PrivateRoute
           exact
@@ -141,7 +141,7 @@ export default function Navigation() {
           exact
           path="/learnmore/categories"
           component={LearnMoreCategories}
-        />
+        /> */}
 
         {/* 6.0 USERS */}
         <PrivateRoute exact path="/users" component={AllUsers} />
