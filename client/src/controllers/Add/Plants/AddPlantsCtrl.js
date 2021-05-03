@@ -15,6 +15,9 @@ export default function AddPlantsCtrl() {
   const history = useHistory();
   // ===============================================================
   // FORM DATA
+  // @desc state variables that map back to what the user has selected.
+  //        These variables are updated when the user changes any form
+  //        controls for a plant.
   // ===============================================================
   const [tags, setTags] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -26,8 +29,12 @@ export default function AddPlantsCtrl() {
   const [plantName, setPlantName] = useState("");
   const [scientificName, setScientificName] = useState("");
   const [description, setDescription] = useState("");
+
   // ===============================================================
   // SELECTION DATA
+  // @desc state variables that hold EXISTING data. These variables
+  //        allow the user to see what is currently in the DB, and select
+  //        from that existing data. We immediately query for these on mount.
   // ===============================================================
   const [eLocations, setELocations] = useState([]);
   const [eImages, setEImages] = useState([]);
@@ -47,6 +54,8 @@ export default function AddPlantsCtrl() {
 
   // ===============================================================
   // NETWORK QUERIES FOR EXISTING DATA
+  // @desc queries locations, media, categories, and tags to display
+  //       available options when creating a plant.
   // ===============================================================
   const queryLocations = async () => {
     const result = await getLocations();
@@ -86,6 +95,9 @@ export default function AddPlantsCtrl() {
 
   // ===============================================================
   // INPUT WATCHERS AND SETTERS
+  // @desc functions that watch for state updates in child components.
+  //        These functions are used as setters, and when a form-control
+  //        is updated, these functions update this component's state to match.
   // ===============================================================
 
   const categoriesChanged = (data) => {
@@ -136,6 +148,7 @@ export default function AddPlantsCtrl() {
 
   // ===============================================================
   // POST
+  // @desc Publishes the new Plant.
   // ===============================================================
 
   const handlePublish = async () => {
@@ -159,6 +172,7 @@ export default function AddPlantsCtrl() {
 
   return (
     <AddPlants
+      // WATCHERS
       categoriesChanged={categoriesChanged}
       tagsChanged={tagsChanged}
       locationsChanged={locationsChanged}
