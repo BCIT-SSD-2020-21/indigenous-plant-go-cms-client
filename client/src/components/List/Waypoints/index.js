@@ -1,18 +1,18 @@
 import React from "react";
+import Table from "./Table";
 import DashHeader from "../../DashHeader";
+import { useHistory } from "react-router-dom";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 import { ResetIcon } from "../../../icons";
-import Table from "./Table";
-import { useHistory } from "react-router-dom";
 import Modal from "../../Modal";
 
 /*
-  @desc UI component that Lists Plants and allows the list to be managed.
-  @controller ~/src/controllers/List/Plants/ListPlantsCtrl.js
+  @desc UI component that Lists Waypoints and allows the list to be managed.
+  @controller ~/src/controllers/List/Waypoints/ListWaypointsCtrl.js
 */
-export default function ListPlants({
+export default function ListWaypoints({
   // Data to List: plantData
-  plantData,
+  waypointData,
   // SEARCH -- Attributes
   searchQuery,
   // SEARCH -- Methods
@@ -33,7 +33,7 @@ export default function ListPlants({
   prevPage,
   nextPage,
   // BATCH SELECT -- Attributes
-  selectedPlants,
+  selectedWaypoints,
   // BATCH SELECT -- Methods
   batchSelect,
   handleSelected,
@@ -42,7 +42,6 @@ export default function ListPlants({
   // BULK ACTION -- Methods
   handleBulkActionChange,
   handleBulkDelete,
-  applyBulkDelete,
   // MODAL -- Attributes
   modalActive,
   modalState,
@@ -61,44 +60,14 @@ export default function ListPlants({
         return (
           <>
             <p>
-              Deleting this plant will remove all instances of the plant&nbsp;
+              Deleting this plant will remove all instances of the
+              waypoint&nbsp;
               <strong style={{ color: "var(--danger)" }}>
-                {pendingDelete.plant_name}
+                {pendingDelete.waypoint_name}
               </strong>
               . Do you wish to proceed?
             </p>
             <button onClick={() => applyDelete()} className="field__button">
-              Yes, I know what I am doing.
-            </button>
-            <button
-              onClick={() => closeModal()}
-              className="field__button secondary"
-            >
-              No, cancel my request.
-            </button>
-          </>
-        );
-      case "bulk":
-        return (
-          <>
-            <p>
-              Deleting&nbsp;
-              <strong style={{ color: "var(--danger)" }}>
-                {selectedPlants.length}
-              </strong>
-              &nbsp;plants will remove{" "}
-              <strong
-                style={{
-                  color: "var(--danger)",
-                  fontWeight: "700",
-                  textTransform: "uppercase",
-                }}
-              >
-                all
-              </strong>{" "}
-              instances of the deleted plants. Do you wish to proceed?
-            </p>
-            <button onClick={() => applyBulkDelete()} className="field__button">
               Yes, I know what I am doing.
             </button>
             <button
@@ -114,12 +83,12 @@ export default function ListPlants({
   return (
     <div>
       <DashHeader
-        title="Plants"
+        title="Waypoints"
         action="Add New"
-        method={() => history.push("/plants/add")}
+        method={() => history.push("/waypoints/add")}
       />
       <p>
-        <strong>Results</strong> ({plantData.length})
+        <strong>Results</strong> ({waypointData.length})
       </p>
       <div className="table__controls">
         <div style={{ display: "flex" }}>
@@ -208,9 +177,9 @@ export default function ListPlants({
         </div>
 
         <Table
-          plantData={hasPages ? pages[page - 1] : plantData}
+          waypointData={hasPages ? pages[page - 1] : waypointData}
           handleSelected={handleSelected}
-          selectedPlants={selectedPlants}
+          selectedWaypoints={selectedWaypoints}
           handleDelete={handleDelete}
         />
       </form>
@@ -236,8 +205,8 @@ export default function ListPlants({
         isActive={modalActive}
         title={
           modalState === "single"
-            ? `Delete ${pendingDelete.plant_name}?`
-            : `Delete all ${selectedPlants.length} plants?`
+            ? `Delete ${pendingDelete.waypoint_name}?`
+            : `Delete all`
         }
         subtitle={modalState === "single" ? null : `Bulk Delete`}
         closeModal={closeModal}
