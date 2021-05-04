@@ -35,6 +35,10 @@ If an array field is not provided it will default to empty array
 
 On create, a new revision will be set base on the user creating the tour
 
+If the array field (images, audio_files, videos, tags, categories, plants, waypoints, custom_fields) is provided they must be an array, and all except custom_fields must be array of string formatted as objectId
+
+If custom_field is provided, the array of object must contain _id, field_title, and content in each object
+
 Custom field's _id must be an valid objectId string, meaning it is hexidecimal string of certain length
 
 # SUCCESS RESPONSE BODY
