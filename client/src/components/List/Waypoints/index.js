@@ -1,26 +1,27 @@
 import React from "react";
 import Table from "./Table";
 import DashHeader from "../../DashHeader";
+import { useHistory } from "react-router-dom";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 import { ResetIcon } from "../../../icons";
 import Modal from "../../Modal";
 
 /*
-  @desc UI component that Lists Users and allows the list to be managed.
-  @controller ~/src/controllers/List/Users/ListUsersCtrl.js
+  @desc UI component that Lists Waypoints and allows the list to be managed.
+  @controller ~/src/controllers/List/Waypoints/ListWaypointsCtrl.js
 */
-export default function ListUsers({
-  // Data to List: userDatas
-  userDatas,
+export default function ListWaypoints({
+  // Data to List: plantData
+  waypointData,
   // SEARCH -- Attributes
   searchQuery,
   // SEARCH -- Methods
   handleQueryChange,
   clearSearch,
   // FILTERS -- Attributes
-  roleFilter,
+  categoryFilter,
+  categories,
   // FILTERS -- Methods
-  roleSelection,
   handleFilterChange,
   applyFilters,
   resetFilters,
@@ -29,10 +30,10 @@ export default function ListUsers({
   pages,
   page,
   // PAGINATION -- Methods
-  nextPage,
   prevPage,
+  nextPage,
   // BATCH SELECT -- Attributes
-  selectedUsers,
+  selectedWaypoints,
   // BATCH SELECT -- Methods
   batchSelect,
   handleSelected,
@@ -51,57 +52,22 @@ export default function ListUsers({
   // DELETE -- Methods
   handleDelete,
   applyDelete,
-  // BULK DELETE -- Methods
-  applyBulkDelete,
 }) {
+  const history = useHistory();
   const renderModal = () => {
     switch (modalState) {
       case "single":
         return (
           <>
             <p>
-              Deleting{" "}
+              Deleting this plant will remove all instances of the
+              waypoint&nbsp;
               <strong style={{ color: "var(--danger)" }}>
-                {pendingDelete.user_name}'s
-              </strong>{" "}
-              account is
-              <strong style={{ color: "var(--danger)" }}>
-                &nbsp;permanent
+                {pendingDelete.waypoint_name}
               </strong>
               . Do you wish to proceed?
             </p>
             <button onClick={() => applyDelete()} className="field__button">
-              Yes, I know what I am doing.
-            </button>
-            <button
-              onClick={() => closeModal()}
-              className="field__button secondary"
-            >
-              No, cancel my request.
-            </button>
-          </>
-        );
-      case "bulk":
-        return (
-          <>
-            <p>
-              Deleting&nbsp;
-              <strong style={{ color: "var(--danger)" }}>
-                {selectedUsers.length}
-              </strong>
-              &nbsp;users will remove{" "}
-              <strong
-                style={{
-                  color: "var(--danger)",
-                  fontWeight: "700",
-                  textTransform: "uppercase",
-                }}
-              >
-                all
-              </strong>{" "}
-              instances of the deleted users. Do you wish to proceed?
-            </p>
-            <button onClick={() => applyBulkDelete()} className="field__button">
               Yes, I know what I am doing.
             </button>
             <button
@@ -117,15 +83,13 @@ export default function ListUsers({
   return (
     <div>
       <DashHeader
-        title="All Users"
-        subtitle="Manage Users"
+        title="Waypoints"
         action="Add New"
-        method={() => console.log("Add New")}
+        method={() => history.push("/waypoints/add")}
       />
       <p>
-        <strong>Results</strong> ({userDatas.length})
+        <strong>Results</strong> ({waypointData.length})
       </p>
-
       <div className="table__controls">
         <div style={{ display: "flex" }}>
           <div className="table__action">
@@ -143,7 +107,7 @@ export default function ListUsers({
           </div>
 
           <div className="table__action">
-            {roleFilter !== "default" && (
+            {categoryFilter !== "default" && (
               <button
                 onClick={() => resetFilters()}
                 className="sub__action resets"
@@ -155,14 +119,14 @@ export default function ListUsers({
               </button>
             )}
             <Dropdown
-              placeholder={"All Roles"}
+              placeholder={"All Categories"}
               selection
               search
               onChange={(e, data) => handleFilterChange(e, data)}
-              value={roleFilter}
+              value={categoryFilter}
               options={[
-                { key: "default", value: "default", text: "All Roles" },
-                ...roleSelection,
+                { key: "default", value: "default", text: "All Categories" },
+                ...categories,
               ]}
             />
             <button onClick={() => applyFilters()}>Filter</button>
@@ -186,7 +150,6 @@ export default function ListUsers({
           </div>
         </div>
       </div>
-
       <form>
         <div className="table__heading table__row">
           <div className="table__col head select">
@@ -197,23 +160,29 @@ export default function ListUsers({
             />
           </div>
           <div className="table__col head title">
-            <h3>Username</h3>
+            <h3>Title</h3>
           </div>
           <div className="table__col head author">
-            <h3>Role</h3>
+            <h3>Author</h3>
           </div>
           <div className="table__col head categories">
-            <h3>Email</h3>
+            <h3>Categories</h3>
+          </div>
+          <div className="table__col head tags">
+            <h3>Tags</h3>
+          </div>
+          <div className="table__col head updated">
+            <h3>Last Updated</h3>
           </div>
         </div>
-      </form>
 
-      <Table
-        userDatas={hasPages ? pages[page - 1] : userDatas}
-        selectedUsers={selectedUsers}
-        handleSelected={handleSelected}
-        handleDelete={handleDelete}
-      />
+        <Table
+          waypointData={hasPages ? pages[page - 1] : waypointData}
+          handleSelected={handleSelected}
+          selectedWaypoints={selectedWaypoints}
+          handleDelete={handleDelete}
+        />
+      </form>
       {hasPages && (
         <div className="pagination__control">
           <div>
@@ -236,8 +205,8 @@ export default function ListUsers({
         isActive={modalActive}
         title={
           modalState === "single"
-            ? `Delete ${pendingDelete.user_name}?`
-            : `Delete all ${selectedUsers.length} users?`
+            ? `Delete ${pendingDelete.waypoint_name}?`
+            : `Delete all`
         }
         subtitle={modalState === "single" ? null : `Bulk Delete`}
         closeModal={closeModal}

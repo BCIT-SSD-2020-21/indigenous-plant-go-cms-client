@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
-import AddPlants from "../../../components/Add/Plants";
+import EditWaypoint from "../../../components/Edit/Waypoint";
+import { getWaypoint } from "../../../network";
 import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   getLocations,
   getImages,
@@ -8,11 +10,14 @@ import {
   getVideos,
   getTags,
   getCategoryGroup,
-  createPlant,
+  getAllPlants,
+  updateWaypoint,
 } from "../../../network";
 
-export default function AddPlantsCtrl() {
+export default function EditWaypointCtrl() {
   const history = useHistory();
+  const [waypointData, setWaypointData] = useState({});
+  const { waypointId } = useParams();
   // ===============================================================
   // FORM DATA
   // @desc form control data
@@ -24,10 +29,9 @@ export default function AddPlantsCtrl() {
   const [audioFiles, setAudioFiles] = useState([]);
   const [videos, setVideos] = useState([]);
   const [customFields, setCustomFields] = useState([]);
-  const [plantName, setPlantName] = useState("");
-  const [scientificName, setScientificName] = useState("");
+  const [waypointName, setWaypointName] = useState("");
   const [description, setDescription] = useState("");
-
+  const [plants, setPlants] = useState([]);
   // ===============================================================
   // SELECTION DATA
   // @desc data that appears as options in select boxes.
@@ -38,19 +42,22 @@ export default function AddPlantsCtrl() {
   const [eVideos, setEVideos] = useState([]);
   const [eTags, setETags] = useState([]);
   const [eCategories, setECategories] = useState([]);
+  const [ePlants, setEPlants] = useState([]);
 
   useEffect(async () => {
+    await queryWaypoint();
     await queryLocations();
     await queryImages();
     await queryAudios();
     await queryVideos();
     await queryTags();
     await queryCategories();
+    await queryPlants();
   }, []);
 
   // ===============================================================
   // NETWORK QUERIES FOR EXISTING DATA
-  // @desc queries for existing data
+  // @desc queries for existing data in the database, and delegates to selection data
   // ===============================================================
   const queryLocations = async () => {
     const result = await getLocations();
@@ -83,9 +90,22 @@ export default function AddPlantsCtrl() {
   };
 
   const queryCategories = async () => {
-    const result = await getCategoryGroup("plant");
+    const result = await getCategoryGroup("waypoint");
     if (result.error) return console.log("error getting categories");
     setECategories(result);
+  };
+
+  const queryPlants = async () => {
+    const result = await getAllPlants();
+    if (result.error) return console.log("error getting plants");
+    setEPlants(result);
+  };
+
+  const queryWaypoint = async () => {
+    if (!waypointId) return console.log("waypoint id is invalid");
+    const result = await getWaypoint(waypointId);
+    if (result.error) return console.log("unable to fetch waypoint");
+    setWaypointData(result);
   };
 
   // ===============================================================
@@ -127,27 +147,26 @@ export default function AddPlantsCtrl() {
     setCustomFields(data);
   };
 
-  const plantNameChanged = (data) => {
-    setPlantName(data);
-  };
-
-  const scientificNameChanged = (data) => {
-    setScientificName(data);
+  const waypointNameChanged = (data) => {
+    setWaypointName(data);
   };
 
   const descriptionChanged = (data) => {
     setDescription(data);
   };
 
+  const plantsChanged = (data) => {
+    const mappedData = data.map((d) => d._id);
+    setPlants(mappedData);
+  };
+
   // ===============================================================
   // POST
-  // @desc Publishes the new Plant.
+  // @desc updates the waypoint
   // ===============================================================
-
-  const handlePublish = async () => {
-    const plant = {
-      plant_name: plantName,
-      scientific_name: scientificName,
+  const handleUpdate = async () => {
+    const waypoint = {
+      waypoint_name: waypointName,
       description: description,
       images: images,
       audio_files: audioFiles,
@@ -156,15 +175,18 @@ export default function AddPlantsCtrl() {
       categories: categories,
       locations: locations,
       custom_fields: customFields,
+      plants: plants,
     };
 
-    const result = await createPlant(plant);
-    if (result.error) return console.log("error creating plant");
-    history.push("/plants");
+    const result = await updateWaypoint(waypointId, waypoint);
+    if (result.error) return console.log("error updating waypoint");
+    history.push("/waypoints");
   };
 
   return (
-    <AddPlants
+    <EditWaypoint
+      // WAYPOINT DATA
+      waypointData={waypointData}
       // WATCHERS
       categoriesChanged={categoriesChanged}
       tagsChanged={tagsChanged}
@@ -173,10 +195,10 @@ export default function AddPlantsCtrl() {
       audioFilesChanged={audioFilesChanged}
       customFieldsChanged={customFieldsChanged}
       videosChanged={videosChanged}
-      plantNameChanged={plantNameChanged}
-      scientificNameChanged={scientificNameChanged}
+      waypointNameChanged={waypointNameChanged}
       descriptionChanged={descriptionChanged}
-      handlePublish={handlePublish}
+      plantsChanged={plantsChanged}
+      handleUpdate={handleUpdate}
       // SELECTION DATA
       eLocations={eLocations}
       eImages={eImages}
@@ -184,6 +206,7 @@ export default function AddPlantsCtrl() {
       eVideos={eVideos}
       eTags={eTags}
       eCategories={eCategories}
+      ePlants={ePlants}
       // QUERIES
       queryLocations={queryLocations}
       queryImages={queryImages}

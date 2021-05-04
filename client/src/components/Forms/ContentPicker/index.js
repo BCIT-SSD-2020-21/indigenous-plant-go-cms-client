@@ -29,8 +29,6 @@ export default function ContentPicker({
         {label === "category"
           ? "Categories:"
           : `${label[0].toUpperCase()}${label.substring(1)}(s):`}
-
-        <span className="req">*</span>
       </label>
       {activeSelection && activeSelection.length > 0 && (
         <div className="textpicker__scroll">
@@ -85,11 +83,6 @@ export default function ContentPicker({
         />
         <button onClick={() => confirmSelection()}>
           Add Existing {`${label[0].toUpperCase()}${label.substring(1)}`}
-        </button>
-      </div>
-      <div className="textpicker__footer">
-        <button>
-          + Upload A New {`${label[0].toUpperCase()}${label.substring(1)}`}
         </button>
       </div>
     </div>

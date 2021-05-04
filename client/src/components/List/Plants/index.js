@@ -50,7 +50,7 @@ export default function ListPlants({
   closeModal,
   // DELETE -- Attributes
   pendingDelete,
-  // DELET -- Methods
+  // DELETE -- Methods
   handleDelete,
   applyDelete,
 }) {

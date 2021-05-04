@@ -5,6 +5,7 @@ import {
   createLocation,
   deleteLocation,
   updateLocation,
+  bulkDeleteLocations,
 } from "../../../network";
 
 export default function ListLocationsCtrl() {
@@ -28,6 +29,7 @@ export default function ListLocationsCtrl() {
   const [hasPages, setHasPages] = useState(false);
   const [pages, setPages] = useState([]);
   const [page, setPage] = useState(1);
+  const [bulkAction, setBulkAction] = useState("");
 
   useEffect(() => {
     queryLocations();
@@ -231,6 +233,29 @@ export default function ListLocationsCtrl() {
     setModalActive(false);
   };
 
+  const handleBulkActionChange = (_, data) => {
+    const value = data.value;
+    console.log(data.value);
+    setBulkAction(value);
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedLocations.length < 1)
+      return console.log("no locations selected");
+    if (bulkAction === "default")
+      return console.log("cannot bulk delete if bulk action is set to default");
+    setModalState("bulk");
+    setModalActive(true);
+  };
+
+  const applyBulkDelete = async () => {
+    const result = await bulkDeleteLocations(selectedLocations);
+    if (result.error) return console.log("Unable to bulk delete locations");
+    closeModal();
+    setSelectedLocations([]);
+    queryLocations();
+  };
+
   return (
     <ListLocations
       locations={locations_}
@@ -260,6 +285,9 @@ export default function ListLocationsCtrl() {
       hasPages={hasPages}
       nextPage={nextPage}
       prevPage={prevPage}
+      handleBulkActionChange={handleBulkActionChange}
+      handleBulkDelete={handleBulkDelete}
+      applyBulkDelete={applyBulkDelete}
     />
   );
 }

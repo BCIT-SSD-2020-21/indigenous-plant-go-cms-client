@@ -47,45 +47,45 @@ export const sidebarLinks = [
     ],
   },
   // Tours
-  {
-    label: "tours",
-    formattedLabel: "Tours",
-    navigationPath: "/tours",
-    subItems: [
-      {
-        label: "All Tours",
-        navigationPath: "/tours",
-      },
-      {
-        label: "Add New",
-        navigationPath: "/tours/add",
-      },
-      {
-        label: "Categories",
-        navigationPath: "/tours/categories",
-      },
-    ],
-  },
+  // {
+  //   label: "tours",
+  //   formattedLabel: "Tours",
+  //   navigationPath: "/tours",
+  //   subItems: [
+  //     {
+  //       label: "All Tours",
+  //       navigationPath: "/tours",
+  //     },
+  //     {
+  //       label: "Add New",
+  //       navigationPath: "/tours/add",
+  //     },
+  //     {
+  //       label: "Categories",
+  //       navigationPath: "/tours/categories",
+  //     },
+  //   ],
+  // },
   // LEARN MORE
-  {
-    label: "learnmore",
-    formattedLabel: "Learn More",
-    navigationPath: "/learnmore",
-    subItems: [
-      {
-        label: "All Learn More",
-        navigationPath: "/learnmore",
-      },
-      {
-        label: "Add New",
-        navigationPath: "/learnmore/add",
-      },
-      {
-        label: "Categories",
-        navigationPath: "/learnmore/categories",
-      },
-    ],
-  },
+  // {
+  //   label: "learnmore",
+  //   formattedLabel: "Learn More",
+  //   navigationPath: "/learnmore",
+  //   subItems: [
+  //     {
+  //       label: "All Learn More",
+  //       navigationPath: "/learnmore",
+  //     },
+  //     {
+  //       label: "Add New",
+  //       navigationPath: "/learnmore/add",
+  //     },
+  //     {
+  //       label: "Categories",
+  //       navigationPath: "/learnmore/categories",
+  //     },
+  //   ],
+  // },
   // USERS
   {
     label: "users",

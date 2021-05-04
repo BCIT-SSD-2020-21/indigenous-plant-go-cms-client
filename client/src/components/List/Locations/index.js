@@ -51,7 +51,22 @@ export default function ListLocations({
   // EDIT -- Attributes
   editLocation,
   pendingEdit,
+  //  BULK DELETE -- Methods
+  handleBulkActionChange,
+  handleBulkDelete,
+  applyBulkDelete,
 }) {
+  const renderModal = () => {
+    switch (modalState) {
+      case "edit":
+        return editModal();
+      case "delete":
+        return deleteModal();
+      case "bulk":
+        return bulkDeleteModal();
+    }
+  };
+
   const editModal = () => (
     <>
       <fieldset style={style.fieldset}>
@@ -136,6 +151,34 @@ export default function ListLocations({
       </button>
     </>
   );
+
+  const bulkDeleteModal = () => (
+    <>
+      <p>
+        Deleting&nbsp;
+        <strong style={{ color: "var(--danger)" }}>
+          {selectedLocations.length}
+        </strong>
+        &nbsp;locations will remove{" "}
+        <strong
+          style={{
+            color: "var(--danger)",
+            fontWeight: "700",
+            textTransform: "uppercase",
+          }}
+        >
+          all
+        </strong>{" "}
+        instances of the deleted locations. Do you wish to proceed?
+      </p>
+      <button onClick={() => applyBulkDelete()} className="field__button">
+        Yes, I know what I am doing.
+      </button>
+      <button onClick={() => closeModal()} className="field__button secondary">
+        No, cancel my request.
+      </button>
+    </>
+  );
   return (
     <div>
       <DashHeader title="Locations" />
@@ -209,13 +252,14 @@ export default function ListLocations({
               <div className="table__action">
                 <Dropdown
                   placeholder={"Bulk Actions"}
+                  onChange={(e, data) => handleBulkActionChange(e, data)}
                   selection
                   options={[
                     { key: "default", value: "default", text: "Bulk Actions" },
                     { key: "delete", value: "delete", text: "Delete" },
                   ]}
                 />
-                <button>Apply</button>
+                <button onClick={() => handleBulkDelete()}>Apply</button>
               </div>
             </div>
 
@@ -285,12 +329,14 @@ export default function ListLocations({
             isActive={modalActive}
             title={
               modalState === "delete"
-                ? `Delete ${pendingDelete.location_name}`
-                : `Edit ${pendingEdit.location_name}`
+                ? `Delete ${pendingDelete.location_name}?`
+                : modalState === "edit"
+                ? `Edit ${pendingEdit?.location_name}`
+                : `Delete all ${selectedLocations.length} tags?`
             }
             closeModal={closeModal}
           >
-            {modalState === "delete" ? deleteModal() : editModal()}
+            {renderModal()}
           </Modal>
         </div>
       </div>

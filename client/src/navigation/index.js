@@ -18,15 +18,15 @@ import AddWaypoint from "../pages/waypoints/AddWaypoint";
 import EditWaypoint from "../pages/waypoints/EditWaypoint";
 import WaypointCategories from "../pages/waypoints/WaypointCategories";
 // 4.0 TOURS
-import AllTours from "../pages/tours/AllTours";
-import AddTour from "../pages/tours/AddTour";
-import EditTour from "../pages/tours/EditTour";
-import TourCategories from "../pages/tours/TourCategories";
+// import AllTours from "../pages/tours/AllTours";
+// import AddTour from "../pages/tours/AddTour";
+// import EditTour from "../pages/tours/EditTour";
+// import TourCategories from "../pages/tours/TourCategories";
 // 5.0 LEARN MORE
-import AllLearnMore from "../pages/learnmore/AllLearnMore";
-import AddLearnMore from "../pages/learnmore/AddLearnMore";
-import EditLearnMore from "../pages/learnmore/EditLearnMore";
-import LearnMoreCategories from "../pages/learnmore/LearnMoreCategories";
+// import AllLearnMore from "../pages/learnmore/AllLearnMore";
+// import AddLearnMore from "../pages/learnmore/AddLearnMore";
+// import EditLearnMore from "../pages/learnmore/EditLearnMore";
+// import LearnMoreCategories from "../pages/learnmore/LearnMoreCategories";
 // 6.0 USERS
 import AllUsers from "../pages/users/AllUsers";
 import AddUser from "../pages/users/AddUser";
@@ -45,7 +45,6 @@ import Profile from "../pages/profile";
 import Login from "../pages/login";
 
 // Routes that should only be visible if authenticated.
-// TO DO: Write authentication context
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const authContext = useAuth();
   const { isAuthenticated } = authContext;
@@ -65,7 +64,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 };
 
 // Routes that should only be visible if NOT authenticated
-// TO DO: Write authentication context
 const AnonymousRoute = ({ component: Component, ...rest }) => {
   const authContext = useAuth();
   const { isAuthenticated } = authContext;
@@ -120,17 +118,17 @@ export default function Navigation() {
         />
 
         {/* 4.0 TOURS */}
-        <PrivateRoute exact path="/tours" component={AllTours} />
+        {/* <PrivateRoute exact path="/tours" component={AllTours} />
         <PrivateRoute exact path="/tours/add" component={AddTour} />
         <PrivateRoute exact path="/tours/edit/:tourId" component={EditTour} />
         <PrivateRoute
           exact
           path="/tours/categories"
           component={TourCategories}
-        />
+        /> */}
 
         {/* 5.0 LEARN MORE */}
-        <PrivateRoute exact path="/learnmore" component={AllLearnMore} />
+        {/* <PrivateRoute exact path="/learnmore" component={AllLearnMore} />
         <PrivateRoute exact path="/learnmore/add" component={AddLearnMore} />
         <PrivateRoute
           exact
@@ -141,7 +139,7 @@ export default function Navigation() {
           exact
           path="/learnmore/categories"
           component={LearnMoreCategories}
-        />
+        /> */}
 
         {/* 6.0 USERS */}
         <PrivateRoute exact path="/users" component={AllUsers} />

@@ -19,6 +19,7 @@ export default function EditPlantCtrl() {
   const { plantId } = useParams();
   // ===============================================================
   // FORM DATA
+  // @desc form control data
   // ===============================================================
   const [tags, setTags] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -30,8 +31,10 @@ export default function EditPlantCtrl() {
   const [plantName, setPlantName] = useState("");
   const [scientificName, setScientificName] = useState("");
   const [description, setDescription] = useState("");
+
   // ===============================================================
   // SELECTION DATA
+  // @desc data that appears as options in select boxes.
   // ===============================================================
   const [eLocations, setELocations] = useState([]);
   const [eImages, setEImages] = useState([]);
@@ -52,6 +55,7 @@ export default function EditPlantCtrl() {
 
   // ===============================================================
   // NETWORK QUERIES FOR EXISTING DATA
+  // @desc queries for existing data in the database, and delegates to selection data
   // ===============================================================
   const queryLocations = async () => {
     const result = await getLocations();
@@ -98,6 +102,7 @@ export default function EditPlantCtrl() {
 
   // ===============================================================
   // INPUT WATCHERS AND SETTERS
+  // @desc functions that watch updates in children components, and sets them here.
   // ===============================================================
 
   const categoriesChanged = (data) => {
@@ -148,8 +153,8 @@ export default function EditPlantCtrl() {
 
   // ===============================================================
   // POST
+  // @desc updates the Plant.
   // ===============================================================
-
   const handleUpdate = async () => {
     const plant = {
       plant_name: plantName,
@@ -171,6 +176,7 @@ export default function EditPlantCtrl() {
 
   return (
     <EditPlant
+      // METHODS
       handleUpdate={handleUpdate}
       categoriesChanged={categoriesChanged}
       tagsChanged={tagsChanged}

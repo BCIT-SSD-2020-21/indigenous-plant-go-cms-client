@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import AddPlants from "../../../components/Add/Plants";
+import AddWaypoints from "../../../components/Add/Waypoints";
 import { useHistory } from "react-router-dom";
 import {
   getLocations,
@@ -8,14 +8,17 @@ import {
   getVideos,
   getTags,
   getCategoryGroup,
-  createPlant,
+  getAllPlants,
+  createWaypoint,
 } from "../../../network";
 
-export default function AddPlantsCtrl() {
+export default function AddWaypointsCtrl() {
   const history = useHistory();
   // ===============================================================
   // FORM DATA
-  // @desc form control data
+  // @desc state variables that map back to what the user has selected.
+  //        These variables are updated when the user changes any form
+  //        controls for a waypoint.
   // ===============================================================
   const [tags, setTags] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -24,13 +27,15 @@ export default function AddPlantsCtrl() {
   const [audioFiles, setAudioFiles] = useState([]);
   const [videos, setVideos] = useState([]);
   const [customFields, setCustomFields] = useState([]);
-  const [plantName, setPlantName] = useState("");
-  const [scientificName, setScientificName] = useState("");
+  const [waypointName, setWaypointName] = useState("");
   const [description, setDescription] = useState("");
+  const [plants, setPlants] = useState([]);
 
   // ===============================================================
   // SELECTION DATA
-  // @desc data that appears as options in select boxes.
+  // @desc state variables that hold EXISTING data. These variables
+  //        allow the user to see what is currently in the DB, and select
+  //        from that existing data. We immediately query for these on mount.
   // ===============================================================
   const [eLocations, setELocations] = useState([]);
   const [eImages, setEImages] = useState([]);
@@ -38,6 +43,7 @@ export default function AddPlantsCtrl() {
   const [eVideos, setEVideos] = useState([]);
   const [eTags, setETags] = useState([]);
   const [eCategories, setECategories] = useState([]);
+  const [ePlants, setEPlants] = useState([]);
 
   useEffect(async () => {
     await queryLocations();
@@ -46,11 +52,13 @@ export default function AddPlantsCtrl() {
     await queryVideos();
     await queryTags();
     await queryCategories();
+    await queryPlants();
   }, []);
 
   // ===============================================================
   // NETWORK QUERIES FOR EXISTING DATA
-  // @desc queries for existing data
+  // @desc queries locations, media, categories, and tags to display
+  //       available options when creating a plant.
   // ===============================================================
   const queryLocations = async () => {
     const result = await getLocations();
@@ -83,14 +91,22 @@ export default function AddPlantsCtrl() {
   };
 
   const queryCategories = async () => {
-    const result = await getCategoryGroup("plant");
+    const result = await getCategoryGroup("waypoint");
     if (result.error) return console.log("error getting categories");
     setECategories(result);
   };
 
+  const queryPlants = async () => {
+    const result = await getAllPlants();
+    if (result.error) return console.log("error getting plants");
+    setEPlants(result);
+  };
+
   // ===============================================================
   // INPUT WATCHERS AND SETTERS
-  // @desc functions that watch updates in children components, and sets them here.
+  // @desc functions that watch for state updates in child components.
+  //        These functions are used as setters, and when a form-control
+  //        is updated, these functions update this component's state to match.
   // ===============================================================
 
   const categoriesChanged = (data) => {
@@ -127,27 +143,22 @@ export default function AddPlantsCtrl() {
     setCustomFields(data);
   };
 
-  const plantNameChanged = (data) => {
-    setPlantName(data);
-  };
-
-  const scientificNameChanged = (data) => {
-    setScientificName(data);
+  const waypointNameChanged = (data) => {
+    setWaypointName(data);
   };
 
   const descriptionChanged = (data) => {
     setDescription(data);
   };
 
-  // ===============================================================
-  // POST
-  // @desc Publishes the new Plant.
-  // ===============================================================
+  const plantsChanged = (data) => {
+    const mappedData = data.map((d) => d._id);
+    setPlants(mappedData);
+  };
 
   const handlePublish = async () => {
-    const plant = {
-      plant_name: plantName,
-      scientific_name: scientificName,
+    const waypoint = {
+      waypoint_name: waypointName,
       description: description,
       images: images,
       audio_files: audioFiles,
@@ -156,15 +167,16 @@ export default function AddPlantsCtrl() {
       categories: categories,
       locations: locations,
       custom_fields: customFields,
+      plants: plants,
     };
 
-    const result = await createPlant(plant);
-    if (result.error) return console.log("error creating plant");
-    history.push("/plants");
+    const result = await createWaypoint(waypoint);
+    if (result.error) return console.log("error creating waypoint");
+    history.push("/waypoints");
   };
 
   return (
-    <AddPlants
+    <AddWaypoints
       // WATCHERS
       categoriesChanged={categoriesChanged}
       tagsChanged={tagsChanged}
@@ -173,10 +185,9 @@ export default function AddPlantsCtrl() {
       audioFilesChanged={audioFilesChanged}
       customFieldsChanged={customFieldsChanged}
       videosChanged={videosChanged}
-      plantNameChanged={plantNameChanged}
-      scientificNameChanged={scientificNameChanged}
+      waypointNameChanged={waypointNameChanged}
       descriptionChanged={descriptionChanged}
-      handlePublish={handlePublish}
+      plantsChanged={plantsChanged}
       // SELECTION DATA
       eLocations={eLocations}
       eImages={eImages}
@@ -184,6 +195,7 @@ export default function AddPlantsCtrl() {
       eVideos={eVideos}
       eTags={eTags}
       eCategories={eCategories}
+      ePlants={ePlants}
       // QUERIES
       queryLocations={queryLocations}
       queryImages={queryImages}
@@ -191,6 +203,8 @@ export default function AddPlantsCtrl() {
       queryVideos={queryVideos}
       queryTags={queryTags}
       queryCategories={queryCategories}
+      // PUBLISH
+      handlePublish={handlePublish}
     />
   );
 }
