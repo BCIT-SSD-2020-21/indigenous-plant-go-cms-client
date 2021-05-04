@@ -52,6 +52,34 @@ module.exports = async function() {
       throw Error("Requires a password")
     }
 
+    //Type validation
+    if (typeof email === 'string' || email instanceof String) {
+      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      if(!(re.test(email.toLowerCase()))) {
+        throw Error("Email not formatted correctly")
+      }
+    } else {
+      throw Error("Email field must take a string")
+    }
+
+    if (user_name) {
+      if (!(typeof user_name === 'string' || user_name instanceof String)) {
+        throw Error("User_name field must take a string")
+      }
+    }
+
+    if (!(typeof password === 'string' || password instanceof String)) {
+      throw Error("Password field must take a string")
+    }
+
+    if (typeof role === 'string' || role instanceof String) {
+      if (!(role === 'Manager' || role === 'Admin')) {
+        throw Error("Invalid role, role must be Manager or Admin")
+      }
+    } else {
+      throw Error("Role field must take a string")
+    }
+
     //Hash password
     const encrypted = await bcrypt.hash(password, 12)
 
@@ -75,6 +103,10 @@ module.exports = async function() {
     })
     if (!user) {
       throw Error("Invalid user")
+    }
+
+    if (!(typeof password === 'string' || password instanceof String)) {
+      throw Error("Password field must take a string")
     }
 
     const same = await bcrypt.compare(password, user.password)
@@ -104,9 +136,30 @@ module.exports = async function() {
           throw Error("Username or email is already taken")
         }
       }
+
+      if (updatedUser.email) {
+        if (typeof updatedUser.email === 'string' || updatedUser.email instanceof String) {
+          const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+          if(!(re.test(updatedUser.email.toLowerCase()))) {
+            throw Error("Email not formatted correctly")
+          }
+        } else {
+          throw Error("Email field must take a string")
+        }
+      }
+
+      if (updatedUser.user_name) {
+        if (!(typeof updatedUser.user_name === 'string' || updatedUser.user_name instanceof String)) {
+          throw Error("User_name field must take a string")
+        }
+      }
     }
 
     if (updatedUser.password) {
+      if (!(typeof updatedUser.password === 'string' || updatedUser.password instanceof String)) {
+        throw Error("Password field must take a string")
+      }
+
       //Hash password
       const encrypted = await bcrypt.hash(updatedUser.password, 12)
       updatedUser.password = encrypted
@@ -115,6 +168,14 @@ module.exports = async function() {
     if (updatedUser.role) {
       if (userRole !== "Admin") {
         throw Error("No permission to update role")
+      }
+
+      if (typeof updatedUser.role === 'string' || updatedUser.role instanceof String) {
+        if (!(updatedUser.role === 'Manager' || updatedUser.role === 'Admin')) {
+          throw Error("Invalid role, role must be Manager or Admin")
+        }
+      } else {
+        throw Error("Role field must take a string")
       }
     }
 
