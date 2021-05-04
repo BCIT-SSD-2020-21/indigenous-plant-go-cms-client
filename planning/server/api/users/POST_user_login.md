@@ -20,6 +20,10 @@ For the user_name input you can also put the email like such:
   "password": "<encrypted>"
 }
 ```
+
+If user_name is not a string it will give message Invalid user
+
+If password is not a string, it will say so
   
 # EXAMPLE RESPONSE BODY
 ```

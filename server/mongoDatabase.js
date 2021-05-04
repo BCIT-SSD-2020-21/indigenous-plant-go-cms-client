@@ -48,11 +48,6 @@ module.exports = async function() {
       throw Error("Requires an email")
     }
 
-    if (!password) { //password can't be null
-      throw Error("Requires a password")
-    }
-
-    //Type validation
     if (typeof email === 'string' || email instanceof String) {
       const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       if(!(re.test(email.toLowerCase()))) {
@@ -66,6 +61,10 @@ module.exports = async function() {
       if (!(typeof user_name === 'string' || user_name instanceof String)) {
         throw Error("User_name field must take a string")
       }
+    }
+
+    if (!password) { //password can't be null
+      throw Error("Requires a password")
     }
 
     if (!(typeof password === 'string' || password instanceof String)) {
@@ -256,18 +255,22 @@ module.exports = async function() {
 
   //Create
   //Post /api/images
-  async function createImage({url, updatedImage}) {
+  async function createImage({url, newImage}) {
     if (!url) {
       throw Error("Missing image")
     }
 
-    if (!updatedImage.caption) {
+    if (!newImage.caption) {
       throw Error("Missing caption")
+    }
+
+    if (!(typeof newImage.caption === 'string' || newImage.caption instanceof String)) {
+      throw Error("Caption field must take a string")
     }
 
     const result = await images.insertOne({
       image_url: url,
-      ...updatedImage
+      ...newImage
     })
     return result
   }
@@ -303,6 +306,12 @@ module.exports = async function() {
           image_url: url
         }}
       )
+    }
+
+    if (updatedImage.caption) {
+      if (!(typeof updatedImage.caption === 'string' || updatedImage.caption instanceof String)) {
+        throw Error("Caption field must take a string")
+      }
     }
 
     const result = await images.findOneAndUpdate(
@@ -350,18 +359,22 @@ module.exports = async function() {
 
   //Create
   //Post /api/audios
-  async function createAudio({url, updatedAudio}) {
+  async function createAudio({url, newAudio}) {
     if (!url) {
       throw Error("Missing audio")
     }
 
-    if (!updatedAudio.caption) {
+    if (!newAudio.caption) {
       throw Error("Missing caption")
+    }
+
+    if (!(typeof newAudio.caption === 'string' || newAudio.caption instanceof String)) {
+      throw Error("Caption field must take a string")
     }
 
     const result = await audios.insertOne({
       audio_file_url: url,
-      ...updatedAudio
+      ...newAudio
     })
     return result
   }
@@ -397,6 +410,12 @@ module.exports = async function() {
           audio_file_url: url
         }}
       )
+    }
+
+    if (updatedAudio.caption) {
+      if (!(typeof updatedAudio.caption === 'string' || updatedAudio.caption instanceof String)) {
+        throw Error("Caption field must take a string")
+      }
     }
 
     const result = await audios.findOneAndUpdate(
@@ -444,18 +463,22 @@ module.exports = async function() {
 
   //Create
   //Post /api/videos
-  async function createVideo({url, updatedVideo}) {
+  async function createVideo({url, newVideo}) {
     if (!url) {
       throw Error("Missing video")
     }
 
-    if (!updatedVideo.caption) {
+    if (!newVideo.caption) {
       throw Error("Missing caption")
+    }
+
+    if (!(typeof newVideo.caption === 'string' || newVideo.caption instanceof String)) {
+      throw Error("Caption field must take a string")
     }
 
     const result = await videos.insertOne({
       video_url: url,
-      ...updatedVideo
+      ...newVideo
     })
     return result
   }
@@ -491,6 +514,12 @@ module.exports = async function() {
           video_url: url
         }}
       )
+    }
+
+    if (updatedVideo.caption) {
+      if (!(typeof updatedVideo.caption === 'string' || updatedVideo.caption instanceof String)) {
+        throw Error("Caption field must take a string")
+      }
     }
 
     const result = await videos.findOneAndUpdate(

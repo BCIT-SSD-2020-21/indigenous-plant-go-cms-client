@@ -19,6 +19,10 @@ Example request: POST /api/videos?key=<API_KEY>
 
 The video file must have key name "video"
 
+If video is not a file type it will just return Missing video
+
+Caption must be a string
+
 # SUCCESS RESPONSE BODY
 ```
 {

@@ -17,6 +17,12 @@ Example request: POST /api/users
 
 Role is default to Manager if no role is inputed
 
+Email, user_name, password, role must be a string
+
+Email must be formatted like a email
+
+Role can only be Manager or Admin
+
 # EXAMPLE RESPONSE BODY
 ```
 {

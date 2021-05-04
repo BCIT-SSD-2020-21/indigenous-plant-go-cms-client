@@ -19,6 +19,10 @@ Example request: POST /api/audios?key=<API_KEY>
 
 The audio file must have key name "audio"
 
+If audio is not a file type it will just return Missing audio file
+
+Caption must be a string
+
 # SUCCESS RESPONSE BODY
 ```
 {

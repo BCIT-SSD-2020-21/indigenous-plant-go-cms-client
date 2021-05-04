@@ -19,6 +19,10 @@ Example request: POST /api/images?key=<API_KEY>
 
 The image file must have key name "image"
 
+If image is not a file type it will just return Missing image
+
+Caption must be a string
+
 # SUCCESS RESPONSE BODY
 ```
 {
