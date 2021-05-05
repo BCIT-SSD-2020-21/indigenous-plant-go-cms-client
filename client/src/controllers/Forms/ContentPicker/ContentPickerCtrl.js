@@ -86,7 +86,7 @@ export default function ContentPickerCtrl({
     @return none
   */
   const formatSelection = () => {
-    if (!selected) return;
+    if ((selected && selected.length < 1) || !selected) return;
     const formatted = selected.map((option) => {
       return {
         _id: option._id,

@@ -156,6 +156,7 @@ export default function EditWaypointCtrl() {
   };
 
   const plantsChanged = (data) => {
+    console.log(data);
     const mappedData = data.map((d) => d._id);
     setPlants(mappedData);
   };

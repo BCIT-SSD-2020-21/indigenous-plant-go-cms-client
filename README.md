@@ -63,7 +63,25 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
 
 ![image](/planning/database/ERD/ERDv3.png)
 
-### Wireframes
+### Mobile App Wireframes
+
+#### Home
+
+<img src="/planning/client/appwireframes/home.png" style="max-width: 31%" alt="home wireframe">
+
+#### Plant List, Detail & Search
+
+<img src="/planning/client/appwireframes/plant__list.png" style="max-width: 31%" alt="plant list wireframe">
+<img src="/planning/client/appwireframes/plant__detail.png" style="max-width: 31%" alt="plant detail wireframe">
+<img src="/planning/client/appwireframes/plant__search.png" style="max-width: 31%" alt="plant search wireframe">
+
+#### Waypoint List, Detail & Search
+
+<img src="/planning/client/appwireframes/waypoint__list.png" style="max-width: 31%" alt="waypoint list wireframe">
+<img src="/planning/client/appwireframes/waypoint__detail.png" style="max-width: 31%" alt="waypoint detail wireframe">
+<img src="/planning/client/appwireframes/waypoint__search.png" style="max-width: 31%" alt="waypoint search wireframe">
+
+### CMS Wireframes
 
 #### Home
 

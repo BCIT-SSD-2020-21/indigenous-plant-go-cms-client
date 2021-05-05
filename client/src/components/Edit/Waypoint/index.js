@@ -24,6 +24,7 @@ export default function EditWaypoint({
   waypointNameChanged,
   descriptionChanged,
   plantsChanged,
+  handleUpdate,
   // SELECTION DATA
   eLocations,
   eImages,
@@ -51,7 +52,7 @@ export default function EditWaypoint({
             : "Edit Waypoint"
         }
         action="Update"
-        method={() => console.log("update")}
+        method={() => handleUpdate()}
       />
       <div className="form__grid">
         <div className="col">
@@ -82,8 +83,7 @@ export default function EditWaypoint({
             label={"plant"}
             dataLabel={"plant"}
             data={ePlants}
-            selected={[]}
-            // selected={waypointData.plants}
+            selected={waypointData.plants}
             setter={(data) => plantsChanged(data)}
           />
         </div>
