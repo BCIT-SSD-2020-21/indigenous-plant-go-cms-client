@@ -1614,8 +1614,16 @@ module.exports = async function() {
       throw Error("Missing waypoint name")
     }
 
+    if (!(typeof newWaypoint.waypoint_name === 'string' || newWaypoint.waypoint_name instanceof String)) {
+      throw Error("Waypoint_name field must take a string")
+    }
+
     if (!newWaypoint.description) {
       throw Error("Missing description")
+    }
+
+    if (!(typeof newWaypoint.description === 'string' || newWaypoint.description instanceof String)) {
+      throw Error("Description field must take a string")
     }
 
     //Convert all passed in array of id to ObjectId
@@ -1993,6 +2001,18 @@ module.exports = async function() {
   //Update
   //PUT /api/waypoints/:waypointId
   async function updateWaypoint({waypointId, updatedWaypoint, user_id}) {
+    if (updatedWaypoint.waypoint_name) {
+      if (!(typeof updatedWaypoint.waypoint_name === 'string' || updatedWaypoint.waypoint_name instanceof String)) {
+        throw Error("Waypoint_name field must take a string")
+      }
+    }
+
+    if (updatedWaypoint.description) {
+      if (!(typeof updatedWaypoint.description === 'string' || updatedWaypoint.description instanceof String)) {
+        throw Error("Description field must take a string")
+      }
+    }
+
     //Convert all passed in array of id to ObjectId
     //User should get data of the waypoint when they start editing
     if (updatedWaypoint.images) {
@@ -2557,8 +2577,16 @@ module.exports = async function() {
       throw Error("Missing tour name")
     }
 
+    if (!(typeof newTour.tour_name === 'string' || newTour.tour_name instanceof String)) {
+      throw Error("Tour_name field must take a string")
+    }
+
     if (!newTour.description) {
       throw Error("Missing description")
+    }
+
+    if (!(typeof newTour.description === 'string' || newTour.description instanceof String)) {
+      throw Error("Description field must take a string")
     }
 
     //Convert all passed in array of id to ObjectId
@@ -3119,6 +3147,18 @@ module.exports = async function() {
   //Update
   //PUT /api/tours/:tourId
   async function updateTour({tourId, updatedTour, user_id}) {
+    if (updatedTour.tour_name) {
+      if (!(typeof updatedTour.tour_name === 'string' || updatedTour.tour_name instanceof String)) {
+        throw Error("Tour_name field must take a string")
+      }
+    }
+
+    if (updatedTour.description) {
+      if (!(typeof updatedTour.description === 'string' || updatedTour.description instanceof String)) {
+        throw Error("Description field must take a string")
+      }
+    }
+
     //Convert all passed in array of id to ObjectId
     //User should get data of the tour when they start editing
     if (updatedTour.images) {
@@ -3386,8 +3426,16 @@ module.exports = async function() {
       throw Error("Missing title")
     }
 
+    if (!(typeof newLearnMore.learn_more_title === 'string' || newLearnMore.learn_more_title instanceof String)) {
+      throw Error("Learn_more_title field must take a string")
+    }
+
     if (!newLearnMore.description) {
       throw Error("Missing description")
+    }
+
+    if (!(typeof newLearnMore.description === 'string' || newLearnMore.description instanceof String)) {
+      throw Error("Description field must take a string")
     }
    
     if (newLearnMore.images) {
@@ -3621,6 +3669,18 @@ module.exports = async function() {
   //Update
   //PUT /api/learn_more/:learnMoreId
   async function updateLearnMore({learnMoreId, updatedLearnMore, user_id}) {
+    if (updatedLearnMore.learn_more_title) {
+      if (!(typeof updatedLearnMore.learn_more_title === 'string' || updatedLearnMore.learn_more_title instanceof String)) {
+        throw Error("Learn_more_title field must take a string")
+      }
+    }
+
+    if (updatedLearnMore.description) {
+      if (!(typeof updatedLearnMore.description === 'string' || updatedLearnMore.description instanceof String)) {
+        throw Error("Description field must take a string")
+      }
+    }
+
     if (updatedLearnMore.images) {
       if (!Array.isArray(updatedLearnMore.images)) {
         throw Error("The field images must be array")
