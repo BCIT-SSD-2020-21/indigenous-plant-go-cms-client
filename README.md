@@ -67,19 +67,15 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
 
 #### Home
 
-<img src="/planning/client/appwireframes/home.png" style="max-width: 31%" alt="home wireframe">
+<img src="/planning/client/appwireframes/home.png" width="250" alt="home wireframe">
 
 #### Plant List, Detail & Search
 
-<img src="/planning/client/appwireframes/plant__list.png" width="250" alt="plant list wireframe">
-<img src="/planning/client/appwireframes/plant__detail.png" width="250" alt="plant detail wireframe">
-<img src="/planning/client/appwireframes/plant__search.png" width="250" alt="plant search wireframe">
+<img src="/planning/client/appwireframes/plant__list.png" width="250" alt="plant list wireframe"><img src="/planning/client/appwireframes/plant__detail.png" width="250" alt="plant detail wireframe"><img src="/planning/client/appwireframes/plant__search.png" width="250" alt="plant search wireframe">
 
 #### Waypoint List, Detail & Search
 
-<img src="/planning/client/appwireframes/waypoint__list.png" width="250" alt="waypoint list wireframe">
-<img src="/planning/client/appwireframes/waypoint__detail.png" width="250" alt="waypoint detail wireframe">
-<img src="/planning/client/appwireframes/waypoint__search.png" width="250" alt="waypoint search wireframe">
+<img src="/planning/client/appwireframes/waypoint__list.png" width="250" alt="waypoint list wireframe"><img src="/planning/client/appwireframes/waypoint__detail.png" width="250" alt="waypoint detail wireframe"><img src="/planning/client/appwireframes/waypoint__search.png" width="250" alt="waypoint search wireframe">
 
 ### CMS Wireframes
 
