@@ -15,6 +15,18 @@ module.exports = function({database, authorize, verifyKey}) {
     }
   })
 
+  //Get All published waypoints
+  //GET /api/waypoints/publish?key=<API_KEY>
+  router.get('/publish', verifyKey, async (req, res) => {
+    try {
+      const result = await database.getPublishedWaypoints()
+      res.send(result)
+    } catch (error) {
+      console.error(error)
+      res.status(401).send({error: error.message})
+    }
+  })
+
   //Create
   //POST /api/waypoints?key=<API_KEY>
   router.post('/', authorize, verifyKey, async (req, res) => {
