@@ -234,6 +234,7 @@ const seed = async () => {
       "audio_files" : [audio1._id],
       "locations" : [location1._id],
       "categories" : [plant_category1._id],
+      "isPublish" : true,
       "tags" : [tag1._id],
       //"custom_fields" : [custom_field1._id],
       "revision_history" : [
@@ -259,6 +260,7 @@ const seed = async () => {
       "categories" : [plant_category2._id],
       "tags" : [tag2._id],
       "revision_history" : [revision_history2._id],
+      "isPublish" : false,
       "custom_fields" : [
         { 
           "_id" : new ObjectID(),
@@ -293,6 +295,7 @@ const seed = async () => {
       "categories": [category3._id],
       "plants":[plant1._id, plant2._id],
       "revision_history": [revision_history1._id],
+      "isPublish" : true,
       "custom_fields" : [
         { 
           "_id" : new ObjectID(),
@@ -312,6 +315,7 @@ const seed = async () => {
       "categories": [category2._id],
       "plants":[plant2._id],
       "revision_history": [revision_history2._id],
+      "isPublish" : false,
       "custom_fields" : [
         { 
           "_id" : new ObjectID(),
