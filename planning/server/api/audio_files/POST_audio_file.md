@@ -19,6 +19,14 @@ Example request: POST /api/audios?key=<API_KEY>
 
 The audio file must have key name "audio"
 
+Audio and caption are both required
+- Returns "Missing audio file" or "Missing caption" if missing the field
+
+If audio is not a file type it will just return "Missing audio file"
+
+Caption must be a string
+- Returns "Caption field must take a string" otherwise
+
 # SUCCESS RESPONSE BODY
 ```
 {

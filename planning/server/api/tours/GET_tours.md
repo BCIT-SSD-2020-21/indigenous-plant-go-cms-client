@@ -62,12 +62,12 @@ Example request: GET /api/tours?key=<API_KEY>
       {
         "_id": "607e399e59c86677e2af6587",
         "waypoint_name": "The Indigenous Initiatives Gathering Place",
-        "location": {
+        "locations": [{
           "_id": "607e3ab0a0d3df815abfcfb1",
           "location_name": "SW1",
           "coordinates": "49.2508575,-123.0030182",
           "description": ""
-        },
+        }],
         "description:": "The Indigenous Gathering Place is a comfortable, welcoming and safe space for students, families and staff. Mi Chap Tukw, the BCIT Indigenous Gathering Place (IGP) is located on the Burnaby campus at SW1-1521.",
         "custom_fields": [
           {
@@ -123,12 +123,7 @@ Example request: GET /api/tours?key=<API_KEY>
             "_id": "607e399e59c86677e2af6587",
             "plant_name": "Lavender",
             "scientific_name": "Lavandula",
-            "location": [{
-              "_id": "607e3ab0a0d3df815abfcfb1",
-              "location_name": "Lot A",
-              "coordinates": "49°15&#39;16.2&quot;N 122°59&#39;53.7&quot;W",
-              "description": ""
-            }],
+            "locations": ["607e3ab0a0d3df815abfcfb1"],
             "description:": "Lavender is a perennial shrub with purple flowers that bloom during the summer.",
             "custom_fields": [
               {
@@ -142,87 +137,24 @@ Example request: GET /api/tours?key=<API_KEY>
                 "content": "<p>Sweet</p>"
               }
             ],
-            "images": [
-              {
-                "_id": "607e399e59c8feg7e2af65r7",
-                "image_url": "s3.aws.indigenousplantgo.com/images/lavender-1.jpg",
-                "caption": "lavender in a big field"
-              }
-            ],
-            "audio_files": [
-              {
-                "_id": "607e399459c86677e2af65r7",
-                "audio_file_url": "s3.aws.indigenousplantgo.com/audio/lavender-speech.mp3",
-                "caption": "A speech about lavender"
-              }
-            ],
-            "videos": [
-              {
-                "_id": "607e384559c86677e2af65r7",
-                "video_url": "s3.aws.indigenousplantgo.com/video/lavender-bloom.mp4",
-                "caption": "A lavender flower blooming timelapse"
-              }
-            ],
-            "tags": [
-              {
-                "_id": "607e4qwee59c86677e2af65r7",
-                "tag_name": "flower"
-              },
-              {
-                "_id": "607e4qwee59c86677e2ewe5r7",
-                "tag_name": "purple"
-              }
-            ],
-            "categories": [
-              {
-                "_id": "607e4qwee59c86677e2ewe3447",
-                "tag_name": "Prennenial"
-              }
-            ],
-            "revision_history": [
-              {
-                "_id": "607e3ab0a0d3df815abfcfb1",
-                "user": {
-                  "_id": "607e3ab0a0d3df815abfcfb1",
-                  "user_name": "Patrick Fortaleza",
-                  "email": "patrickfortaleza@gmail.com",
-                  "role": "Manager"
-                },
-                "date": "April 20, 2021 at 6:30am"
-              },
-              {
-                "_id": "607e3ab0a0d3df815abfcfb1",
-                "user": {
-                  "_id": "607e3ab0a0d3df815abfcfb1",
-                  "user_name": "Patrick Fortaleza",
-                  "email": "patrickfortaleza@gmail.com",
-                  "role": "Manager"
-                },
-                "date": "April 20, 2021 at 2:30am"
-              },
-            ]
+            "images": ["607e3ab0a0d3df815abfcfb1"],
+            "audio_files": ["607e3ab0a0d3df815abfcfb1"],
+            "videos": ["607e3ab0a0d3df815abfcfb1"],
+            "tags": ["607e3ab0a0d3df815abfcfb1", "607e3ab0a0d3df815abfcfb1"],
+            "categories": ["607e3ab0a0d3df815abfcfb1"],
+            "revision_history": ["607e3ab0a0d3df815abfcfb1", "607e3ab0a0d3df815abfcfb1"]
           }
           // ...Repeat
         ],
         "revision_history": [
           {
             "_id": "607e3ab0a0d3df815abfcfb1",
-            "user": {
-              "_id": "607e3ab0a0d3df815abfcfb1",
-              "user_name": "Patrick Fortaleza",
-              "email": "patrickfortaleza@gmail.com",
-              "role": "Manager"
-            },
+            "user": "607e3ab0a0d3df815abfcfb1",
             "date": "April 20, 2021 at 6:30am"
           },
           {
             "_id": "607e3ab0a0d3df815abfcfb1",
-            "user": {
-              "_id": "607e3ab0a0d3df815abfcfb1",
-              "user_name": "Patrick Fortaleza",
-              "email": "patrickfortaleza@gmail.com",
-              "role": "Manager"
-            },
+            "user": "607e3ab0a0d3df815abfcfb1",
             "date": "April 20, 2021 at 2:30am"
           }
         ]
@@ -293,22 +225,12 @@ Example request: GET /api/tours?key=<API_KEY>
         "revision_history": [
           {
             "_id": "607e3ab0a0d3df815abfcfb1",
-            "user": {
-              "_id": "607e3ab0a0d3df815abfcfb1",
-              "user_name": "Patrick Fortaleza",
-              "email": "patrickfortaleza@gmail.com",
-              "role": "Manager"
-            },
+            "user": "607e3ab0a0d3df815abfcfb1",
             "date": "April 20, 2021 at 6:30am"
           },
           {
             "_id": "607e3ab0a0d3df815abfcfb1",
-            "user": {
-              "_id": "607e3ab0a0d3df815abfcfb1",
-              "user_name": "Patrick Fortaleza",
-              "email": "patrickfortaleza@gmail.com",
-              "role": "Manager"
-            },
+            "user": "607e3ab0a0d3df815abfcfb1",
             "date": "April 20, 2021 at 2:30am"
           },
         ]

@@ -11,10 +11,17 @@ Example request: PUT /api/locations/607e399e59c8feg7e2af65r7?key=<API_KEY>
 ```
 { 
   "location_name": "Lot A",
-  "coordinates": "49°15&#39;16.2&quot;N 122°59&#39;53.7&quot;W",
+  "longitude": 39.45,
+  "latitude": 39.45,
   "description": ""
 }
 ```
+
+Location_name and description must be a string
+- Returns "Location_name field must take a string" or "Description field must take a string" otherwise
+
+Longitude and latitude must be a number
+- Returns "Longitude field must take a number" or "Latitude field must take a number" otherwise
 
 # SUCCESS RESPONSE BODY
 ```

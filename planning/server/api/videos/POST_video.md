@@ -19,6 +19,14 @@ Example request: POST /api/videos?key=<API_KEY>
 
 The video file must have key name "video"
 
+Video and caption are both required
+- Returns "Missing video" or "Missing caption" if missing the field
+
+If video is not a file type it will just return "Missing video"
+
+Caption must be a string
+- Returns "Caption field must take a string" otherwise
+
 # SUCCESS RESPONSE BODY
 ```
 {

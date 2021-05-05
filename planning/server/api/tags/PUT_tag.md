@@ -14,6 +14,9 @@ Example request: PUT /api/tags/607e399e59c8feg7e2af65r7?key=<API_KEY>
 }
 ```
 
+Tag_name must be a string
+- Returns "Tag_name field must take a string" otherwise
+
 # SUCCESS RESPONSE BODY
 ```
 "Tag updated"
