@@ -21,7 +21,9 @@ For the user_name input you can also put the email like such:
 }
 ```
 
-If user_name is not a string it will give message Invalid user
+User_name and password must be a string
+- Returns "Invalid user" if user_name is not a string, evaluate this first
+- Returns "Password field must take a string" if password is not a string
 
 If password is not a string, it will say so
   

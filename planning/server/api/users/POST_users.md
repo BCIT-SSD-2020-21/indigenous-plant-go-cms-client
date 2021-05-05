@@ -17,11 +17,17 @@ Example request: POST /api/users
 
 Role is default to Manager if no role is inputed
 
+Email and password are required
+- Returns "Requires an email" or "Requires a password" otherwise
+
 Email, user_name, password, role must be a string
+- Returns "Email field must take a string" or any of their respective field must take a string otherwise
 
 Email must be formatted like a email
+- Returns "Email not formatted correctly" otherwise
 
 Role can only be Manager or Admin
+- Returns "Invalid role, role must be Manager or Admin" otherwise
 
 # EXAMPLE RESPONSE BODY
 ```
