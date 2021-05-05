@@ -30,16 +30,25 @@ Example request: POST /api/plants?key=<API_KEY>
 ```
 
 Plant_name, scientific_name, and description are required fields
+- Returns "Missing plant name" or "Missing (scientific_name/description)" otherwise
+
+Plant_name, scientific_name, and description must be a string
+- Returns "Plant_name field must take a string" or "(Scientific_name/Description) field must take a string" otherwise
 
 If an array field is not provided it will default to empty array
 
 On create, a new revision will be set base on the user creating the plant
 
 If the array field (images, audio_files, videos, tags, categories, locations, custom_fields) is provided they must be an array, and all except custom_fields must be array of string formatted as objectId
+- Returns "The field (images, audio_files, videos, tags, categories, locations, custom_fields) must be array" if not an array
+- Returns "Not all elements under (images, audio_files, videos, tags, categories, locations) are valid ObjectId" if not all element within array are ObjectId
 
-If custom_field is provided, the array of object must contain _id, field_title, and content in each object
+If custom_fields is provided, the array of object must contain _id, field_title, and content in each object
+- Returns "At least one of the custom_field is not of type object or is null" if not all element within custom_fields are object
+- Returns "At least one of the custom_field is missing (_id, field_title, content)" if not all object within custom_fields contains all the required field
 
 Custom field's _id must be an valid objectId string, meaning it is hexidecimal string of certain length
+- Returns "A _id under custom_field is not valid ObjectId" otherwise
 
 # SUCCESS RESPONSE BODY
 ```

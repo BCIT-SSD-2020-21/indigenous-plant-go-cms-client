@@ -949,12 +949,24 @@ module.exports = async function() {
       throw Error("Missing plant name")
     }
 
+    if (!(typeof newPlant.plant_name === 'string' || newPlant.plant_name instanceof String)) {
+      throw Error("Plant_name field must take a string")
+    }
+
     if (!newPlant.scientific_name) {
       throw Error("Missing scientific name")
     }
 
+    if (!(typeof newPlant.scientific_name === 'string' || newPlant.scientific_name instanceof String)) {
+      throw Error("Scientific_name field must take a string")
+    }
+
     if (!newPlant.description) {
       throw Error("Missing description")
+    }
+
+    if (!(typeof newPlant.description === 'string' || newPlant.description instanceof String)) {
+      throw Error("Description field must take a string")
     }
 
     //Convert all passed in array of id to ObjectId
@@ -1216,6 +1228,24 @@ module.exports = async function() {
   //Update
   //PUT /api/plants/:plantId
   async function updatePlant({plantId, updatedPlant, user_id}) {
+    if (updatedPlant.plant_name) {
+      if (!(typeof updatedPlant.plant_name === 'string' || updatedPlant.plant_name instanceof String)) {
+        throw Error("Plant_name field must take a string")
+      }
+    }
+
+    if (updatedPlant.scientific_name) {
+      if (!(typeof updatedPlant.scientific_name === 'string' || updatedPlant.scientific_name instanceof String)) {
+        throw Error("Scientific_name field must take a string")
+      }
+    }
+
+    if (updatedPlant.description) {
+      if (!(typeof updatedPlant.description === 'string' || updatedPlant.description instanceof String)) {
+        throw Error("Description field must take a string")
+      }
+    }
+
     //Convert all passed in array of id to ObjectId
     //User should get data of the plant when they start editing
     if (updatedPlant.images) {
