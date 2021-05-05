@@ -572,6 +572,10 @@ module.exports = async function() {
       throw Error("Require a tag name")
     }
 
+    if (!(typeof tag_name === 'string' || tag_name instanceof String)) {
+      throw Error("Tag_name field must take a string")
+    }
+
     const result = await tags.insertOne({
       tag_name
     })
@@ -587,6 +591,12 @@ module.exports = async function() {
   //Update
   //PUT /api/tags/:tagId
   async function updateTag({tagId, updatedTag}) {
+    if (updatedTag.tag_name) {
+      if (!(typeof updatedTag.tag_name === 'string' || updatedTag.tag_name instanceof String)) {
+        throw Error("Tag_name field must take a string")
+      }
+    }
+
     const result = await tags.findOneAndUpdate(
       {_id: ObjectID(tagId)},
       {$set: {...updatedTag}}
@@ -618,8 +628,20 @@ module.exports = async function() {
       throw Error("Require a category name")
     }
 
+    if (!(typeof category_name === 'string' || category_name instanceof String)) {
+      throw Error("Category_name field must take a string")
+    }
+
     if (!resource) {
       throw Error("Require a resource")
+    }
+
+    if (typeof resource === 'string' || resource instanceof String) {
+      if (!(resource === 'plant' || resource === 'waypoint' || resource === 'tour' || resource === 'learn_more')) {
+        throw Error("Invalid resource, resource must be plant, waypoint, tour, or learn_more")
+      }
+    } else {
+      throw Error("Resource field must take a string")
     }
 
     const result = await categories.insertOne({
@@ -638,6 +660,22 @@ module.exports = async function() {
   //Update
   //PUT /api/categories/:categoryId
   async function updateCategory({categoryId, updatedCategory}) {
+    if (updatedCategory.category_name) {
+      if (!(typeof updatedCategory.category_name === 'string' || updatedCategory.category_name instanceof String)) {
+        throw Error("Category_name field must take a string")
+      }
+    }
+
+    if (updatedCategory.resource) {
+      if (typeof updatedCategory.resource === 'string' || updatedCategory.resource instanceof String) {
+        if (!(updatedCategory.resource === 'plant' || updatedCategory.resource === 'waypoint' || updatedCategory.resource === 'tour' || updatedCategory.resource === 'learn_more')) {
+          throw Error("Invalid resource, resource must be plant, waypoint, tour, or learn_more")
+        }
+      } else {
+        throw Error("Resource field must take a string")
+      }
+    }
+
     const result = await categories.findOneAndUpdate(
       {_id: ObjectID(categoryId)},
       {$set: {...updatedCategory}}
@@ -675,12 +713,28 @@ module.exports = async function() {
       throw Error("Require a location name")
     }
 
+    if (!(typeof location_name === 'string' || location_name instanceof String)) {
+      throw Error("Location_name field must take a string")
+    }
+
     if (!longitude) {
       throw Error("Require a longtitude")
     }
 
+    if (!(typeof longitude === 'number' && !Number.isNaN(longitude))) {
+      throw Error("Longitude field must take a number")
+    }
+
     if (!latitude) {
-      throw Error("Require a longtitude")
+      throw Error("Require a latitude")
+    }
+
+    if (!(typeof latitude === 'number' && !Number.isNaN(latitude))) {
+      throw Error("Latitude field must take a number")
+    }
+
+    if (!(typeof description === 'string' || description instanceof String)) {
+      throw Error("Description field must take a string")
     }
 
     const result = await locations.insertOne({
@@ -701,6 +755,30 @@ module.exports = async function() {
   //Update
   //PUT /api/locations/:locationId
   async function updateLocation({locationId, updatedLocation}) {
+    if (updatedLocation.location_name) {
+      if (!(typeof updatedLocation.location_name === 'string' || updatedLocation.location_name instanceof String)) {
+        throw Error("Location_name field must take a string")
+      }
+    }
+
+    if (updatedLocation.longitude) {
+      if (!(typeof updatedLocation.longitude === 'number' && !Number.isNaN(updatedLocation.longitude))) {
+        throw Error("Longitude field must take a number")
+      }
+    }
+
+    if (updatedLocation.latitude) {
+      if (!(typeof updatedLocation.latitude === 'number' && !Number.isNaN(updatedLocation.latitude))) {
+        throw Error("Latitude field must take a number")
+      }
+    }
+
+    if (updatedLocation.description) {
+      if (!(typeof updatedLocation.description === 'string' || updatedLocation.description instanceof String)) {
+        throw Error("Description field must take a string")
+      }
+    }
+
     const result = await locations.findOneAndUpdate(
       {_id: ObjectID(locationId)},
       {$set: {...updatedLocation}}

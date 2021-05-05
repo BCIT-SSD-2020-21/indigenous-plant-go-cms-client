@@ -14,6 +14,12 @@ Example request: POST /api/tags?key=<API_KEY>
 }
 ```
 
+Tag_name is required
+- Returns "Require a tag name" otherwise
+
+Tag_name must be a string
+- Returns "Tag_name field must take a string" otherwise
+
 # SUCCESS RESPONSE BODY
 ```
 {
