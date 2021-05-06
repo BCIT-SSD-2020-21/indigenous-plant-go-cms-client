@@ -281,7 +281,12 @@ export default function ListTagsCtrl() {
 
   const applyBulkDelete = async () => {
     const result = await bulkDeleteTags(selectedTags);
-    if (result.error) return console.log("Unable to bulk delete plants");
+    if (result.error)
+      return setDirective({
+        header: "Error applying bulk action",
+        message: result.error.data.error,
+        success: false,
+      });
     closeModal();
     setSelectedTags([]);
     queryTags();

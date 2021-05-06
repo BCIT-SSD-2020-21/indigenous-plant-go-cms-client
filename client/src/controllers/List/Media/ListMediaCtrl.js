@@ -42,6 +42,8 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   const [editMedia, setEditMedia] = useState(mediaFields);
   const [bulkAction, setBulkAction] = useState("");
   const [loading, setLoading] = useState(false);
+  // Error Messaging
+  const [directive, setDirective] = useState(null);
 
   useEffect(() => {
     queryMedia();
@@ -55,6 +57,16 @@ export default function ListMediaCtrl({ dataLabel, label }) {
     setPage(1);
     formatPages();
   }, [medias_]);
+
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      setDirective(null);
+    }, 4000);
+  };
 
   const formatPages = () => {
     const dataLength = medias_.length;
@@ -110,7 +122,12 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         break;
     }
     setLoading(false);
-    if (result.error) return console.log("Error fetching media");
+    if (result.error)
+      return setDirective({
+        header: "Error fetching media",
+        message: "A network error has occurred",
+        success: false,
+      });
     setEMedias(result);
   };
 
@@ -165,10 +182,15 @@ export default function ListMediaCtrl({ dataLabel, label }) {
 
   const handleUpload = async () => {
     let result;
-    if (!file || !caption) return console.log("Error uploading file");
+    if (!file || !caption)
+      return setDirective({
+        header: "Error uploading media",
+        message: "Required fields are missing",
+        success: false,
+      });
 
     const formData = new FormData();
-
+    setLoading(true);
     switch (dataLabel) {
       case "image":
         formData.append("image", file);
@@ -186,8 +208,13 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         result = await createVideo(formData);
         break;
     }
-
-    if (result.error) return console.log("Error uploading file");
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error uploading media",
+        message: result.error.data.error,
+        success: false,
+      });
     setFile(undefined);
     setCaption("");
     queryMedia();
@@ -197,7 +224,12 @@ export default function ListMediaCtrl({ dataLabel, label }) {
     setModalState("delete");
     const id = e.target.value;
     const foundMedia = eMedias.filter((tag) => tag._id === id)[0];
-    if (!foundMedia) return console.log("Unable to find location");
+    if (!foundMedia)
+      return setDirective({
+        header: "Error deleting media",
+        message: "Unable to locate media",
+        success: false,
+      });
     await setPendingDelete(foundMedia);
     setModalActive(true);
   };
@@ -205,7 +237,12 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   const applyDelete = async () => {
     let result;
     const id = pendingDelete._id;
-    if (!id) return console.log("Unable to delete media");
+    if (!id)
+      return setDirective({
+        header: "Error deleting media",
+        message: "Unable to locate media",
+        success: false,
+      });
     switch (dataLabel) {
       case "image":
         result = await deleteImage(id);
@@ -218,7 +255,12 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         break;
     }
 
-    if (result.error) return console.log("Unable to delete media");
+    if (result.error)
+      return setDirective({
+        header: "Error deleting media",
+        message: result.error.data.error,
+        success: false,
+      });
     closeModal();
     setPendingDelete({});
     queryMedia();
@@ -228,7 +270,12 @@ export default function ListMediaCtrl({ dataLabel, label }) {
     setModalState("edit");
     const id = e.target.value;
     const foundMedia = eMedias.filter((media) => media._id === id)[0];
-    if (!foundMedia) return console.log("Unable to find media");
+    if (!foundMedia)
+      return setDirective({
+        header: "Error updating media",
+        message: "Unable to locate media",
+        success: false,
+      });
     await setPendingEdit(foundMedia);
 
     const m = {
@@ -260,11 +307,20 @@ export default function ListMediaCtrl({ dataLabel, label }) {
 
   const applyEdit = async () => {
     const id = pendingEdit._id;
-    if (!id) return console.log("Unable to edit media");
+    if (!id)
+      return setDirective({
+        header: "Error updating media",
+        message: "Unable to locate media",
+        success: false,
+      });
 
     let result;
     if (!editMedia.file || !editMedia.caption)
-      return console.log("Error uploading file");
+      return setDirective({
+        header: "Error updating media",
+        message: "Required fields are missing",
+        success: false,
+      });
 
     const formData = new FormData();
 
@@ -286,7 +342,12 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         break;
     }
 
-    if (result.error) return console.log("Error uploading file");
+    if (result.error)
+      return setDirective({
+        header: "Error deleting media",
+        message: result.error.data.error,
+        success: false,
+      });
     setPendingEdit({});
     setEditMedia(mediaFields);
     closeModal();
@@ -299,9 +360,18 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   };
 
   const handleBulkDelete = async () => {
-    if (selectedMedias.length < 1) return console.log("no media selected");
+    if (selectedMedias.length < 1)
+      return setDirective({
+        header: "Error applying bulk actions",
+        message: "No items selected",
+        success: false,
+      });
     if (bulkAction === "default")
-      return console.log("cannot bulk delete if bulk action is set to default");
+      return setDirective({
+        header: "Error applying bulk actions",
+        message: "Invalid action",
+        success: false,
+      });
     setModalState("bulk");
     setModalActive(true);
   };
@@ -320,7 +390,12 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         result = await bulkDeleteVideos(selectedMedias);
         break;
     }
-    if (result.error) return console.log("Unable to bulk delete media");
+    if (result.error)
+      return setDirective({
+        header: "Error applying bulk action",
+        message: result.error.data.error,
+        success: false,
+      });
     closeModal();
     setSelectedMedias([]);
     queryMedia();
@@ -364,6 +439,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
       handleBulkDelete={handleBulkDelete}
       applyBulkDelete={applyBulkDelete}
       loading={loading}
+      directive={directive}
     />
   );
 }

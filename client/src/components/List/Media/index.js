@@ -4,6 +4,7 @@ import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 import Modal from "../../Modal";
 import { Loader } from "semantic-ui-react";
+import Message from "../../Message";
 
 /*
   @desc UI component that Lists media and allows the list to be managed.
@@ -64,6 +65,7 @@ export default function ListMedia({
   applyBulkDelete,
   // LOADING -- Attributes
   loading,
+  directive,
 }) {
   const renderModal = () => {
     switch (modalState) {
@@ -227,6 +229,15 @@ export default function ListMedia({
 
   return (
     <div>
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <DashHeader title={`${label}s`} />
       <div className="resource__container">
         <div className="resource__col left">
