@@ -1,11 +1,11 @@
 # Get plants
-@desc GET all published plants
+@desc GET all plants
 
-@route /api/plants
+@route /api/plants/all
 
 @access Protected -- API key
 
-Example request: GET /api/plants?key=<API_KEY>
+Example request: GET /api/plants/all?key=<API_KEY>
 
 # EXAMPLE RESPONSE BODY
 ```
@@ -91,7 +91,8 @@ Example request: GET /api/plants?key=<API_KEY>
         },
         "date": "April 20, 2021 at 2:30am"
       },
-    ]
+    ],
+    "isPublish": false
   },
   // ... Repeat 
 ]
@@ -99,4 +100,4 @@ Example request: GET /api/plants?key=<API_KEY>
 
 Seems like by default ObjectId are returned as string in response body
 
-This should only get all the published plants
+Get all plants and show the publish status

@@ -835,7 +835,7 @@ module.exports = async function() {
   //Plant
 
   //Get All
-  //GET /api/plants
+  //GET /api/plants/all
   async function getPlants() {
     //Fields like images must be array of ObjectId
     //Should convert all the ObjectId array to array of their respective item
@@ -942,7 +942,7 @@ module.exports = async function() {
   }
 
   //Get All published plants
-  //GET /api/plants/publish
+  //GET /api/plants
   async function getPublishedPlants() {
     //Fields like images must be array of ObjectId
     //Should convert all the ObjectId array to array of their respective item
@@ -1519,7 +1519,7 @@ module.exports = async function() {
   //Waypoint
 
   //Get All
-  //GET /api/waypoints
+  //GET /api/waypoints/all
   async function getWaypoints() {
     //Fields like images must be array of ObjectId
     //Should convert all the ObjectId array to array of their respective item
@@ -1729,7 +1729,7 @@ module.exports = async function() {
   }
 
   //Get All published waypoints
-  //GET /api/waypoints/publish
+  //GET /api/waypoints
   async function getPublishedWaypoints() {
     //Fields like images must be array of ObjectId
     //Should convert all the ObjectId array to array of their respective item

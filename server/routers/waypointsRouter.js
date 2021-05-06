@@ -3,11 +3,11 @@ const express = require('express')
 module.exports = function({database, authorize, verifyKey}) {
   const router = express.Router()
 
-  //Get All
+  //Get All (published ones)
   //GET /api/waypoints?key=<API_KEY>
   router.get('/', verifyKey, async (req, res) => {
     try {
-      const result = await database.getWaypoints()
+      const result = await database.getPublishedWaypoints()
       res.send(result)
     } catch (error) {
       console.error(error)
@@ -15,11 +15,11 @@ module.exports = function({database, authorize, verifyKey}) {
     }
   })
 
-  //Get All published waypoints
-  //GET /api/waypoints/publish?key=<API_KEY>
-  router.get('/publish', verifyKey, async (req, res) => {
+  //Get All waypoints include none published ones
+  //GET /api/waypoints/all?key=<API_KEY>
+  router.get('/all', verifyKey, async (req, res) => {
     try {
-      const result = await database.getPublishedWaypoints()
+      const result = await database.getWaypoints()
       res.send(result)
     } catch (error) {
       console.error(error)
