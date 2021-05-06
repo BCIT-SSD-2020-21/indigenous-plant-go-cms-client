@@ -37,7 +37,7 @@ Plant_name, scientific_name, and description must be a string
 
 If an array field is not provided it will default to empty array
 
-On create, a new revision will be set base on the user creating the plant
+On create, a new revision will be set base on the user creating the plant and isPublish will be set to false
 
 If the array field (images, audio_files, videos, tags, categories, locations, custom_fields) is provided they must be an array, and all except custom_fields must be array of string formatted as objectId
 - Returns "The field (images, audio_files, videos, tags, categories, locations, custom_fields) must be array" if not an array

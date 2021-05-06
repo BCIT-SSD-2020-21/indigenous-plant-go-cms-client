@@ -90,6 +90,9 @@ Example request: GET /api/plant/607e399e59c86677e2af6587?key=<API_KEY>
       },
       "date": "April 20, 2021 at 2:30am"
     },
-  ]
+  ],
+  "isPublish": false
 }
 ```
+
+IsPublish does not affect get one

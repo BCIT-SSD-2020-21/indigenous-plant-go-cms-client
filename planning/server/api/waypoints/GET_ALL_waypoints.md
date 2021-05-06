@@ -1,9 +1,9 @@
 # Get waypoints
-@desc GET all published waypoints
-@route /api/waypoints
+@desc GET all waypoints
+@route /api/waypoints/all
 @access Protected -- API key
 
-Example request: GET /api/waypoints?key=<API_KEY>
+Example request: GET /api/waypoints/all?key=<API_KEY>
 
 # EXAMPLE RESPONSE BODY
 ```
@@ -139,7 +139,8 @@ Example request: GET /api/waypoints?key=<API_KEY>
             "user": "607e3ab0a0d3df815abfcfb1",
             "date": "April 20, 2021 at 2:30am"
           }
-        ]
+        ],
+        "isPublish": false
       }
       // ...Repeat
     ],
@@ -164,12 +165,11 @@ Example request: GET /api/waypoints?key=<API_KEY>
         },
         "date": "April 20, 2021 at 2:30am"
       }
-    ]
+    ],
+    "isPublish": false
   }
   // ...Repeat
 ]
 ```
 
-This should only get all the published plants
-
-Currently it ignores whether the plant in the plants field is published, must limit it so that plant that are not published are not added in if want them to not show
+Get all plants and show the publish status

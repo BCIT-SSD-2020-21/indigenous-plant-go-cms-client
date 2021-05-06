@@ -138,7 +138,8 @@ Example request: GET /api/waypoint/607e399e59c86677e2af6587?key=<API_KEY>
           "user": "607e3ab0a0d3df815abfcfb1",
           "date": "April 20, 2021 at 2:30am"
         },
-      ]
+      ],
+      "isPublish": false
     }
     // ...Repeat
   ],
@@ -163,6 +164,9 @@ Example request: GET /api/waypoint/607e399e59c86677e2af6587?key=<API_KEY>
       },
       "date": "April 20, 2021 at 2:30am"
     }
-  ]
+  ],
+  "isPublish": false
 }
 ```
+
+IsPublish does not affect get one
