@@ -41,6 +41,8 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   const [editMedia, setEditMedia] = useState(mediaFields);
   const [bulkAction, setBulkAction] = useState("");
   const [loading, setLoading] = useState(false);
+  const [videoLink, setVideoLink] = useState("");
+  const [editVideoLink, setEditVideoLink] = useState("");
   // Error Messaging
   const [directive, setDirective] = useState(null);
 
@@ -181,7 +183,14 @@ export default function ListMediaCtrl({ dataLabel, label }) {
 
   const handleUpload = async () => {
     let result;
-    if (!file || !caption)
+    if ((dataLabel !== "video" && !file) || !caption)
+      return setDirective({
+        header: "Error uploading media",
+        message: "Required fields are missing",
+        success: false,
+      });
+
+    if ((dataLabel === "video" && !videoLink) || !caption)
       return setDirective({
         header: "Error uploading media",
         message: "Required fields are missing",
@@ -202,9 +211,11 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         result = await createAudio(formData);
         break;
       case "video":
-        formData.append("video", file);
-        formData.append("caption", caption);
-        result = await createVideo(formData);
+        const video_ = {
+          caption: caption,
+          video_url: videoLink,
+        };
+        result = await createVideo(video_);
         break;
     }
     setLoading(false);
@@ -215,6 +226,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         success: false,
       });
     setFile(undefined);
+    setVideoLink("");
     setCaption("");
     queryMedia();
   };
@@ -276,7 +288,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         success: false,
       });
     await setPendingEdit(foundMedia);
-
+    if (dataLabel === "video") setEditVideoLink(foundMedia.video_url);
     const m = {
       file: null,
       caption: foundMedia.caption,
@@ -314,9 +326,22 @@ export default function ListMediaCtrl({ dataLabel, label }) {
       });
 
     let result;
-    if (!editMedia.file || !editMedia.caption)
+    if (
+      (dataLabel !== "video" && !editMedia.file) ||
+      (dataLabel !== "video" && !editMedia.caption)
+    )
       return setDirective({
         header: "Error updating media",
+        message: "Required fields are missing",
+        success: false,
+      });
+
+    if (
+      (dataLabel === "video" && !editVideoLink) ||
+      (dataLabel === "video" && !editMedia.caption)
+    )
+      return setDirective({
+        header: "Error uploading media",
         message: "Required fields are missing",
         success: false,
       });
@@ -335,9 +360,11 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         result = await updateAudio(formData, id);
         break;
       case "video":
-        formData.append("video", editMedia.file);
-        formData.append("caption", editMedia.caption);
-        result = await updateVideo(formData, id);
+        const video_ = {
+          caption: editMedia.caption,
+          video_url: editVideoLink,
+        };
+        result = await updateVideo(video_, id);
         break;
     }
 
@@ -439,6 +466,10 @@ export default function ListMediaCtrl({ dataLabel, label }) {
       applyBulkDelete={applyBulkDelete}
       loading={loading}
       directive={directive}
+      videoLink={videoLink}
+      setVideoLink={setVideoLink}
+      editVideoLink={editVideoLink}
+      setEditVideoLink={setEditVideoLink}
     />
   );
 }

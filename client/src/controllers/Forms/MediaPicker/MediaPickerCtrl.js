@@ -62,6 +62,13 @@ export default function MediaPickerCtrl({
   */
   const [caption, setCaption] = useState("");
 
+  /*
+    @desc a variable that holds the youtube link for a video
+    @author Patrick Fortaleza
+    @type String
+  */
+  const [videoLink, setVideoLink] = useState("");
+
   // ===============================================================
   // USE EFFECTS
   // ===============================================================
@@ -234,7 +241,14 @@ export default function MediaPickerCtrl({
   */
   const handleUpload = async () => {
     let result, formatted, currSelection;
-    if (!file || !caption) return console.log("Error uploading file");
+    if (dataLabel !== "video") {
+      if (!file || !caption) return console.log("Required fields are missing");
+    }
+
+    if (dataLabel === "video") {
+      if (!videoLink || !caption)
+        return console.log("Required fields are missing");
+    }
 
     const formData = new FormData();
 
@@ -250,9 +264,11 @@ export default function MediaPickerCtrl({
         result = await createAudio(formData);
         break;
       case "video":
-        formData.append("video", file);
-        formData.append("caption", caption);
-        result = await createVideo(formData);
+        const video_ = {
+          caption: caption,
+          video_url: videoLink,
+        };
+        result = await createVideo(video_);
         break;
     }
 
@@ -287,6 +303,8 @@ export default function MediaPickerCtrl({
       caption={caption}
       setCaption={setCaption}
       handleUpload={handleUpload}
+      setVideoLink={setVideoLink}
+      videoLink={videoLink}
     />
   );
 }
