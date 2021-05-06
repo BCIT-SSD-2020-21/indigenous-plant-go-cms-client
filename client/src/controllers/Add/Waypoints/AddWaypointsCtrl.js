@@ -30,6 +30,7 @@ export default function AddWaypointsCtrl() {
   const [waypointName, setWaypointName] = useState("");
   const [description, setDescription] = useState("");
   const [plants, setPlants] = useState([]);
+  const [isVisible, setIsVisible] = useState(true);
 
   // ===============================================================
   // SELECTION DATA
@@ -173,6 +174,10 @@ export default function AddWaypointsCtrl() {
     setPlants(mappedData);
   };
 
+  const isVisibleChanged = (data) => {
+    setIsVisible(data);
+  };
+
   const handlePublish = async () => {
     const waypoint = {
       waypoint_name: waypointName,
@@ -185,6 +190,7 @@ export default function AddWaypointsCtrl() {
       locations: locations,
       custom_fields: customFields,
       plants: plants,
+      isPublish: isVisible,
     };
 
     setLoading(true);
@@ -212,6 +218,7 @@ export default function AddWaypointsCtrl() {
       waypointNameChanged={waypointNameChanged}
       descriptionChanged={descriptionChanged}
       plantsChanged={plantsChanged}
+      isVisibleChanged={isVisibleChanged}
       // SELECTION DATA
       eLocations={eLocations}
       eImages={eImages}

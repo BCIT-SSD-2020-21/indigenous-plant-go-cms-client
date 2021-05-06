@@ -32,6 +32,7 @@ export default function EditWaypointCtrl() {
   const [waypointName, setWaypointName] = useState("");
   const [description, setDescription] = useState("");
   const [plants, setPlants] = useState([]);
+  const [isVisible, setIsVisible] = useState(true);
   // ===============================================================
   // SELECTION DATA
   // @desc data that appears as options in select boxes.
@@ -178,6 +179,10 @@ export default function EditWaypointCtrl() {
     setPlants(mappedData);
   };
 
+  const isVisibleChanged = (data) => {
+    setIsVisible(data);
+  };
+
   // ===============================================================
   // POST
   // @desc updates the waypoint
@@ -200,6 +205,7 @@ export default function EditWaypointCtrl() {
       locations: locations,
       custom_fields: customFields,
       plants: plants,
+      isPublish: isVisible,
     };
 
     const result = await updateWaypoint(waypointId, waypoint);
@@ -227,6 +233,7 @@ export default function EditWaypointCtrl() {
       waypointNameChanged={waypointNameChanged}
       descriptionChanged={descriptionChanged}
       plantsChanged={plantsChanged}
+      isVisibleChanged={isVisibleChanged}
       handleUpdate={handleUpdate}
       // SELECTION DATA
       eLocations={eLocations}

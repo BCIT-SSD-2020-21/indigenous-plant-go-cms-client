@@ -5,6 +5,7 @@ import MediaPickerCtrl from "../../../controllers/Forms/MediaPicker/MediaPickerC
 import CustomFieldPickerCtrl from "../../../controllers/Forms/CustomFieldPicker/CustomFieldPickerCtrl";
 import TextInputCtrl from "../../../controllers/Forms/TextInput/TextInputCtrl";
 import TextAreaCtrl from "../../../controllers/Forms/TextArea/TextAreaCtrl";
+import TogglerCtrl from "../../../controllers/Forms/Toggler/TogglerCtrl";
 import Message from "../../Message";
 
 /*
@@ -23,6 +24,7 @@ export default function AddPlants({
   customFieldsChanged,
   plantNameChanged,
   scientificNameChanged,
+  isVisibleChanged,
   descriptionChanged,
   // SELECTION DATA
   eLocations,
@@ -124,6 +126,11 @@ export default function AddPlants({
             data={eTags}
             query={queryTags}
             setter={(data) => tagsChanged(data)}
+          />
+          <TogglerCtrl
+            label={"visibility"}
+            eValue={true}
+            setter={(data) => isVisibleChanged(data)}
           />
         </div>
       </div>

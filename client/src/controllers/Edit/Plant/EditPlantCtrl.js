@@ -31,6 +31,7 @@ export default function EditPlantCtrl() {
   const [plantName, setPlantName] = useState("");
   const [scientificName, setScientificName] = useState("");
   const [description, setDescription] = useState("");
+  const [isVisible, setIsVisible] = useState(true);
 
   // ===============================================================
   // SELECTION DATA
@@ -168,6 +169,10 @@ export default function EditPlantCtrl() {
     setDescription(data);
   };
 
+  const isVisibleChanged = (data) => {
+    setIsVisible(data);
+  };
+
   // ===============================================================
   // POST
   // @desc updates the Plant.
@@ -191,6 +196,7 @@ export default function EditPlantCtrl() {
       categories: categories,
       locations: locations,
       custom_fields: customFields,
+      isPublish: isVisible,
     };
 
     const result = await updatePlant(plantId, plant);
@@ -218,6 +224,7 @@ export default function EditPlantCtrl() {
       plantNameChanged={plantNameChanged}
       scientificNameChanged={scientificNameChanged}
       descriptionChanged={descriptionChanged}
+      isVisibleChanged={isVisibleChanged}
       // SELECTION DATA
       eLocations={eLocations}
       eImages={eImages}
