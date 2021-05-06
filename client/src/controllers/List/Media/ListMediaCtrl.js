@@ -41,6 +41,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   const [pendingEdit, setPendingEdit] = useState({});
   const [editMedia, setEditMedia] = useState(mediaFields);
   const [bulkAction, setBulkAction] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     queryMedia();
@@ -95,6 +96,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   };
 
   const queryMedia = async () => {
+    setLoading(true);
     let result;
     switch (dataLabel) {
       case "image":
@@ -107,7 +109,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         result = await getVideos();
         break;
     }
-
+    setLoading(false);
     if (result.error) return console.log("Error fetching media");
     setEMedias(result);
   };
@@ -361,6 +363,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
       handleBulkActionChange={handleBulkActionChange}
       handleBulkDelete={handleBulkDelete}
       applyBulkDelete={applyBulkDelete}
+      loading={loading}
     />
   );
 }

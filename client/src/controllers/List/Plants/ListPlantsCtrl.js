@@ -23,6 +23,7 @@ export default function ListPlantsCtrl() {
   const [pendingDelete, setPendingDelete] = useState({});
   const [modalState, setModalState] = useState("single");
   const [bulkAction, setBulkAction] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     queryPlants();
@@ -48,15 +49,17 @@ export default function ListPlantsCtrl() {
   }, [plantData_]);
 
   const queryPlants = async () => {
+    setLoading(true);
     const result = await getAllPlants();
-    if (result.error) return console.log("error getting plants");
+    setLoading(false);
+    if (result.error) return;
     if (result.length < 1) setPlantData([]);
     setPlantData(result);
   };
 
   const queryCategories = async () => {
     const result = await getCategoryGroup("plant");
-    if (result.error) return console.log("error getting categories");
+    if (result.error) return;
     setECategories(result);
   };
 
@@ -240,6 +243,7 @@ export default function ListPlantsCtrl() {
       hasPages={hasPages}
       pages={pages}
       page={page}
+      loading={loading}
       handleFilterChange={handleFilterChange}
       handleQueryChange={handleQueryChange}
       clearSearch={clearSearch}

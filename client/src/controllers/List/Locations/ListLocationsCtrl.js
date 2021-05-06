@@ -30,6 +30,7 @@ export default function ListLocationsCtrl() {
   const [pages, setPages] = useState([]);
   const [page, setPage] = useState(1);
   const [bulkAction, setBulkAction] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     queryLocations();
@@ -93,8 +94,10 @@ export default function ListLocationsCtrl() {
   };
 
   const queryLocations = async () => {
+    setLoading(true);
     const result = await getLocations();
-    if (result.error) return console.log("error fetching locations");
+    setLoading(false);
+    if (result.error) return;
     setELocations(result);
   };
 
@@ -288,6 +291,7 @@ export default function ListLocationsCtrl() {
       handleBulkActionChange={handleBulkActionChange}
       handleBulkDelete={handleBulkDelete}
       applyBulkDelete={applyBulkDelete}
+      loading={loading}
     />
   );
 }

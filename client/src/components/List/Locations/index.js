@@ -3,6 +3,7 @@ import Table from "./Table";
 import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon, TextArea } from "semantic-ui-react";
 import Modal from "../../Modal";
+import { Loader } from "semantic-ui-react";
 
 /*
   @desc UI component that Lists locations and allows the list to be managed.
@@ -55,6 +56,8 @@ export default function ListLocations({
   handleBulkActionChange,
   handleBulkDelete,
   applyBulkDelete,
+  // LOADING -- Attributes
+  loading,
 }) {
   const renderModal = () => {
     switch (modalState) {
@@ -245,7 +248,8 @@ export default function ListLocations({
         </div>
         <div className="resource__col right">
           <p>
-            <strong>Results</strong> ({locations.length})
+            <strong>Results</strong> ({locations.length}){" "}
+            {loading && <Loader active inline size="tiny" />}
           </p>
           <div className="table__controls">
             <div style={{ display: "flex" }}>

@@ -4,6 +4,7 @@ import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 import { ResetIcon } from "../../../icons";
 import Modal from "../../Modal";
+import { Loader } from "semantic-ui-react";
 
 /*
   @desc UI component that Lists Users and allows the list to be managed.
@@ -53,6 +54,8 @@ export default function ListUsers({
   applyDelete,
   // BULK DELETE -- Methods
   applyBulkDelete,
+  // LOADING -- Attributes
+  loading,
 }) {
   const renderModal = () => {
     switch (modalState) {
@@ -123,7 +126,8 @@ export default function ListUsers({
         method={() => console.log("Add New")}
       />
       <p>
-        <strong>Results</strong> ({userDatas.length})
+        <strong>Results</strong> ({userDatas.length}){" "}
+        {loading && <Loader active inline size="tiny" />}
       </p>
 
       <div className="table__controls">

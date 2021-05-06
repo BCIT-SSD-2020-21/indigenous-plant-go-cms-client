@@ -24,6 +24,7 @@ export default function ListTagsCtrl() {
   const [modalState, setModalState] = useState("delete");
   const [bulkAction, setBulkAction] = useState("");
   const [editTag, setEditTag] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     queryTags();
@@ -78,8 +79,10 @@ export default function ListTagsCtrl() {
   };
 
   const queryTags = async () => {
+    setLoading(true);
     const result = await getTags();
-    if (result.error) return console.log("error fetching tags");
+    setLoading(false);
+    if (result.error) return;
     setETags(result);
   };
 
@@ -244,6 +247,7 @@ export default function ListTagsCtrl() {
       handleBulkActionChange={handleBulkActionChange}
       handleBulkDelete={handleBulkDelete}
       applyBulkDelete={applyBulkDelete}
+      loading={loading}
     />
   );
 }

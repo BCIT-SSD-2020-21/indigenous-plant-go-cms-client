@@ -22,6 +22,7 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   const [pendingEdit, setPendingEdit] = useState({});
   const [modalActive, setModalActive] = useState(false);
   const [modalState, setModalState] = useState("delete");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     queryCategories();
@@ -60,8 +61,10 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   };
 
   const queryCategories = async () => {
+    setLoading(true);
     const result = await getCategoryGroup(dataLabel);
-    if (result.error) return console.log("error fetching categories");
+    setLoading(false);
+    if (result.error) return;
     setECategories(result);
   };
 
@@ -226,6 +229,7 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
       editCategory={setEditCat}
       editCategoryValue={editCat}
       applyEdit={applyEdit}
+      loading={loading}
     />
   );
 }

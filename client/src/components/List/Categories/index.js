@@ -3,6 +3,7 @@ import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 import Modal from "../../Modal";
 import Table from "./Table";
+import { Loader } from "semantic-ui-react";
 
 /*
   @desc UI component that Lists categories and allows the list to be managed.
@@ -54,6 +55,8 @@ export default function ListCategories({
   // EDIT -- Attributes
   pendingEdit,
   editCategoryValue,
+  // LOADING -- Attributes
+  loading,
 }) {
   const editModal = () => (
     <>
@@ -125,7 +128,8 @@ export default function ListCategories({
 
         <div className="resource__col right">
           <p>
-            <strong>Results</strong> ({categories.length})
+            <strong>Results</strong> ({categories.length}){" "}
+            {loading && <Loader active inline size="tiny" />}
           </p>
 
           <div className="table__controls">

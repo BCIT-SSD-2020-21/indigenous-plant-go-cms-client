@@ -19,6 +19,7 @@ export default function ListUsersCtrl() {
   const [pages, setPages] = useState([]);
   const [page, setPage] = useState(1);
   const [pendingDelete, setPendingDelete] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     queryUsers();
@@ -80,9 +81,11 @@ export default function ListUsersCtrl() {
   };
 
   const queryUsers = async () => {
+    setLoading(true);
     let myUserId;
     if (userData && userData.user) myUserId = userData.user._id;
     const result = await getAllUsers();
+    setLoading(false);
     if (result.error) return console.log("error getting users");
     if (result.length < 1) setUserDatas([]);
     const filteredResults = result.filter((user) => user._id !== myUserId);
@@ -253,6 +256,7 @@ export default function ListUsersCtrl() {
       modalActive={modalActive}
       modalState={modalState}
       applyBulkDelete={applyBulkDelete}
+      loading={loading}
     />
   );
 }

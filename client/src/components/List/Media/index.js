@@ -3,6 +3,7 @@ import Table from "./Table";
 import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 import Modal from "../../Modal";
+import { Loader } from "semantic-ui-react";
 
 /*
   @desc UI component that Lists media and allows the list to be managed.
@@ -61,6 +62,8 @@ export default function ListMedia({
   handleBulkActionChange,
   handleBulkDelete,
   applyBulkDelete,
+  // LOADING -- Attributes
+  loading,
 }) {
   const renderModal = () => {
     switch (modalState) {
@@ -285,7 +288,8 @@ export default function ListMedia({
         </div>
         <div className="resource__col right">
           <p>
-            <strong>Results</strong> ({medias.length})
+            <strong>Results</strong> ({medias.length}){" "}
+            {loading && <Loader active inline size="tiny" />}
           </p>
 
           <div className="table__controls">
