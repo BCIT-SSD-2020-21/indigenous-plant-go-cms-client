@@ -1,5 +1,6 @@
 import React from "react";
 import { Input, Checkbox, Button } from "semantic-ui-react";
+import Message from "../Message";
 
 /*
   @desc UI component that displays a Login form.
@@ -18,6 +19,11 @@ export default function LoginForm({
 }) {
   return (
     <div>
+      <Message
+        success={true}
+        header="Successful Login"
+        message="You've successfully logged in!"
+      />
       <form style={style.form} onSubmit={(e) => attemptLogin(e)}>
         <fieldset style={style.fieldset}>
           <p style={style.label}>
