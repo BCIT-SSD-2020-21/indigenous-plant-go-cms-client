@@ -279,22 +279,44 @@ const seed = async () => {
   
   // 12. Insert Waypoint
   const category3 = await categories.findOne({"category_name": "SW01"})
+  const plant1 = await plants.findOne({"plant_name": "lavender"})
+  const plant2 = await plants.findOne({ "plant_name": "kinnikinnick"})
   await waypoints.insertMany([
     {
       "waypoint_name": "Location A",
       "description": "Infront of SW1",
-      "location": location1._id,
+      "locations": [location1._id],
       "images": [image1._id],
-     "audio_files": [audio1._id],
+      "audio_files": [audio1._id],
       "videos": [video1._id],
       "tags": [tag1._id],
       "categories": [category3._id],
+      "plants":[plant1._id, plant2._id],
       "revision_history": [revision_history1._id],
       "custom_fields" : [
         { 
           "_id" : new ObjectID(),
           "field_title": "Foot Traffic",
           "content": "Light"
+        }
+      ]
+    },
+    {
+      "waypoint_name": "Location B",
+      "description": "Infront of SW2",
+      "locations": [location2._id],
+      "images": [image2._id],
+     "audio_files": [audio2._id],
+      "videos": [video2._id],
+      "tags": [tag2._id],
+      "categories": [category2._id],
+      "plants":[plant2._id],
+      "revision_history": [revision_history2._id],
+      "custom_fields" : [
+        { 
+          "_id" : new ObjectID(),
+          "field_title": "Foot Traffic",
+          "content": "Heavy"
         }
       ]
     }
@@ -325,7 +347,7 @@ const seed = async () => {
   // 14. Insert Tours
 
   const waypoint1 = await waypoints.findOne({"waypoint_name": "Location A"})
-  const plant1 = await plants.findOne({ "plant_name": "lavender"})
+ 
  
   await tours.insertMany([
     {
@@ -337,7 +359,7 @@ const seed = async () => {
       "tags" : [tag1._id, tag2._id],
       "categories" : [category1._id, category2._id],
       "waypoints" : [waypoint1._id],
-      "plants" : [plant1._id],
+      "plants" : [plant1._id, plant2._id],
       "revision_history" : [revision_history1._id],
       "custom_fields" : [
         { 

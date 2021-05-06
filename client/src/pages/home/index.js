@@ -7,7 +7,6 @@ import {
   InfoIcon,
   UsersIcon,
   LocationIcon,
-  MediaIcon,
   TourIcon,
 } from "../../icons";
 import 'bootstrap/dist/css/bootstrap.min.css';   
@@ -34,14 +33,13 @@ export default function Home({action, method}) {
   const [time, setTime]=useState()
   const clock = ()=>{
     var date = new Date();
-    var second = date.getSeconds();
     var minute = date.getMinutes();
     var hour = date.getHours() 
     var formathour;
     if(hour > 12){
       formathour = hour - 12
     }
-    if(hour == 0){
+    if(hour === 0){
      formathour = 12
     }
     
@@ -55,7 +53,7 @@ export default function Home({action, method}) {
     if(hour> 12){
       var time = ("0" + formathour).substr(-2) + ":" + ("0" + minute).substr(-2) +  ` ${amOrPm}`
     } else {
-      var time = ("0" + hour).substr(-2) + ":" + ("0" + minute).substr(-2) +  ` ${amOrPm}`
+      time = ("0" + hour).substr(-2) + ":" + ("0" + minute).substr(-2) +  ` ${amOrPm}`
     }
     
     setTime(time)
@@ -66,12 +64,9 @@ export default function Home({action, method}) {
     <main>
       {/* HERO SECTION */}
       <div style={style.hero}>
-        <Carousel fade interval="8000">
+        <Carousel fade interval="8000" indicators={false} controls = {false}>
           <Carousel.Item>
-            <img className="carousel" style={style.image} src="/assets/images/hero.jpg" alt="Indigenous Initiatives and Partnerships Logo"/>
-          </Carousel.Item>
-          <Carousel.Item>
-            <img className="carousel" style={style.image} src="/assets/images/hero-3.jpg" alt="Indigenous Initiatives and Partnerships Logo"/>
+            <img className="carousel" style={style.image} src="/assets/images/hero.jpg" alt="Indigenous Initiatives and Partnerships Logo Red"/>
           </Carousel.Item>
         </Carousel>
       
@@ -136,7 +131,7 @@ export default function Home({action, method}) {
               <div style={style.icon}><InfoIcon /></div>
               <div>
                 <label style={style.addnew}>Add New </label>
-                <p>Tour</p>
+                <p>Learn More</p>
               </div>
             </button>
           </div>
