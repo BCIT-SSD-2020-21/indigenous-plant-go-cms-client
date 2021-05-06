@@ -180,7 +180,7 @@ export default function ListTagsCtrl() {
     const foundTag = eTags.filter((tag) => tag._id === id)[0];
     if (!foundTag)
       return setDirective({
-        header: "Error creating tag",
+        header: "Error deleting tag",
         message: "Could not locate tag",
         success: false,
       });
@@ -192,7 +192,7 @@ export default function ListTagsCtrl() {
     const id = pendingDelete._id;
     if (!id)
       return setDirective({
-        header: "Error creating tag",
+        header: "Error deleting tag",
         message: "Could not locate tag",
         success: false,
       });
@@ -201,7 +201,7 @@ export default function ListTagsCtrl() {
     setLoading(false);
     if (result.error)
       return setDirective({
-        header: "Error creating tag",
+        header: "Error deleting tag",
         message: result.error.data.error,
         success: false,
       });
@@ -216,7 +216,7 @@ export default function ListTagsCtrl() {
     const foundTag = eTags.filter((tag) => tag._id === id)[0];
     if (!foundTag)
       return setDirective({
-        header: "Error creating tag",
+        header: "Error updating tag",
         message: "Could not locate tag",
         success: false,
       });
@@ -228,14 +228,14 @@ export default function ListTagsCtrl() {
   const applyEdit = async (e) => {
     if (!editTag)
       return setDirective({
-        header: "Error creating tag",
+        header: "Error updating tag",
         message: "Can't create a tag with an empty tag name",
         success: false,
       });
     const id = pendingEdit._id;
     if (!id)
       return setDirective({
-        header: "Error creating tag",
+        header: "Error updating tag",
         message: "Could not locate tag",
         success: false,
       });
@@ -247,7 +247,7 @@ export default function ListTagsCtrl() {
     setLoading(false);
     if (result.error)
       return setDirective({
-        header: "Error creating tag",
+        header: "Error updating tag",
         message: result.error.data.error,
         success: false,
       });
@@ -263,9 +263,18 @@ export default function ListTagsCtrl() {
   };
 
   const handleBulkDelete = async () => {
-    if (selectedTags.length < 1) return console.log("no tags selected");
+    if (selectedTags.length < 1)
+      return setDirective({
+        header: "Error applying bulk actions",
+        message: "No items selected",
+        success: false,
+      });
     if (bulkAction === "default")
-      return console.log("cannot bulk delete if bulk action is set to default");
+      return setDirective({
+        header: "Error applying bulk actions",
+        message: "Invalid action",
+        success: false,
+      });
     setModalState("bulk");
     setModalActive(true);
   };

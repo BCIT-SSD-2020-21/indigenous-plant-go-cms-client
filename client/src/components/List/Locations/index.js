@@ -4,6 +4,7 @@ import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon, TextArea } from "semantic-ui-react";
 import Modal from "../../Modal";
 import { Loader } from "semantic-ui-react";
+import Message from "../../Message";
 
 /*
   @desc UI component that Lists locations and allows the list to be managed.
@@ -58,6 +59,7 @@ export default function ListLocations({
   applyBulkDelete,
   // LOADING -- Attributes
   loading,
+  directive,
 }) {
   const renderModal = () => {
     switch (modalState) {
@@ -184,6 +186,15 @@ export default function ListLocations({
   );
   return (
     <div>
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <DashHeader title="Locations" />
       <div className="resource__container">
         <div className="resource__col left">
