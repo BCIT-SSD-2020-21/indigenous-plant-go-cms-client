@@ -141,19 +141,6 @@ export default function EditPlant({
             setter={(data) => tagsChanged(data)}
           />
         </div>
-        {/* <ContentPickerCtrl
-        label={"plant"}
-        dataLabel={"plant"}
-        data={plants}
-        setter={(data) => videosChanged(data)}
-      />
-
-      <ContentPickerCtrl
-        label={"waypoint"}
-        dataLabel={"waypoint"}
-        data={waypoints}
-        setter={(data) => videosChanged(data)}
-      /> */}
       </div>
     </div>
   );

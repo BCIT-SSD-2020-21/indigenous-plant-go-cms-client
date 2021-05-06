@@ -44,7 +44,23 @@ export default function EditWaypointCtrl() {
   const [eCategories, setECategories] = useState([]);
   const [ePlants, setEPlants] = useState([]);
 
+  // Error handling
+  const [directive, setDirective] = useState(null);
+  // Preloader
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      setDirective(null);
+    }, 4000);
+  };
+
   useEffect(async () => {
+    setLoading(true);
     await queryWaypoint();
     await queryLocations();
     await queryImages();
@@ -53,6 +69,7 @@ export default function EditWaypointCtrl() {
     await queryTags();
     await queryCategories();
     await queryPlants();
+    setLoading(false);
   }, []);
 
   // ===============================================================
@@ -166,6 +183,12 @@ export default function EditWaypointCtrl() {
   // @desc updates the waypoint
   // ===============================================================
   const handleUpdate = async () => {
+    if (!waypointName || !description || locations.length < 1)
+      return setDirective({
+        header: "Error updating waypoint",
+        message: "Missing required fields",
+        success: false,
+      });
     const waypoint = {
       waypoint_name: waypointName,
       description: description,
@@ -180,7 +203,12 @@ export default function EditWaypointCtrl() {
     };
 
     const result = await updateWaypoint(waypointId, waypoint);
-    if (result.error) return console.log("error updating waypoint");
+    if (result.error)
+      return setDirective({
+        header: "Error updating plant",
+        message: result.error.data.error,
+        success: false,
+      });
     history.push("/waypoints");
   };
 
@@ -215,6 +243,8 @@ export default function EditWaypointCtrl() {
       queryVideos={queryVideos}
       queryTags={queryTags}
       queryCategories={queryCategories}
+      loading={loading}
+      directive={directive}
     />
   );
 }

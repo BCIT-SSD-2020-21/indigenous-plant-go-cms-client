@@ -6,6 +6,7 @@ import ContentPickerCtrl from "../../../controllers/Forms/ContentPicker/ContentP
 import CustomFieldPickerCtrl from "../../../controllers/Forms/CustomFieldPicker/CustomFieldPickerCtrl";
 import TextInputCtrl from "../../../controllers/Forms/TextInput/TextInputCtrl";
 import TextAreaCtrl from "../../../controllers/Forms/TextArea/TextAreaCtrl";
+import Message from "../../Message";
 
 /*
   @desc UI component for the EditWaypoint dashboard. Displays form inputs, allows users to update a waypoint's data.
@@ -40,9 +41,20 @@ export default function EditWaypoint({
   queryVideos,
   queryTags,
   queryCategories,
+  loading,
+  directive,
 }) {
   return (
     <div>
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <DashHeader
         title={
           waypointData && waypointData.waypoint_name
@@ -51,6 +63,7 @@ export default function EditWaypoint({
               )}`
             : "Edit Waypoint"
         }
+        loading={loading}
         action="Update"
         method={() => handleUpdate()}
       />

@@ -96,6 +96,12 @@ export default function EditUserCtrl() {
         message: "Cannot fetch this user",
         success: false,
       });
+    if (!email || !username || !role)
+      return setDirective({
+        header: "Error could not update user",
+        message: "Required fields are missing",
+        success: false,
+      });
 
     let userData_ = {
       email: email,
