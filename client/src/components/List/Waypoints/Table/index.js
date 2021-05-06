@@ -89,7 +89,7 @@ export default function Table({
                     <>
                       {typeof lastRevision.date === "string" &&
                       typeof lastRevision.user === "string"
-                        ? `${lastRevision.user} by ${lastRevision.date}`
+                        ? `${lastRevision.date} by ${lastRevision.user}`
                         : "Sorry, could not fetch revision history."}
                     </>
                   )}
