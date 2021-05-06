@@ -876,7 +876,7 @@ PLANTS
 
 export const getAllPlants = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/plants`);
+    const response = await axios.get(`${BASE_URL}/plants/all`);
 
     return response.data;
   } catch (error) {
@@ -1007,7 +1007,7 @@ WAYPOINTS
 ==================================================*/
 export const getAllWaypoints = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/waypoints`);
+    const response = await axios.get(`${BASE_URL}/waypoints/all`);
 
     return response.data;
   } catch (error) {

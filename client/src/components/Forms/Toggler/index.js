@@ -22,7 +22,7 @@ export default function Toggler({ label, setValue, value }) {
             name="toggler"
           />
           <label htmlFor="toggler">
-            {value === true ? "Plant will be visible" : "Plant will be hidden"}
+            {value === true ? "Status: Visible" : "Status: Hidden"}
           </label>
         </div>
       </fieldset>
