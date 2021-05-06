@@ -32,7 +32,6 @@ export default function AddUserCtrl() {
   // POST
   // ===============================================================
   const registerUser = async () => {
-    setLoading(true);
     if (!username || !email || !role || !password)
       return setDirective({
         header: "Error creating user",
@@ -51,6 +50,7 @@ export default function AddUserCtrl() {
       password: password,
       role: role,
     };
+    setLoading(true);
     const result = await createUser(user);
     setLoading(false);
     if (result.error)
