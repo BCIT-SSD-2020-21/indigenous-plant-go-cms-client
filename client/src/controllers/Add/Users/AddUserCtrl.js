@@ -13,15 +13,38 @@ export default function AddUserCtrl() {
   const [role, setRole] = useState("Manager");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  // Error Messaging
+  const [directive, setDirective] = useState(null);
+  // Preloader
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      setDirective(null);
+    }, 4000);
+  };
 
   // ===============================================================
   // POST
   // ===============================================================
   const registerUser = async () => {
+    setLoading(true);
     if (!username || !email || !role || !password)
-      return console.log("Required fields are missing");
+      return setDirective({
+        header: "Error creating user",
+        message: "Required fields are missing",
+        success: false,
+      });
     if (password !== confirmPassword)
-      return console.log("Passwords don't match");
+      return setDirective({
+        header: "Error creating user",
+        message: "Passwords do not match",
+        success: false,
+      });
     const user = {
       email: email,
       user_name: username,
@@ -29,7 +52,13 @@ export default function AddUserCtrl() {
       role: role,
     };
     const result = await createUser(user);
-    if (result.error) return console.log("Error registering user");
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error registering a user",
+        message: result.error.data.error,
+        success: false,
+      });
     history.push("/users");
   };
 
@@ -41,6 +70,8 @@ export default function AddUserCtrl() {
       role={role}
       password={password}
       confirmPassword={confirmPassword}
+      directive={directive}
+      loading={loading}
       // Methods
       changeUsername={setUsername}
       changeEmail={setEmail}

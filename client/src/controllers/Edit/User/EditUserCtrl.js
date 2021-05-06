@@ -16,6 +16,20 @@ export default function EditUserCtrl() {
   const [role, setRole] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  // Error Messaging
+  const [directive, setDirective] = useState(null);
+  // Preloader
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      setDirective(null);
+    }, 4000);
+  };
 
   /* 
     @desc invoke queryUser on mount
@@ -30,9 +44,21 @@ export default function EditUserCtrl() {
     @author Patrick Fortaleza
   */
   const queryUser = async () => {
-    if (!userId) return console.log("unable to find user id");
+    if (!userId)
+      return setDirective({
+        header: "Error",
+        message: "Cannot fetch this user",
+        success: false,
+      });
+    setLoading(true);
     const result = await getUser(userId);
-    if (result.error) return console.log("unable to fetch user data");
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error",
+        message: "Cannot fetch this user",
+        success: false,
+      });
 
     // delegate
     setEmail(result.email);
@@ -64,7 +90,12 @@ export default function EditUserCtrl() {
   // ===============================================================
   const applyUpdate = async () => {
     const id = userId;
-    if (!id) return console.log("error updating user data");
+    if (!id)
+      return setDirective({
+        header: "Error",
+        message: "Cannot fetch this user",
+        success: false,
+      });
 
     let userData_ = {
       email: email,
@@ -74,18 +105,32 @@ export default function EditUserCtrl() {
 
     if (changePassword) {
       if (!newPassword || !confirmPassword)
-        return console.log("password fields are empty.");
+        return setDirective({
+          header: "Could not update user",
+          message: "Password fields are empty.",
+          success: false,
+        });
       if (newPassword !== confirmPassword)
-        return console.log("password don't match.");
+        return setDirective({
+          header: "Could not update user",
+          message: "Password fields don't match.",
+          success: false,
+        });
 
       userData_ = {
         ...userData_,
         password: newPassword,
       };
     }
-
+    setLoading(true);
     const result = await updateUser(userData_, id);
-    if (result.error) return console.log("Unable to update the user's data.");
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error updating user",
+        message: result.error.data.error,
+        success: false,
+      });
     history.push("/users");
   };
 
@@ -107,6 +152,8 @@ export default function EditUserCtrl() {
       role={role}
       newPassword={newPassword}
       confirmPassword={confirmPassword}
+      loading={loading}
+      directive={directive}
     />
   );
 }

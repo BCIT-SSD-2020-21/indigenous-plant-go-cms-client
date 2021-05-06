@@ -5,6 +5,7 @@ import { Dropdown, Input, Icon } from "semantic-ui-react";
 import { ResetIcon } from "../../../icons";
 import Modal from "../../Modal";
 import { Loader } from "semantic-ui-react";
+import { useHistory } from "react-router-dom";
 
 /*
   @desc UI component that Lists Users and allows the list to be managed.
@@ -57,6 +58,7 @@ export default function ListUsers({
   // LOADING -- Attributes
   loading,
 }) {
+  const history = useHistory();
   const renderModal = () => {
     switch (modalState) {
       case "single":
@@ -123,7 +125,7 @@ export default function ListUsers({
         title="All Users"
         subtitle="Manage Users"
         action="Add New"
-        method={() => console.log("Add New")}
+        method={() => history.push("/users/add")}
       />
       <p>
         <strong>Results</strong> ({userDatas.length}){" "}
