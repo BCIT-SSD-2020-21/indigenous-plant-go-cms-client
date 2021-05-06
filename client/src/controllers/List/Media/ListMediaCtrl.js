@@ -326,20 +326,14 @@ export default function ListMediaCtrl({ dataLabel, label }) {
       });
 
     let result;
-    if (
-      (dataLabel !== "video" && !editMedia.file) ||
-      (dataLabel !== "video" && !editMedia.caption)
-    )
+    if (dataLabel !== "video" && !editMedia.file && !editMedia.caption)
       return setDirective({
         header: "Error updating media",
         message: "Required fields are missing",
         success: false,
       });
 
-    if (
-      (dataLabel === "video" && !editVideoLink) ||
-      (dataLabel === "video" && !editMedia.caption)
-    )
+    if (dataLabel === "video" && !editVideoLink && !editMedia.caption)
       return setDirective({
         header: "Error uploading media",
         message: "Required fields are missing",
