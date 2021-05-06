@@ -4,6 +4,7 @@ import { Dropdown, Input, Icon } from "semantic-ui-react";
 import Modal from "../../Modal";
 import Table from "./Table";
 import { Loader } from "semantic-ui-react";
+import Message from "../../Message";
 
 /*
   @desc UI component that Lists categories and allows the list to be managed.
@@ -57,6 +58,7 @@ export default function ListCategories({
   editCategoryValue,
   // LOADING -- Attributes
   loading,
+  directive,
 }) {
   const editModal = () => (
     <>
@@ -103,6 +105,15 @@ export default function ListCategories({
 
   return (
     <div>
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <DashHeader title={labelPlural} subtitle={`${label} Categories`} />
 
       <div className="resource__container">
