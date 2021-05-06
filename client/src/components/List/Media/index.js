@@ -66,6 +66,10 @@ export default function ListMedia({
   // LOADING -- Attributes
   loading,
   directive,
+  videoLink,
+  setVideoLink,
+  editVideoLink,
+  setEditVideoLink,
 }) {
   const renderModal = () => {
     switch (modalState) {
@@ -152,44 +156,74 @@ export default function ListMedia({
           placeholder="Enter caption"
         />
       </fieldset>
-      <p style={style.label}>
-        Upload file: <span style={style.req}>*</span>
-      </p>
-      <fieldset style={style.fieldset}>
-        <div className="field__file">
-          <div
-            style={{ padding: "10px 10px", minWidth: 100 }}
-            className="file__meta"
-          >
-            <p>
-              {editMedia.file !== null ? editMedia.file?.name : editMedia.url}
+      {dataLabel === "video" ? (
+        <>
+          <fieldset style={style.fieldset}>
+            <p style={style.label}>
+              Youtube URL <span style={style.req}>*</span>
             </p>
-          </div>
-          <input
-            filename={editMedia?.file !== null ? editMedia.file : null}
-            onChange={(e) => {
-              handleChangeFile(e);
-            }}
-            style={{ display: "none" }}
-            id="file--update"
-            type="file"
-            accept={
-              dataLabel === "image"
-                ? "image/*"
-                : dataLabel === "audio_file"
-                ? "audio/*"
-                : "video/*"
-            }
-          />
-          <button className="field__button">
-            <label htmlFor="file--update">Choose File</label>
+
+            <Input
+              value={editVideoLink}
+              onChange={(e) => setEditVideoLink(e.target.value)}
+              style={style.input}
+              placeholder="Enter Youtube URL"
+            />
+            <p style={{ fontSize: 12, marginTop: 7 }}>
+              Valid Example: https://www.youtube.com/watch?v=lhqNduGgpC8
+            </p>
+          </fieldset>
+
+          <button className="field__button" onClick={() => applyEdit()}>
+            Update {label[0].toUpperCase()}
+            {label.substring(1)}
           </button>
-        </div>
-        <button className="field__button" onClick={() => applyEdit()}>
-          Update {label[0].toUpperCase()}
-          {label.substring(1)}
-        </button>
-      </fieldset>
+        </>
+      ) : (
+        <>
+          <p style={style.label}>
+            Upload file: <span style={style.req}>*</span>
+          </p>
+          <fieldset style={style.fieldset}>
+            <div className="field__file">
+              <div
+                style={{ padding: "10px 10px", minWidth: 100 }}
+                className="file__meta"
+              >
+                <p>
+                  {editMedia.file !== null
+                    ? editMedia.file?.name
+                    : editMedia.url}
+                </p>
+              </div>
+              <input
+                filename={editMedia?.file !== null ? editMedia.file : null}
+                onChange={(e) => {
+                  handleChangeFile(e);
+                }}
+                style={{ display: "none" }}
+                id="file--update"
+                type="file"
+                accept={
+                  dataLabel === "image"
+                    ? "image/*"
+                    : dataLabel === "audio_file"
+                    ? "audio/*"
+                    : "video/*"
+                }
+              />
+              <button className="field__button">
+                <label htmlFor="file--update">Choose File</label>
+              </button>
+            </div>
+            <button className="field__button" onClick={() => applyEdit()}>
+              Update {label[0].toUpperCase()}
+              {label.substring(1)}
+            </button>
+          </fieldset>
+        </>
+      )}
+
       <button
         onClick={() => closeModal()}
         style={{ color: "var(--highlight)" }}
@@ -253,49 +287,84 @@ export default function ListMedia({
               placeholder="Enter caption"
             />
           </fieldset>
-          <p style={style.label}>
-            Upload file: <span style={style.req}>*</span>
-          </p>
-          <fieldset style={style.fieldset}>
-            <form>
-              <div className="field__file">
-                <div
-                  style={{ padding: "10px 10px", minWidth: 100 }}
-                  className="file__meta"
-                >
-                  <p>{file?.name}</p>
-                </div>
-                <input
-                  filename={file}
-                  onChange={(e) => {
-                    setFile(e.target.files[0]);
-                  }}
-                  key={file?.name || ""}
-                  style={{ display: "none" }}
-                  id="file--upload"
-                  type="file"
-                  accept={
-                    dataLabel === "image"
-                      ? "image/*"
-                      : dataLabel === "audio_file"
-                      ? "audio/*"
-                      : "video/*"
-                  }
-                />
-                <button type="button" className="field__button">
-                  <label htmlFor="file--upload">Choose File</label>
-                </button>
-              </div>
-              <button
-                type="button"
-                className="field__button"
-                onClick={() => handleUpload()}
-              >
-                Upload {label[0].toUpperCase()}
-                {label.substring(1)}
-              </button>
-            </form>
-          </fieldset>
+
+          {dataLabel === "video" ? (
+            <>
+              <fieldset style={style.fieldset}>
+                <form>
+                  <fieldset style={style.fieldset}>
+                    <p style={style.label}>
+                      Youtube URL <span style={style.req}>*</span>
+                    </p>
+
+                    <Input
+                      value={videoLink}
+                      onChange={(e) => setVideoLink(e.target.value)}
+                      style={style.input}
+                      placeholder="Enter Youtube URL"
+                    />
+                    <p style={{ fontSize: 12, marginTop: 7 }}>
+                      Valid Example: https://www.youtube.com/watch?v=lhqNduGgpC8
+                    </p>
+                  </fieldset>
+                  <button
+                    type="button"
+                    className="field__button"
+                    onClick={() => handleUpload()}
+                  >
+                    Upload {label[0].toUpperCase()}
+                    {label.substring(1)}
+                  </button>
+                </form>
+              </fieldset>
+            </>
+          ) : (
+            <>
+              <p style={style.label}>
+                Upload file: <span style={style.req}>*</span>
+              </p>
+              <fieldset style={style.fieldset}>
+                <form>
+                  <div className="field__file">
+                    <div
+                      style={{ padding: "10px 10px", minWidth: 100 }}
+                      className="file__meta"
+                    >
+                      <p>{file?.name}</p>
+                    </div>
+                    <input
+                      filename={file}
+                      onChange={(e) => {
+                        setFile(e.target.files[0]);
+                      }}
+                      key={file?.name || ""}
+                      style={{ display: "none" }}
+                      id="file--upload"
+                      type="file"
+                      accept={
+                        dataLabel === "image"
+                          ? "image/*"
+                          : dataLabel === "audio_file"
+                          ? "audio/*"
+                          : "video/*"
+                      }
+                    />
+                    <button type="button" className="field__button">
+                      <label htmlFor="file--upload">Choose File</label>
+                    </button>
+                  </div>
+                  <button
+                    type="button"
+                    className="field__button"
+                    onClick={() => handleUpload()}
+                  >
+                    Upload {label[0].toUpperCase()}
+                    {label.substring(1)}
+                  </button>
+                </form>
+              </fieldset>
+            </>
+          )}
         </div>
         <div className="resource__col right">
           <p>
