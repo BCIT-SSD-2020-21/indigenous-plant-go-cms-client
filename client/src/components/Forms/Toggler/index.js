@@ -10,7 +10,7 @@ export default function Toggler({ label, setValue, value }) {
       </label>
       <p>
         <Icon name="info circle" />
-        This option will hide or show this plant on the mobile application.
+        This option will hide or show this resource on the mobile application.
       </p>
       <fieldset style={style.fieldset}>
         <div style={{ display: "flex" }}>
@@ -22,7 +22,9 @@ export default function Toggler({ label, setValue, value }) {
             name="toggler"
           />
           <label htmlFor="toggler">
-            {value === true ? "Status: Visible" : "Status: Hidden"}
+            {value === true
+              ? "Current Status: Visible"
+              : "Current Status: Hidden"}
           </label>
         </div>
       </fieldset>

@@ -6,6 +6,7 @@ import ContentPickerCtrl from "../../../controllers/Forms/ContentPicker/ContentP
 import CustomFieldPickerCtrl from "../../../controllers/Forms/CustomFieldPicker/CustomFieldPickerCtrl";
 import TextInputCtrl from "../../../controllers/Forms/TextInput/TextInputCtrl";
 import TextAreaCtrl from "../../../controllers/Forms/TextArea/TextAreaCtrl";
+import TogglerCtrl from "../../../controllers/Forms/Toggler/TogglerCtrl";
 import Message from "../../Message";
 
 /*
@@ -25,6 +26,7 @@ export default function AddWaypoints({
   categoriesChanged,
   tagsChanged,
   plantsChanged,
+  isVisibleChanged,
   // SELECTION DATA
   eLocations,
   eImages,
@@ -126,6 +128,11 @@ export default function AddWaypoints({
             data={eTags}
             query={queryTags}
             setter={(data) => tagsChanged(data)}
+          />
+          <TogglerCtrl
+            label={"visibility"}
+            eValue={true}
+            setter={(data) => isVisibleChanged(data)}
           />
         </div>
       </div>

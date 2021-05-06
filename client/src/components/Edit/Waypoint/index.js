@@ -6,6 +6,7 @@ import ContentPickerCtrl from "../../../controllers/Forms/ContentPicker/ContentP
 import CustomFieldPickerCtrl from "../../../controllers/Forms/CustomFieldPicker/CustomFieldPickerCtrl";
 import TextInputCtrl from "../../../controllers/Forms/TextInput/TextInputCtrl";
 import TextAreaCtrl from "../../../controllers/Forms/TextArea/TextAreaCtrl";
+import TogglerCtrl from "../../../controllers/Forms/Toggler/TogglerCtrl";
 import Message from "../../Message";
 
 /*
@@ -25,6 +26,7 @@ export default function EditWaypoint({
   waypointNameChanged,
   descriptionChanged,
   plantsChanged,
+  isVisibleChanged,
   handleUpdate,
   // SELECTION DATA
   eLocations,
@@ -143,6 +145,11 @@ export default function EditWaypoint({
             selected={waypointData.tags}
             query={queryTags}
             setter={(data) => tagsChanged(data)}
+          />
+          <TogglerCtrl
+            label={"visibility"}
+            eValue={waypointData.isPublish}
+            setter={(data) => isVisibleChanged(data)}
           />
         </div>
       </div>
