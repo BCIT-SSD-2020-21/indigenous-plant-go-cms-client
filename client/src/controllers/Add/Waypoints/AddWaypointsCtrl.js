@@ -45,7 +45,23 @@ export default function AddWaypointsCtrl() {
   const [eCategories, setECategories] = useState([]);
   const [ePlants, setEPlants] = useState([]);
 
+  // Error handling
+  const [directive, setDirective] = useState(null);
+  // Preloader
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      setDirective(null);
+    }, 4000);
+  };
+
   useEffect(async () => {
+    setLoading(true);
     await queryLocations();
     await queryImages();
     await queryAudios();
@@ -53,6 +69,7 @@ export default function AddWaypointsCtrl() {
     await queryTags();
     await queryCategories();
     await queryPlants();
+    setLoading(false);
   }, []);
 
   // ===============================================================
@@ -170,8 +187,15 @@ export default function AddWaypointsCtrl() {
       plants: plants,
     };
 
+    setLoading(true);
     const result = await createWaypoint(waypoint);
-    if (result.error) return console.log("error creating waypoint");
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error creating waypoint",
+        message: result.error.data.error,
+        success: false,
+      });
     history.push("/waypoints");
   };
 
@@ -205,6 +229,8 @@ export default function AddWaypointsCtrl() {
       queryCategories={queryCategories}
       // PUBLISH
       handlePublish={handlePublish}
+      loading={loading}
+      directive={directive}
     />
   );
 }

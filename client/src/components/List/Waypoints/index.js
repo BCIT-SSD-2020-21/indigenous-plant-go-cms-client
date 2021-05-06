@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 import { ResetIcon } from "../../../icons";
 import Modal from "../../Modal";
+import { Loader } from "semantic-ui-react";
 
 /*
   @desc UI component that Lists Waypoints and allows the list to be managed.
@@ -52,6 +53,8 @@ export default function ListWaypoints({
   // DELETE -- Methods
   handleDelete,
   applyDelete,
+  // LOADING -- Attributes
+  loading,
 }) {
   const history = useHistory();
   const renderModal = () => {
@@ -88,7 +91,8 @@ export default function ListWaypoints({
         method={() => history.push("/waypoints/add")}
       />
       <p>
-        <strong>Results</strong> ({waypointData.length})
+        <strong>Results</strong> ({waypointData.length}){" "}
+        {loading && <Loader active inline size="tiny" />}
       </p>
       <div className="table__controls">
         <div style={{ display: "flex" }}>

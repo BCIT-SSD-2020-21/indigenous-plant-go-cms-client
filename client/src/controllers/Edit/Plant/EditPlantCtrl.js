@@ -43,7 +43,23 @@ export default function EditPlantCtrl() {
   const [eTags, setETags] = useState([]);
   const [eCategories, setECategories] = useState([]);
 
+  // Error handling
+  const [directive, setDirective] = useState(null);
+  // Preloader
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      setDirective(null);
+    }, 4000);
+  };
+
   useEffect(async () => {
+    setLoading(true);
     await queryPlant();
     await queryLocations();
     await queryImages();
@@ -51,6 +67,7 @@ export default function EditPlantCtrl() {
     await queryVideos();
     await queryTags();
     await queryCategories();
+    setLoading(false);
   }, []);
 
   // ===============================================================
@@ -156,6 +173,13 @@ export default function EditPlantCtrl() {
   // @desc updates the Plant.
   // ===============================================================
   const handleUpdate = async () => {
+    if (!plantName || !scientificName || !description || locations.length < 1)
+      return setDirective({
+        header: "Error updating plant",
+        message: "Missing required fields",
+        success: false,
+      });
+    setLoading(true);
     const plant = {
       plant_name: plantName,
       scientific_name: scientificName,
@@ -170,7 +194,13 @@ export default function EditPlantCtrl() {
     };
 
     const result = await updatePlant(plantId, plant);
-    if (result.error) return console.log("error creating plant");
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error updating plant",
+        message: result.error.data.error,
+        success: false,
+      });
     history.push("/plants");
   };
 
@@ -203,6 +233,8 @@ export default function EditPlantCtrl() {
       queryVideos={queryVideos}
       queryTags={queryTags}
       queryCategories={queryCategories}
+      loading={loading}
+      directive={directive}
     />
   );
 }

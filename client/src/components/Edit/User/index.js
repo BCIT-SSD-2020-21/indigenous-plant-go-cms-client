@@ -1,6 +1,8 @@
 import React from "react";
 import { Input, Dropdown, Icon } from "semantic-ui-react";
 import DashHeader from "../../DashHeader";
+import { Loader } from "semantic-ui-react";
+import Message from "../../Message";
 
 /*
   @desc UI component for the EditUser dashboard. Displays form inputs, allows users to update another user's data.
@@ -21,9 +23,20 @@ export default function EditUser({
   changeNewPassword,
   changeConfirmPassword,
   applyUpdate,
+  loading,
+  directive,
 }) {
   return (
     <div>
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <DashHeader title={"Edit user"} />
       <p style={{ maxWidth: 450, lineHeight: "1.7em" }}>
         To update{" "}
@@ -177,6 +190,7 @@ export default function EditUser({
             </button>
           </p>
         )}
+        {loading && <Loader active inline size="small" />}
       </form>
     </div>
   );

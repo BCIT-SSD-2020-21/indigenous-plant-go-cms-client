@@ -2,10 +2,10 @@ import React from "react";
 import DashHeader from "../../DashHeader";
 import TextPickerCtrl from "../../../controllers/Forms/TextPicker/TextPickerCtrl";
 import MediaPickerCtrl from "../../../controllers/Forms/MediaPicker/MediaPickerCtrl";
-import ContentPickerCtrl from "../../../controllers/Forms/ContentPicker/ContentPickerCtrl";
 import CustomFieldPickerCtrl from "../../../controllers/Forms/CustomFieldPicker/CustomFieldPickerCtrl";
 import TextInputCtrl from "../../../controllers/Forms/TextInput/TextInputCtrl";
 import TextAreaCtrl from "../../../controllers/Forms/TextArea/TextAreaCtrl";
+import Message from "../../Message";
 
 /*
   @desc UI component for the AddPlants dashboard. Displays form inputs.
@@ -38,14 +38,28 @@ export default function AddPlants({
   queryVideos,
   queryTags,
   queryCategories,
+  // Preloader
+  loading,
+  directive,
 }) {
   return (
     <div>
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <DashHeader
         title="Add New Plant"
         action="Publish"
         method={handlePublish}
+        loading={loading}
       />
+      <br></br>
       <div className="form__grid">
         <div className="col">
           <TextInputCtrl

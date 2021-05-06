@@ -2,7 +2,8 @@ import React from "react";
 import DashHeader from "../../DashHeader";
 import Table from "./Table";
 import Modal from "../../Modal";
-import { Dropdown, Input, Icon } from "semantic-ui-react";
+import { Dropdown, Input, Icon, Loader } from "semantic-ui-react";
+import Message from "../../Message";
 
 /*
   @desc UI component that Lists tags and allows the list to be managed.
@@ -55,6 +56,9 @@ export default function ListTags({
   handleBulkActionChange,
   handleBulkDelete,
   applyBulkDelete,
+  // LOADING -- Attributes
+  loading,
+  directive,
 }) {
   const renderModal = () => {
     switch (modalState) {
@@ -142,6 +146,15 @@ export default function ListTags({
 
   return (
     <div>
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <DashHeader title="Tags" />
       <div className="resource__container">
         <div className="resource__col left">
@@ -164,7 +177,8 @@ export default function ListTags({
         </div>
         <div className="resource__col right">
           <p>
-            <strong>Results</strong> ({tags.length})
+            <strong>Results</strong> ({tags.length}){" "}
+            {loading && <Loader active inline size="tiny" />}
           </p>
           <div className="table__controls">
             <div style={{ display: "flex" }}>

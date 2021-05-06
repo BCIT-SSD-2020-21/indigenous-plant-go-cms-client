@@ -24,6 +24,9 @@ export default function ListTagsCtrl() {
   const [modalState, setModalState] = useState("delete");
   const [bulkAction, setBulkAction] = useState("");
   const [editTag, setEditTag] = useState("");
+  const [loading, setLoading] = useState(false);
+  // Error Messaging
+  const [directive, setDirective] = useState(null);
 
   useEffect(() => {
     queryTags();
@@ -37,6 +40,16 @@ export default function ListTagsCtrl() {
     setPage(1);
     formatPages();
   }, [tags_]);
+
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      setDirective(null);
+    }, 4000);
+  };
 
   const formatPages = () => {
     const dataLength = tags_.length;
@@ -78,8 +91,10 @@ export default function ListTagsCtrl() {
   };
 
   const queryTags = async () => {
+    setLoading(true);
     const result = await getTags();
-    if (result.error) return console.log("error fetching tags");
+    setLoading(false);
+    if (result.error) return;
     setETags(result);
   };
 
@@ -133,13 +148,24 @@ export default function ListTagsCtrl() {
   };
 
   const submitNewTag = async () => {
-    if (!newTag) return console.log("Cannot populate an empty tag");
+    if (!newTag)
+      return setDirective({
+        header: "Error creating tag",
+        message: "Can't create a tag with an empty tag name",
+        success: false,
+      });
     const tag = {
       tag_name: newTag,
     };
-
+    setLoading(true);
     const result = await createTag(tag);
-    if (result.error) return console.log("error creating a tag");
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error creating tag",
+        message: result.error.data.error,
+        success: false,
+      });
     queryTags();
     setNewTag("");
   };
@@ -152,16 +178,33 @@ export default function ListTagsCtrl() {
     setModalState("delete");
     const id = e.target.value;
     const foundTag = eTags.filter((tag) => tag._id === id)[0];
-    if (!foundTag) return console.log("Unable to find tag");
+    if (!foundTag)
+      return setDirective({
+        header: "Error deleting tag",
+        message: "Could not locate tag",
+        success: false,
+      });
     await setPendingDelete(foundTag);
     setModalActive(true);
   };
 
   const applyDelete = async () => {
     const id = pendingDelete._id;
-    if (!id) return console.log("Unable to delete category");
+    if (!id)
+      return setDirective({
+        header: "Error deleting tag",
+        message: "Could not locate tag",
+        success: false,
+      });
+    setLoading(true);
     const result = await deleteTag(id);
-    if (result.error) return console.log("Unable to delete category");
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error deleting tag",
+        message: result.error.data.error,
+        success: false,
+      });
     closeModal();
     setPendingDelete({});
     queryTags();
@@ -171,20 +214,43 @@ export default function ListTagsCtrl() {
     setModalState("edit");
     const id = e.target.value;
     const foundTag = eTags.filter((tag) => tag._id === id)[0];
-    if (!foundTag) return console.log("Unable to find tag");
+    if (!foundTag)
+      return setDirective({
+        header: "Error updating tag",
+        message: "Could not locate tag",
+        success: false,
+      });
     await setPendingEdit(foundTag);
     setEditTag(foundTag.tag_name);
     setModalActive(true);
   };
 
   const applyEdit = async (e) => {
+    if (!editTag)
+      return setDirective({
+        header: "Error updating tag",
+        message: "Can't create a tag with an empty tag name",
+        success: false,
+      });
     const id = pendingEdit._id;
-    if (!id) return console.log("Unable to edit tag");
+    if (!id)
+      return setDirective({
+        header: "Error updating tag",
+        message: "Could not locate tag",
+        success: false,
+      });
     const updatedTag = {
       tag_name: editTag,
     };
+    setLoading(true);
     const result = await updateTag(id, updatedTag);
-    if (result.error) return console.log("Unable to edit tag");
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error updating tag",
+        message: result.error.data.error,
+        success: false,
+      });
     closeModal();
     setPendingEdit({});
     queryTags();
@@ -197,16 +263,30 @@ export default function ListTagsCtrl() {
   };
 
   const handleBulkDelete = async () => {
-    if (selectedTags.length < 1) return console.log("no tags selected");
+    if (selectedTags.length < 1)
+      return setDirective({
+        header: "Error applying bulk actions",
+        message: "No items selected",
+        success: false,
+      });
     if (bulkAction === "default")
-      return console.log("cannot bulk delete if bulk action is set to default");
+      return setDirective({
+        header: "Error applying bulk actions",
+        message: "Invalid action",
+        success: false,
+      });
     setModalState("bulk");
     setModalActive(true);
   };
 
   const applyBulkDelete = async () => {
     const result = await bulkDeleteTags(selectedTags);
-    if (result.error) return console.log("Unable to bulk delete plants");
+    if (result.error)
+      return setDirective({
+        header: "Error applying bulk action",
+        message: result.error.data.error,
+        success: false,
+      });
     closeModal();
     setSelectedTags([]);
     queryTags();
@@ -244,6 +324,8 @@ export default function ListTagsCtrl() {
       handleBulkActionChange={handleBulkActionChange}
       handleBulkDelete={handleBulkDelete}
       applyBulkDelete={applyBulkDelete}
+      loading={loading}
+      directive={directive}
     />
   );
 }

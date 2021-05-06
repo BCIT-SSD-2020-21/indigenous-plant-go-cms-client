@@ -30,6 +30,9 @@ export default function ListLocationsCtrl() {
   const [pages, setPages] = useState([]);
   const [page, setPage] = useState(1);
   const [bulkAction, setBulkAction] = useState("");
+  const [loading, setLoading] = useState(false);
+  // Error Messaging
+  const [directive, setDirective] = useState(null);
 
   useEffect(() => {
     queryLocations();
@@ -43,6 +46,16 @@ export default function ListLocationsCtrl() {
     setPage(1);
     formatPages();
   }, [locations_]);
+
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      setDirective(null);
+    }, 4000);
+  };
 
   const formatPages = () => {
     const dataLength = locations_.length;
@@ -93,8 +106,10 @@ export default function ListLocationsCtrl() {
   };
 
   const queryLocations = async () => {
+    setLoading(true);
     const result = await getLocations();
-    if (result.error) return console.log("error fetching locations");
+    setLoading(false);
+    if (result.error) return;
     setELocations(result);
   };
 
@@ -159,17 +174,26 @@ export default function ListLocationsCtrl() {
   const submitNewLocation = async () => {
     const isUndefined = (variable) => variable === undefined;
     if (Object.values(newLocation).some(isUndefined))
-      return console.log("New location fields are missing.");
+      return setDirective({
+        header: "Error creating location",
+        message: "Required fields are missing",
+        success: false,
+      });
 
     const newLocation_ = {
       location_name: newLocation.name,
-      latitude: newLocation.latitude,
-      longitude: newLocation.longitude,
+      latitude: +newLocation.latitude,
+      longitude: +newLocation.longitude,
       description: newLocation.description,
     };
 
     const result = await createLocation(newLocation_);
-    if (result.error) return console.log("error creating a location");
+    if (result.error)
+      return setDirective({
+        header: "Error creating location",
+        message: result.error.data.error,
+        success: false,
+      });
     queryLocations();
     setNewLocation(locationFields);
   };
@@ -178,16 +202,33 @@ export default function ListLocationsCtrl() {
     setModalState("delete");
     const id = e.target.value;
     const foundLocation = eLocations.filter((tag) => tag._id === id)[0];
-    if (!foundLocation) return console.log("Unable to find location");
+    if (!foundLocation)
+      return setDirective({
+        header: "Error deleting location",
+        message: "Could not locate location.",
+        success: false,
+      });
     await setPendingDelete(foundLocation);
     setModalActive(true);
   };
 
   const applyDelete = async () => {
     const id = pendingDelete._id;
-    if (!id) return console.log("Unable to delete category");
+    if (!id)
+      return setDirective({
+        header: "Error deleting location",
+        message: "Could not locate location.",
+        success: false,
+      });
+    setLoading(true);
     const result = await deleteLocation(id);
-    if (result.error) return console.log("Unable to delete category");
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error deleting location",
+        message: result.error.data.error,
+        success: false,
+      });
     closeModal();
     setPendingDelete({});
     queryLocations();
@@ -199,7 +240,12 @@ export default function ListLocationsCtrl() {
     const foundLocation = eLocations.filter(
       (location) => location._id === id
     )[0];
-    if (!foundLocation) return console.log("Unable to find location");
+    if (!foundLocation)
+      return setDirective({
+        header: "Error updating location",
+        message: "Could not locate location.",
+        success: false,
+      });
     await setPendingEdit(foundLocation);
 
     const L = {
@@ -215,15 +261,33 @@ export default function ListLocationsCtrl() {
 
   const applyEdit = async (e) => {
     const id = pendingEdit._id;
-    if (!id) return console.log("Unable to edit location");
+    if (!editLocation.name || !editLocation.latitude || !editLocation.longitude)
+      return setDirective({
+        header: "Error updating location",
+        message: "Required fields are missing.",
+        success: false,
+      });
+    if (!id)
+      return setDirective({
+        header: "Error updating location",
+        message: "Could not locate location.",
+        success: false,
+      });
     const updatedLocation = {
       location_name: editLocation.name,
-      latitude: editLocation.latitude,
-      longitude: editLocation.longitude,
+      latitude: +editLocation.latitude,
+      longitude: +editLocation.longitude,
       description: editLocation.description,
     };
+    setLoading(true);
     const result = await updateLocation(id, updatedLocation);
-    if (result.error) return console.log("Unable to edit location");
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error deleting location",
+        message: result.error.data.error,
+        success: false,
+      });
     closeModal();
     setPendingEdit({});
     queryLocations();
@@ -241,16 +305,29 @@ export default function ListLocationsCtrl() {
 
   const handleBulkDelete = async () => {
     if (selectedLocations.length < 1)
-      return console.log("no locations selected");
+      return setDirective({
+        header: "Error applying bulk actions",
+        message: "No items selected",
+        success: false,
+      });
     if (bulkAction === "default")
-      return console.log("cannot bulk delete if bulk action is set to default");
+      return setDirective({
+        header: "Error applying bulk actions",
+        message: "Invalid action",
+        success: false,
+      });
     setModalState("bulk");
     setModalActive(true);
   };
 
   const applyBulkDelete = async () => {
     const result = await bulkDeleteLocations(selectedLocations);
-    if (result.error) return console.log("Unable to bulk delete locations");
+    if (result.error)
+      return setDirective({
+        header: "Error applying bulk actions",
+        message: result.error.data.error,
+        success: false,
+      });
     closeModal();
     setSelectedLocations([]);
     queryLocations();
@@ -288,6 +365,8 @@ export default function ListLocationsCtrl() {
       handleBulkActionChange={handleBulkActionChange}
       handleBulkDelete={handleBulkDelete}
       applyBulkDelete={applyBulkDelete}
+      loading={loading}
+      directive={directive}
     />
   );
 }

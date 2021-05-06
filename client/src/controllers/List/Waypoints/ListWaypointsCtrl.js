@@ -22,6 +22,7 @@ export default function ListWaypointsCtrl() {
   const [hasPages, setHasPages] = useState(false);
   const [pages, setPages] = useState([]);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     queryWaypoints();
@@ -70,7 +71,9 @@ export default function ListWaypointsCtrl() {
   };
 
   const queryWaypoints = async () => {
+    setLoading(true);
     const result = await getAllWaypoints();
+    setLoading(false);
     if (result.error) return console.log("error getting waypoints");
     if (result.length < 1) setWaypointData([]);
     setWaypointData(result);
@@ -249,6 +252,7 @@ export default function ListWaypointsCtrl() {
       modalActive={modalActive}
       applyDelete={applyDelete}
       pendingDelete={pendingDelete}
+      loading={loading}
     />
   );
 }

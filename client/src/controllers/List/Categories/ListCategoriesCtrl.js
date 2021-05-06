@@ -22,6 +22,9 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   const [pendingEdit, setPendingEdit] = useState({});
   const [modalActive, setModalActive] = useState(false);
   const [modalState, setModalState] = useState("delete");
+  const [loading, setLoading] = useState(false);
+  // Error Messaging
+  const [directive, setDirective] = useState(null);
 
   useEffect(() => {
     queryCategories();
@@ -35,6 +38,16 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
     setPage(1);
     formatPages();
   }, [categories_]);
+
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      setDirective(null);
+    }, 4000);
+  };
 
   const formatPages = () => {
     const dataLength = categories_.length;
@@ -60,8 +73,10 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   };
 
   const queryCategories = async () => {
+    setLoading(true);
     const result = await getCategoryGroup(dataLabel);
-    if (result.error) return console.log("error fetching categories");
+    setLoading(false);
+    if (result.error) return;
     setECategories(result);
   };
 
@@ -131,14 +146,24 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   };
 
   const submitNewCategory = async () => {
-    if (!newCat) return console.log("Cannot populate an empty category");
+    if (!newCat)
+      return setDirective({
+        header: "Error creating category",
+        message: "Can't create a category with an empty category name",
+        success: false,
+      });
     const category = {
       category_name: newCat,
       resource: `${dataLabel}`,
     };
 
     const result = await createCategory(category);
-    if (result.error) return console.log("error creating a category");
+    if (result.error)
+      return setDirective({
+        header: "Error creating tag",
+        message: result.error.data.error,
+        success: false,
+      });
     queryCategories();
     setNewCat("");
   };
@@ -153,16 +178,31 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
     const foundCategory = eCategories.filter(
       (category) => category._id === id
     )[0];
-    if (!foundCategory) return console.log("Unable to find category");
+    if (!foundCategory)
+      return setDirective({
+        header: "Error deleting category",
+        message: "Could not locate category",
+        success: false,
+      });
     await setPendingDelete(foundCategory);
     setModalActive(true);
   };
 
   const applyDelete = async () => {
     const id = pendingDelete._id;
-    if (!id) return console.log("Unable to delete category");
+    if (!id)
+      return setDirective({
+        header: "Error deleting category",
+        message: "Could not locate category",
+        success: false,
+      });
     const result = await deleteCategory(id);
-    if (result.error) return console.log("Unable to delete category");
+    if (result.error)
+      return setDirective({
+        header: "Error deleting category",
+        message: result.error.data.error,
+        success: false,
+      });
     closeModal();
     setPendingDelete({});
     queryCategories();
@@ -174,7 +214,12 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
     const foundCategory = eCategories.filter(
       (category) => category._id === id
     )[0];
-    if (!foundCategory) return console.log("Unable to find category");
+    if (!foundCategory)
+      return setDirective({
+        header: "Error updating category",
+        message: "Could not locate category",
+        success: false,
+      });
     await setPendingEdit(foundCategory);
     setEditCat(foundCategory.category_name);
     setModalActive(true);
@@ -182,13 +227,30 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
 
   const applyEdit = async (e) => {
     const id = pendingEdit._id;
-    if (!id) return console.log("Unable to edit category");
+    if (!id)
+      return setDirective({
+        header: "Error updating category",
+        message: "Could not locate category",
+        success: false,
+      });
+
+    if (!editCat || !pendingEdit.resource)
+      return setDirective({
+        header: "Error updating category",
+        message: "Required fields are missing",
+        success: false,
+      });
     const updatedCategory = {
       category_name: editCat,
       resource: pendingEdit.resource,
     };
     const result = await updateCategory(id, updatedCategory);
-    if (result.error) return console.log("Unable to edit category");
+    if (result.error)
+      return setDirective({
+        header: "Error deleting category",
+        message: result.error.data.error,
+        success: false,
+      });
     closeModal();
     setPendingEdit({});
     queryCategories();
@@ -226,6 +288,8 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
       editCategory={setEditCat}
       editCategoryValue={editCat}
       applyEdit={applyEdit}
+      loading={loading}
+      directive={directive}
     />
   );
 }

@@ -39,13 +39,30 @@ export default function AddPlantsCtrl() {
   const [eTags, setETags] = useState([]);
   const [eCategories, setECategories] = useState([]);
 
+  // Error handling
+  const [directive, setDirective] = useState(null);
+  // Preloader
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      setDirective(null);
+    }, 4000);
+  };
+
   useEffect(async () => {
+    setLoading(true);
     await queryLocations();
     await queryImages();
     await queryAudios();
     await queryVideos();
     await queryTags();
     await queryCategories();
+    setLoading(false);
   }, []);
 
   // ===============================================================
@@ -145,6 +162,7 @@ export default function AddPlantsCtrl() {
   // ===============================================================
 
   const handlePublish = async () => {
+    setLoading(true);
     const plant = {
       plant_name: plantName,
       scientific_name: scientificName,
@@ -159,7 +177,13 @@ export default function AddPlantsCtrl() {
     };
 
     const result = await createPlant(plant);
-    if (result.error) return console.log("error creating plant");
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error creating plant",
+        message: result.error.data.error,
+        success: false,
+      });
     history.push("/plants");
   };
 
@@ -191,6 +215,9 @@ export default function AddPlantsCtrl() {
       queryVideos={queryVideos}
       queryTags={queryTags}
       queryCategories={queryCategories}
+      // PRELOADER
+      loading={loading}
+      directive={directive}
     />
   );
 }
