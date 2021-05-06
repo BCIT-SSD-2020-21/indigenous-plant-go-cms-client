@@ -27,6 +27,7 @@ export default function AddPlantsCtrl() {
   const [plantName, setPlantName] = useState("");
   const [scientificName, setScientificName] = useState("");
   const [description, setDescription] = useState("");
+  const [isVisible, setIsVisible] = useState(true);
 
   // ===============================================================
   // SELECTION DATA
@@ -156,6 +157,10 @@ export default function AddPlantsCtrl() {
     setDescription(data);
   };
 
+  const isVisibleChanged = (data) => {
+    setIsVisible(data);
+  };
+
   // ===============================================================
   // POST
   // @desc Publishes the new Plant.
@@ -174,6 +179,7 @@ export default function AddPlantsCtrl() {
       categories: categories,
       locations: locations,
       custom_fields: customFields,
+      isPublish: isVisible,
     };
 
     const result = await createPlant(plant);
@@ -200,6 +206,7 @@ export default function AddPlantsCtrl() {
       plantNameChanged={plantNameChanged}
       scientificNameChanged={scientificNameChanged}
       descriptionChanged={descriptionChanged}
+      isVisibleChanged={isVisibleChanged}
       handlePublish={handlePublish}
       // SELECTION DATA
       eLocations={eLocations}
