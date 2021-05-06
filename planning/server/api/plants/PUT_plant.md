@@ -36,6 +36,9 @@ New revision is added on whenever update is made
 Plant_name, scientific_name, and description must be a string
 - Returns "Plant_name field must take a string" or "(Scientific_name/Description) field must take a string" otherwise
 
+IsPublish must be a boolean
+- Returns "IsPublish field must take a boolean" otherwise
+
 If the array field (images, audio_files, videos, tags, categories, locations, custom_fields) is provided they must be an array, and all except custom_fields must be array of string formatted as objectId
 - Returns "The field (images, audio_files, videos, tags, categories, locations, custom_fields) must be array" if not an array
 - Returns "Not all elements under (images, audio_files, videos, tags, categories, locations) are valid ObjectId" if not all element within array are ObjectId
