@@ -3,4 +3,18 @@
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
+
+  .message {
+    padding: 10px 10px 10px 10px !important;
+    min-width: 320px !important;
+    width: 100% !important;
+  }
+
+  i.icon {
+    margin-right: 7px !important;
+    font-size: 17px !important;
+    position: absolute;
+    right: 0px;
+    top: 7px;
+  }
 }

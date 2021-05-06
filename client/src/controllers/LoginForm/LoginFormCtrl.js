@@ -10,6 +10,8 @@ export default function LoginFormCtrl() {
   const [username, setUsername] = useLocalStorage("username", "");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useLocalStorage("rememberMe", true);
+  const [directive, setDirective] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (rememberMe === false) {
@@ -18,11 +20,27 @@ export default function LoginFormCtrl() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      setDirective(null);
+    }, 4000);
+  };
+
   const attemptLogin = async (e) => {
+    setLoading(true);
     e.preventDefault();
     const result = await login({ username, password });
-    console.log(result);
-    if (result.error) return console.log("Error ocurred when attempting login");
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error signing in",
+        message: result.error.data.error,
+        success: false,
+      });
     setUserData(result);
   };
 
@@ -32,6 +50,8 @@ export default function LoginFormCtrl() {
       username={username}
       password={password}
       rememberMe={rememberMe}
+      directive={directive}
+      loading={loading}
       // METHODS
       setPassword={setPassword}
       setUsername={setUsername}

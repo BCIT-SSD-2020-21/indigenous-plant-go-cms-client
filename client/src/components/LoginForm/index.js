@@ -1,6 +1,7 @@
 import React from "react";
 import { Input, Checkbox, Button } from "semantic-ui-react";
 import Message from "../Message";
+import { Loader } from "semantic-ui-react";
 
 /*
   @desc UI component that displays a Login form.
@@ -11,6 +12,8 @@ export default function LoginForm({
   username,
   password,
   rememberMe,
+  directive,
+  loading,
   // METHODS
   setPassword,
   setUsername,
@@ -19,11 +22,15 @@ export default function LoginForm({
 }) {
   return (
     <div>
-      <Message
-        success={true}
-        header="Successful Login"
-        message="You've successfully logged in!"
-      />
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <form style={style.form} onSubmit={(e) => attemptLogin(e)}>
         <fieldset style={style.fieldset}>
           <p style={style.label}>
@@ -66,9 +73,10 @@ export default function LoginForm({
           />
         </fieldset>
 
-        <fieldset style={style.fieldset}>
+        <fieldset className="submit__fieldset" style={style.fieldset}>
           <Button primary style={{ ...style.submit, position: "relative" }}>
             Log in
+            {loading && <Loader active inline inverted size="small" />}
           </Button>
         </fieldset>
       </form>
