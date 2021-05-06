@@ -16,7 +16,6 @@ import {
   bulkDeleteImages,
   bulkDeleteAudios,
   bulkDeleteVideos,
-  bulkDeleteLocations,
 } from "../../../network";
 
 export default function ListMediaCtrl({ dataLabel, label }) {
