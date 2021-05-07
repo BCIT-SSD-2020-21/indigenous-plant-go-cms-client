@@ -17,6 +17,9 @@ Example request: PUT /api/users/607e399e59c8feg7e2af65r7
 }
 ```
 
+Email, user_name, and password are required
+- Returns "Requires an email" or "Requires a (user_name/password)" otherwise
+
 Email, user_name, password, role must be a string
 - Returns "Email field must take a string" or any of their respective field must take a string otherwise
 

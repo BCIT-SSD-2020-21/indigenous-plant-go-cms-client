@@ -14,6 +14,9 @@ Example request: PUT /api/categories/607e399e59c8feg7e2af65r7?key=<API_KEY>
 }
 ```
 
+Category_name and resource is required
+- Returns "Require a category name" or "Require a resource" otherwise
+
 Category_name and resource must be a string
 - Returns "Category_name field must take a string" or "Resource field must take a string" otherwise
 
