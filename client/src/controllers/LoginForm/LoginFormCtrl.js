@@ -3,6 +3,7 @@ import LoginForm from "../../components/LoginForm";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { login } from "../../network";
 import { useAuth } from "../../context/AuthContext";
+import { useHistory } from "react-router-dom";
 
 export default function LoginFormCtrl() {
   const authContext = useAuth();
@@ -12,6 +13,7 @@ export default function LoginFormCtrl() {
   const [rememberMe, setRememberMe] = useLocalStorage("rememberMe", true);
   const [directive, setDirective] = useState(null);
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     if (rememberMe === false) {
@@ -44,6 +46,10 @@ export default function LoginFormCtrl() {
     setUserData(result);
   };
 
+  const navigateToRecovery = () => {
+    history.push("/recovery");
+  };
+
   return (
     <LoginForm
       // PROPERTIES
@@ -57,6 +63,7 @@ export default function LoginFormCtrl() {
       setUsername={setUsername}
       setRememberMe={setRememberMe}
       attemptLogin={attemptLogin}
+      navigateToRecovery={navigateToRecovery}
     />
   );
 }

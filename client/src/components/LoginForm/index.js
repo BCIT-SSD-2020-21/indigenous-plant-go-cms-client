@@ -19,6 +19,7 @@ export default function LoginForm({
   setUsername,
   setRememberMe,
   attemptLogin,
+  navigateToRecovery,
 }) {
   return (
     <div>
@@ -81,7 +82,9 @@ export default function LoginForm({
         </fieldset>
       </form>
       <div style={style.formFooter}>
-        <button style={{ color: "grey" }}>← Lost your password?</button>
+        <button onClick={() => navigateToRecovery()} style={{ color: "grey" }}>
+          ← Lost your password?
+        </button>
       </div>
     </div>
   );

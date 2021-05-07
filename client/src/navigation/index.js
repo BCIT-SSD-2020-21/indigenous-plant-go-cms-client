@@ -17,32 +17,24 @@ import AllWaypoints from "../pages/waypoints/AllWaypoints";
 import AddWaypoint from "../pages/waypoints/AddWaypoint";
 import EditWaypoint from "../pages/waypoints/EditWaypoint";
 import WaypointCategories from "../pages/waypoints/WaypointCategories";
-// 4.0 TOURS
-// import AllTours from "../pages/tours/AllTours";
-// import AddTour from "../pages/tours/AddTour";
-// import EditTour from "../pages/tours/EditTour";
-// import TourCategories from "../pages/tours/TourCategories";
-// 5.0 LEARN MORE
-// import AllLearnMore from "../pages/learnmore/AllLearnMore";
-// import AddLearnMore from "../pages/learnmore/AddLearnMore";
-// import EditLearnMore from "../pages/learnmore/EditLearnMore";
-// import LearnMoreCategories from "../pages/learnmore/LearnMoreCategories";
-// 6.0 USERS
+// 4.0 USERS
 import AllUsers from "../pages/users/AllUsers";
 import AddUser from "../pages/users/AddUser";
 import EditUser from "../pages/users/EditUser";
-// 7.0 LOCATIONS
+// 5.0 LOCATIONS
 import Locations from "../pages/locations";
-// 8.0 MEDIA
+// 6.0 MEDIA
 import Images from "../pages/media/Images";
 import AudioFiles from "../pages/media/AudioFiles";
 import Videos from "../pages/media/Videos";
-// 9.0 TAGS
+// 7.0 TAGS
 import Tags from "../pages/tags";
-// 10.0 PROFILE
+// 8.0 PROFILE
 import Profile from "../pages/profile";
-// 11.0 LOGIN
+// 9.0 LOGIN
 import Login from "../pages/login";
+// 10.0 RECOVERY
+import ResetPassword from "../pages/resetpassword";
 
 // Routes that should only be visible if authenticated.
 const PrivateRoute = ({ component: Component, ...rest }) => {
@@ -117,30 +109,6 @@ export default function Navigation() {
           component={WaypointCategories}
         />
 
-        {/* 4.0 TOURS */}
-        {/* <PrivateRoute exact path="/tours" component={AllTours} />
-        <PrivateRoute exact path="/tours/add" component={AddTour} />
-        <PrivateRoute exact path="/tours/edit/:tourId" component={EditTour} />
-        <PrivateRoute
-          exact
-          path="/tours/categories"
-          component={TourCategories}
-        /> */}
-
-        {/* 5.0 LEARN MORE */}
-        {/* <PrivateRoute exact path="/learnmore" component={AllLearnMore} />
-        <PrivateRoute exact path="/learnmore/add" component={AddLearnMore} />
-        <PrivateRoute
-          exact
-          path="/learnmore/edit/:learnmoreId"
-          component={EditLearnMore}
-        />
-        <PrivateRoute
-          exact
-          path="/learnmore/categories"
-          component={LearnMoreCategories}
-        /> */}
-
         {/* 6.0 USERS */}
         <PrivateRoute exact path="/users" component={AllUsers} />
         <PrivateRoute exact path="/users/add" component={AddUser} />
@@ -162,6 +130,9 @@ export default function Navigation() {
 
         {/* 11.0 LOGIN */}
         <AnonymousRoute exact path="/login" component={Login} />
+
+        {/* 11.0 LOGIN */}
+        <AnonymousRoute exact path="/recovery" component={ResetPassword} />
       </Switch>
     </>
   );

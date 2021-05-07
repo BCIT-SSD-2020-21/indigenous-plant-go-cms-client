@@ -189,6 +189,22 @@ export const bulkDeleteUsers = async (array) => {
   }
 };
 
+export const resetPassword = async (email) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/users/reset_password`,
+      email
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
 /* =================================================
 LOCATIONS
 ==================================================*/
