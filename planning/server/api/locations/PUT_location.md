@@ -21,10 +21,10 @@ Location_name, longitude, and latitude is required
 - Returns "Require a tag name" or "Require a (longitude/latitude)" otherwise
 
 Location_name and description must be a string
-- Returns "Location_name field must take a string" or "Description field must take a string" otherwise
+- Returns "Invalid input for (location_name/description)" otherwise
 
 Longitude and latitude must be a number
-- Returns "Longitude field must take a number" or "Latitude field must take a number" otherwise
+- Returns "Invalid input for (longitude/latitude)" otherwise
 
 # SUCCESS RESPONSE BODY
 ```

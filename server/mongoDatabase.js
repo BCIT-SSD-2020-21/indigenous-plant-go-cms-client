@@ -483,7 +483,7 @@ module.exports = async function() {
     if (typeof newVideo.video_url === 'string' || newVideo.video_url instanceof String) {
       const re = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/
       if(!(re.test(newVideo.video_url.toLowerCase()))) {
-        throw Error("Video url not formatted correctly")
+        throw Error("Incorrectly formatted video url")
       }
     } else {
       throw Error("Invalid input for video_url")
@@ -519,7 +519,7 @@ module.exports = async function() {
     if (typeof updatedVideo.video_url === 'string' || updatedVideo.video_url instanceof String) {
       const re = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/
       if(!(re.test(updatedVideo.video_url.toLowerCase()))) {
-        throw Error("Video url not formatted correctly")
+        throw Error("Incorrectly formatted video url")
       }
     } else {
       throw Error("Invalid input for video_url")

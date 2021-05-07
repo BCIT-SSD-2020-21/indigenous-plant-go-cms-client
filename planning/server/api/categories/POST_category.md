@@ -21,7 +21,7 @@ Category_name and resource is required
 - Returns "Require a category name" or "Require a resource" otherwise
 
 Category_name and resource must be a string
-- Returns "Category_name field must take a string" or "Resource field must take a string" otherwise
+- Returns "Invalid input for (category_name/resource)" otherwise
 
 Resource must be either plant, waypoint, tour, or learn_more
 - Returns "Invalid resource, resource must be plant, waypoint, tour, or learn_more" otherwise

@@ -25,7 +25,7 @@ Caption are required
 - Returns "Missing caption" if missing the field
 
 Caption must be a string
-- Returns "Caption field must take a string" otherwise
+- Returns "Invalid input for caption" otherwise
 
 If you don't provide a field that field will just remain as the old value
 
