@@ -9,6 +9,7 @@ import {
 } from "../../../network";
 
 export default function ListLocationsCtrl() {
+  let isMounted = true;
   const locationFields = {
     name: "",
     latitude: 0,
@@ -35,11 +36,16 @@ export default function ListLocationsCtrl() {
   const [directive, setDirective] = useState(null);
 
   useEffect(() => {
+    isMounted = true;
     queryLocations();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    setLocations_(eLocations);
+    if (isMounted) setLocations_(eLocations);
   }, [eLocations]);
 
   useEffect(() => {
@@ -106,8 +112,10 @@ export default function ListLocationsCtrl() {
   };
 
   const queryLocations = async () => {
+    if (!isMounted) return;
     setLoading(true);
     const result = await getLocations();
+    if (!isMounted) return;
     setLoading(false);
     if (result.error) return;
     setELocations(result);
@@ -172,6 +180,7 @@ export default function ListLocationsCtrl() {
   };
 
   const submitNewLocation = async () => {
+    if (!isMounted) return;
     const isUndefined = (variable) => variable === undefined;
     if (Object.values(newLocation).some(isUndefined))
       return setDirective({
@@ -188,6 +197,7 @@ export default function ListLocationsCtrl() {
     };
 
     const result = await createLocation(newLocation_);
+    if (!isMounted) return;
     if (result.error)
       return setDirective({
         header: "Error creating location",
@@ -199,6 +209,7 @@ export default function ListLocationsCtrl() {
   };
 
   const handleDelete = async (e) => {
+    if (!isMounted) return;
     setModalState("delete");
     const id = e.target.value;
     const foundLocation = eLocations.filter((tag) => tag._id === id)[0];
@@ -209,10 +220,12 @@ export default function ListLocationsCtrl() {
         success: false,
       });
     await setPendingDelete(foundLocation);
+    if (!isMounted) return;
     setModalActive(true);
   };
 
   const applyDelete = async () => {
+    if (!isMounted) return;
     const id = pendingDelete._id;
     if (!id)
       return setDirective({
@@ -222,6 +235,7 @@ export default function ListLocationsCtrl() {
       });
     setLoading(true);
     const result = await deleteLocation(id);
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({
@@ -235,6 +249,7 @@ export default function ListLocationsCtrl() {
   };
 
   const handleEdit = async (e) => {
+    if (!isMounted) return;
     setModalState("edit");
     const id = e.target.value;
     const foundLocation = eLocations.filter(
@@ -247,7 +262,7 @@ export default function ListLocationsCtrl() {
         success: false,
       });
     await setPendingEdit(foundLocation);
-
+    if (!isMounted) return;
     const L = {
       name: foundLocation.location_name,
       latitude: foundLocation.latitude,
@@ -260,6 +275,7 @@ export default function ListLocationsCtrl() {
   };
 
   const applyEdit = async (e) => {
+    if (!isMounted) return;
     const id = pendingEdit._id;
     if (!editLocation.name || !editLocation.latitude || !editLocation.longitude)
       return setDirective({
@@ -281,6 +297,7 @@ export default function ListLocationsCtrl() {
     };
     setLoading(true);
     const result = await updateLocation(id, updatedLocation);
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({
@@ -303,6 +320,7 @@ export default function ListLocationsCtrl() {
   };
 
   const handleBulkDelete = async () => {
+    setModalState("bulk");
     if (selectedLocations.length < 1)
       return setDirective({
         header: "Error applying bulk actions",
@@ -319,7 +337,9 @@ export default function ListLocationsCtrl() {
   };
 
   const applyBulkDelete = async () => {
+    if (!isMounted) return;
     const result = await bulkDeleteLocations(selectedLocations);
+    if (!isMounted) return;
     if (result.error)
       return setDirective({
         header: "Error applying bulk actions",
