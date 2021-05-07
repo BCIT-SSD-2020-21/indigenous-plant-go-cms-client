@@ -602,10 +602,12 @@ module.exports = async function() {
   //Update
   //PUT /api/tags/:tagId
   async function updateTag({tagId, updatedTag}) {
-    if (updatedTag.tag_name) {
-      if (!(typeof updatedTag.tag_name === 'string' || updatedTag.tag_name instanceof String)) {
-        throw Error("Tag_name field must take a string")
-      }
+    if (!updatedTag.tag_name) {
+      throw Error("Require a tag name")
+    }
+
+    if (!(typeof updatedTag.tag_name === 'string' || updatedTag.tag_name instanceof String)) {
+      throw Error("Tag_name field must take a string")
     }
 
     const result = await tags.findOneAndUpdate(
@@ -671,20 +673,24 @@ module.exports = async function() {
   //Update
   //PUT /api/categories/:categoryId
   async function updateCategory({categoryId, updatedCategory}) {
-    if (updatedCategory.category_name) {
-      if (!(typeof updatedCategory.category_name === 'string' || updatedCategory.category_name instanceof String)) {
-        throw Error("Category_name field must take a string")
-      }
+    if (!updatedCategory.category_name) {
+      throw Error("Require a category name")
     }
 
-    if (updatedCategory.resource) {
-      if (typeof updatedCategory.resource === 'string' || updatedCategory.resource instanceof String) {
-        if (!(updatedCategory.resource === 'plant' || updatedCategory.resource === 'waypoint' || updatedCategory.resource === 'tour' || updatedCategory.resource === 'learn_more')) {
-          throw Error("Invalid resource, resource must be plant, waypoint, tour, or learn_more")
-        }
-      } else {
-        throw Error("Resource field must take a string")
+    if (!(typeof updatedCategory.category_name === 'string' || updatedCategory.category_name instanceof String)) {
+      throw Error("Category_name field must take a string")
+    }
+
+    if (!updatedCategory.resource) {
+      throw Error("Require a resource")
+    }
+
+    if (typeof updatedCategory.resource === 'string' || updatedCategory.resource instanceof String) {
+      if (!(updatedCategory.resource === 'plant' || updatedCategory.resource === 'waypoint' || updatedCategory.resource === 'tour' || updatedCategory.resource === 'learn_more')) {
+        throw Error("Invalid resource, resource must be plant, waypoint, tour, or learn_more")
       }
+    } else {
+      throw Error("Resource field must take a string")
     }
 
     const result = await categories.findOneAndUpdate(
