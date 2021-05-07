@@ -122,10 +122,12 @@ export default function ListWaypoints({
         action="Add New"
         method={() => history.push("/waypoints/add")}
       />
-      <p>
-        <strong>Results</strong> ({waypointData.length}){" "}
+      <div>
+        <p>
+          <strong>Results</strong> ({waypointData.length}){" "}
+        </p>
         {loading && <Loader active inline size="tiny" />}
-      </p>
+      </div>
       <div className="table__controls">
         <div style={{ display: "flex" }}>
           <div className="table__action">
