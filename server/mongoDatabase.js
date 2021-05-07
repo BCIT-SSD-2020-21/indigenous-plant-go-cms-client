@@ -51,16 +51,18 @@ module.exports = async function() {
     if (typeof email === 'string' || email instanceof String) {
       const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
       if(!(re.test(email.toLowerCase()))) {
-        throw Error("Email not formatted correctly")
+        throw Error("Incorrectly formatted email")
       }
     } else {
-      throw Error("Email field must take a string")
+      throw Error("Invalid input for email")
     }
 
-    if (user_name) {
-      if (!(typeof user_name === 'string' || user_name instanceof String)) {
-        throw Error("User_name field must take a string")
-      }
+    if (!user_name) {
+      throw Error("Requires an user name")
+    }
+
+    if (!(typeof user_name === 'string' || user_name instanceof String)) {
+      throw Error("Invalid input for user_name")
     }
 
     if (!password) { //password can't be null
@@ -68,7 +70,7 @@ module.exports = async function() {
     }
 
     if (!(typeof password === 'string' || password instanceof String)) {
-      throw Error("Password field must take a string")
+      throw Error("Invalid input for password")
     }
 
     if (typeof role === 'string' || role instanceof String) {
@@ -76,7 +78,7 @@ module.exports = async function() {
         throw Error("Invalid role, role must be Manager or Admin")
       }
     } else {
-      throw Error("Role field must take a string")
+      throw Error("Invalid input for role")
     }
 
     //Hash password
@@ -105,7 +107,7 @@ module.exports = async function() {
     }
 
     if (!(typeof password === 'string' || password instanceof String)) {
-      throw Error("Password field must take a string")
+      throw Error("Invalid input for password")
     }
 
     const same = await bcrypt.compare(password, user.password)
@@ -140,23 +142,23 @@ module.exports = async function() {
         if (typeof updatedUser.email === 'string' || updatedUser.email instanceof String) {
           const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
           if(!(re.test(updatedUser.email.toLowerCase()))) {
-            throw Error("Email not formatted correctly")
+            throw Error("Incorrectly formatted email")
           }
         } else {
-          throw Error("Email field must take a string")
+          throw Error("Invalid input for email")
         }
       }
 
       if (updatedUser.user_name) {
         if (!(typeof updatedUser.user_name === 'string' || updatedUser.user_name instanceof String)) {
-          throw Error("User_name field must take a string")
+          throw Error("Invalid input for user_name")
         }
       }
     }
 
     if (updatedUser.password) {
       if (!(typeof updatedUser.password === 'string' || updatedUser.password instanceof String)) {
-        throw Error("Password field must take a string")
+        throw Error("Invalid input for password")
       }
 
       //Hash password
@@ -174,7 +176,7 @@ module.exports = async function() {
           throw Error("Invalid role, role must be Manager or Admin")
         }
       } else {
-        throw Error("Role field must take a string")
+        throw Error("Invalid input for role")
       }
     }
 
@@ -233,7 +235,7 @@ module.exports = async function() {
       from: process.env.SENDER_EMAIL,
       to: email,
       subject: 'Password reset',
-      text: `Your recovery password is: ${recoveryPassword}`
+      text: `Dear ${user.user_name},\nYou have made a password recover/reset request to indigenous plant.\nYour recovery password is: ${recoveryPassword}`
     }
 
     transporter.sendMail(mailOptions, (error, info) => {
