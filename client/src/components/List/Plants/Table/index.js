@@ -66,7 +66,7 @@ export default function Table({
                     .user[0]
                     ? plant.revision_history[plant.revision_history.length - 1]
                         .user[0].user_name
-                    : "deleted user"}
+                    : "user not found"}
                 </p>
               </div>
               <div className="table__col categories">
@@ -83,8 +83,10 @@ export default function Table({
                 <p>
                   {plant && plant.revision_history.length > 0 && (
                     <>
-                      {lastRevision.date} by{" "}
-                      {lastRevision.user ? lastRevision.user : "deleted user"}
+                      {typeof lastRevision.date === "string" &&
+                      typeof lastRevision.user === "string"
+                        ? `${lastRevision.date} by ${lastRevision.user}`
+                        : "Sorry, could not fetch revision history."}
                     </>
                   )}
                 </p>
