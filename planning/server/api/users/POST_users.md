@@ -17,8 +17,8 @@ Example request: POST /api/users
 
 Role is default to Manager if no role is inputed
 
-Email and password are required
-- Returns "Requires an email" or "Requires a password" otherwise
+Email, user_name, and password are required
+- Returns "Requires an email" or "Requires a (user_name/password)" otherwise
 
 Email, user_name, password, role must be a string
 - Returns "Email field must take a string" or any of their respective field must take a string otherwise

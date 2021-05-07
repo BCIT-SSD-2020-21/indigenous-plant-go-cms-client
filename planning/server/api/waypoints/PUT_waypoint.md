@@ -33,6 +33,9 @@ We set it to overwrite existing data
 
 New revision is added on whenever update is made
 
+Waypoint_name and description are required fields
+- Returns "Missing waypoint name" or "Missing description" otherwise
+
 Waypoint_name and description must be a string
 - Returns "Waypoint_name field must take a string" or "Description field must take a string" otherwise
 

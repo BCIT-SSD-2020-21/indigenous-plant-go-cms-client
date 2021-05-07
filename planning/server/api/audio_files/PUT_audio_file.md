@@ -21,6 +21,9 @@ The audio file must have key name "audio"
 
 If audio is not a file type it will just ignore the audio input
 
+Caption are required
+- Returns "Missing caption" if missing the field
+
 Caption must be a string
 - Returns "Caption field must take a string" otherwise
 
