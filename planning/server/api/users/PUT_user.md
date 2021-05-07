@@ -21,10 +21,10 @@ Email, user_name, and password are required
 - Returns "Requires an email" or "Requires a (user_name/password)" otherwise
 
 Email, user_name, password, role must be a string
-- Returns "Email field must take a string" or any of their respective field must take a string otherwise
+- Returns "Invalid input for (email/user_name/password)" otherwise
 
 Email must be formatted like a email
-- Returns "Email not formatted correctly" otherwise
+- Returns "Incorrectly formatted email" otherwise
 
 Role can only be Manager or Admin
 - Returns "Invalid role, role must be Manager or Admin" otherwise

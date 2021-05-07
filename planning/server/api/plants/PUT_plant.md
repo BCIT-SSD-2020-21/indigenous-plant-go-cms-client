@@ -38,21 +38,21 @@ Plant_name, scientific_name, description, and location are required fields
 - Returns "Require at least one location" for location
 
 Plant_name, scientific_name, and description must be a string
-- Returns "Plant_name field must take a string" or "(Scientific_name/Description) field must take a string" otherwise
+- Returns "Invalid input for (plant_name/scientific_name/description)" otherwise
 
 IsPublish must be a boolean
-- Returns "IsPublish field must take a boolean" otherwise
+- Returns "Invalid input for isPublish" otherwise
 
 If the array field (images, audio_files, videos, tags, categories, locations, custom_fields) is provided they must be an array, and all except custom_fields must be array of string formatted as objectId
-- Returns "The field (images, audio_files, videos, tags, categories, locations, custom_fields) must be array" if not an array
-- Returns "Not all elements under (images, audio_files, videos, tags, categories, locations) are valid ObjectId" if not all element within array are ObjectId
+- Returns "Invalid input for the field (images, audio_files, videos, tags, categories, locations, custom_fields)" if not an array
+- Returns "Not all elements under (images, audio_files, videos, tags, categories, locations) are valid" if not all element within array are ObjectId
 
-If custom_field is provided, the array of object must contain _id, field_title, and content in each object
-- Returns "At least one of the custom_field is not of type object or is null" if not all element within custom_fields are object
+If custom_fields is provided, the array of object must contain _id, field_title, and content in each object
+- Returns "At least one of the custom_field is not valid" if not all element within custom_fields are object
 - Returns "At least one of the custom_field is missing (_id, field_title, content)" if not all object within custom_fields contains all the required field
 
 Custom field's _id must be an valid objectId string, meaning it is hexidecimal string of certain length
-- Returns "A _id under custom_field is not valid ObjectId" otherwise
+- Returns "A _id under custom_field is not valid" otherwise
 
 # SUCCESS RESPONSE BODY
 ```

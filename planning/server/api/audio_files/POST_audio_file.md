@@ -25,7 +25,7 @@ Audio and caption are both required
 If audio is not a file type it will just return "Missing audio file"
 
 Caption must be a string
-- Returns "Caption field must take a string" otherwise
+- Returns "Invalid input for caption" otherwise
 
 # SUCCESS RESPONSE BODY
 ```
