@@ -8,6 +8,7 @@ import {
 } from "../../../network";
 
 export default function ListPlantsCtrl() {
+  let isMounted;
   const [plantData, setPlantData] = useState([]);
   // plantData_ is the mutable version of plantData that we'll be using to filter
   const [plantData_, setPlantData_] = useState([]);
@@ -26,45 +27,56 @@ export default function ListPlantsCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    isMounted = true;
     queryPlants();
     queryCategories();
     formatPages();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    setPlantData_(plantData);
+    if (isMounted) setPlantData_(plantData);
   }, [plantData]);
 
   useEffect(() => {
-    if (!searchQuery) applyFilter();
+    if (!searchQuery && isMounted) applyFilter();
   }, [searchQuery]);
 
   useEffect(() => {
-    formatCategories();
+    if (isMounted) formatCategories();
   }, [eCategories]);
 
   useEffect(() => {
-    setPage(1);
-    formatPages();
+    if (isMounted) {
+      setPage(1);
+      formatPages();
+    }
   }, [plantData_]);
 
   const queryPlants = async () => {
+    if (!isMounted) return;
     setLoading(true);
     const result = await getAllPlants();
     setLoading(false);
     if (result.error) return;
     if (result.length < 1) setPlantData([]);
+    if (!isMounted) return;
     setPlantData(result);
   };
 
   const queryCategories = async () => {
     const result = await getCategoryGroup("plant");
     if (result.error) return;
+    if (!isMounted) return;
     setECategories(result);
   };
 
   const formatPages = () => {
     const dataLength = plantData_.length;
+    if (!isMounted) return;
     if (dataLength < 5) return setHasPages(false);
 
     setHasPages(true);
@@ -95,19 +107,22 @@ export default function ListPlantsCtrl() {
         text: category.category_name,
       };
     });
-
+    if (!isMounted) return;
     setFormattedCategories(formatted);
   };
 
   const handleQueryChange = (e) => {
+    if (!isMounted) return;
     setSearchQuery(e.target.value);
   };
 
   const handleFilterChange = (e, data) => {
+    if (!isMounted) return;
     setCategoryFilter(data.value);
   };
 
   const applyFilter = () => {
+    if (!isMounted) return;
     // APPLY A CATEGORY FILTER
     const categoryF = categoryFilter.toLowerCase();
     let filteredData = [...plantData].filter((plant) => {
@@ -128,14 +143,17 @@ export default function ListPlantsCtrl() {
       plant.plant_name.toLowerCase().startsWith(searchQ)
     );
 
+    if (!isMounted) return;
     setPlantData_(filteredData);
   };
 
   const clearSearch = () => {
+    if (!isMounted) return;
     setSearchQuery("");
   };
 
   const resetFilters = () => {
+    if (!isMounted) return;
     setSearchQuery("");
     setPlantData_(plantData);
     setCategoryFilter("default");
@@ -150,7 +168,7 @@ export default function ListPlantsCtrl() {
     } else {
       newSelected = [...newSelected, id];
     }
-
+    if (!isMounted) return;
     setSelectedPlants(newSelected);
   };
 
@@ -164,6 +182,7 @@ export default function ListPlantsCtrl() {
         return element === selectedIds[index];
       });
 
+    if (!isMounted) return;
     if (!allSelected) {
       setSelectedPlants(resourceIds);
     } else {
@@ -176,6 +195,7 @@ export default function ListPlantsCtrl() {
     if (currentPage >= pages.length) return;
 
     currentPage = currentPage + 1;
+    if (!isMounted) return;
     setPage(currentPage);
   };
 
@@ -184,10 +204,12 @@ export default function ListPlantsCtrl() {
     if (currentPage === 1) return;
 
     currentPage = currentPage - 1;
+    if (!isMounted) return;
     setPage(currentPage);
   };
 
   const handleDelete = async (e) => {
+    if (!isMounted) return;
     setModalState("single");
     const id = e.target.value;
     const foundPlant = plantData.filter((plant) => plant._id === id)[0];
@@ -197,9 +219,11 @@ export default function ListPlantsCtrl() {
   };
 
   const applyDelete = async () => {
+    if (!isMounted) return;
     const id = pendingDelete._id;
     if (!id) return;
     const result = await deletePlant(id);
+    if (!isMounted) return;
     if (result.error) return;
     closeModal();
     setPendingDelete({});
@@ -218,6 +242,7 @@ export default function ListPlantsCtrl() {
   const handleBulkDelete = async () => {
     if (selectedPlants.length < 1) return;
     if (bulkAction === "default") return;
+    if (!isMounted) return;
     setModalState("bulk");
     setModalActive(true);
   };
@@ -225,6 +250,7 @@ export default function ListPlantsCtrl() {
   const applyBulkDelete = async () => {
     const result = await bulkDeletePlants(selectedPlants);
     if (result.error) return;
+    if (!isMounted) return;
     closeModal();
     setSelectedPlants([]);
     queryPlants();
