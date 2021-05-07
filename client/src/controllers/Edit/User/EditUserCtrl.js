@@ -5,6 +5,7 @@ import { getUser, updateUser } from "../../../network";
 import { useHistory } from "react-router-dom";
 
 export default function EditUserCtrl() {
+  let isMounted = true;
   const history = useHistory();
   const { userId } = useParams();
   // ===============================================================
@@ -22,7 +23,7 @@ export default function EditUserCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    resetDirective();
+    if (isMounted) resetDirective();
   }, [directive]);
 
   const resetDirective = async () => {
@@ -36,7 +37,12 @@ export default function EditUserCtrl() {
     @author Patrick Fortaleza
   */
   useEffect(() => {
+    isMounted = true;
     queryUser();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   /* 
@@ -44,6 +50,7 @@ export default function EditUserCtrl() {
     @author Patrick Fortaleza
   */
   const queryUser = async () => {
+    if (!isMounted) return;
     if (!userId)
       return setDirective({
         header: "Error",
@@ -52,6 +59,7 @@ export default function EditUserCtrl() {
       });
     setLoading(true);
     const result = await getUser(userId);
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({
@@ -89,6 +97,7 @@ export default function EditUserCtrl() {
   // @desc applies the updates to the given user.
   // ===============================================================
   const applyUpdate = async () => {
+    if (!isMounted) return;
     const id = userId;
     if (!id)
       return setDirective({
@@ -130,6 +139,7 @@ export default function EditUserCtrl() {
     }
     setLoading(true);
     const result = await updateUser(userData_, id);
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({

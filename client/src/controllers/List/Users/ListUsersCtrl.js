@@ -4,6 +4,7 @@ import { getAllUsers, deleteUser, bulkDeleteUsers } from "../../../network";
 import { useAuth } from "../../../context/AuthContext";
 
 export default function ListUsersCtrl() {
+  let isMounted = true;
   const authContext = useAuth();
   const { userData } = authContext;
   const [userDatas, setUserDatas] = useState([]);
@@ -22,12 +23,19 @@ export default function ListUsersCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    isMounted = true;
     queryUsers();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    formatRoles();
-    setUserDatas_(userDatas);
+    if (isMounted) {
+      formatRoles();
+      setUserDatas_(userDatas);
+    }
   }, [userDatas]);
 
   useEffect(() => {
@@ -81,10 +89,12 @@ export default function ListUsersCtrl() {
   };
 
   const queryUsers = async () => {
+    if (!isMounted) return;
     setLoading(true);
     let myUserId;
     if (userData && userData.user) myUserId = userData.user._id;
     const result = await getAllUsers();
+    if (!isMounted) return;
     setLoading(false);
     if (result.error) return;
     if (result.length < 1) setUserDatas([]);
@@ -194,9 +204,11 @@ export default function ListUsersCtrl() {
   };
 
   const applyDelete = async () => {
+    if (!isMounted) return;
     const id = pendingDelete._id;
     if (!id) return;
     const result = await deleteUser(id);
+    if (!isMounted) return;
     if (result.error) return;
     closeModal();
     setPendingDelete({});
@@ -215,7 +227,9 @@ export default function ListUsersCtrl() {
   };
 
   const applyBulkDelete = async () => {
+    if (!isMounted) return;
     const result = await bulkDeleteUsers(selectedUsers);
+    if (!isMounted) return;
     if (result.error) return;
     closeModal();
     setSelectedUsers([]);
