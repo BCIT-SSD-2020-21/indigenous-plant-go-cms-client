@@ -161,7 +161,7 @@ const style = {
   textDisplay : {
     position : "absolute",
     top : "30%",
-    left : "47%",
+    left : "45%",
     color : "#d9d9d9",
     zIndex: "1"
   },
