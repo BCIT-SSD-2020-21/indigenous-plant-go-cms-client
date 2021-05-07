@@ -1369,22 +1369,28 @@ module.exports = async function() {
   //Update
   //PUT /api/plants/:plantId
   async function updatePlant({plantId, updatedPlant, user_id}) {
-    if (updatedPlant.plant_name) {
-      if (!(typeof updatedPlant.plant_name === 'string' || updatedPlant.plant_name instanceof String)) {
-        throw Error("Plant_name field must take a string")
-      }
+    if (!updatedPlant.plant_name) {
+      throw Error("Missing plant name")
     }
 
-    if (updatedPlant.scientific_name) {
-      if (!(typeof updatedPlant.scientific_name === 'string' || updatedPlant.scientific_name instanceof String)) {
-        throw Error("Scientific_name field must take a string")
-      }
+    if (!(typeof updatedPlant.plant_name === 'string' || updatedPlant.plant_name instanceof String)) {
+      throw Error("Plant_name field must take a string")
     }
 
-    if (updatedPlant.description) {
-      if (!(typeof updatedPlant.description === 'string' || updatedPlant.description instanceof String)) {
-        throw Error("Description field must take a string")
-      }
+    if (!updatedPlant.scientific_name) {
+      throw Error("Missing scientific name")
+    }
+
+    if (!(typeof updatedPlant.scientific_name === 'string' || updatedPlant.scientific_name instanceof String)) {
+      throw Error("Scientific_name field must take a string")
+    }
+
+    if (!updatedPlant.description) {
+      throw Error("Missing description")
+    }
+
+    if (!(typeof updatedPlant.description === 'string' || updatedPlant.description instanceof String)) {
+      throw Error("Description field must take a string")
     }
 
     //Convert all passed in array of id to ObjectId
@@ -1507,7 +1513,7 @@ module.exports = async function() {
       })
     }
 
-    if (updatedPlant.isPublish) {
+    if (updatedPlant.isPublish !== null) {
       if (!(typeof updatedPlant.isPublish === 'boolean')) {
         throw Error("IsPublish field must take a boolean")
       }
@@ -2368,16 +2374,20 @@ module.exports = async function() {
   //Update
   //PUT /api/waypoints/:waypointId
   async function updateWaypoint({waypointId, updatedWaypoint, user_id}) {
-    if (updatedWaypoint.waypoint_name) {
-      if (!(typeof updatedWaypoint.waypoint_name === 'string' || updatedWaypoint.waypoint_name instanceof String)) {
-        throw Error("Waypoint_name field must take a string")
-      }
+    if (!updatedWaypoint.waypoint_name) {
+      throw Error("Missing waypoint name")
     }
 
-    if (updatedWaypoint.description) {
-      if (!(typeof updatedWaypoint.description === 'string' || updatedWaypoint.description instanceof String)) {
-        throw Error("Description field must take a string")
-      }
+    if (!(typeof updatedWaypoint.waypoint_name === 'string' || updatedWaypoint.waypoint_name instanceof String)) {
+      throw Error("Waypoint_name field must take a string")
+    }
+
+    if (!updatedWaypoint.description) {
+      throw Error("Missing description")
+    }
+
+    if (!(typeof updatedWaypoint.description === 'string' || updatedWaypoint.description instanceof String)) {
+      throw Error("Description field must take a string")
     }
 
     //Convert all passed in array of id to ObjectId
@@ -3520,16 +3530,20 @@ module.exports = async function() {
   //Update
   //PUT /api/tours/:tourId
   async function updateTour({tourId, updatedTour, user_id}) {
-    if (updatedTour.tour_name) {
-      if (!(typeof updatedTour.tour_name === 'string' || updatedTour.tour_name instanceof String)) {
-        throw Error("Tour_name field must take a string")
-      }
+    if (!updatedTour.tour_name) {
+      throw Error("Missing tour name")
     }
 
-    if (updatedTour.description) {
-      if (!(typeof updatedTour.description === 'string' || updatedTour.description instanceof String)) {
-        throw Error("Description field must take a string")
-      }
+    if (!(typeof updatedTour.tour_name === 'string' || updatedTour.tour_name instanceof String)) {
+      throw Error("Tour_name field must take a string")
+    }
+
+    if (!updatedTour.description) {
+      throw Error("Missing description")
+    }
+
+    if (!(typeof updatedTour.description === 'string' || updatedTour.description instanceof String)) {
+      throw Error("Description field must take a string")
     }
 
     //Convert all passed in array of id to ObjectId
@@ -4042,18 +4056,22 @@ module.exports = async function() {
   //Update
   //PUT /api/learn_more/:learnMoreId
   async function updateLearnMore({learnMoreId, updatedLearnMore, user_id}) {
-    if (updatedLearnMore.learn_more_title) {
-      if (!(typeof updatedLearnMore.learn_more_title === 'string' || updatedLearnMore.learn_more_title instanceof String)) {
-        throw Error("Learn_more_title field must take a string")
-      }
+    if (!updatedLearnMore.learn_more_title) {
+      throw Error("Missing title")
     }
 
-    if (updatedLearnMore.description) {
-      if (!(typeof updatedLearnMore.description === 'string' || updatedLearnMore.description instanceof String)) {
-        throw Error("Description field must take a string")
-      }
+    if (!(typeof updatedLearnMore.learn_more_title === 'string' || updatedLearnMore.learn_more_title instanceof String)) {
+      throw Error("Learn_more_title field must take a string")
     }
 
+    if (!updatedLearnMore.description) {
+      throw Error("Missing description")
+    }
+
+    if (!(typeof updatedLearnMore.description === 'string' || updatedLearnMore.description instanceof String)) {
+      throw Error("Description field must take a string")
+    }
+    
     if (updatedLearnMore.images) {
       if (!Array.isArray(updatedLearnMore.images)) {
         throw Error("The field images must be array")
