@@ -28,6 +28,7 @@ export default function EditUserCtrl() {
 
   const resetDirective = async () => {
     await setTimeout(() => {
+      if (!isMounted) return;
       setDirective(null);
     }, 4000);
   };
@@ -79,6 +80,7 @@ export default function EditUserCtrl() {
     @author Patrick Fortaleza
   */
   const toggleChangePassword = () => {
+    if (!isMounted) return;
     setChangePassword(true);
   };
 
@@ -87,6 +89,7 @@ export default function EditUserCtrl() {
     @author Patrick Fortaleza
   */
   const cancelChangePassword = () => {
+    if (!isMounted) return;
     setChangePassword(false);
     setNewPassword("");
     setConfirmPassword("");
@@ -117,7 +120,7 @@ export default function EditUserCtrl() {
       user_name: username,
       role: role,
     };
-
+    if (!isMounted) return;
     if (changePassword) {
       if (!newPassword || !confirmPassword)
         return setDirective({

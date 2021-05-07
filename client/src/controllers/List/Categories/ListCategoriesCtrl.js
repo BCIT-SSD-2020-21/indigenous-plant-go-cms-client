@@ -51,6 +51,7 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
 
   const resetDirective = async () => {
     await setTimeout(() => {
+      if (!isMounted) return;
       setDirective(null);
     }, 4000);
   };

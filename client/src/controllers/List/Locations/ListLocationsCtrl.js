@@ -59,6 +59,7 @@ export default function ListLocationsCtrl() {
 
   const resetDirective = async () => {
     await setTimeout(() => {
+      if (!isMounted) return;
       setDirective(null);
     }, 4000);
   };
