@@ -316,7 +316,6 @@ export default function ListLocationsCtrl() {
         message: "Invalid action",
         success: false,
       });
-    setModalState("bulk");
     setModalActive(true);
   };
 

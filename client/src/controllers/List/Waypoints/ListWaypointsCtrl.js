@@ -4,6 +4,7 @@ import {
   getAllWaypoints,
   getCategoryGroup,
   deleteWaypoint,
+  bulkDeleteWaypoints,
 } from "../../../network";
 
 export default function ListWaypointsCtrl() {
@@ -104,9 +105,8 @@ export default function ListWaypointsCtrl() {
   };
 
   const handleBulkDelete = async () => {
-    if (selectedWaypoints.length < 1) return console.log("no plants selected");
-    if (bulkAction === "default")
-      return console.log("cannot bulk delete if bulk action is set to default");
+    if (selectedWaypoints.length < 1) return;
+    if (bulkAction === "default") return;
     setModalState("bulk");
     setModalActive(true);
   };
@@ -224,6 +224,14 @@ export default function ListWaypointsCtrl() {
     queryWaypoints();
   };
 
+  const applyBulkDelete = async () => {
+    const result = await bulkDeleteWaypoints(selectedWaypoints);
+    if (result.error) return;
+    closeModal();
+    setSelectedWaypoints([]);
+    queryWaypoints();
+  };
+
   return (
     <ListWaypoints
       categories={formattedCategories}
@@ -253,6 +261,7 @@ export default function ListWaypointsCtrl() {
       applyDelete={applyDelete}
       pendingDelete={pendingDelete}
       loading={loading}
+      applyBulkDelete={applyBulkDelete}
     />
   );
 }
