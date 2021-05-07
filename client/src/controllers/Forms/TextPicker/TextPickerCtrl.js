@@ -190,8 +190,7 @@ export default function TextPickerCtrl({
       (option) => option._id === selectedOption
     )[0];
 
-    if (!foundOption || foundOption.length < 1)
-      return console.log("Error selecting option");
+    if (!foundOption || foundOption.length < 1) return;
 
     foundOption = {
       _id: foundOption._id,
@@ -251,15 +250,14 @@ export default function TextPickerCtrl({
 
     switch (fieldLabel) {
       case "tag":
-        if (!fields.tag.name) return console.log("Error uploading tag");
+        if (!fields.tag.name) return;
         const tag = {
           tag_name: fields.tag.name,
         };
         result = await createTag(tag);
         break;
       case "category":
-        if (!fields.category.name)
-          return console.log("Error uploading category");
+        if (!fields.category.name) return;
         const category = {
           category_name: fields.category.name,
           resource: resource,
@@ -272,7 +270,7 @@ export default function TextPickerCtrl({
           !fields.location.longitude ||
           !fields.location.latitude
         )
-          return console.log("Error uploading location");
+          return;
         const location = {
           location_name: fields.location.name,
           latitude: fields.location.latitude,
@@ -282,7 +280,7 @@ export default function TextPickerCtrl({
         result = await createLocation(location);
         break;
     }
-    if (result.error) return console.log("Error uploading tag");
+    if (result.error) return;
     formatted = {
       _id: result._id,
       title: result[`${dataLabel}_name`],

@@ -147,7 +147,6 @@ export default function ListPlantsCtrl() {
 
     if (selectedPlants.includes(id)) {
       newSelected = newSelected.filter((item) => item !== id);
-      console.log(newSelected);
     } else {
       newSelected = [...newSelected, id];
     }
@@ -192,16 +191,16 @@ export default function ListPlantsCtrl() {
     setModalState("single");
     const id = e.target.value;
     const foundPlant = plantData.filter((plant) => plant._id === id)[0];
-    if (!foundPlant) return console.log("Unable to find plant");
+    if (!foundPlant) return;
     await setPendingDelete(foundPlant);
     setModalActive(true);
   };
 
   const applyDelete = async () => {
     const id = pendingDelete._id;
-    if (!id) return console.log("Unable to delete plant");
+    if (!id) return;
     const result = await deletePlant(id);
-    if (result.error) return console.log("Unable to delete plant");
+    if (result.error) return;
     closeModal();
     setPendingDelete({});
     queryPlants();
@@ -213,21 +212,19 @@ export default function ListPlantsCtrl() {
 
   const handleBulkActionChange = (_, data) => {
     const value = data.value;
-    console.log(data.value);
     setBulkAction(value);
   };
 
   const handleBulkDelete = async () => {
-    if (selectedPlants.length < 1) return console.log("no plants selected");
-    if (bulkAction === "default")
-      return console.log("cannot bulk delete if bulk action is set to default");
+    if (selectedPlants.length < 1) return;
+    if (bulkAction === "default") return;
     setModalState("bulk");
     setModalActive(true);
   };
 
   const applyBulkDelete = async () => {
     const result = await bulkDeletePlants(selectedPlants);
-    if (result.error) return console.log("Unable to bulk delete plants");
+    if (result.error) return;
     closeModal();
     setSelectedPlants([]);
     queryPlants();

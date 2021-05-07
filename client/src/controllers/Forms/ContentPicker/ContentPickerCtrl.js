@@ -160,8 +160,7 @@ export default function ContentPickerCtrl({
       (option) => option._id === selectedOption
     )[0];
 
-    if (!foundOption || foundOption.length < 1)
-      return console.log("Error selecting option");
+    if (!foundOption || foundOption.length < 1) return;
 
     foundOption = {
       _id: foundOption._id,

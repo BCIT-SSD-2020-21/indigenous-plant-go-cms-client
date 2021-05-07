@@ -75,14 +75,14 @@ export default function ListWaypointsCtrl() {
     setLoading(true);
     const result = await getAllWaypoints();
     setLoading(false);
-    if (result.error) return console.log("error getting waypoints");
+    if (result.error) return;
     if (result.length < 1) setWaypointData([]);
     setWaypointData(result);
   };
 
   const queryCategories = async () => {
     const result = await getCategoryGroup("waypoint");
-    if (result.error) return console.log("error getting categories");
+    if (result.error) return;
     setECategories(result);
   };
 
@@ -205,7 +205,7 @@ export default function ListWaypointsCtrl() {
     const foundWaypoint = waypointData.filter(
       (waypoint) => waypoint._id === id
     )[0];
-    if (!foundWaypoint) return console.log("Unable to find plant");
+    if (!foundWaypoint) return;
     await setPendingDelete(foundWaypoint);
     setModalActive(true);
   };
@@ -216,9 +216,9 @@ export default function ListWaypointsCtrl() {
 
   const applyDelete = async () => {
     const id = pendingDelete._id;
-    if (!id) return console.log("Unable to delete waypoint");
+    if (!id) return;
     const result = await deleteWaypoint(id);
-    if (result.error) return console.log("Unable to delete plant");
+    if (result.error) return;
     closeModal();
     setPendingDelete({});
     queryWaypoints();

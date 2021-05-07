@@ -84,13 +84,13 @@ export function AuthProvider({ children }) {
     @desc Queries the user's data and updates userData
     @author Patrick Fortaleza
     @param null
-    @return () => console.log() -- notifies user of errors
+    @return () => void
   */
   const queryUser = async () => {
     const id = userData.user._id;
-    if (!id) return console.log("missing user id");
+    if (!id) return;
     const result = await getUser(id);
-    if (result.error) return console.log("error fetching user data");
+    if (result.error) return;
     const updatedUser = {
       accessToken: userData.accessToken,
       user: {

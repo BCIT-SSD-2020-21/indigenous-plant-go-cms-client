@@ -86,11 +86,9 @@ export default function ListUsersCtrl() {
     if (userData && userData.user) myUserId = userData.user._id;
     const result = await getAllUsers();
     setLoading(false);
-    if (result.error) return console.log("error getting users");
+    if (result.error) return;
     if (result.length < 1) setUserDatas([]);
     const filteredResults = result.filter((user) => user._id !== myUserId);
-    console.log(filteredResults);
-    console.log(myUserId);
     setUserDatas(filteredResults);
   };
 
@@ -190,16 +188,16 @@ export default function ListUsersCtrl() {
     setModalState("single");
     const id = e.target.value;
     const foundUser = userDatas.filter((userData) => userData._id === id)[0];
-    if (!foundUser) return console.log("Unable to find user");
+    if (!foundUser) return;
     await setPendingDelete(foundUser);
     setModalActive(true);
   };
 
   const applyDelete = async () => {
     const id = pendingDelete._id;
-    if (!id) return console.log("Unable to delete user");
+    if (!id) return;
     const result = await deleteUser(id);
-    if (result.error) return console.log("Unable to delete user");
+    if (result.error) return;
     closeModal();
     setPendingDelete({});
     queryUsers();
@@ -207,7 +205,6 @@ export default function ListUsersCtrl() {
 
   const handleBulkActionChange = (_, data) => {
     const value = data.value;
-    console.log(data.value);
     setBulkAction(value);
   };
 

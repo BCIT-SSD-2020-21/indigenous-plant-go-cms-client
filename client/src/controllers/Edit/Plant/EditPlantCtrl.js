@@ -77,44 +77,44 @@ export default function EditPlantCtrl() {
   // ===============================================================
   const queryLocations = async () => {
     const result = await getLocations();
-    if (result.error) return console.log("error getting locations");
+    if (result.error) return;
     setELocations(result);
   };
 
   const queryImages = async () => {
     const result = await getImages();
-    if (result.error) return console.log("error getting images");
+    if (result.error) return;
     setEImages(result);
   };
 
   const queryAudios = async () => {
     const result = await getAudios();
-    if (result.error) return console.log("error getting audios");
+    if (result.error) return;
     setEAudios(result);
   };
 
   const queryVideos = async () => {
     const result = await getVideos();
-    if (result.error) return console.log("error getting videos");
+    if (result.error) return;
     setEVideos(result);
   };
 
   const queryTags = async () => {
     const result = await getTags();
-    if (result.error) return console.log("error getting tags");
+    if (result.error) return;
     setETags(result);
   };
 
   const queryCategories = async () => {
     const result = await getCategoryGroup("plant");
-    if (result.error) return console.log("error getting categories");
+    if (result.error) return;
     setECategories(result);
   };
 
   const queryPlant = async () => {
-    if (!plantId) return console.log("plant id is invalid");
+    if (!plantId) return;
     const result = await getPlant(plantId);
-    if (result.error) return console.log("unable to get plant");
+    if (result.error) return;
     setPlantData(result);
   };
 

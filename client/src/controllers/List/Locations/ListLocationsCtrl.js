@@ -299,7 +299,6 @@ export default function ListLocationsCtrl() {
 
   const handleBulkActionChange = (_, data) => {
     const value = data.value;
-    console.log(data.value);
     setBulkAction(value);
   };
 

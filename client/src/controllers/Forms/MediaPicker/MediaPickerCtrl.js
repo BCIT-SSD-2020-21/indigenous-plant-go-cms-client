@@ -200,8 +200,7 @@ export default function MediaPickerCtrl({
       (option) => option._id === selectedOption
     )[0];
 
-    if (!foundOption || foundOption.length < 1)
-      return console.log("Error selecting option");
+    if (!foundOption || foundOption.length < 1) return;
 
     foundOption = {
       _id: foundOption._id,
@@ -242,12 +241,11 @@ export default function MediaPickerCtrl({
   const handleUpload = async () => {
     let result, formatted, currSelection;
     if (dataLabel !== "video") {
-      if (!file || !caption) return console.log("Required fields are missing");
+      if (!file || !caption) return;
     }
 
     if (dataLabel === "video") {
-      if (!videoLink || !caption)
-        return console.log("Required fields are missing");
+      if (!videoLink || !caption) return;
     }
 
     const formData = new FormData();
@@ -272,7 +270,7 @@ export default function MediaPickerCtrl({
         break;
     }
 
-    if (result.error) return console.log("Error uploading file");
+    if (result.error) return;
     formatted = {
       _id: result._id,
       url: result[`${dataLabel}_url`],
