@@ -1,3 +1,4 @@
+
 const {MongoClient, ObjectID, Timestamp} = require('mongodb')
 require('dotenv').config()
 
@@ -83,16 +84,24 @@ const seed = async () => {
   ])
 
   // 4. Insert Audios
-  await audios.insertMany([
-    {
-      "audio_file_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/sound-1.mp3",
-      "caption": "lavender"
-    },
-    {
-      "audio_file_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/sound-2.mp3",
-      "caption": "kinnikinnick"
-    }
-  ])
+  await audios.insertMany(
+    
+    [
+      {
+        "audio_file_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/sound-1.mp3",
+        "caption": "lavender"
+      },
+      {
+        "audio_file_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/sound-2.mp3",
+        "caption": "kinnikinnick"
+      },
+      {
+        "audio_file_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/ambience.mp3",
+        "caption": "ambience"
+      },
+
+    ]
+  )
 
   // 5. Insert Locations
   await locations.insertMany([
@@ -283,13 +292,14 @@ const seed = async () => {
   const category3 = await categories.findOne({"category_name": "SW01"})
   const plant1 = await plants.findOne({"plant_name": "lavender"})
   const plant2 = await plants.findOne({ "plant_name": "kinnikinnick"})
+  const audio3 = await audios.findOne({"caption": "ambience"})
   await waypoints.insertMany([
     {
       "waypoint_name": "Location A",
       "description": "Infront of SW1",
       "locations": [location1._id],
       "images": [image1._id],
-      "audio_files": [audio1._id],
+      "audio_files": [audio3._id],
       "videos": [video1._id],
       "tags": [tag1._id],
       "categories": [category3._id],
