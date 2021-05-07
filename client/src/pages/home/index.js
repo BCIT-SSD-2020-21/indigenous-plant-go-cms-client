@@ -2,12 +2,12 @@ import React, {useState, useEffect}from "react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import {
-  PlantIcon,
-  CompassIcon,
-  InfoIcon,
-  UsersIcon,
-  LocationIcon,
-  TourIcon,
+  CompassIcon2,
+  InfoIcon2,
+  UsersIcon2,
+  LocationIcon2,
+  TourIcon2,
+  PlantIcon2
 } from "../../icons";
 
 export default function Home({action, method}) {
@@ -86,7 +86,7 @@ export default function Home({action, method}) {
           <div className="col" style={style.col} >
             <button className="link__button" style={style.button} onClick={() => history.push("/plants/add")}>
               <div className="quickicons"  style={style.icon}>
-                <PlantIcon  />
+                <PlantIcon2 />
               </div>
               <div>
                 <label style={style.addnew}>Add New </label>
@@ -94,7 +94,7 @@ export default function Home({action, method}) {
               </div>
             </button>
             <button className="link__button"  style={style.button} onClick={() => history.push("/users/add")}>
-              <div style={style.icon}><UsersIcon /></div>
+              <div style={style.icon}><UsersIcon2 /></div>
               <div>
                 <label style={style.addnew}>Add New </label>
                 <p>User</p>
@@ -104,14 +104,14 @@ export default function Home({action, method}) {
 
           <div className="col" style={style.col} >
             <button className="link__button" style={style.button} onClick={() => history.push("/waypoints/add")}>
-              <div style={style.icon}><CompassIcon /></div>
+              <div style={style.icon}><CompassIcon2 /></div>
               <div>
                 <label style={style.addnew}>Add New </label>
                 <p>Waypoint</p>
               </div>
             </button>
             <button className="link__button" style={style.button} onClick={() => history.push("/locations/add")}>
-              <div style={style.icon}><LocationIcon /></div>
+              <div style={style.icon}><LocationIcon2 /></div>
               <div>
                 <label style={style.addnew}>Add New </label>
                 <p>Location</p>
@@ -120,14 +120,14 @@ export default function Home({action, method}) {
           </div>
           <div className="col" style={style.col} >
             <button className="link__button"  style={style.button}  onClick={() => history.push("/tours/add")}>
-            <div style={style.icon}><TourIcon /></div>
+            <div style={style.icon}><TourIcon2 /></div>
               <div>
                 <label style={style.addnew} >Add New </label>
                 <p>Tour</p>
               </div>
             </button>
             <button className="link__button"  style={style.button} onClick={() => history.push("/learnmore/add")}>
-              <div style={style.icon}><InfoIcon/></div>
+              <div style={style.icon}><InfoIcon2/></div>
               <div>
                 <label style={style.addnew}>Add New </label>
                 <p>Learn More</p>
