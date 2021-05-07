@@ -138,10 +138,10 @@ export default function ListCategories({
         </div>
 
         <div className="resource__col right">
-          <p>
+          <div style={{ marginBottom: 10, display: "flex" }}>
             <strong>Results</strong> ({categories.length}){" "}
             {loading && <Loader active inline size="tiny" />}
-          </p>
+          </div>
 
           <div className="table__controls">
             <div style={{ display: "flex" }}>

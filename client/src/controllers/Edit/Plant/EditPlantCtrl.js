@@ -14,6 +14,7 @@ import {
 } from "../../../network";
 
 export default function EditPlantCtrl() {
+  let isMounted = true;
   const history = useHistory();
   const [plantData, setPlantData] = useState({});
   const { plantId } = useParams();
@@ -50,25 +51,34 @@ export default function EditPlantCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    resetDirective();
+    if (isMounted) resetDirective();
   }, [directive]);
 
   const resetDirective = async () => {
     await setTimeout(() => {
+      if (!isMounted) return;
       setDirective(null);
     }, 4000);
   };
 
   useEffect(async () => {
-    setLoading(true);
-    await queryPlant();
-    await queryLocations();
-    await queryImages();
-    await queryAudios();
-    await queryVideos();
-    await queryTags();
-    await queryCategories();
-    setLoading(false);
+    isMounted = true;
+
+    if (isMounted) {
+      setLoading(true);
+      await queryPlant();
+      await queryLocations();
+      await queryImages();
+      await queryAudios();
+      await queryVideos();
+      await queryTags();
+      await queryCategories();
+      setLoading(false);
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // ===============================================================
@@ -77,44 +87,51 @@ export default function EditPlantCtrl() {
   // ===============================================================
   const queryLocations = async () => {
     const result = await getLocations();
-    if (result.error) return console.log("error getting locations");
+    if (result.error) return;
+    if (!isMounted) return;
     setELocations(result);
   };
 
   const queryImages = async () => {
     const result = await getImages();
-    if (result.error) return console.log("error getting images");
+    if (result.error) return;
+    if (!isMounted) return;
     setEImages(result);
   };
 
   const queryAudios = async () => {
     const result = await getAudios();
-    if (result.error) return console.log("error getting audios");
+    if (result.error) return;
+    if (!isMounted) return;
     setEAudios(result);
   };
 
   const queryVideos = async () => {
     const result = await getVideos();
-    if (result.error) return console.log("error getting videos");
+    if (result.error) return;
+    if (!isMounted) return;
     setEVideos(result);
   };
 
   const queryTags = async () => {
     const result = await getTags();
-    if (result.error) return console.log("error getting tags");
+    if (result.error) return;
+    if (!isMounted) return;
     setETags(result);
   };
 
   const queryCategories = async () => {
     const result = await getCategoryGroup("plant");
-    if (result.error) return console.log("error getting categories");
+    if (result.error) return;
+    if (!isMounted) return;
     setECategories(result);
   };
 
   const queryPlant = async () => {
-    if (!plantId) return console.log("plant id is invalid");
+    if (!plantId) return;
     const result = await getPlant(plantId);
-    if (result.error) return console.log("unable to get plant");
+    if (result.error) return;
+    if (!isMounted) return;
     setPlantData(result);
   };
 
@@ -125,51 +142,62 @@ export default function EditPlantCtrl() {
 
   const categoriesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
+    if (!isMounted) return;
     setCategories(mappedData);
   };
 
   const tagsChanged = (data) => {
     const mappedData = data.map((d) => d._id);
+    if (!isMounted) return;
     setTags(mappedData);
   };
 
   const locationsChanged = (data) => {
     const mappedData = data.map((d) => d._id);
+    if (!isMounted) return;
     setLocations(mappedData);
   };
 
   const imagesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
+    if (!isMounted) return;
     setImages(mappedData);
   };
 
   const audioFilesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
+    if (!isMounted) return;
     setAudioFiles(mappedData);
   };
 
   const videosChanged = (data) => {
     const mappedData = data.map((d) => d._id);
+    if (!isMounted) return;
     setVideos(mappedData);
   };
 
   const customFieldsChanged = (data) => {
+    if (!isMounted) return;
     setCustomFields(data);
   };
 
   const plantNameChanged = (data) => {
+    if (!isMounted) return;
     setPlantName(data);
   };
 
   const scientificNameChanged = (data) => {
+    if (!isMounted) return;
     setScientificName(data);
   };
 
   const descriptionChanged = (data) => {
+    if (!isMounted) return;
     setDescription(data);
   };
 
   const isVisibleChanged = (data) => {
+    if (!isMounted) return;
     setIsVisible(data);
   };
 
@@ -178,6 +206,7 @@ export default function EditPlantCtrl() {
   // @desc updates the Plant.
   // ===============================================================
   const handleUpdate = async () => {
+    if (!isMounted) return;
     if (!plantName || !scientificName || !description || locations.length < 1)
       return setDirective({
         header: "Error updating plant",

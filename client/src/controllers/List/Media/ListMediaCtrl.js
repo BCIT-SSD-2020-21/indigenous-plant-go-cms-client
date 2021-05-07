@@ -19,6 +19,7 @@ import {
 } from "../../../network";
 
 export default function ListMediaCtrl({ dataLabel, label }) {
+  let isMounted = true;
   const mediaFields = {
     file: null,
     caption: "",
@@ -47,11 +48,16 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   const [directive, setDirective] = useState(null);
 
   useEffect(() => {
+    isMounted = true;
     queryMedia();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    setMedias_(eMedias);
+    if (isMounted) setMedias_(eMedias);
   }, [eMedias]);
 
   useEffect(() => {
@@ -65,6 +71,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
 
   const resetDirective = async () => {
     await setTimeout(() => {
+      if (!isMounted) return;
       setDirective(null);
     }, 4000);
   };
@@ -109,6 +116,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   };
 
   const queryMedia = async () => {
+    if (!isMounted) return;
     setLoading(true);
     let result;
     switch (dataLabel) {
@@ -122,6 +130,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         result = await getVideos();
         break;
     }
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({
@@ -182,6 +191,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   };
 
   const handleUpload = async () => {
+    if (!isMounted) return;
     let result;
     if ((dataLabel !== "video" && !file) || !caption)
       return setDirective({
@@ -218,6 +228,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         result = await createVideo(video_);
         break;
     }
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({
@@ -232,6 +243,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   };
 
   const handleDelete = async (e) => {
+    if (!isMounted) return;
     setModalState("delete");
     const id = e.target.value;
     const foundMedia = eMedias.filter((tag) => tag._id === id)[0];
@@ -242,10 +254,12 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         success: false,
       });
     await setPendingDelete(foundMedia);
+    if (!isMounted) return;
     setModalActive(true);
   };
 
   const applyDelete = async () => {
+    if (!isMounted) return;
     let result;
     const id = pendingDelete._id;
     if (!id)
@@ -265,7 +279,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         result = await deleteVideo(id);
         break;
     }
-
+    if (!isMounted) return;
     if (result.error)
       return setDirective({
         header: "Error deleting media",
@@ -278,6 +292,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   };
 
   const handleEdit = async (e) => {
+    if (!isMounted) return;
     setModalState("edit");
     const id = e.target.value;
     const foundMedia = eMedias.filter((media) => media._id === id)[0];
@@ -288,6 +303,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         success: false,
       });
     await setPendingEdit(foundMedia);
+    if (!isMounted) return;
     if (dataLabel === "video") setEditVideoLink(foundMedia.video_url);
     const m = {
       file: null,
@@ -317,6 +333,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   };
 
   const applyEdit = async () => {
+    if (!isMounted) return;
     const id = pendingEdit._id;
     if (!id)
       return setDirective({
@@ -361,7 +378,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         result = await updateVideo(video_, id);
         break;
     }
-
+    if (!isMounted) return;
     if (result.error)
       return setDirective({
         header: "Error deleting media",
@@ -397,6 +414,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   };
 
   const applyBulkDelete = async () => {
+    if (!isMounted) return;
     let result;
 
     switch (dataLabel) {
@@ -410,6 +428,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         result = await bulkDeleteVideos(selectedMedias);
         break;
     }
+    if (!isMounted) return;
     if (result.error)
       return setDirective({
         header: "Error applying bulk action",

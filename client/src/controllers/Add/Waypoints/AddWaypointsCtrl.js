@@ -13,6 +13,7 @@ import {
 } from "../../../network";
 
 export default function AddWaypointsCtrl() {
+  let isMounted = true;
   const history = useHistory();
   // ===============================================================
   // FORM DATA
@@ -52,7 +53,7 @@ export default function AddWaypointsCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    resetDirective();
+    if (isMounted) resetDirective();
   }, [directive]);
 
   const resetDirective = async () => {
@@ -62,15 +63,22 @@ export default function AddWaypointsCtrl() {
   };
 
   useEffect(async () => {
-    setLoading(true);
-    await queryLocations();
-    await queryImages();
-    await queryAudios();
-    await queryVideos();
-    await queryTags();
-    await queryCategories();
-    await queryPlants();
-    setLoading(false);
+    isMounted = true;
+    if (isMounted) {
+      setLoading(true);
+      await queryLocations();
+      await queryImages();
+      await queryAudios();
+      await queryVideos();
+      await queryTags();
+      await queryCategories();
+      await queryPlants();
+      setLoading(false);
+    }
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // ===============================================================
@@ -80,43 +88,50 @@ export default function AddWaypointsCtrl() {
   // ===============================================================
   const queryLocations = async () => {
     const result = await getLocations();
-    if (result.error) return console.log("error getting locations");
+    if (result.error) return;
+    if (!isMounted) return;
     setELocations(result);
   };
 
   const queryImages = async () => {
     const result = await getImages();
-    if (result.error) return console.log("error getting images");
+    if (result.error) return;
+    if (!isMounted) return;
     setEImages(result);
   };
 
   const queryAudios = async () => {
     const result = await getAudios();
-    if (result.error) return console.log("error getting audios");
+    if (result.error) return;
+    if (!isMounted) return;
     setEAudios(result);
   };
 
   const queryVideos = async () => {
     const result = await getVideos();
-    if (result.error) return console.log("error getting videos");
+    if (result.error) return;
+    if (!isMounted) return;
     setEVideos(result);
   };
 
   const queryTags = async () => {
     const result = await getTags();
-    if (result.error) return console.log("error getting tags");
+    if (result.error) return;
+    if (!isMounted) return;
     setETags(result);
   };
 
   const queryCategories = async () => {
     const result = await getCategoryGroup("waypoint");
-    if (result.error) return console.log("error getting categories");
+    if (result.error) return;
+    if (!isMounted) return;
     setECategories(result);
   };
 
   const queryPlants = async () => {
     const result = await getAllPlants();
-    if (result.error) return console.log("error getting plants");
+    if (result.error) return;
+    if (!isMounted) return;
     setEPlants(result);
   };
 
@@ -179,6 +194,7 @@ export default function AddWaypointsCtrl() {
   };
 
   const handlePublish = async () => {
+    if (!isMounted) return;
     const waypoint = {
       waypoint_name: waypointName,
       description: description,
@@ -195,6 +211,7 @@ export default function AddWaypointsCtrl() {
 
     setLoading(true);
     const result = await createWaypoint(waypoint);
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({

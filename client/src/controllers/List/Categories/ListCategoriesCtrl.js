@@ -8,6 +8,7 @@ import {
 } from "../../../network";
 
 export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
+  let isMounted = true;
   const [eCategories, setECategories] = useState([]);
   // categories_ is the mutable version of eCategories that we'll be using to filter
   const [categories_, setCategories_] = useState([]);
@@ -27,11 +28,16 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   const [directive, setDirective] = useState(null);
 
   useEffect(() => {
+    isMounted = true;
     queryCategories();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    setCategories_(eCategories);
+    if (isMounted) setCategories_(eCategories);
   }, [eCategories]);
 
   useEffect(() => {
@@ -40,11 +46,12 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   }, [categories_]);
 
   useEffect(() => {
-    resetDirective();
+    if (isMounted) resetDirective();
   }, [directive]);
 
   const resetDirective = async () => {
     await setTimeout(() => {
+      if (!isMounted) return;
       setDirective(null);
     }, 4000);
   };
@@ -73,8 +80,10 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   };
 
   const queryCategories = async () => {
+    if (!isMounted) return;
     setLoading(true);
     const result = await getCategoryGroup(dataLabel);
+    if (!isMounted) return;
     setLoading(false);
     if (result.error) return;
     setECategories(result);
@@ -146,6 +155,7 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   };
 
   const submitNewCategory = async () => {
+    if (!isMounted) return;
     if (!newCat)
       return setDirective({
         header: "Error creating category",
@@ -158,6 +168,7 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
     };
 
     const result = await createCategory(category);
+    if (!isMounted) return;
     if (result.error)
       return setDirective({
         header: "Error creating tag",
@@ -173,6 +184,7 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   };
 
   const handleDelete = async (e) => {
+    if (!isMounted) return;
     setModalState("delete");
     const id = e.target.value;
     const foundCategory = eCategories.filter(
@@ -185,10 +197,12 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
         success: false,
       });
     await setPendingDelete(foundCategory);
+    if (!isMounted) return;
     setModalActive(true);
   };
 
   const applyDelete = async () => {
+    if (!isMounted) return;
     const id = pendingDelete._id;
     if (!id)
       return setDirective({
@@ -197,18 +211,21 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
         success: false,
       });
     const result = await deleteCategory(id);
+    if (!isMounted) return;
     if (result.error)
       return setDirective({
         header: "Error deleting category",
         message: result.error.data.error,
         success: false,
       });
+
     closeModal();
     setPendingDelete({});
     queryCategories();
   };
 
   const handleEdit = async (e) => {
+    if (!isMounted) return;
     setModalState("edit");
     const id = e.target.value;
     const foundCategory = eCategories.filter(
@@ -221,11 +238,13 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
         success: false,
       });
     await setPendingEdit(foundCategory);
+    if (!isMounted) return;
     setEditCat(foundCategory.category_name);
     setModalActive(true);
   };
 
   const applyEdit = async (e) => {
+    if (!isMounted) return;
     const id = pendingEdit._id;
     if (!id)
       return setDirective({
@@ -245,6 +264,7 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
       resource: pendingEdit.resource,
     };
     const result = await updateCategory(id, updatedCategory);
+    if (!isMounted) return;
     if (result.error)
       return setDirective({
         header: "Error deleting category",

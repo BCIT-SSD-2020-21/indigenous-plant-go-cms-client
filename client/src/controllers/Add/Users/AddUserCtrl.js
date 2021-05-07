@@ -4,6 +4,7 @@ import { createUser } from "../../../network";
 import { useHistory } from "react-router-dom";
 
 export default function AddUserCtrl() {
+  let isMounted = true;
   const history = useHistory();
   // ===============================================================
   // FORM DATA
@@ -19,7 +20,15 @@ export default function AddUserCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    resetDirective();
+    isMounted = true;
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMounted) resetDirective();
   }, [directive]);
 
   const resetDirective = async () => {
@@ -32,6 +41,7 @@ export default function AddUserCtrl() {
   // POST
   // ===============================================================
   const registerUser = async () => {
+    if (!isMounted) return;
     if (!username || !email || !role || !password)
       return setDirective({
         header: "Error creating user",
@@ -52,6 +62,7 @@ export default function AddUserCtrl() {
     };
     setLoading(true);
     const result = await createUser(user);
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({

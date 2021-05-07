@@ -8,6 +8,7 @@ import {
 } from "../../../network";
 
 export default function ListWaypointsCtrl() {
+  let isMounted = true;
   const [waypointData, setWaypointData] = useState([]);
   // waypointData_ is the mutable version of waypointData that we'll be using to filter
   const [waypointData_, setWaypointData_] = useState([]);
@@ -26,9 +27,14 @@ export default function ListWaypointsCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    isMounted = true;
     queryWaypoints();
     queryCategories();
     formatPages();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -36,7 +42,7 @@ export default function ListWaypointsCtrl() {
   }, [eCategories]);
 
   useEffect(() => {
-    setWaypointData_(waypointData);
+    if (isMounted) setWaypointData_(waypointData);
   }, [waypointData]);
 
   useEffect(() => {
@@ -72,17 +78,21 @@ export default function ListWaypointsCtrl() {
   };
 
   const queryWaypoints = async () => {
+    if (!isMounted) return;
     setLoading(true);
     const result = await getAllWaypoints();
+    if (!isMounted) return;
     setLoading(false);
-    if (result.error) return console.log("error getting waypoints");
+    if (result.error) return;
     if (result.length < 1) setWaypointData([]);
     setWaypointData(result);
   };
 
   const queryCategories = async () => {
+    if (!isMounted) return;
     const result = await getCategoryGroup("waypoint");
-    if (result.error) return console.log("error getting categories");
+    if (!isMounted) return;
+    if (result.error) return;
     setECategories(result);
   };
 
@@ -200,12 +210,13 @@ export default function ListWaypointsCtrl() {
   };
 
   const handleDelete = async (e) => {
+    if (!isMounted) return;
     setModalState("single");
     const id = e.target.value;
     const foundWaypoint = waypointData.filter(
       (waypoint) => waypoint._id === id
     )[0];
-    if (!foundWaypoint) return console.log("Unable to find plant");
+    if (!foundWaypoint) return;
     await setPendingDelete(foundWaypoint);
     setModalActive(true);
   };
@@ -215,16 +226,19 @@ export default function ListWaypointsCtrl() {
   };
 
   const applyDelete = async () => {
+    if (!isMounted) return;
     const id = pendingDelete._id;
-    if (!id) return console.log("Unable to delete waypoint");
+    if (!id) return;
     const result = await deleteWaypoint(id);
-    if (result.error) return console.log("Unable to delete plant");
+    if (result.error) return;
+    if (!isMounted) return;
     closeModal();
     setPendingDelete({});
     queryWaypoints();
   };
 
   const applyBulkDelete = async () => {
+    if (!isMounted) return;
     const result = await bulkDeleteWaypoints(selectedWaypoints);
     if (result.error) return;
     closeModal();
