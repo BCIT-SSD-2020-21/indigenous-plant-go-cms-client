@@ -258,10 +258,12 @@ export default function ListLocations({
           </button>
         </div>
         <div className="resource__col right">
-          <p>
-            <strong>Results</strong> ({locations.length}){" "}
+          <div style={{ marginBottom: 10, display: "flex" }}>
+            <p>
+              <strong>Results</strong> ({locations.length}){" "}
+            </p>
             {loading && <Loader active inline size="tiny" />}
-          </p>
+          </div>
           <div className="table__controls">
             <div style={{ display: "flex" }}>
               <div className="table__action">

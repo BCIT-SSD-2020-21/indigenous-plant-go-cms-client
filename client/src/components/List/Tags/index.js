@@ -176,10 +176,12 @@ export default function ListTags({
           </button>
         </div>
         <div className="resource__col right">
-          <p>
-            <strong>Results</strong> ({tags.length}){" "}
+          <div style={{ marginBottom: 10, display: "flex" }}>
+            <p>
+              <strong>Results</strong> ({tags.length}){" "}
+            </p>
             {loading && <Loader active inline size="tiny" />}
-          </p>
+          </div>
           <div className="table__controls">
             <div style={{ display: "flex" }}>
               <div className="table__action">

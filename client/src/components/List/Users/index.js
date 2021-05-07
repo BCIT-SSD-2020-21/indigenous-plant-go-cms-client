@@ -127,10 +127,10 @@ export default function ListUsers({
         action="Add New"
         method={() => history.push("/users/add")}
       />
-      <p>
+      <div style={{ marginBottom: 10, display: "flex" }}>
         <strong>Results</strong> ({userDatas.length}){" "}
         {loading && <Loader active inline size="tiny" />}
-      </p>
+      </div>
 
       <div className="table__controls">
         <div style={{ display: "flex" }}>

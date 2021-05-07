@@ -367,10 +367,12 @@ export default function ListMedia({
           )}
         </div>
         <div className="resource__col right">
-          <p>
-            <strong>Results</strong> ({medias.length}){" "}
+          <div style={{ marginBottom: 10, display: "flex" }}>
+            <p>
+              <strong>Results</strong> ({medias.length}){" "}
+            </p>
             {loading && <Loader active inline size="tiny" />}
-          </p>
+          </div>
 
           <div className="table__controls">
             <div style={{ display: "flex" }}>
