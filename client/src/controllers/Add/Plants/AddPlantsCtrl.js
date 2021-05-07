@@ -12,7 +12,7 @@ import {
 } from "../../../network";
 
 export default function AddPlantsCtrl() {
-  let isMounted;
+  let isMounted = true;
   const history = useHistory();
   // ===============================================================
   // FORM DATA
@@ -47,14 +47,6 @@ export default function AddPlantsCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    isMounted = true;
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  useEffect(() => {
     if (isMounted) resetDirective();
   }, [directive]);
 
@@ -65,6 +57,7 @@ export default function AddPlantsCtrl() {
   };
 
   useEffect(async () => {
+    isMounted = true;
     if (isMounted) {
       setLoading(true);
       await queryLocations();
@@ -75,6 +68,9 @@ export default function AddPlantsCtrl() {
       await queryCategories();
       setLoading(false);
     }
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // ===============================================================
@@ -112,6 +108,7 @@ export default function AddPlantsCtrl() {
   const queryTags = async () => {
     const result = await getTags();
     if (result.error) return;
+    if (!isMounted) return;
     setETags(result);
   };
 
@@ -129,62 +126,51 @@ export default function AddPlantsCtrl() {
 
   const categoriesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
-    if (!isMounted) return;
     setCategories(mappedData);
   };
 
   const tagsChanged = (data) => {
     const mappedData = data.map((d) => d._id);
-    if (!isMounted) return;
     setTags(mappedData);
   };
 
   const locationsChanged = (data) => {
     const mappedData = data.map((d) => d._id);
-    if (!isMounted) return;
     setLocations(mappedData);
   };
 
   const imagesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
-    if (!isMounted) return;
     setImages(mappedData);
   };
 
   const audioFilesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
-    if (!isMounted) return;
     setAudioFiles(mappedData);
   };
 
   const videosChanged = (data) => {
     const mappedData = data.map((d) => d._id);
-    if (!isMounted) return;
     setVideos(mappedData);
   };
 
   const customFieldsChanged = (data) => {
-    if (!isMounted) return;
     setCustomFields(data);
   };
 
   const plantNameChanged = (data) => {
-    if (!isMounted) return;
     setPlantName(data);
   };
 
   const scientificNameChanged = (data) => {
-    if (!isMounted) return;
     setScientificName(data);
   };
 
   const descriptionChanged = (data) => {
-    if (!isMounted) return;
     setDescription(data);
   };
 
   const isVisibleChanged = (data) => {
-    if (!isMounted) return;
     setIsVisible(data);
   };
 
@@ -194,6 +180,7 @@ export default function AddPlantsCtrl() {
   // ===============================================================
 
   const handlePublish = async () => {
+    if (!isMounted) return;
     setLoading(true);
     const plant = {
       plant_name: plantName,
@@ -210,6 +197,7 @@ export default function AddPlantsCtrl() {
     };
 
     const result = await createPlant(plant);
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({

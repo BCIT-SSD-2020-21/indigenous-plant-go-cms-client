@@ -14,7 +14,7 @@ import {
 } from "../../../network";
 
 export default function EditPlantCtrl() {
-  let isMounted;
+  let isMounted = true;
   const history = useHistory();
   const [plantData, setPlantData] = useState({});
   const { plantId } = useParams();
@@ -51,14 +51,6 @@ export default function EditPlantCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    isMounted = true;
-
-    return () => {
-      isMounted = false;
-    };
-  }, []);
-
-  useEffect(() => {
     if (isMounted) resetDirective();
   }, [directive]);
 
@@ -69,6 +61,8 @@ export default function EditPlantCtrl() {
   };
 
   useEffect(async () => {
+    isMounted = true;
+
     if (isMounted) {
       setLoading(true);
       await queryPlant();
@@ -80,6 +74,10 @@ export default function EditPlantCtrl() {
       await queryCategories();
       setLoading(false);
     }
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // ===============================================================
@@ -143,62 +141,51 @@ export default function EditPlantCtrl() {
 
   const categoriesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
-    if (!isMounted) return;
     setCategories(mappedData);
   };
 
   const tagsChanged = (data) => {
     const mappedData = data.map((d) => d._id);
-    if (!isMounted) return;
     setTags(mappedData);
   };
 
   const locationsChanged = (data) => {
     const mappedData = data.map((d) => d._id);
-    if (!isMounted) return;
     setLocations(mappedData);
   };
 
   const imagesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
-    if (!isMounted) return;
     setImages(mappedData);
   };
 
   const audioFilesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
-    if (!isMounted) return;
     setAudioFiles(mappedData);
   };
 
   const videosChanged = (data) => {
     const mappedData = data.map((d) => d._id);
-    if (!isMounted) return;
     setVideos(mappedData);
   };
 
   const customFieldsChanged = (data) => {
-    if (!isMounted) return;
     setCustomFields(data);
   };
 
   const plantNameChanged = (data) => {
-    if (!isMounted) return;
     setPlantName(data);
   };
 
   const scientificNameChanged = (data) => {
-    if (!isMounted) return;
     setScientificName(data);
   };
 
   const descriptionChanged = (data) => {
-    if (!isMounted) return;
     setDescription(data);
   };
 
   const isVisibleChanged = (data) => {
-    if (!isMounted) return;
     setIsVisible(data);
   };
 

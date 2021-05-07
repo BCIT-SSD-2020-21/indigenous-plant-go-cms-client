@@ -8,7 +8,7 @@ import {
 } from "../../../network";
 
 export default function ListPlantsCtrl() {
-  let isMounted;
+  let isMounted = true;
   const [plantData, setPlantData] = useState([]);
   // plantData_ is the mutable version of plantData that we'll be using to filter
   const [plantData_, setPlantData_] = useState([]);
@@ -42,28 +42,26 @@ export default function ListPlantsCtrl() {
   }, [plantData]);
 
   useEffect(() => {
-    if (!searchQuery && isMounted) applyFilter();
+    if (!searchQuery) applyFilter();
   }, [searchQuery]);
 
   useEffect(() => {
-    if (isMounted) formatCategories();
+    formatCategories();
   }, [eCategories]);
 
   useEffect(() => {
-    if (isMounted) {
-      setPage(1);
-      formatPages();
-    }
+    setPage(1);
+    formatPages();
   }, [plantData_]);
 
   const queryPlants = async () => {
     if (!isMounted) return;
     setLoading(true);
     const result = await getAllPlants();
+    if (!isMounted) return;
     setLoading(false);
     if (result.error) return;
     if (result.length < 1) setPlantData([]);
-    if (!isMounted) return;
     setPlantData(result);
   };
 
@@ -76,7 +74,6 @@ export default function ListPlantsCtrl() {
 
   const formatPages = () => {
     const dataLength = plantData_.length;
-    if (!isMounted) return;
     if (dataLength < 5) return setHasPages(false);
 
     setHasPages(true);
@@ -107,22 +104,19 @@ export default function ListPlantsCtrl() {
         text: category.category_name,
       };
     });
-    if (!isMounted) return;
+
     setFormattedCategories(formatted);
   };
 
   const handleQueryChange = (e) => {
-    if (!isMounted) return;
     setSearchQuery(e.target.value);
   };
 
   const handleFilterChange = (e, data) => {
-    if (!isMounted) return;
     setCategoryFilter(data.value);
   };
 
   const applyFilter = () => {
-    if (!isMounted) return;
     // APPLY A CATEGORY FILTER
     const categoryF = categoryFilter.toLowerCase();
     let filteredData = [...plantData].filter((plant) => {
@@ -143,17 +137,14 @@ export default function ListPlantsCtrl() {
       plant.plant_name.toLowerCase().startsWith(searchQ)
     );
 
-    if (!isMounted) return;
     setPlantData_(filteredData);
   };
 
   const clearSearch = () => {
-    if (!isMounted) return;
     setSearchQuery("");
   };
 
   const resetFilters = () => {
-    if (!isMounted) return;
     setSearchQuery("");
     setPlantData_(plantData);
     setCategoryFilter("default");
@@ -168,7 +159,7 @@ export default function ListPlantsCtrl() {
     } else {
       newSelected = [...newSelected, id];
     }
-    if (!isMounted) return;
+
     setSelectedPlants(newSelected);
   };
 
@@ -182,7 +173,6 @@ export default function ListPlantsCtrl() {
         return element === selectedIds[index];
       });
 
-    if (!isMounted) return;
     if (!allSelected) {
       setSelectedPlants(resourceIds);
     } else {
@@ -195,7 +185,6 @@ export default function ListPlantsCtrl() {
     if (currentPage >= pages.length) return;
 
     currentPage = currentPage + 1;
-    if (!isMounted) return;
     setPage(currentPage);
   };
 
@@ -204,7 +193,6 @@ export default function ListPlantsCtrl() {
     if (currentPage === 1) return;
 
     currentPage = currentPage - 1;
-    if (!isMounted) return;
     setPage(currentPage);
   };
 
@@ -223,8 +211,8 @@ export default function ListPlantsCtrl() {
     const id = pendingDelete._id;
     if (!id) return;
     const result = await deletePlant(id);
-    if (!isMounted) return;
     if (result.error) return;
+    if (!isMounted) return;
     closeModal();
     setPendingDelete({});
     queryPlants();
@@ -239,15 +227,15 @@ export default function ListPlantsCtrl() {
     setBulkAction(value);
   };
 
-  const handleBulkDelete = async () => {
+  const handleBulkDelete = () => {
     if (selectedPlants.length < 1) return;
     if (bulkAction === "default") return;
-    if (!isMounted) return;
     setModalState("bulk");
     setModalActive(true);
   };
 
   const applyBulkDelete = async () => {
+    if (!isMounted) return;
     const result = await bulkDeletePlants(selectedPlants);
     if (result.error) return;
     if (!isMounted) return;

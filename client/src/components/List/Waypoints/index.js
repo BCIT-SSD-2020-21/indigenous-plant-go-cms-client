@@ -122,7 +122,7 @@ export default function ListWaypoints({
         action="Add New"
         method={() => history.push("/waypoints/add")}
       />
-      <div>
+      <div style={{ marginBottom: 10 }}>
         <p>
           <strong>Results</strong> ({waypointData.length}){" "}
         </p>
