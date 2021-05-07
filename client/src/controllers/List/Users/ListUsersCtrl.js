@@ -212,16 +212,14 @@ export default function ListUsersCtrl() {
   };
 
   const handleBulkDelete = async () => {
-    if (selectedUsers.length < 1) return console.log("no users selected");
-    if (bulkAction === "default")
-      return console.log("cannot bulk delete if bulk action is set to default");
+    if (selectedUsers.length < 1) if (bulkAction === "default") return;
     setModalState("bulk");
     setModalActive(true);
   };
 
   const applyBulkDelete = async () => {
     const result = await bulkDeleteUsers(selectedUsers);
-    if (result.error) return console.log("Unable to bulk delete plants");
+    if (result.error) return;
     closeModal();
     setSelectedUsers([]);
     queryUsers();
