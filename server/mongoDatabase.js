@@ -1112,7 +1112,7 @@ module.exports = async function() {
     //Default to empty array if the field is not given
     if (newPlant.images !== null && newPlant.images !== undefined) {
       if (!Array.isArray(newPlant.images)) {
-        throw Error("The field images must be array")
+        throw Error("Invalid input for the field images")
       }
 
       try {
@@ -1128,7 +1128,7 @@ module.exports = async function() {
 
     if (newPlant.audio_files !== null && newPlant.audio_files !== undefined) {
       if (!Array.isArray(newPlant.audio_files)) {
-        throw Error("The field audio_files must be array")
+        throw Error("Invalid input for the field audio_files")
       }
 
       try {
@@ -1144,7 +1144,7 @@ module.exports = async function() {
 
     if (newPlant.videos !== null && newPlant.videos !== undefined) {
       if (!Array.isArray(newPlant.videos)) {
-        throw Error("The field videos must be array")
+        throw Error("Invalid input for the field videos")
       }
 
       try {
@@ -1160,7 +1160,7 @@ module.exports = async function() {
 
     if (newPlant.tags !== null && newPlant.tags !== undefined) {
       if (!Array.isArray(newPlant.tags)) {
-        throw Error("The field tags must be array")
+        throw Error("Invalid input for the field tags")
       }
 
       try {
@@ -1176,7 +1176,7 @@ module.exports = async function() {
 
     if (newPlant.categories !== null && newPlant.categories !== undefined) {
       if (!Array.isArray(newPlant.categories)) {
-        throw Error("The field categories must be array")
+        throw Error("Invalid input for the field categories")
       }
 
       try {
@@ -1192,7 +1192,7 @@ module.exports = async function() {
 
     if (newPlant.locations !== null && newPlant.locations !== undefined) {
       if (!Array.isArray(newPlant.locations)) {
-        throw Error("The field locations must be array")
+        throw Error("Invalid input for the field locations")
       }
 
       if (newPlant.locations.length < 1) {
@@ -1212,7 +1212,7 @@ module.exports = async function() {
 
     if (newPlant.custom_fields !== null && newPlant.custom_fields !== undefined) {
       if (!Array.isArray(newPlant.custom_fields)) {
-        throw Error("The field custom_fields must be array")
+        throw Error("Invalid input for the field custom_fields")
       }
 
       //If custom_fields exist, it must have _id, field_title, and content
@@ -1401,7 +1401,7 @@ module.exports = async function() {
     //User should get data of the plant when they start editing
     if (updatedPlant.images !== null && updatedPlant.images !== undefined) {
       if (!Array.isArray(updatedPlant.images)) {
-        throw Error("The field images must be array")
+        throw Error("Invalid input for the field images")
       }
 
       try {
@@ -1415,7 +1415,7 @@ module.exports = async function() {
 
     if (updatedPlant.audio_files !== null && updatedPlant.audio_files !== undefined) {
       if (!Array.isArray(updatedPlant.audio_files)) {
-        throw Error("The field audio_files must be array")
+        throw Error("Invalid input for the field audio_files")
       }
 
       try {
@@ -1429,7 +1429,7 @@ module.exports = async function() {
 
     if (updatedPlant.videos !== null && updatedPlant.videos !== undefined) {
       if (!Array.isArray(updatedPlant.videos)) {
-        throw Error("The field videos must be array")
+        throw Error("Invalid input for the field videos")
       }
 
       try {
@@ -1443,7 +1443,7 @@ module.exports = async function() {
 
     if (updatedPlant.tags !== null && updatedPlant.tags !== undefined) {
       if (!Array.isArray(updatedPlant.tags)) {
-        throw Error("The field tags must be array")
+        throw Error("Invalid input for the field tags")
       }
 
       try {
@@ -1457,7 +1457,7 @@ module.exports = async function() {
 
     if (updatedPlant.categories !== null && updatedPlant.categories !== undefined) {
       if (!Array.isArray(updatedPlant.categories)) {
-        throw Error("The field categories must be array")
+        throw Error("Invalid input for the field categories")
       }
 
       try {
@@ -1471,7 +1471,7 @@ module.exports = async function() {
 
     if (updatedPlant.locations !== null && updatedPlant.locations !== undefined) {
       if (!Array.isArray(updatedPlant.locations)) {
-        throw Error("The field locations must be array")
+        throw Error("Invalid input for the field locations")
       }
 
       if (updatedPlant.locations.length < 1) {
@@ -1491,7 +1491,7 @@ module.exports = async function() {
 
     if (updatedPlant.custom_fields !== null && updatedPlant.custom_fields !== undefined) {
       if (!Array.isArray(updatedPlant.custom_fields)) {
-        throw Error("The field custom_fields must be array")
+        throw Error("Invalid input for the field custom_fields")
       }
 
       //If custom_fields exist, it must have _id, field_title, and content
@@ -2011,7 +2011,7 @@ module.exports = async function() {
     //Default to empty array if the field is not given
     if (newWaypoint.images !== null && newWaypoint.images !== undefined) {
       if (!Array.isArray(newWaypoint.images)) {
-        throw Error("The field images must be array")
+        throw Error("Invalid input for the field images")
       }
 
       try {
@@ -2027,7 +2027,7 @@ module.exports = async function() {
 
     if (newWaypoint.audio_files !== null && newWaypoint.audio_files !== undefined) {
       if (!Array.isArray(newWaypoint.audio_files)) {
-        throw Error("The field audio_files must be array")
+        throw Error("Invalid input for the field audio_files")
       }
 
       try {
@@ -2043,7 +2043,7 @@ module.exports = async function() {
 
     if (newWaypoint.videos !== null && newWaypoint.videos !== undefined) {
       if (!Array.isArray(newWaypoint.videos)) {
-        throw Error("The field videos must be array")
+        throw Error("Invalid input for the field videos")
       }
 
       try {
@@ -2059,7 +2059,7 @@ module.exports = async function() {
 
     if (newWaypoint.tags !== null && newWaypoint.tags !== undefined) {
       if (!Array.isArray(newWaypoint.tags)) {
-        throw Error("The field tags must be array")
+        throw Error("Invalid input for the field tags")
       }
 
       try {
@@ -2075,7 +2075,7 @@ module.exports = async function() {
 
     if (newWaypoint.categories !== null && newWaypoint.categories !== undefined) {
       if (!Array.isArray(newWaypoint.categories)) {
-        throw Error("The field categories must be array")
+        throw Error("Invalid input for the field categories")
       }
 
       try {
@@ -2091,7 +2091,7 @@ module.exports = async function() {
 
     if (newWaypoint.locations !== null && newWaypoint.locations !== undefined) {
       if (!Array.isArray(newWaypoint.locations)) {
-        throw Error("The field locations must be array")
+        throw Error("Invalid input for the field locations")
       }
 
       if (newWaypoint.locations.length < 1) {
@@ -2111,7 +2111,7 @@ module.exports = async function() {
 
     if (newWaypoint.plants !== null && newWaypoint.plants !== undefined) {
       if (!Array.isArray(newWaypoint.plants)) {
-        throw Error("The field plants must be array")
+        throw Error("Invalid input for the field plants")
       }
 
       try {
@@ -2127,7 +2127,7 @@ module.exports = async function() {
 
     if (newWaypoint.custom_fields !== null && newWaypoint.custom_fields !== undefined) {
       if (!Array.isArray(newWaypoint.custom_fields)) {
-        throw Error("The field custom_fields must be array")
+        throw Error("Invalid input for the field custom_fields")
       }
 
       newWaypoint.custom_fields.forEach((custom_field, index, self) => {
@@ -2408,7 +2408,7 @@ module.exports = async function() {
     //User should get data of the waypoint when they start editing
     if (updatedWaypoint.images !== null && updatedWaypoint.images !== undefined) {
       if (!Array.isArray(updatedWaypoint.images)) {
-        throw Error("The field images must be array")
+        throw Error("Invalid input for the field images")
       }
 
       try {
@@ -2422,7 +2422,7 @@ module.exports = async function() {
 
     if (updatedWaypoint.audio_files !== null && updatedWaypoint.audio_files !== undefined) {
       if (!Array.isArray(updatedWaypoint.audio_files)) {
-        throw Error("The field audio_files must be array")
+        throw Error("Invalid input for the field audio_files")
       }
 
       try {
@@ -2436,7 +2436,7 @@ module.exports = async function() {
 
     if (updatedWaypoint.videos !== null && updatedWaypoint.videos !== undefined) {
       if (!Array.isArray(updatedWaypoint.videos)) {
-        throw Error("The field videos must be array")
+        throw Error("Invalid input for the field videos")
       }
 
       try {
@@ -2450,7 +2450,7 @@ module.exports = async function() {
 
     if (updatedWaypoint.tags !== null && updatedWaypoint.tags !== undefined) {
       if (!Array.isArray(updatedWaypoint.tags)) {
-        throw Error("The field tags must be array")
+        throw Error("Invalid input for the field tags")
       }
 
       try {
@@ -2464,7 +2464,7 @@ module.exports = async function() {
 
     if (updatedWaypoint.categories !== null && updatedWaypoint.categories !== undefined) {
       if (!Array.isArray(updatedWaypoint.categories)) {
-        throw Error("The field categories must be array")
+        throw Error("Invalid input for the field categories")
       }
 
       try {
@@ -2478,7 +2478,7 @@ module.exports = async function() {
 
     if (updatedWaypoint.locations !== null && updatedWaypoint.locations !== undefined) {
       if (!Array.isArray(updatedWaypoint.locations)) {
-        throw Error("The field locations must be array")
+        throw Error("Invalid input for the field locations")
       }
 
       if (updatedWaypoint.locations.length < 1) {
@@ -2498,7 +2498,7 @@ module.exports = async function() {
 
     if (updatedWaypoint.plants !== null && updatedWaypoint.plants !== undefined) {
       if (!Array.isArray(updatedWaypoint.plants)) {
-        throw Error("The field plants must be array")
+        throw Error("Invalid input for the field plants")
       }
 
       try {
@@ -2512,7 +2512,7 @@ module.exports = async function() {
 
     if (updatedWaypoint.custom_fields !== null && updatedWaypoint.custom_fields !== undefined) {
       if (!Array.isArray(updatedWaypoint.custom_fields)) {
-        throw Error("The field custom_fields must be array")
+        throw Error("Invalid input for the field custom_fields")
       }
 
       updatedWaypoint.custom_fields.forEach((custom_field, index, self) => {
@@ -2997,7 +2997,7 @@ module.exports = async function() {
     //Default to empty array if the field is not given
     if (newTour.images !== null && newTour.images !== undefined) {
       if (!Array.isArray(newTour.images)) {
-        throw Error("The field images must be array")
+        throw Error("Invalid input for the field images")
       }
 
       try {
@@ -3013,7 +3013,7 @@ module.exports = async function() {
 
     if (newTour.audio_files !== null && newTour.audio_files !== undefined) {
       if (!Array.isArray(newTour.audio_files)) {
-        throw Error("The field audio_files must be array")
+        throw Error("Invalid input for the field audio_files")
       }
 
       try {
@@ -3029,7 +3029,7 @@ module.exports = async function() {
 
     if (newTour.videos !== null && newTour.videos !== undefined) {
       if (!Array.isArray(newTour.videos)) {
-        throw Error("The field videos must be array")
+        throw Error("Invalid input for the field videos")
       }
 
       try {
@@ -3045,7 +3045,7 @@ module.exports = async function() {
 
     if (newTour.tags !== null && newTour.tags !== undefined) {
       if (!Array.isArray(newTour.tags)) {
-        throw Error("The field tags must be array")
+        throw Error("Invalid input for the field tags")
       }
 
       try {
@@ -3061,7 +3061,7 @@ module.exports = async function() {
 
     if (newTour.categories !== null && newTour.categories !== undefined) {
       if (!Array.isArray(newTour.categories)) {
-        throw Error("The field categories must be array")
+        throw Error("Invalid input for the field categories")
       }
 
       try {
@@ -3077,7 +3077,7 @@ module.exports = async function() {
 
     if (newTour.plants !== null && newTour.plants !== undefined) {
       if (!Array.isArray(newTour.plants)) {
-        throw Error("The field plants must be array")
+        throw Error("Invalid input for the field plants")
       }
 
       try {
@@ -3093,7 +3093,7 @@ module.exports = async function() {
 
     if (newTour.waypoints !== null && newTour.waypoints !== undefined) {
       if (!Array.isArray(newTour.waypoints)) {
-        throw Error("The field waypoints must be array")
+        throw Error("Invalid input for the field waypoints")
       }
 
       try {
@@ -3109,7 +3109,7 @@ module.exports = async function() {
 
     if (newTour.custom_fields !== null && newTour.custom_fields !== undefined) {
       if (!Array.isArray(newTour.custom_fields)) {
-        throw Error("The field custom_fields must be array")
+        throw Error("Invalid input for the field custom_fields")
       }
 
       newTour.custom_fields.forEach((custom_field, index, self) => {
@@ -3570,7 +3570,7 @@ module.exports = async function() {
     //User should get data of the tour when they start editing
     if (updatedTour.images !== null && updatedTour.images !== undefined) {
       if (!Array.isArray(updatedTour.images)) {
-        throw Error("The field images must be array")
+        throw Error("Invalid input for the field images")
       }
 
       try {
@@ -3584,7 +3584,7 @@ module.exports = async function() {
 
     if (updatedTour.audio_files !== null && updatedTour.audio_files !== undefined) {
       if (!Array.isArray(updatedTour.audio_files)) {
-        throw Error("The field audio_files must be array")
+        throw Error("Invalid input for the field audio_files")
       }
 
       try {
@@ -3598,7 +3598,7 @@ module.exports = async function() {
 
     if (updatedTour.videos !== null && updatedTour.videos !== undefined) {
       if (!Array.isArray(updatedTour.videos)) {
-        throw Error("The field videos must be array")
+        throw Error("Invalid input for the field videos")
       }
 
       try {
@@ -3612,7 +3612,7 @@ module.exports = async function() {
 
     if (updatedTour.tags !== null && updatedTour.tags !== undefined) {
       if (!Array.isArray(updatedTour.tags)) {
-        throw Error("The field tags must be array")
+        throw Error("Invalid input for the field tags")
       }
 
       try {
@@ -3626,7 +3626,7 @@ module.exports = async function() {
 
     if (updatedTour.categories !== null && updatedTour.categories !== undefined) {
       if (!Array.isArray(updatedTour.categories)) {
-        throw Error("The field categories must be array")
+        throw Error("Invalid input for the field categories")
       }
 
       try {
@@ -3640,7 +3640,7 @@ module.exports = async function() {
 
     if (updatedTour.plants !== null && updatedTour.plants !== undefined) {
       if (!Array.isArray(updatedTour.plants)) {
-        throw Error("The field plants must be array")
+        throw Error("Invalid input for the field plants")
       }
 
       try {
@@ -3654,7 +3654,7 @@ module.exports = async function() {
 
     if (updatedTour.waypoints !== null && updatedTour.waypoints !== undefined) {
       if (!Array.isArray(updatedTour.waypoints)) {
-        throw Error("The field waypoints must be array")
+        throw Error("Invalid input for the field waypoints")
       }
 
       try {
@@ -3668,7 +3668,7 @@ module.exports = async function() {
 
     if (updatedTour.custom_fields !== null && updatedTour.custom_fields !== undefined) {
       if (!Array.isArray(updatedTour.custom_fields)) {
-        throw Error("The field custom_fields must be array")
+        throw Error("Invalid input for the field custom_fields")
       }
 
       updatedTour.custom_fields.forEach((custom_field, index, self) => {
@@ -3847,7 +3847,7 @@ module.exports = async function() {
    
     if (newLearnMore.images !== null && newLearnMore.images !== undefined) {
       if (!Array.isArray(newLearnMore.images)) {
-        throw Error("The field images must be array")
+        throw Error("Invalid input for the field images")
       }
 
       try {
@@ -3863,7 +3863,7 @@ module.exports = async function() {
 
     if (newLearnMore.audio_files !== null && newLearnMore.audio_files !== undefined) {
       if (!Array.isArray(newLearnMore.audio_files)) {
-        throw Error("The field audio_files must be array")
+        throw Error("Invalid input for the field audio_files")
       }
 
       try {
@@ -3879,7 +3879,7 @@ module.exports = async function() {
 
     if (newLearnMore.videos !== null && newLearnMore.videos !== undefined) {
       if (!Array.isArray(newLearnMore.videos)) {
-        throw Error("The field videos must be array")
+        throw Error("Invalid input for the field videos")
       }
 
       try {
@@ -3895,7 +3895,7 @@ module.exports = async function() {
 
     if (newLearnMore.tags !== null && newLearnMore.tags !== undefined) {
       if (!Array.isArray(newLearnMore.tags)) {
-        throw Error("The field tags must be array")
+        throw Error("Invalid input for the field tags")
       }
 
       try {
@@ -3911,7 +3911,7 @@ module.exports = async function() {
 
     if (newLearnMore.categories !== null && newLearnMore.categories !== undefined) {
       if (!Array.isArray(newLearnMore.categories)) {
-        throw Error("The field categories must be array")
+        throw Error("Invalid input for the field categories")
       }
 
       try {
@@ -3927,7 +3927,7 @@ module.exports = async function() {
 
     if (newLearnMore.custom_fields !== null && newLearnMore.custom_fields !== undefined) {
       if (!Array.isArray(newLearnMore.custom_fields)) {
-        throw Error("The field custom_fields must be array")
+        throw Error("Invalid input for the field custom_fields")
       }
 
       newLearnMore.custom_fields.forEach((custom_field, index, self) => {
@@ -4094,7 +4094,7 @@ module.exports = async function() {
     
     if (updatedLearnMore.images !== null && updatedLearnMore.images !== undefined) {
       if (!Array.isArray(updatedLearnMore.images)) {
-        throw Error("The field images must be array")
+        throw Error("Invalid input for the field images")
       }
 
       try {
@@ -4108,7 +4108,7 @@ module.exports = async function() {
 
     if (updatedLearnMore.audio_files !== null && updatedLearnMore.audio_files !== undefined) {
       if (!Array.isArray(updatedLearnMore.audio_files)) {
-        throw Error("The field audio_files must be array")
+        throw Error("Invalid input for the field audio_files")
       }
 
       try {
@@ -4122,7 +4122,7 @@ module.exports = async function() {
 
     if (updatedLearnMore.videos !== null && updatedLearnMore.videos !== undefined) {
       if (!Array.isArray(updatedLearnMore.videos)) {
-        throw Error("The field videos must be array")
+        throw Error("Invalid input for the field videos")
       }
 
       try {
@@ -4136,7 +4136,7 @@ module.exports = async function() {
 
     if (updatedLearnMore.tags !== null && updatedLearnMore.tags !== undefined) {
       if (!Array.isArray(updatedLearnMore.tags)) {
-        throw Error("The field tags must be array")
+        throw Error("Invalid input for the field tags")
       }
 
       try {
@@ -4150,7 +4150,7 @@ module.exports = async function() {
     
     if (updatedLearnMore.categories !== null && updatedLearnMore.categories !== undefined) {
       if (!Array.isArray(updatedLearnMore.categories)) {
-        throw Error("The field categories must be array")
+        throw Error("Invalid input for the field categories")
       }
 
       try {
@@ -4164,7 +4164,7 @@ module.exports = async function() {
 
     if (updatedLearnMore.custom_fields !== null && updatedLearnMore.custom_fields !== undefined) {
       if (!Array.isArray(updatedLearnMore.custom_fields)) {
-        throw Error("The field custom_fields must be array")
+        throw Error("Invalid input for the field custom_fields")
       }
 
       updatedLearnMore.custom_fields.forEach((custom_field, index, self) => {
