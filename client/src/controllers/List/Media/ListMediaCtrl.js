@@ -13,9 +13,13 @@ import {
   deleteVideo,
   updateVideo,
   createVideo,
+  bulkDeleteImages,
+  bulkDeleteAudios,
+  bulkDeleteVideos,
 } from "../../../network";
 
 export default function ListMediaCtrl({ dataLabel, label }) {
+  let isMounted = true;
   const mediaFields = {
     file: null,
     caption: "",
@@ -36,19 +40,41 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   const [modalState, setModalState] = useState("delete");
   const [pendingEdit, setPendingEdit] = useState({});
   const [editMedia, setEditMedia] = useState(mediaFields);
+  const [bulkAction, setBulkAction] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [videoLink, setVideoLink] = useState("");
+  const [editVideoLink, setEditVideoLink] = useState("");
+  // Error Messaging
+  const [directive, setDirective] = useState(null);
 
   useEffect(() => {
+    isMounted = true;
     queryMedia();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    setMedias_(eMedias);
+    if (isMounted) setMedias_(eMedias);
   }, [eMedias]);
 
   useEffect(() => {
     setPage(1);
     formatPages();
   }, [medias_]);
+
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      if (!isMounted) return;
+      setDirective(null);
+    }, 4000);
+  };
 
   const formatPages = () => {
     const dataLength = medias_.length;
@@ -90,6 +116,8 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   };
 
   const queryMedia = async () => {
+    if (!isMounted) return;
+    setLoading(true);
     let result;
     switch (dataLabel) {
       case "image":
@@ -102,8 +130,14 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         result = await getVideos();
         break;
     }
-
-    if (result.error) return console.log("Error fetching media");
+    if (!isMounted) return;
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error fetching media",
+        message: "A network error has occurred",
+        success: false,
+      });
     setEMedias(result);
   };
 
@@ -157,11 +191,24 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   };
 
   const handleUpload = async () => {
+    if (!isMounted) return;
     let result;
-    if (!file || !caption) return console.log("Error uploading file");
+    if ((dataLabel !== "video" && !file) || !caption)
+      return setDirective({
+        header: "Error uploading media",
+        message: "Required fields are missing",
+        success: false,
+      });
+
+    if ((dataLabel === "video" && !videoLink) || !caption)
+      return setDirective({
+        header: "Error uploading media",
+        message: "Required fields are missing",
+        success: false,
+      });
 
     const formData = new FormData();
-
+    setLoading(true);
     switch (dataLabel) {
       case "image":
         formData.append("image", file);
@@ -174,31 +221,53 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         result = await createAudio(formData);
         break;
       case "video":
-        formData.append("video", file);
-        formData.append("caption", caption);
-        result = await createVideo(formData);
+        const video_ = {
+          caption: caption,
+          video_url: videoLink,
+        };
+        result = await createVideo(video_);
         break;
     }
-
-    if (result.error) return console.log("Error uploading file");
+    if (!isMounted) return;
+    setLoading(false);
+    if (result.error)
+      return setDirective({
+        header: "Error uploading media",
+        message: result.error.data.error,
+        success: false,
+      });
     setFile(undefined);
+    setVideoLink("");
     setCaption("");
     queryMedia();
   };
 
   const handleDelete = async (e) => {
+    if (!isMounted) return;
     setModalState("delete");
     const id = e.target.value;
     const foundMedia = eMedias.filter((tag) => tag._id === id)[0];
-    if (!foundMedia) return console.log("Unable to find location");
+    if (!foundMedia)
+      return setDirective({
+        header: "Error deleting media",
+        message: "Unable to locate media",
+        success: false,
+      });
     await setPendingDelete(foundMedia);
+    if (!isMounted) return;
     setModalActive(true);
   };
 
   const applyDelete = async () => {
+    if (!isMounted) return;
     let result;
     const id = pendingDelete._id;
-    if (!id) return console.log("Unable to delete media");
+    if (!id)
+      return setDirective({
+        header: "Error deleting media",
+        message: "Unable to locate media",
+        success: false,
+      });
     switch (dataLabel) {
       case "image":
         result = await deleteImage(id);
@@ -210,20 +279,32 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         result = await deleteVideo(id);
         break;
     }
-
-    if (result.error) return console.log("Unable to delete media");
+    if (!isMounted) return;
+    if (result.error)
+      return setDirective({
+        header: "Error deleting media",
+        message: result.error.data.error,
+        success: false,
+      });
     closeModal();
     setPendingDelete({});
     queryMedia();
   };
 
   const handleEdit = async (e) => {
+    if (!isMounted) return;
     setModalState("edit");
     const id = e.target.value;
     const foundMedia = eMedias.filter((media) => media._id === id)[0];
-    if (!foundMedia) return console.log("Unable to find media");
+    if (!foundMedia)
+      return setDirective({
+        header: "Error updating media",
+        message: "Unable to locate media",
+        success: false,
+      });
     await setPendingEdit(foundMedia);
-
+    if (!isMounted) return;
+    if (dataLabel === "video") setEditVideoLink(foundMedia.video_url);
     const m = {
       file: null,
       caption: foundMedia.caption,
@@ -252,12 +333,29 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   };
 
   const applyEdit = async () => {
+    if (!isMounted) return;
     const id = pendingEdit._id;
-    if (!id) return console.log("Unable to edit media");
+    if (!id)
+      return setDirective({
+        header: "Error updating media",
+        message: "Unable to locate media",
+        success: false,
+      });
 
     let result;
-    if (!editMedia.file || !editMedia.caption)
-      return console.log("Error uploading file");
+    if (dataLabel !== "video" && !editMedia.file && !editMedia.caption)
+      return setDirective({
+        header: "Error updating media",
+        message: "Required fields are missing",
+        success: false,
+      });
+
+    if (dataLabel === "video" && !editVideoLink && !editMedia.caption)
+      return setDirective({
+        header: "Error uploading media",
+        message: "Required fields are missing",
+        success: false,
+      });
 
     const formData = new FormData();
 
@@ -273,16 +371,72 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         result = await updateAudio(formData, id);
         break;
       case "video":
-        formData.append("video", editMedia.file);
-        formData.append("caption", editMedia.caption);
-        result = await updateVideo(formData, id);
+        const video_ = {
+          caption: editMedia.caption,
+          video_url: editVideoLink,
+        };
+        result = await updateVideo(video_, id);
         break;
     }
-
-    if (result.error) return console.log("Error uploading file");
+    if (!isMounted) return;
+    if (result.error)
+      return setDirective({
+        header: "Error deleting media",
+        message: result.error.data.error,
+        success: false,
+      });
     setPendingEdit({});
     setEditMedia(mediaFields);
     closeModal();
+    queryMedia();
+  };
+
+  const handleBulkActionChange = (_, data) => {
+    const value = data.value;
+    setBulkAction(value);
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedMedias.length < 1)
+      return setDirective({
+        header: "Error applying bulk actions",
+        message: "No items selected",
+        success: false,
+      });
+    if (bulkAction === "default")
+      return setDirective({
+        header: "Error applying bulk actions",
+        message: "Invalid action",
+        success: false,
+      });
+    setModalState("bulk");
+    setModalActive(true);
+  };
+
+  const applyBulkDelete = async () => {
+    if (!isMounted) return;
+    let result;
+
+    switch (dataLabel) {
+      case "image":
+        result = await bulkDeleteImages(selectedMedias);
+        break;
+      case "audio_file":
+        result = await bulkDeleteAudios(selectedMedias);
+        break;
+      case "video":
+        result = await bulkDeleteVideos(selectedMedias);
+        break;
+    }
+    if (!isMounted) return;
+    if (result.error)
+      return setDirective({
+        header: "Error applying bulk action",
+        message: result.error.data.error,
+        success: false,
+      });
+    closeModal();
+    setSelectedMedias([]);
     queryMedia();
   };
 
@@ -320,6 +474,15 @@ export default function ListMediaCtrl({ dataLabel, label }) {
       handleChangeFile={handleChangeFile}
       handleCaptionChange={handleCaptionChange}
       applyEdit={applyEdit}
+      handleBulkActionChange={handleBulkActionChange}
+      handleBulkDelete={handleBulkDelete}
+      applyBulkDelete={applyBulkDelete}
+      loading={loading}
+      directive={directive}
+      videoLink={videoLink}
+      setVideoLink={setVideoLink}
+      editVideoLink={editVideoLink}
+      setEditVideoLink={setEditVideoLink}
     />
   );
 }

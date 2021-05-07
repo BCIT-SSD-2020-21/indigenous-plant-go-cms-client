@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import MenuItem from "./MenuItem";
 
+/*
+  @desc UI component that displays a sidebar navigation.
+  @controller ~/src/controller/Sidebar/SidebarCtrl
+*/
 export default function Sidebar({
   sidebarLinks,
   path,

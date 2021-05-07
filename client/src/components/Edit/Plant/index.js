@@ -2,12 +2,18 @@ import React from "react";
 import DashHeader from "../../DashHeader";
 import TextPickerCtrl from "../../../controllers/Forms/TextPicker/TextPickerCtrl";
 import MediaPickerCtrl from "../../../controllers/Forms/MediaPicker/MediaPickerCtrl";
-import ContentPickerCtrl from "../../../controllers/Forms/ContentPicker/ContentPickerCtrl";
 import CustomFieldPickerCtrl from "../../../controllers/Forms/CustomFieldPicker/CustomFieldPickerCtrl";
 import TextInputCtrl from "../../../controllers/Forms/TextInput/TextInputCtrl";
 import TextAreaCtrl from "../../../controllers/Forms/TextArea/TextAreaCtrl";
+import TogglerCtrl from "../../../controllers/Forms/Toggler/TogglerCtrl";
+import Message from "../../Message";
 
+/*
+  @desc UI component for the EditPlant dashboard. Displays form inputs, allows users to update a plant's data.
+  @controller ~/src/controllers/Edit/Plant/EditPlantCtrl.js
+*/
 export default function EditPlant({
+  // METHODS
   handleUpdate,
   plantData,
   categoriesChanged,
@@ -20,6 +26,7 @@ export default function EditPlant({
   plantNameChanged,
   scientificNameChanged,
   descriptionChanged,
+  isVisibleChanged,
   // SELECTION DATA
   eLocations,
   eImages,
@@ -34,9 +41,20 @@ export default function EditPlant({
   queryVideos,
   queryTags,
   queryCategories,
+  loading,
+  directive,
 }) {
   return (
     <div>
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <DashHeader
         title={
           plantData && plantData.plant_name
@@ -46,6 +64,7 @@ export default function EditPlant({
             : "Edit Plant"
         }
         action="Update"
+        loading={loading}
         method={() => handleUpdate()}
       />
       <div className="form__grid">
@@ -123,20 +142,12 @@ export default function EditPlant({
             query={queryTags}
             setter={(data) => tagsChanged(data)}
           />
+          <TogglerCtrl
+            label={"visibility"}
+            eValue={plantData.isPublish}
+            setter={(data) => isVisibleChanged(data)}
+          />
         </div>
-        {/* <ContentPickerCtrl
-        label={"plant"}
-        dataLabel={"plant"}
-        data={plants}
-        setter={(data) => videosChanged(data)}
-      />
-
-      <ContentPickerCtrl
-        label={"waypoint"}
-        dataLabel={"waypoint"}
-        data={waypoints}
-        setter={(data) => videosChanged(data)}
-      /> */}
       </div>
     </div>
   );

@@ -3,36 +3,75 @@ import Table from "./Table";
 import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon, TextArea } from "semantic-ui-react";
 import Modal from "../../Modal";
+import { Loader } from "semantic-ui-react";
+import Message from "../../Message";
 
+/*
+  @desc UI component that Lists locations and allows the list to be managed.
+  @controller ~/src/controllers/List/Locations/ListLocationsCtrl.js
+*/
 export default function ListLocations({
-  newLocation,
-  handleNewLocation,
+  // Data to List: Locations
   locations,
+  // SEARCH -- Attributes
   searchQuery,
+  // SEARCH -- Methods
   handleQueryChange,
-  clearSearch,
   applySearch,
-  batchSelect,
-  handleSelected,
-  selectedLocations,
-  submitNewLocation,
-  closeModal,
-  modalActive,
-  modalState,
-  handleDelete,
-  pendingDelete,
-  applyDelete,
-  editLocation,
-  handleChangeLocation,
-  handleEdit,
-  pendingEdit,
-  applyEdit,
-  page,
-  pages,
+  clearSearch,
+  // PAGINATION -- Attributes
   hasPages,
+  pages,
+  page,
+  // PAGINATION -- Methods
   nextPage,
   prevPage,
+  // BATCH SELECT -- Attributes
+  selectedLocations,
+  // BATCH SELECT -- Methods
+  handleSelected,
+  batchSelect,
+  // NEW LOCATION -- Methods
+  submitNewLocation,
+  handleNewLocation,
+  // NEW LOCATION --Attributes
+  newLocation,
+  // MODAL -- Methods
+  closeModal,
+  // MODAL -- Attributes
+  modalActive,
+  modalState,
+  // DELETE -- Methods
+  handleDelete,
+  applyDelete,
+  // DELETE -- Attributes
+  pendingDelete,
+  // EDIT -- Methods
+  applyEdit,
+  handleEdit,
+  handleChangeLocation,
+  // EDIT -- Attributes
+  editLocation,
+  pendingEdit,
+  //  BULK DELETE -- Methods
+  handleBulkActionChange,
+  handleBulkDelete,
+  applyBulkDelete,
+  // LOADING -- Attributes
+  loading,
+  directive,
 }) {
+  const renderModal = () => {
+    switch (modalState) {
+      case "edit":
+        return editModal();
+      case "delete":
+        return deleteModal();
+      case "bulk":
+        return bulkDeleteModal();
+    }
+  };
+
   const editModal = () => (
     <>
       <fieldset style={style.fieldset}>
@@ -117,8 +156,45 @@ export default function ListLocations({
       </button>
     </>
   );
+
+  const bulkDeleteModal = () => (
+    <>
+      <p>
+        Deleting&nbsp;
+        <strong style={{ color: "var(--danger)" }}>
+          {selectedLocations.length}
+        </strong>
+        &nbsp;locations will remove{" "}
+        <strong
+          style={{
+            color: "var(--danger)",
+            fontWeight: "700",
+            textTransform: "uppercase",
+          }}
+        >
+          all
+        </strong>{" "}
+        instances of the deleted locations. Do you wish to proceed?
+      </p>
+      <button onClick={() => applyBulkDelete()} className="field__button">
+        Yes, I know what I am doing.
+      </button>
+      <button onClick={() => closeModal()} className="field__button secondary">
+        No, cancel my request.
+      </button>
+    </>
+  );
   return (
     <div>
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <DashHeader title="Locations" />
       <div className="resource__container">
         <div className="resource__col left">
@@ -182,21 +258,25 @@ export default function ListLocations({
           </button>
         </div>
         <div className="resource__col right">
-          <p>
-            <strong>Results</strong> ({locations.length})
-          </p>
+          <div style={{ marginBottom: 10, display: "flex" }}>
+            <p>
+              <strong>Results</strong> ({locations.length}){" "}
+            </p>
+            {loading && <Loader active inline size="tiny" />}
+          </div>
           <div className="table__controls">
             <div style={{ display: "flex" }}>
               <div className="table__action">
                 <Dropdown
                   placeholder={"Bulk Actions"}
+                  onChange={(e, data) => handleBulkActionChange(e, data)}
                   selection
                   options={[
                     { key: "default", value: "default", text: "Bulk Actions" },
                     { key: "delete", value: "delete", text: "Delete" },
                   ]}
                 />
-                <button>Apply</button>
+                <button onClick={() => handleBulkDelete()}>Apply</button>
               </div>
             </div>
 
@@ -266,12 +346,14 @@ export default function ListLocations({
             isActive={modalActive}
             title={
               modalState === "delete"
-                ? `Delete ${pendingDelete.location_name}`
-                : `Edit ${pendingEdit.location_name}`
+                ? `Delete ${pendingDelete.location_name}?`
+                : modalState === "edit"
+                ? `Edit ${pendingEdit?.location_name}`
+                : `Delete all ${selectedLocations.length} tags?`
             }
             closeModal={closeModal}
           >
-            {modalState === "delete" ? deleteModal() : editModal()}
+            {renderModal()}
           </Modal>
         </div>
       </div>

@@ -7,6 +7,10 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
+<<<<<<< HEAD
+=======
+    "bson": "^4.3.0",
+>>>>>>> 06ad0b18f016ae70c1c5cf3df9f929a7bd8db0cc
     "history": "^5.0.0",
     "node-sass": "^4.14.1",
     "react": "^17.0.2",

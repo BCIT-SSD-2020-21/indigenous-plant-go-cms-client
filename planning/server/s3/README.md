@@ -1,4 +1,4 @@
-### Documentation
+# Documentation
 ## S3 setup
 1. Create the s3 bucket on aws, note the region you create the bucket.
   - For this you can uncheck the block all public access here or you can do that later.

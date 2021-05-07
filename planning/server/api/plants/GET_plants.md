@@ -1,5 +1,5 @@
 # Get plants
-@desc GET all plants
+@desc GET all published plants
 
 @route /api/plants
 
@@ -98,3 +98,5 @@ Example request: GET /api/plants?key=<API_KEY>
 ```
 
 Seems like by default ObjectId are returned as string in response body
+
+This should only get all the published plants

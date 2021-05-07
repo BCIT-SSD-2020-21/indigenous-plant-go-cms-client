@@ -2,6 +2,10 @@ import React from "react";
 import { parseDate } from "../../../../utility";
 import { Link } from "react-router-dom";
 
+/*
+  @desc UI component that renders a table of plants.
+  @controller ../Plants/index.js
+*/
 export default function Table({
   plantData,
   handleSelected,
@@ -57,9 +61,12 @@ export default function Table({
               <div className="table__col author">
                 <p>
                   {plant &&
-                    plant.revision_history.length > 0 &&
-                    plant.revision_history[plant.revision_history.length - 1]
-                      .user[0]?.user_name}
+                  plant.revision_history.length > 0 &&
+                  plant.revision_history[plant.revision_history.length - 1]
+                    .user[0]
+                    ? plant.revision_history[plant.revision_history.length - 1]
+                        .user[0].user_name
+                    : "deleted user"}
                 </p>
               </div>
               <div className="table__col categories">
@@ -76,7 +83,8 @@ export default function Table({
                 <p>
                   {plant && plant.revision_history.length > 0 && (
                     <>
-                      {lastRevision.date} by {lastRevision.user}
+                      {lastRevision.date} by{" "}
+                      {lastRevision.user ? lastRevision.user : "deleted user"}
                     </>
                   )}
                 </p>

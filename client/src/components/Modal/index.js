@@ -1,6 +1,10 @@
 import React from "react";
 import { ExitIcon } from "../../icons";
 
+/*
+  @desc UI component that displays a modal.
+  @controller null
+*/
 export default function Modal({
   children,
   title,

@@ -3,41 +3,84 @@ import Table from "./Table";
 import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 import Modal from "../../Modal";
+import { Loader } from "semantic-ui-react";
+import Message from "../../Message";
 
+/*
+  @desc UI component that Lists media and allows the list to be managed.
+  @controller ~/src/controllers/List/Media/ListMediaCtrl.js
+*/
 export default function ListMedia({
+  // Data to List: Medias
+  medias,
+  // Labels
   label,
   dataLabel,
-  setFile,
-  file,
-  caption,
-  setCaption,
-  medias,
-  handleQueryChange,
+  // SEARCH -- Attributes
   searchQuery,
-  clearSearch,
+  // SEARCH -- METHODS
+  handleQueryChange,
   applySearch,
-  batchSelect,
-  selectedMedias,
-  handleSelected,
-  handleUpload,
+  clearSearch,
+  // PAGINATION -- Attributes
   hasPages,
   page,
   pages,
+  // PAGINATION -- Methods
   nextPage,
   prevPage,
-  handleDelete,
-  pendingDelete,
+  // BATCH SELECT -- Attributes
+  selectedMedias,
+  // BATCH SELECT -- Methods
+  handleSelected,
+  batchSelect,
+  // NEW MEDIA -- METHODS
+  setFile,
+  setCaption,
+  handleUpload,
+  // NEW MEDIA -- Attributes
+  file,
+  caption,
+  // MODAL -- Methods
   closeModal,
+  // MODAL -- Attributes
   modalState,
   modalActive,
+  // DELETE -- Methods
+  handleDelete,
   applyDelete,
+  // DELETE -- Attributes
+  pendingDelete,
+  // EDIT -- Methods
   handleEdit,
-  pendingEdit,
-  editMedia,
   handleChangeFile,
   handleCaptionChange,
   applyEdit,
+  // EDIT -- Attributes
+  pendingEdit,
+  editMedia,
+  // BULK DELETE -- Methods
+  handleBulkActionChange,
+  handleBulkDelete,
+  applyBulkDelete,
+  // LOADING -- Attributes
+  loading,
+  directive,
+  videoLink,
+  setVideoLink,
+  editVideoLink,
+  setEditVideoLink,
 }) {
+  const renderModal = () => {
+    switch (modalState) {
+      case "edit":
+        return editModal();
+      case "delete":
+        return deleteModal();
+      case "bulk":
+        return bulkDeleteModal();
+    }
+  };
   const deleteModal = () => (
     <>
       {dataLabel === "image" && (
@@ -113,44 +156,74 @@ export default function ListMedia({
           placeholder="Enter caption"
         />
       </fieldset>
-      <p style={style.label}>
-        Upload file: <span style={style.req}>*</span>
-      </p>
-      <fieldset style={style.fieldset}>
-        <div className="field__file">
-          <div
-            style={{ padding: "10px 10px", minWidth: 275 }}
-            className="file__meta"
-          >
-            <p>
-              {editMedia.file !== null ? editMedia.file?.name : editMedia.url}
+      {dataLabel === "video" ? (
+        <>
+          <fieldset style={style.fieldset}>
+            <p style={style.label}>
+              Youtube URL <span style={style.req}>*</span>
             </p>
-          </div>
-          <input
-            filename={editMedia?.file !== null ? editMedia.file : null}
-            onChange={(e) => {
-              handleChangeFile(e);
-            }}
-            style={{ display: "none" }}
-            id="file--update"
-            type="file"
-            accept={
-              dataLabel === "image"
-                ? "image/*"
-                : dataLabel === "audio_file"
-                ? "audio/*"
-                : "video/*"
-            }
-          />
-          <button className="field__button">
-            <label htmlFor="file--update">Choose File</label>
+
+            <Input
+              value={editVideoLink}
+              onChange={(e) => setEditVideoLink(e.target.value)}
+              style={style.input}
+              placeholder="Enter Youtube URL"
+            />
+            <p style={{ fontSize: 12, marginTop: 7 }}>
+              Valid Example: https://www.youtube.com/watch?v=lhqNduGgpC8
+            </p>
+          </fieldset>
+
+          <button className="field__button" onClick={() => applyEdit()}>
+            Update {label[0].toUpperCase()}
+            {label.substring(1)}
           </button>
-        </div>
-        <button className="field__button" onClick={() => applyEdit()}>
-          Update {label[0].toUpperCase()}
-          {label.substring(1)}
-        </button>
-      </fieldset>
+        </>
+      ) : (
+        <>
+          <p style={style.label}>
+            Upload file: <span style={style.req}>*</span>
+          </p>
+          <fieldset style={style.fieldset}>
+            <div className="field__file">
+              <div
+                style={{ padding: "10px 10px", minWidth: 100 }}
+                className="file__meta"
+              >
+                <p>
+                  {editMedia.file !== null
+                    ? editMedia.file?.name
+                    : editMedia.url}
+                </p>
+              </div>
+              <input
+                filename={editMedia?.file !== null ? editMedia.file : null}
+                onChange={(e) => {
+                  handleChangeFile(e);
+                }}
+                style={{ display: "none" }}
+                id="file--update"
+                type="file"
+                accept={
+                  dataLabel === "image"
+                    ? "image/*"
+                    : dataLabel === "audio_file"
+                    ? "audio/*"
+                    : "video/*"
+                }
+              />
+              <button className="field__button">
+                <label htmlFor="file--update">Choose File</label>
+              </button>
+            </div>
+            <button className="field__button" onClick={() => applyEdit()}>
+              Update {label[0].toUpperCase()}
+              {label.substring(1)}
+            </button>
+          </fieldset>
+        </>
+      )}
+
       <button
         onClick={() => closeModal()}
         style={{ color: "var(--highlight)" }}
@@ -160,8 +233,45 @@ export default function ListMedia({
     </>
   );
 
+  const bulkDeleteModal = () => (
+    <>
+      <p>
+        Deleting&nbsp;
+        <strong style={{ color: "var(--danger)" }}>
+          {selectedMedias.length}
+        </strong>
+        &nbsp;{label}s will remove{" "}
+        <strong
+          style={{
+            color: "var(--danger)",
+            fontWeight: "700",
+            textTransform: "uppercase",
+          }}
+        >
+          all
+        </strong>{" "}
+        instances of the deleted {label}s. Do you wish to proceed?
+      </p>
+      <button onClick={() => applyBulkDelete()} className="field__button">
+        Yes, I know what I am doing.
+      </button>
+      <button onClick={() => closeModal()} className="field__button secondary">
+        No, cancel my request.
+      </button>
+    </>
+  );
+
   return (
     <div>
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <DashHeader title={`${label}s`} />
       <div className="resource__container">
         <div className="resource__col left">
@@ -177,67 +287,106 @@ export default function ListMedia({
               placeholder="Enter caption"
             />
           </fieldset>
-          <p style={style.label}>
-            Upload file: <span style={style.req}>*</span>
-          </p>
-          <fieldset style={style.fieldset}>
-            <form>
-              <div className="field__file">
-                <div
-                  style={{ padding: "10px 10px", minWidth: 275 }}
-                  className="file__meta"
-                >
-                  <p>{file?.name}</p>
-                </div>
-                <input
-                  filename={file}
-                  onChange={(e) => {
-                    setFile(e.target.files[0]);
-                  }}
-                  key={file?.name || ""}
-                  style={{ display: "none" }}
-                  id="file--upload"
-                  type="file"
-                  accept={
-                    dataLabel === "image"
-                      ? "image/*"
-                      : dataLabel === "audio_file"
-                      ? "audio/*"
-                      : "video/*"
-                  }
-                />
-                <button type="button" className="field__button">
-                  <label htmlFor="file--upload">Choose File</label>
-                </button>
-              </div>
-              <button
-                type="button"
-                className="field__button"
-                onClick={() => handleUpload()}
-              >
-                Upload {label[0].toUpperCase()}
-                {label.substring(1)}
-              </button>
-            </form>
-          </fieldset>
+
+          {dataLabel === "video" ? (
+            <>
+              <fieldset style={style.fieldset}>
+                <form>
+                  <fieldset style={style.fieldset}>
+                    <p style={style.label}>
+                      Youtube URL <span style={style.req}>*</span>
+                    </p>
+
+                    <Input
+                      value={videoLink}
+                      onChange={(e) => setVideoLink(e.target.value)}
+                      style={style.input}
+                      placeholder="Enter Youtube URL"
+                    />
+                    <p style={{ fontSize: 12, marginTop: 7 }}>
+                      Valid Example: https://www.youtube.com/watch?v=lhqNduGgpC8
+                    </p>
+                  </fieldset>
+                  <button
+                    type="button"
+                    className="field__button"
+                    onClick={() => handleUpload()}
+                  >
+                    Upload {label[0].toUpperCase()}
+                    {label.substring(1)}
+                  </button>
+                </form>
+              </fieldset>
+            </>
+          ) : (
+            <>
+              <p style={style.label}>
+                Upload file: <span style={style.req}>*</span>
+              </p>
+              <fieldset style={style.fieldset}>
+                <form>
+                  <div className="field__file">
+                    <div
+                      style={{ padding: "10px 10px", minWidth: 100 }}
+                      className="file__meta"
+                    >
+                      <p>{file?.name}</p>
+                    </div>
+                    <input
+                      filename={file}
+                      onChange={(e) => {
+                        setFile(e.target.files[0]);
+                      }}
+                      key={file?.name || ""}
+                      style={{ display: "none" }}
+                      id="file--upload"
+                      type="file"
+                      accept={
+                        dataLabel === "image"
+                          ? "image/*"
+                          : dataLabel === "audio_file"
+                          ? "audio/*"
+                          : "video/*"
+                      }
+                    />
+                    <button type="button" className="field__button">
+                      <label htmlFor="file--upload">Choose File</label>
+                    </button>
+                  </div>
+                  <button
+                    type="button"
+                    className="field__button"
+                    onClick={() => handleUpload()}
+                  >
+                    Upload {label[0].toUpperCase()}
+                    {label.substring(1)}
+                  </button>
+                </form>
+              </fieldset>
+            </>
+          )}
         </div>
         <div className="resource__col right">
-          <p>
-            <strong>Results</strong> ({medias.length})
-          </p>
+          <div style={{ marginBottom: 10, display: "flex" }}>
+            <p>
+              <strong>Results</strong> ({medias.length}){" "}
+            </p>
+            {loading && <Loader active inline size="tiny" />}
+          </div>
 
           <div className="table__controls">
             <div style={{ display: "flex" }}>
               <div className="table__action">
                 <Dropdown
                   placeholder={"Bulk Actions"}
+                  onChange={(e, data) => handleBulkActionChange(e, data)}
                   selection
                   options={[
                     { key: "default", value: "default", text: "Bulk Actions" },
                     { key: "delete", value: "delete", text: "Delete" },
                   ]}
                 />
-                <button>Apply</button>
+                <button onClick={() => handleBulkDelete()}>Apply</button>
               </div>
             </div>
 
@@ -316,11 +465,13 @@ export default function ListMedia({
             title={
               modalState === "delete"
                 ? `Delete ${pendingDelete.caption}?`
-                : `Edit ${pendingEdit.caption}`
+                : modalState === "edit"
+                ? `Edit ${pendingEdit.caption}`
+                : `Delete all ${selectedMedias.length} ${label}s?`
             }
             closeModal={closeModal}
           >
-            {modalState === "delete" ? deleteModal() : editModal()}
+            {renderModal()}
           </Modal>
         </div>
       </div>

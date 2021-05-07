@@ -4,6 +4,11 @@ import { Dropdown, Input, TextArea } from "semantic-ui-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Modal from "../../Modal";
 
+/*
+  @desc UI component for A text picker form control. Allows users to associate text-based content to a main content type.
+        ie. associating a location with a plant, or categories/tags.
+  @controller ~/src/controllers/Forms/TextPicker/TextPickerCtrl.js
+*/
 export default function TextPicker({
   options,
   activeSelection,
@@ -164,8 +169,7 @@ export default function TextPicker({
         {label === "category"
           ? "Categories:"
           : `${label[0].toUpperCase()}${label.substring(1)}(s):`}
-
-        <span className="req">*</span>
+        {label === "location" && <span style={style.req}>*</span>}
       </label>
       {activeSelection && activeSelection.length > 0 && (
         <div className="textpicker__scroll">
