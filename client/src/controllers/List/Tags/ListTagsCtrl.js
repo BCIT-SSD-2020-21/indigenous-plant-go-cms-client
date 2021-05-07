@@ -9,6 +9,7 @@ import {
 } from "../../../network";
 
 export default function ListTagsCtrl() {
+  let isMounted = true;
   const [newTag, setNewTag] = useState("");
   const [eTags, setETags] = useState([]);
   // tags_ is the mutable version of eTags that we'll be using to filter the list
@@ -29,11 +30,16 @@ export default function ListTagsCtrl() {
   const [directive, setDirective] = useState(null);
 
   useEffect(() => {
+    isMounted = true;
     queryTags();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    setTags_(eTags);
+    if (isMounted) setTags_(eTags);
   }, [eTags]);
 
   useEffect(() => {
@@ -47,6 +53,7 @@ export default function ListTagsCtrl() {
 
   const resetDirective = async () => {
     await setTimeout(() => {
+      if (!isMounted) return;
       setDirective(null);
     }, 4000);
   };
@@ -91,8 +98,10 @@ export default function ListTagsCtrl() {
   };
 
   const queryTags = async () => {
+    if (!isMounted) return;
     setLoading(true);
     const result = await getTags();
+    if (!isMounted) return;
     setLoading(false);
     if (result.error) return;
     setETags(result);
@@ -148,6 +157,7 @@ export default function ListTagsCtrl() {
   };
 
   const submitNewTag = async () => {
+    if (!isMounted) return;
     if (!newTag)
       return setDirective({
         header: "Error creating tag",
@@ -159,6 +169,7 @@ export default function ListTagsCtrl() {
     };
     setLoading(true);
     const result = await createTag(tag);
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({
@@ -175,6 +186,7 @@ export default function ListTagsCtrl() {
   };
 
   const handleDelete = async (e) => {
+    if (!isMounted) return;
     setModalState("delete");
     const id = e.target.value;
     const foundTag = eTags.filter((tag) => tag._id === id)[0];
@@ -185,10 +197,12 @@ export default function ListTagsCtrl() {
         success: false,
       });
     await setPendingDelete(foundTag);
+    if (!isMounted) return;
     setModalActive(true);
   };
 
   const applyDelete = async () => {
+    if (!isMounted) return;
     const id = pendingDelete._id;
     if (!id)
       return setDirective({
@@ -198,6 +212,7 @@ export default function ListTagsCtrl() {
       });
     setLoading(true);
     const result = await deleteTag(id);
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({
@@ -211,6 +226,7 @@ export default function ListTagsCtrl() {
   };
 
   const handleEdit = async (e) => {
+    if (!isMounted) return;
     setModalState("edit");
     const id = e.target.value;
     const foundTag = eTags.filter((tag) => tag._id === id)[0];
@@ -221,11 +237,13 @@ export default function ListTagsCtrl() {
         success: false,
       });
     await setPendingEdit(foundTag);
+    if (!isMounted) return;
     setEditTag(foundTag.tag_name);
     setModalActive(true);
   };
 
-  const applyEdit = async (e) => {
+  const applyEdit = async () => {
+    if (!isMounted) return;
     if (!editTag)
       return setDirective({
         header: "Error updating tag",
@@ -244,6 +262,7 @@ export default function ListTagsCtrl() {
     };
     setLoading(true);
     const result = await updateTag(id, updatedTag);
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({
@@ -279,7 +298,9 @@ export default function ListTagsCtrl() {
   };
 
   const applyBulkDelete = async () => {
+    if (!isMounted) return;
     const result = await bulkDeleteTags(selectedTags);
+    if (!isMounted) return;
     if (result.error)
       return setDirective({
         header: "Error applying bulk action",
