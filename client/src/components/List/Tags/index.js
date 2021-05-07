@@ -2,7 +2,8 @@ import React from "react";
 import DashHeader from "../../DashHeader";
 import Table from "./Table";
 import Modal from "../../Modal";
-import { Dropdown, Input, Icon } from "semantic-ui-react";
+import { Dropdown, Input, Icon, Loader } from "semantic-ui-react";
+import Message from "../../Message";
 
 /*
   @desc UI component that Lists tags and allows the list to be managed.
@@ -51,7 +52,24 @@ export default function ListTags({
   // EDIT -- Attributes
   pendingEdit,
   editTagValue,
+  // BULK DELETE
+  handleBulkActionChange,
+  handleBulkDelete,
+  applyBulkDelete,
+  // LOADING -- Attributes
+  loading,
+  directive,
 }) {
+  const renderModal = () => {
+    switch (modalState) {
+      case "edit":
+        return editModal();
+      case "delete":
+        return deleteModal();
+      case "bulk":
+        return bulkDeleteModal();
+    }
+  };
   const editModal = () => (
     <>
       <fieldset style={style.fieldset}>
@@ -97,8 +115,46 @@ export default function ListTags({
       </button>
     </>
   );
+
+  const bulkDeleteModal = () => (
+    <>
+      <p>
+        Deleting&nbsp;
+        <strong style={{ color: "var(--danger)" }}>
+          {selectedTags.length}
+        </strong>
+        &nbsp;tags will remove{" "}
+        <strong
+          style={{
+            color: "var(--danger)",
+            fontWeight: "700",
+            textTransform: "uppercase",
+          }}
+        >
+          all
+        </strong>{" "}
+        instances of the deleted tags. Do you wish to proceed?
+      </p>
+      <button onClick={() => applyBulkDelete()} className="field__button">
+        Yes, I know what I am doing.
+      </button>
+      <button onClick={() => closeModal()} className="field__button secondary">
+        No, cancel my request.
+      </button>
+    </>
+  );
+
   return (
     <div>
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <DashHeader title="Tags" />
       <div className="resource__container">
         <div className="resource__col left">
@@ -120,21 +176,25 @@ export default function ListTags({
           </button>
         </div>
         <div className="resource__col right">
-          <p>
-            <strong>Results</strong> ({tags.length})
-          </p>
+          <div style={{ marginBottom: 10, display: "flex" }}>
+            <p>
+              <strong>Results</strong> ({tags.length}){" "}
+            </p>
+            {loading && <Loader active inline size="tiny" />}
+          </div>
           <div className="table__controls">
             <div style={{ display: "flex" }}>
               <div className="table__action">
                 <Dropdown
                   placeholder={"Bulk Actions"}
+                  onChange={(e, data) => handleBulkActionChange(e, data)}
                   selection
                   options={[
                     { key: "default", value: "default", text: "Bulk Actions" },
                     { key: "delete", value: "delete", text: "Delete" },
                   ]}
                 />
-                <button>Apply</button>
+                <button onClick={() => handleBulkDelete()}>Apply</button>
               </div>
             </div>
 
@@ -200,11 +260,13 @@ export default function ListTags({
             title={
               modalState === "delete"
                 ? `Delete ${pendingDelete.tag_name}?`
-                : `Edit ${pendingEdit?.tag_name}`
+                : modalState === "edit"
+                ? `Edit ${pendingEdit?.tag_name}`
+                : `Delete all ${selectedTags.length} tags?`
             }
             closeModal={closeModal}
           >
-            {modalState === "delete" ? deleteModal() : editModal()}
+            {renderModal()}
           </Modal>
         </div>
       </div>

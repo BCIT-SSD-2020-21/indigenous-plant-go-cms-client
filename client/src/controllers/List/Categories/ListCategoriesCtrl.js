@@ -8,6 +8,7 @@ import {
 } from "../../../network";
 
 export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
+  let isMounted = true;
   const [eCategories, setECategories] = useState([]);
   // categories_ is the mutable version of eCategories that we'll be using to filter
   const [categories_, setCategories_] = useState([]);
@@ -22,19 +23,38 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   const [pendingEdit, setPendingEdit] = useState({});
   const [modalActive, setModalActive] = useState(false);
   const [modalState, setModalState] = useState("delete");
+  const [loading, setLoading] = useState(false);
+  // Error Messaging
+  const [directive, setDirective] = useState(null);
 
   useEffect(() => {
+    isMounted = true;
     queryCategories();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    setCategories_(eCategories);
+    if (isMounted) setCategories_(eCategories);
   }, [eCategories]);
 
   useEffect(() => {
     setPage(1);
     formatPages();
   }, [categories_]);
+
+  useEffect(() => {
+    if (isMounted) resetDirective();
+  }, [directive]);
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      if (!isMounted) return;
+      setDirective(null);
+    }, 4000);
+  };
 
   const formatPages = () => {
     const dataLength = categories_.length;
@@ -60,8 +80,12 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   };
 
   const queryCategories = async () => {
+    if (!isMounted) return;
+    setLoading(true);
     const result = await getCategoryGroup(dataLabel);
-    if (result.error) return console.log("error fetching categories");
+    if (!isMounted) return;
+    setLoading(false);
+    if (result.error) return;
     setECategories(result);
   };
 
@@ -131,14 +155,26 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   };
 
   const submitNewCategory = async () => {
-    if (!newCat) return console.log("Cannot populate an empty category");
+    if (!isMounted) return;
+    if (!newCat)
+      return setDirective({
+        header: "Error creating category",
+        message: "Can't create a category with an empty category name",
+        success: false,
+      });
     const category = {
       category_name: newCat,
       resource: `${dataLabel}`,
     };
 
     const result = await createCategory(category);
-    if (result.error) return console.log("error creating a category");
+    if (!isMounted) return;
+    if (result.error)
+      return setDirective({
+        header: "Error creating tag",
+        message: result.error.data.error,
+        success: false,
+      });
     queryCategories();
     setNewCat("");
   };
@@ -148,47 +184,93 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   };
 
   const handleDelete = async (e) => {
+    if (!isMounted) return;
     setModalState("delete");
     const id = e.target.value;
     const foundCategory = eCategories.filter(
       (category) => category._id === id
     )[0];
-    if (!foundCategory) return console.log("Unable to find category");
+    if (!foundCategory)
+      return setDirective({
+        header: "Error deleting category",
+        message: "Could not locate category",
+        success: false,
+      });
     await setPendingDelete(foundCategory);
+    if (!isMounted) return;
     setModalActive(true);
   };
 
   const applyDelete = async () => {
+    if (!isMounted) return;
     const id = pendingDelete._id;
-    if (!id) return console.log("Unable to delete category");
+    if (!id)
+      return setDirective({
+        header: "Error deleting category",
+        message: "Could not locate category",
+        success: false,
+      });
     const result = await deleteCategory(id);
-    if (result.error) return console.log("Unable to delete category");
+    if (!isMounted) return;
+    if (result.error)
+      return setDirective({
+        header: "Error deleting category",
+        message: result.error.data.error,
+        success: false,
+      });
+
     closeModal();
     setPendingDelete({});
     queryCategories();
   };
 
   const handleEdit = async (e) => {
+    if (!isMounted) return;
     setModalState("edit");
     const id = e.target.value;
     const foundCategory = eCategories.filter(
       (category) => category._id === id
     )[0];
-    if (!foundCategory) return console.log("Unable to find category");
+    if (!foundCategory)
+      return setDirective({
+        header: "Error updating category",
+        message: "Could not locate category",
+        success: false,
+      });
     await setPendingEdit(foundCategory);
+    if (!isMounted) return;
     setEditCat(foundCategory.category_name);
     setModalActive(true);
   };
 
   const applyEdit = async (e) => {
+    if (!isMounted) return;
     const id = pendingEdit._id;
-    if (!id) return console.log("Unable to edit category");
+    if (!id)
+      return setDirective({
+        header: "Error updating category",
+        message: "Could not locate category",
+        success: false,
+      });
+
+    if (!editCat || !pendingEdit.resource)
+      return setDirective({
+        header: "Error updating category",
+        message: "Required fields are missing",
+        success: false,
+      });
     const updatedCategory = {
       category_name: editCat,
       resource: pendingEdit.resource,
     };
     const result = await updateCategory(id, updatedCategory);
-    if (result.error) return console.log("Unable to edit category");
+    if (!isMounted) return;
+    if (result.error)
+      return setDirective({
+        header: "Error deleting category",
+        message: result.error.data.error,
+        success: false,
+      });
     closeModal();
     setPendingEdit({});
     queryCategories();
@@ -226,6 +308,8 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
       editCategory={setEditCat}
       editCategoryValue={editCat}
       applyEdit={applyEdit}
+      loading={loading}
+      directive={directive}
     />
   );
 }

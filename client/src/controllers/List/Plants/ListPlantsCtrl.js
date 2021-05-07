@@ -8,6 +8,7 @@ import {
 } from "../../../network";
 
 export default function ListPlantsCtrl() {
+  let isMounted = true;
   const [plantData, setPlantData] = useState([]);
   // plantData_ is the mutable version of plantData that we'll be using to filter
   const [plantData_, setPlantData_] = useState([]);
@@ -23,15 +24,21 @@ export default function ListPlantsCtrl() {
   const [pendingDelete, setPendingDelete] = useState({});
   const [modalState, setModalState] = useState("single");
   const [bulkAction, setBulkAction] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    isMounted = true;
     queryPlants();
     queryCategories();
     formatPages();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    setPlantData_(plantData);
+    if (isMounted) setPlantData_(plantData);
   }, [plantData]);
 
   useEffect(() => {
@@ -48,15 +55,20 @@ export default function ListPlantsCtrl() {
   }, [plantData_]);
 
   const queryPlants = async () => {
+    if (!isMounted) return;
+    setLoading(true);
     const result = await getAllPlants();
-    if (result.error) return console.log("error getting plants");
+    if (!isMounted) return;
+    setLoading(false);
+    if (result.error) return;
     if (result.length < 1) setPlantData([]);
     setPlantData(result);
   };
 
   const queryCategories = async () => {
     const result = await getCategoryGroup("plant");
-    if (result.error) return console.log("error getting categories");
+    if (result.error) return;
+    if (!isMounted) return;
     setECategories(result);
   };
 
@@ -144,7 +156,6 @@ export default function ListPlantsCtrl() {
 
     if (selectedPlants.includes(id)) {
       newSelected = newSelected.filter((item) => item !== id);
-      console.log(newSelected);
     } else {
       newSelected = [...newSelected, id];
     }
@@ -186,19 +197,22 @@ export default function ListPlantsCtrl() {
   };
 
   const handleDelete = async (e) => {
+    if (!isMounted) return;
     setModalState("single");
     const id = e.target.value;
     const foundPlant = plantData.filter((plant) => plant._id === id)[0];
-    if (!foundPlant) return console.log("Unable to find plant");
+    if (!foundPlant) return;
     await setPendingDelete(foundPlant);
     setModalActive(true);
   };
 
   const applyDelete = async () => {
+    if (!isMounted) return;
     const id = pendingDelete._id;
-    if (!id) return console.log("Unable to delete plant");
+    if (!id) return;
     const result = await deletePlant(id);
-    if (result.error) return console.log("Unable to delete plant");
+    if (result.error) return;
+    if (!isMounted) return;
     closeModal();
     setPendingDelete({});
     queryPlants();
@@ -210,21 +224,21 @@ export default function ListPlantsCtrl() {
 
   const handleBulkActionChange = (_, data) => {
     const value = data.value;
-    console.log(data.value);
     setBulkAction(value);
   };
 
-  const handleBulkDelete = async () => {
-    if (selectedPlants.length < 1) return console.log("no plants selected");
-    if (bulkAction === "default")
-      return console.log("cannot bulk delete if bulk action is set to default");
+  const handleBulkDelete = () => {
+    if (selectedPlants.length < 1) return;
+    if (bulkAction === "default") return;
     setModalState("bulk");
     setModalActive(true);
   };
 
   const applyBulkDelete = async () => {
+    if (!isMounted) return;
     const result = await bulkDeletePlants(selectedPlants);
-    if (result.error) return console.log("Unable to bulk delete plants");
+    if (result.error) return;
+    if (!isMounted) return;
     closeModal();
     setSelectedPlants([]);
     queryPlants();
@@ -240,6 +254,7 @@ export default function ListPlantsCtrl() {
       hasPages={hasPages}
       pages={pages}
       page={page}
+      loading={loading}
       handleFilterChange={handleFilterChange}
       handleQueryChange={handleQueryChange}
       clearSearch={clearSearch}

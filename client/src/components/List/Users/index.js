@@ -4,6 +4,8 @@ import DashHeader from "../../DashHeader";
 import { Dropdown, Input, Icon } from "semantic-ui-react";
 import { ResetIcon } from "../../../icons";
 import Modal from "../../Modal";
+import { Loader } from "semantic-ui-react";
+import { useHistory } from "react-router-dom";
 
 /*
   @desc UI component that Lists Users and allows the list to be managed.
@@ -51,7 +53,12 @@ export default function ListUsers({
   // DELETE -- Methods
   handleDelete,
   applyDelete,
+  // BULK DELETE -- Methods
+  applyBulkDelete,
+  // LOADING -- Attributes
+  loading,
 }) {
+  const history = useHistory();
   const renderModal = () => {
     switch (modalState) {
       case "single":
@@ -79,6 +86,37 @@ export default function ListUsers({
             </button>
           </>
         );
+      case "bulk":
+        return (
+          <>
+            <p>
+              Deleting&nbsp;
+              <strong style={{ color: "var(--danger)" }}>
+                {selectedUsers.length}
+              </strong>
+              &nbsp;users will remove{" "}
+              <strong
+                style={{
+                  color: "var(--danger)",
+                  fontWeight: "700",
+                  textTransform: "uppercase",
+                }}
+              >
+                all
+              </strong>{" "}
+              instances of the deleted users. Do you wish to proceed?
+            </p>
+            <button onClick={() => applyBulkDelete()} className="field__button">
+              Yes, I know what I am doing.
+            </button>
+            <button
+              onClick={() => closeModal()}
+              className="field__button secondary"
+            >
+              No, cancel my request.
+            </button>
+          </>
+        );
     }
   };
   return (
@@ -87,11 +125,12 @@ export default function ListUsers({
         title="All Users"
         subtitle="Manage Users"
         action="Add New"
-        method={() => console.log("Add New")}
+        method={() => history.push("/users/add")}
       />
-      <p>
-        <strong>Results</strong> ({userDatas.length})
-      </p>
+      <div style={{ marginBottom: 10, display: "flex" }}>
+        <strong>Results</strong> ({userDatas.length}){" "}
+        {loading && <Loader active inline size="tiny" />}
+      </div>
 
       <div className="table__controls">
         <div style={{ display: "flex" }}>
@@ -202,7 +241,9 @@ export default function ListUsers({
       <Modal
         isActive={modalActive}
         title={
-          modalState === "single" ? `Delete ${pendingDelete.user_name}?` : null
+          modalState === "single"
+            ? `Delete ${pendingDelete.user_name}?`
+            : `Delete all ${selectedUsers.length} users?`
         }
         subtitle={modalState === "single" ? null : `Bulk Delete`}
         closeModal={closeModal}

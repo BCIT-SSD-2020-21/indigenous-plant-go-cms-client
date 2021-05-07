@@ -12,6 +12,27 @@ export default function ProfileCtrl() {
   const [role, setRole] = useState(userData?.user.role);
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  // Error Messaging
+  const [directive, setDirective] = useState(null);
+  // Preloader
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
+  const resetDirective = async () => {
+    if (directive) {
+      switch (directive.success) {
+        case true:
+          break;
+        case false:
+          await setTimeout(() => {
+            setDirective(null);
+          }, 4000);
+      }
+    }
+  };
 
   const toggleChangePassword = () => {
     setChangePassword(true);
@@ -25,7 +46,12 @@ export default function ProfileCtrl() {
 
   const applyUpdate = async () => {
     const id = userData.user._id;
-    if (!id) return console.log("error updating user data");
+    if (!id)
+      return setDirective({
+        header: "Error",
+        message: "Cannot fetch user data",
+        success: false,
+      });
 
     let userData_ = {
       email: email,
@@ -35,19 +61,42 @@ export default function ProfileCtrl() {
 
     if (changePassword) {
       if (!newPassword || !confirmPassword)
-        return console.log("password fields are empty.");
+        return setDirective({
+          header: "Could not update user",
+          message: "Password fields are empty.",
+          success: false,
+        });
       if (newPassword !== confirmPassword)
-        return console.log("password don't match.");
-
+        return setDirective({
+          header: "Could not update user",
+          message: "Password fields don't match.",
+          success: false,
+        });
       userData_ = {
         ...userData_,
         password: newPassword,
       };
     }
 
+    setLoading(true);
     const result = await updateUser(userData_, id);
-    if (result.error) return console.log("Unable to update the user's data.");
+    if (result.error) {
+      setLoading(false);
+      return setDirective({
+        header: "Error updating your profile",
+        message: result.error.data.error,
+        success: false,
+      });
+    }
+
+    setDirective({
+      header: "Update Successful",
+      message: "Successfully updated your profile",
+      success: true,
+    });
+
     queryUser();
+    setLoading(false);
   };
 
   return (
@@ -66,6 +115,8 @@ export default function ProfileCtrl() {
       changeNewPassword={setNewPassword}
       changeConfirmPassword={setConfirmPassword}
       applyUpdate={applyUpdate}
+      loading={loading}
+      directive={directive}
     />
   );
 }

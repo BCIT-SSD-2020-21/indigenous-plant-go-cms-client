@@ -5,6 +5,7 @@ import { ResetIcon } from "../../../icons";
 import Table from "./Table";
 import { useHistory } from "react-router-dom";
 import Modal from "../../Modal";
+import { Loader } from "semantic-ui-react";
 
 /*
   @desc UI component that Lists Plants and allows the list to be managed.
@@ -50,9 +51,11 @@ export default function ListPlants({
   closeModal,
   // DELETE -- Attributes
   pendingDelete,
-  // DELET -- Methods
+  // DELETE -- Methods
   handleDelete,
   applyDelete,
+  // LOADING -- Attributes
+  loading,
 }) {
   const history = useHistory();
   const renderModal = () => {
@@ -118,9 +121,12 @@ export default function ListPlants({
         action="Add New"
         method={() => history.push("/plants/add")}
       />
-      <p>
-        <strong>Results</strong> ({plantData.length})
-      </p>
+      <div style={{ marginBottom: 10, display: "flex" }}>
+        <p>
+          <strong>Results</strong> ({plantData.length}){" "}
+        </p>
+        {loading && <Loader active inline size="tiny" />}
+      </div>
       <div className="table__controls">
         <div style={{ display: "flex" }}>
           <div className="table__action">
@@ -206,7 +212,6 @@ export default function ListPlants({
             <h3>Last Updated</h3>
           </div>
         </div>
-
         <Table
           plantData={hasPages ? pages[page - 1] : plantData}
           handleSelected={handleSelected}

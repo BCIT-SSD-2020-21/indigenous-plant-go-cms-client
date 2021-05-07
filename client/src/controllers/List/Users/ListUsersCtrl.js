@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
 import ListUsers from "../../../components/List/Users";
-import { getAllUsers, deleteUser } from "../../../network";
+import { getAllUsers, deleteUser, bulkDeleteUsers } from "../../../network";
+import { useAuth } from "../../../context/AuthContext";
 
 export default function ListUsersCtrl() {
+  let isMounted = true;
+  const authContext = useAuth();
+  const { userData } = authContext;
   const [userDatas, setUserDatas] = useState([]);
   const [userDatas_, setUserDatas_] = useState([]);
   const [roleSelection, setRoleSelection] = useState([]);
@@ -16,14 +20,22 @@ export default function ListUsersCtrl() {
   const [pages, setPages] = useState([]);
   const [page, setPage] = useState(1);
   const [pendingDelete, setPendingDelete] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    isMounted = true;
     queryUsers();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
-    formatRoles();
-    setUserDatas_(userDatas);
+    if (isMounted) {
+      formatRoles();
+      setUserDatas_(userDatas);
+    }
   }, [userDatas]);
 
   useEffect(() => {
@@ -77,24 +89,17 @@ export default function ListUsersCtrl() {
   };
 
   const queryUsers = async () => {
+    if (!isMounted) return;
+    setLoading(true);
+    let myUserId;
+    if (userData && userData.user) myUserId = userData.user._id;
     const result = await getAllUsers();
-    if (result.error) return console.log("error getting users");
+    if (!isMounted) return;
+    setLoading(false);
+    if (result.error) return;
     if (result.length < 1) setUserDatas([]);
-    setUserDatas(result);
-  };
-
-  const handleBulkActionChange = (_, data) => {
-    const value = data.value;
-    console.log(data.value);
-    setBulkAction(value);
-  };
-
-  const handleBulkDelete = async () => {
-    if (selectedUsers.length < 1) return console.log("no users selected");
-    if (bulkAction === "default")
-      return console.log("cannot bulk delete if bulk action is set to default");
-    setModalState("bulk");
-    setModalActive(true);
+    const filteredResults = result.filter((user) => user._id !== myUserId);
+    setUserDatas(filteredResults);
   };
 
   const resetFilters = () => {
@@ -193,18 +198,41 @@ export default function ListUsersCtrl() {
     setModalState("single");
     const id = e.target.value;
     const foundUser = userDatas.filter((userData) => userData._id === id)[0];
-    if (!foundUser) return console.log("Unable to find user");
+    if (!foundUser) return;
     await setPendingDelete(foundUser);
     setModalActive(true);
   };
 
   const applyDelete = async () => {
+    if (!isMounted) return;
     const id = pendingDelete._id;
-    if (!id) return console.log("Unable to delete user");
+    if (!id) return;
     const result = await deleteUser(id);
-    if (result.error) return console.log("Unable to delete user");
+    if (!isMounted) return;
+    if (result.error) return;
     closeModal();
     setPendingDelete({});
+    queryUsers();
+  };
+
+  const handleBulkActionChange = (_, data) => {
+    const value = data.value;
+    setBulkAction(value);
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedUsers.length < 1) if (bulkAction === "default") return;
+    setModalState("bulk");
+    setModalActive(true);
+  };
+
+  const applyBulkDelete = async () => {
+    if (!isMounted) return;
+    const result = await bulkDeleteUsers(selectedUsers);
+    if (!isMounted) return;
+    if (result.error) return;
+    closeModal();
+    setSelectedUsers([]);
     queryUsers();
   };
 
@@ -236,6 +264,8 @@ export default function ListUsersCtrl() {
       applyDelete={applyDelete}
       modalActive={modalActive}
       modalState={modalState}
+      applyBulkDelete={applyBulkDelete}
+      loading={loading}
     />
   );
 }

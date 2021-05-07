@@ -25,7 +25,22 @@ export default function Header({ handleSignout, userData, navigateToProfile }) {
                 alt="Indigenous Initiatives and Partnerships Logo"
               />
             </div>
-            <h2 style={style.title}>Indigenous Plants Go</h2>
+            <h2 style={style.title}>
+              Indigenous Plants Go{" "}
+              <span
+                style={{
+                  background: "var(--highlight)",
+                  color: "white",
+                  marginLeft: 10,
+                  padding: "3px 12px",
+                  borderRadius: 2,
+                  fontSize: 11,
+                  lineHeight: "12px",
+                }}
+              >
+                Content Management System
+              </span>
+            </h2>
           </div>
 
           <ul style={style.profileMenu}>
