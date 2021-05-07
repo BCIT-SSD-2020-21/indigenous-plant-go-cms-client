@@ -56,6 +56,13 @@ const seed = async () => {
       "password" : "$2a$12$exIUEGDgWU.l2mJU78JIBOJvwA1j/OHmp5OidfVVfrEiFBotD91.C",
       "role" : "Admin"
     
+    }, 
+    {
+      "email" : "aj@test.ca",
+      "user_name" : "aj",
+      "password" : "$2a$12$exIUEGDgWU.l2mJU78JIBOJvwA1j/OHmp5OidfVVfrEiFBotD91.C",
+      "role" : "Admin"
+    
     }
   ])
 
