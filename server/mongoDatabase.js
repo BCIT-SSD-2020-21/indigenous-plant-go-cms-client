@@ -316,10 +316,12 @@ module.exports = async function() {
       )
     }
 
-    if (updatedImage.caption) {
-      if (!(typeof updatedImage.caption === 'string' || updatedImage.caption instanceof String)) {
-        throw Error("Caption field must take a string")
-      }
+    if (!updatedImage.caption) {
+      throw Error("Missing caption")
+    }
+
+    if (!(typeof updatedImage.caption === 'string' || updatedImage.caption instanceof String)) {
+      throw Error("Caption field must take a string")
     }
 
     const result = await images.findOneAndUpdate(
@@ -420,10 +422,12 @@ module.exports = async function() {
       )
     }
 
-    if (updatedAudio.caption) {
-      if (!(typeof updatedAudio.caption === 'string' || updatedAudio.caption instanceof String)) {
-        throw Error("Caption field must take a string")
-      }
+    if (!updatedAudio.caption) {
+      throw Error("Missing caption")
+    }
+
+    if (!(typeof updatedAudio.caption === 'string' || updatedAudio.caption instanceof String)) {
+      throw Error("Caption field must take a string")
     }
 
     const result = await audios.findOneAndUpdate(
@@ -484,7 +488,6 @@ module.exports = async function() {
     } else {
       throw Error("Video_url field must take a string")
     }
-    
 
     if (!newVideo.caption) {
       throw Error("Missing caption")
@@ -509,21 +512,25 @@ module.exports = async function() {
   //Update
   //PUT /api/videos/:videoId
   async function updateVideo({videoId, updatedVideo}) {
-    if (updatedVideo.video_url) {
-      if (typeof updatedVideo.video_url === 'string' || updatedVideo.video_url instanceof String) {
-        const re = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/
-        if(!(re.test(updatedVideo.video_url.toLowerCase()))) {
-          throw Error("Video url not formatted correctly")
-        }
-      } else {
-        throw Error("Video_url field must take a string")
-      }
+    if (!updatedVideo.video_url) {
+      throw Error("Missing video")
     }
 
-    if (updatedVideo.caption) {
-      if (!(typeof updatedVideo.caption === 'string' || updatedVideo.caption instanceof String)) {
-        throw Error("Caption field must take a string")
+    if (typeof updatedVideo.video_url === 'string' || updatedVideo.video_url instanceof String) {
+      const re = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/
+      if(!(re.test(updatedVideo.video_url.toLowerCase()))) {
+        throw Error("Video url not formatted correctly")
       }
+    } else {
+      throw Error("Video_url field must take a string")
+    }
+
+    if (!updatedVideo.caption) {
+      throw Error("Missing caption")
+    }
+
+    if (!(typeof updatedVideo.caption === 'string' || updatedVideo.caption instanceof String)) {
+      throw Error("Caption field must take a string")
     }
 
     const result = await videos.findOneAndUpdate(
