@@ -1120,7 +1120,7 @@ module.exports = async function() {
           self[index] = ObjectID(image)
         })
       } catch {
-        throw Error("Not all elements under images are valid ObjectId")
+        throw Error("Not all elements under images are valid")
       }
     } else {
       newPlant.images = []
@@ -1136,7 +1136,7 @@ module.exports = async function() {
           self[index] = ObjectID(audio)
         })
       } catch {
-        throw Error("Not all elements under audio_files are valid ObjectId")
+        throw Error("Not all elements under audio_files are valid")
       }
     } else {
       newPlant.audio_files = []
@@ -1152,7 +1152,7 @@ module.exports = async function() {
           self[index] = ObjectID(video)
         })
       } catch {
-        throw Error("Not all elements under videos are valid ObjectId")
+        throw Error("Not all elements under videos are valid")
       }
     } else {
       newPlant.videos = []
@@ -1168,7 +1168,7 @@ module.exports = async function() {
           self[index] = ObjectID(tag)
         })
       } catch {
-        throw Error("Not all elements under tags are valid ObjectId")
+        throw Error("Not all elements under tags are valid")
       }
     } else {
       newPlant.tags = []
@@ -1184,7 +1184,7 @@ module.exports = async function() {
           self[index] = ObjectID(category)
         })
       } catch {
-        throw Error("Not all elements under categories are valid ObjectId")
+        throw Error("Not all elements under categories are valid")
       }
     } else {
       newPlant.categories = []
@@ -1204,7 +1204,7 @@ module.exports = async function() {
           self[index] = ObjectID(location)
         })
       } catch {
-        throw Error("Not all elements under locations are valid ObjectId")
+        throw Error("Not all elements under locations are valid")
       }
     } else {
       throw Error("Require at least one location")
@@ -1219,7 +1219,7 @@ module.exports = async function() {
       newPlant.custom_fields.forEach((custom_field, index, self) => {
         //Check if element is type object
         if (!(typeof custom_field === 'object' && custom_field !== null)) {
-          throw Error("At least one of the custom_field is not of type object or is null")
+          throw Error("At least one of the custom_field is not valid")
         }
 
         if (!custom_field._id) {
@@ -1239,7 +1239,7 @@ module.exports = async function() {
           temp._id = ObjectID(temp._id)
           self[index] = temp
         } catch {
-          throw Error("A _id under custom_field is not valid ObjectId")
+          throw Error("A _id under custom_field is not valid")
         }
       })
     } else {
@@ -1409,7 +1409,7 @@ module.exports = async function() {
           self[index] = ObjectID(image)
         })
       } catch {
-        throw Error("Not all elements under images are valid ObjectId")
+        throw Error("Not all elements under images are valid")
       }
     }
 
@@ -1423,7 +1423,7 @@ module.exports = async function() {
           self[index] = ObjectID(audio)
         })
       } catch {
-        throw Error("Not all elements under audio_files are valid ObjectId")
+        throw Error("Not all elements under audio_files are valid")
       }
     }
 
@@ -1437,7 +1437,7 @@ module.exports = async function() {
           self[index] = ObjectID(video)
         })
       } catch {
-        throw Error("Not all elements under videos are valid ObjectId")
+        throw Error("Not all elements under videos are valid")
       }
     }
 
@@ -1451,7 +1451,7 @@ module.exports = async function() {
           self[index] = ObjectID(tag)
         })
       } catch {
-        throw Error("Not all elements under tags are valid ObjectId")
+        throw Error("Not all elements under tags are valid")
       }
     }
 
@@ -1465,7 +1465,7 @@ module.exports = async function() {
           self[index] = ObjectID(category)
         })
       } catch {
-        throw Error("Not all elements under categories are valid ObjectId")
+        throw Error("Not all elements under categories are valid")
       }
     }
 
@@ -1483,7 +1483,7 @@ module.exports = async function() {
           self[index] = ObjectID(location)
         })
       } catch {
-        throw Error("Not all elements under locations are valid ObjectId")
+        throw Error("Not all elements under locations are valid")
       }
     } else {
       throw Error("Require at least one location")
@@ -1498,7 +1498,7 @@ module.exports = async function() {
       updatedPlant.custom_fields.forEach((custom_field, index, self) => {
         //Check if element is type object
         if (!(typeof custom_field === 'object' && custom_field !== null)) {
-          throw Error("At least one of the custom_field is not of type object or is null")
+          throw Error("At least one of the custom_field is not valid")
         }
 
         if (!custom_field._id) {
@@ -1518,7 +1518,7 @@ module.exports = async function() {
           temp._id = ObjectID(custom_field._id)
           self[index] = temp
         } catch {
-          throw Error("A _id under custom_field is not valid ObjectId")
+          throw Error("A _id under custom_field is not valid")
         }
       })
     }
@@ -2019,7 +2019,7 @@ module.exports = async function() {
           self[index] = ObjectID(image)
         })
       } catch {
-        throw Error("Not all elements under images are valid ObjectId")
+        throw Error("Not all elements under images are valid")
       }
     } else {
       newWaypoint.images = []
@@ -2035,7 +2035,7 @@ module.exports = async function() {
           self[index] = ObjectID(audio)
         })
       } catch {
-        throw Error("Not all elements under audio_files are valid ObjectId")
+        throw Error("Not all elements under audio_files are valid")
       }
     } else {
       newWaypoint.audio_files = []
@@ -2051,7 +2051,7 @@ module.exports = async function() {
           self[index] = ObjectID(video)
         })
       } catch {
-        throw Error("Not all elements under videos are valid ObjectId")
+        throw Error("Not all elements under videos are valid")
       }
     } else {
       newWaypoint.videos = []
@@ -2067,7 +2067,7 @@ module.exports = async function() {
           self[index] = ObjectID(tag)
         })
       } catch {
-        throw Error("Not all elements under tags are valid ObjectId")
+        throw Error("Not all elements under tags are valid")
       }
     } else {
       newWaypoint.tags = []
@@ -2083,7 +2083,7 @@ module.exports = async function() {
           self[index] = ObjectID(category)
         })
       } catch {
-        throw Error("Not all elements under categories are valid ObjectId")
+        throw Error("Not all elements under categories are valid")
       }
     } else {
       newWaypoint.categories = []
@@ -2103,7 +2103,7 @@ module.exports = async function() {
           self[index] = ObjectID(location)
         })
       } catch {
-        throw Error("Not all elements under locations are valid ObjectId")
+        throw Error("Not all elements under locations are valid")
       }
     } else {
       throw Error("Require at least one location")
@@ -2119,7 +2119,7 @@ module.exports = async function() {
           self[index] = ObjectID(plant)
         })
       } catch {
-        throw Error("Not all elements under plants are valid ObjectId")
+        throw Error("Not all elements under plants are valid")
       }
     } else {
       newWaypoint.plants = []
@@ -2133,7 +2133,7 @@ module.exports = async function() {
       newWaypoint.custom_fields.forEach((custom_field, index, self) => {
         //Check if element is type object
         if (!(typeof custom_field === 'object' && custom_field !== null)) {
-          throw Error("At least one of the custom_field is not of type object or is null")
+          throw Error("At least one of the custom_field is not valid ")
         }
 
         if (!custom_field._id) {
@@ -2153,7 +2153,7 @@ module.exports = async function() {
           temp._id = ObjectID(custom_field._id)
           self[index] = temp
         } catch {
-          throw Error("A _id under custom_field is not valid ObjectId")
+          throw Error("A _id under custom_field is not valid")
         }
       })
     } else {
@@ -2416,7 +2416,7 @@ module.exports = async function() {
           self[index] = ObjectID(image)
         })
       } catch {
-        throw Error("Not all elements under images are valid ObjectId")
+        throw Error("Not all elements under images are valid")
       }
     }
 
@@ -2430,7 +2430,7 @@ module.exports = async function() {
           self[index] = ObjectID(audio)
         })
       } catch {
-        throw Error("Not all elements under audio_files are valid ObjectId")
+        throw Error("Not all elements under audio_files are valid")
       }
     }
 
@@ -2444,7 +2444,7 @@ module.exports = async function() {
           self[index] = ObjectID(video)
         })
       } catch {
-        throw Error("Not all elements under videos are valid ObjectId")
+        throw Error("Not all elements under videos are valid")
       }
     }
 
@@ -2458,7 +2458,7 @@ module.exports = async function() {
           self[index] = ObjectID(tag)
         })
       } catch {
-        throw Error("Not all elements under tags are valid ObjectId")
+        throw Error("Not all elements under tags are valid")
       }
     }
 
@@ -2472,7 +2472,7 @@ module.exports = async function() {
           self[index] = ObjectID(category)
         })
       } catch {
-        throw Error("Not all elements under categories are valid ObjectId")
+        throw Error("Not all elements under categories are valid")
       }
     }
 
@@ -2490,7 +2490,7 @@ module.exports = async function() {
           self[index] = ObjectID(location)
         })
       } catch {
-        throw Error("Not all elements under locations are valid ObjectId")
+        throw Error("Not all elements under locations are valid")
       }
     } else {
       throw Error("Require at least one location")
@@ -2506,7 +2506,7 @@ module.exports = async function() {
           self[index] = ObjectID(plant)
         })
       } catch {
-        throw Error("Not all elements under plants are valid ObjectId")
+        throw Error("Not all elements under plants are valid")
       }
     }
 
@@ -2518,7 +2518,7 @@ module.exports = async function() {
       updatedWaypoint.custom_fields.forEach((custom_field, index, self) => {
         //Check if element is type object
         if (!(typeof custom_field === 'object' && custom_field !== null)) {
-          throw Error("At least one of the custom_field is not of type object or is null")
+          throw Error("At least one of the custom_field is not valid")
         }
 
         if (!custom_field._id) {
@@ -2538,7 +2538,7 @@ module.exports = async function() {
           temp._id = ObjectID(custom_field._id)
           self[index] = temp
         } catch {
-          throw Error("A _id under custom_field is not valid ObjectId")
+          throw Error("A _id under custom_field is not valid")
         }
       })
     }
@@ -3005,7 +3005,7 @@ module.exports = async function() {
           self[index] = ObjectID(image)
         })
       } catch {
-        throw Error("Not all elements under images are valid ObjectId")
+        throw Error("Not all elements under images are valid")
       }
     } else {
       newTour.images = []
@@ -3021,7 +3021,7 @@ module.exports = async function() {
           self[index] = ObjectID(audio)
         })
       } catch {
-        throw Error("Not all elements under audio_files are valid ObjectId")
+        throw Error("Not all elements under audio_files are valid")
       }
     } else {
       newTour.audio_files = []
@@ -3037,7 +3037,7 @@ module.exports = async function() {
           self[index] = ObjectID(video)
         })
       } catch {
-        throw Error("Not all elements under videos are valid ObjectId")
+        throw Error("Not all elements under videos are valid")
       }
     } else {
       newTour.videos = []
@@ -3053,7 +3053,7 @@ module.exports = async function() {
           self[index] = ObjectID(tag)
         })
       } catch {
-        throw Error("Not all elements under tags are valid ObjectId")
+        throw Error("Not all elements under tags are valid")
       }
     } else {
       newTour.tags = []
@@ -3069,7 +3069,7 @@ module.exports = async function() {
           self[index] = ObjectID(category)
         })
       } catch {
-        throw Error("Not all elements under categories are valid ObjectId")
+        throw Error("Not all elements under categories are valid")
       }
     } else {
       newTour.categories = []
@@ -3085,7 +3085,7 @@ module.exports = async function() {
           self[index] = ObjectID(plant)
         })
       } catch {
-        throw Error("Not all elements under plants are valid ObjectId")
+        throw Error("Not all elements under plants are valid")
       }
     } else {
       newTour.plants = []
@@ -3101,7 +3101,7 @@ module.exports = async function() {
           self[index] = ObjectID(waypoint)
         })
       } catch {
-        throw Error("Not all elements under waypoints are valid ObjectId")
+        throw Error("Not all elements under waypoints are valid")
       }
     } else {
       newTour.waypoints = []
@@ -3115,7 +3115,7 @@ module.exports = async function() {
       newTour.custom_fields.forEach((custom_field, index, self) => {
         //Check if element is type object
         if (!(typeof custom_field === 'object' && custom_field !== null)) {
-          throw Error("At least one of the custom_field is not of type object or is null")
+          throw Error("At least one of the custom_field is not valid")
         }
 
         if (!custom_field._id) {
@@ -3135,7 +3135,7 @@ module.exports = async function() {
           temp._id = ObjectID(custom_field._id)
           self[index] = temp
         } catch {
-          throw Error("A _id under custom_field is not valid ObjectId")
+          throw Error("A _id under custom_field is not valid")
         }
       })
     } else {
@@ -3578,7 +3578,7 @@ module.exports = async function() {
           self[index] = ObjectID(image)
         })
       } catch {
-        throw Error("Not all elements under images are valid ObjectId")
+        throw Error("Not all elements under images are valid")
       }
     }
 
@@ -3592,7 +3592,7 @@ module.exports = async function() {
           self[index] = ObjectID(audio)
         })
       } catch {
-        throw Error("Not all elements under audio_files are valid ObjectId")
+        throw Error("Not all elements under audio_files are valid")
       }
     }
 
@@ -3606,7 +3606,7 @@ module.exports = async function() {
           self[index] = ObjectID(video)
         })
       } catch {
-        throw Error("Not all elements under videos are valid ObjectId")
+        throw Error("Not all elements under videos are valid")
       }
     }
 
@@ -3620,7 +3620,7 @@ module.exports = async function() {
           self[index] = ObjectID(tag)
         })
       } catch {
-        throw Error("Not all elements under tags are valid ObjectId")
+        throw Error("Not all elements under tags are valid")
       }
     }
 
@@ -3634,7 +3634,7 @@ module.exports = async function() {
           self[index] = ObjectID(category)
         })
       } catch {
-        throw Error("Not all elements under categories are valid ObjectId")
+        throw Error("Not all elements under categories are valid")
       }
     }
 
@@ -3648,7 +3648,7 @@ module.exports = async function() {
           self[index] = ObjectID(plant)
         })
       } catch {
-        throw Error("Not all elements under plants are valid ObjectId")
+        throw Error("Not all elements under plants are valid")
       }
     }
 
@@ -3662,7 +3662,7 @@ module.exports = async function() {
           self[index] = ObjectID(waypoint)
         })
       } catch {
-        throw Error("Not all elements under waypoints are valid ObjectId")
+        throw Error("Not all elements under waypoints are valid")
       }
     }
 
@@ -3674,7 +3674,7 @@ module.exports = async function() {
       updatedTour.custom_fields.forEach((custom_field, index, self) => {
         //Check if element is type object
         if (!(typeof custom_field === 'object' && custom_field !== null)) {
-          throw Error("At least one of the custom_field is not of type object or is null")
+          throw Error("At least one of the custom_field is not valid")
         }
 
         if (!custom_field._id) {
@@ -3694,7 +3694,7 @@ module.exports = async function() {
           temp._id = ObjectID(custom_field._id)
           self[index] = temp
         } catch {
-          throw Error("A _id under custom_field is not valid ObjectId")
+          throw Error("A _id under custom_field is not valid")
         }
       })
     }
@@ -3855,7 +3855,7 @@ module.exports = async function() {
           self[index] = ObjectID(image)
         })
       } catch {
-        throw Error("Not all elements under images are valid ObjectId")
+        throw Error("Not all elements under images are valid")
       }
     } else {
       newLearnMore.images = []
@@ -3871,7 +3871,7 @@ module.exports = async function() {
           self[index] = ObjectID(audio)
         })
       } catch {
-        throw Error("Not all elements under audio_files are valid ObjectId")
+        throw Error("Not all elements under audio_files are valid")
       }
     } else {
       newLearnMore.audio_files = []
@@ -3887,7 +3887,7 @@ module.exports = async function() {
           self[index] = ObjectID(video)
         })
       } catch {
-        throw Error("Not all elements under videos are valid ObjectId")
+        throw Error("Not all elements under videos are valid")
       }
     } else {
       newLearnMore.videos = []
@@ -3903,7 +3903,7 @@ module.exports = async function() {
           self[index] = ObjectID(tag)
         })
       } catch {
-        throw Error("Not all elements under tags are valid ObjectId")
+        throw Error("Not all elements under tags are valid")
       }
     } else {
       newLearnMore.tags = []
@@ -3919,7 +3919,7 @@ module.exports = async function() {
           self[index] = ObjectID(category)
         })
       } catch {
-        throw Error("Not all elements under categories are valid ObjectId")
+        throw Error("Not all elements under categories are valid")
       }
     } else {
       newLearnMore.categories = []
@@ -3933,7 +3933,7 @@ module.exports = async function() {
       newLearnMore.custom_fields.forEach((custom_field, index, self) => {
         //Check if element is type object
         if (!(typeof custom_field === 'object' && custom_field !== null)) {
-          throw Error("At least one of the custom_field is not of type object or is null")
+          throw Error("At least one of the custom_field is not valid")
         }
 
         if (!custom_field._id) {
@@ -3953,7 +3953,7 @@ module.exports = async function() {
           temp._id = ObjectID(custom_field._id)
           self[index] = temp
         } catch {
-          throw Error("A _id under custom_field is not valid ObjectId")
+          throw Error("A _id under custom_field is not valid")
         }
       })
     } else {
@@ -4102,7 +4102,7 @@ module.exports = async function() {
           self[index] = ObjectID(image)
         })
       } catch {
-        throw Error("Not all elements under images are valid ObjectId")
+        throw Error("Not all elements under images are valid")
       }
     }
 
@@ -4116,7 +4116,7 @@ module.exports = async function() {
           self[index] = ObjectID(audio)
         })
       } catch {
-        throw Error("Not all elements under audio_files are valid ObjectId")
+        throw Error("Not all elements under audio_files are valid")
       }
     }
 
@@ -4130,7 +4130,7 @@ module.exports = async function() {
           self[index] = ObjectID(video)
         })
       } catch {
-        throw Error("Not all elements under videos are valid ObjectId")
+        throw Error("Not all elements under videos are valid")
       }
     }
 
@@ -4144,7 +4144,7 @@ module.exports = async function() {
           self[index] = ObjectID(tag)
         })
       } catch {
-        throw Error("Not all elements under tags are valid ObjectId")
+        throw Error("Not all elements under tags are valid")
       }
     }
     
@@ -4158,7 +4158,7 @@ module.exports = async function() {
           self[index] = ObjectID(category)
         })
       } catch {
-        throw Error("Not all elements under categories are valid ObjectId")
+        throw Error("Not all elements under categories are valid")
       }
     }
 
@@ -4170,7 +4170,7 @@ module.exports = async function() {
       updatedLearnMore.custom_fields.forEach((custom_field, index, self) => {
         //Check if element is type object
         if (!(typeof custom_field === 'object' && custom_field !== null)) {
-          throw Error("At least one of the custom_field is not of type object or is null")
+          throw Error("At least one of the custom_field is not valid")
         }
 
         if (!custom_field._id) {
@@ -4190,7 +4190,7 @@ module.exports = async function() {
           temp._id = ObjectID(custom_field._id)
           self[index] = temp
         } catch {
-          throw Error("A _id under custom_field is not valid ObjectId")
+          throw Error("A _id under custom_field is not valid")
         }
       })
     }
