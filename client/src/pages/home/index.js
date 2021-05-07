@@ -64,11 +64,12 @@ export default function Home({action, method}) {
     <main>
       {/* HERO SECTION */}
       <div style={style.hero}>
-        <Carousel fade interval="8000" indicators={false} controls = {false}>
+      <img className="carousel" style={style.image} src="/assets/images/hero.jpg" alt="Indigenous Initiatives and Partnerships Logo Red"/>
+        {/* <Carousel fade interval="8000" indicators={false} controls = {false}>
           <Carousel.Item>
             <img className="carousel" style={style.image} src="/assets/images/hero.jpg" alt="Indigenous Initiatives and Partnerships Logo Red"/>
           </Carousel.Item>
-        </Carousel>
+        </Carousel> */}
       
         <span style={style.textDisplay}>
           <h1 style={style.time}> {time}</h1>
