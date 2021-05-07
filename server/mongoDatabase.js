@@ -273,7 +273,7 @@ module.exports = async function() {
     }
 
     if (!(typeof newImage.caption === 'string' || newImage.caption instanceof String)) {
-      throw Error("Caption field must take a string")
+      throw Error("Invalid input for caption")
     }
 
     const result = await images.insertOne({
@@ -321,7 +321,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedImage.caption === 'string' || updatedImage.caption instanceof String)) {
-      throw Error("Caption field must take a string")
+      throw Error("Invalid input for caption")
     }
 
     const result = await images.findOneAndUpdate(
@@ -379,7 +379,7 @@ module.exports = async function() {
     }
 
     if (!(typeof newAudio.caption === 'string' || newAudio.caption instanceof String)) {
-      throw Error("Caption field must take a string")
+      throw Error("Invalid input for caption")
     }
 
     const result = await audios.insertOne({
@@ -427,7 +427,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedAudio.caption === 'string' || updatedAudio.caption instanceof String)) {
-      throw Error("Caption field must take a string")
+      throw Error("Invalid input for caption")
     }
 
     const result = await audios.findOneAndUpdate(
@@ -486,7 +486,7 @@ module.exports = async function() {
         throw Error("Video url not formatted correctly")
       }
     } else {
-      throw Error("Video_url field must take a string")
+      throw Error("Invalid input for video_url")
     }
 
     if (!newVideo.caption) {
@@ -494,7 +494,7 @@ module.exports = async function() {
     }
 
     if (!(typeof newVideo.caption === 'string' || newVideo.caption instanceof String)) {
-      throw Error("Caption field must take a string")
+      throw Error("Invalid input for caption")
     }
 
     const result = await videos.insertOne({
@@ -522,7 +522,7 @@ module.exports = async function() {
         throw Error("Video url not formatted correctly")
       }
     } else {
-      throw Error("Video_url field must take a string")
+      throw Error("Invalid input for video_url")
     }
 
     if (!updatedVideo.caption) {
@@ -530,7 +530,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedVideo.caption === 'string' || updatedVideo.caption instanceof String)) {
-      throw Error("Caption field must take a string")
+      throw Error("Invalid input for caption")
     }
 
     const result = await videos.findOneAndUpdate(
@@ -584,7 +584,7 @@ module.exports = async function() {
     }
 
     if (!(typeof tag_name === 'string' || tag_name instanceof String)) {
-      throw Error("Tag_name field must take a string")
+      throw Error("Invalid input for tag_name")
     }
 
     const result = await tags.insertOne({
@@ -607,7 +607,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedTag.tag_name === 'string' || updatedTag.tag_name instanceof String)) {
-      throw Error("Tag_name field must take a string")
+      throw Error("Invalid input for tag_name")
     }
 
     const result = await tags.findOneAndUpdate(
@@ -642,7 +642,7 @@ module.exports = async function() {
     }
 
     if (!(typeof category_name === 'string' || category_name instanceof String)) {
-      throw Error("Category_name field must take a string")
+      throw Error("Invalid input for category_name")
     }
 
     if (!resource) {
@@ -654,7 +654,7 @@ module.exports = async function() {
         throw Error("Invalid resource, resource must be plant, waypoint, tour, or learn_more")
       }
     } else {
-      throw Error("Resource field must take a string")
+      throw Error("Invalid input for resource")
     }
 
     const result = await categories.insertOne({
@@ -678,7 +678,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedCategory.category_name === 'string' || updatedCategory.category_name instanceof String)) {
-      throw Error("Category_name field must take a string")
+      throw Error("Invalid input for category_name")
     }
 
     if (!updatedCategory.resource) {
@@ -690,7 +690,7 @@ module.exports = async function() {
         throw Error("Invalid resource, resource must be plant, waypoint, tour, or learn_more")
       }
     } else {
-      throw Error("Resource field must take a string")
+      throw Error("Invalid input for resource")
     }
 
     const result = await categories.findOneAndUpdate(
@@ -731,7 +731,7 @@ module.exports = async function() {
     }
 
     if (!(typeof location_name === 'string' || location_name instanceof String)) {
-      throw Error("Location_name field must take a string")
+      throw Error("Invalid input for location_name")
     }
 
     if (longitude == null) {
@@ -739,7 +739,7 @@ module.exports = async function() {
     }
 
     if (!(typeof longitude === 'number' && !Number.isNaN(longitude))) {
-      throw Error("Longitude field must take a number")
+      throw Error("Invalid input for longitude")
     }
 
     if (latitude == null) {
@@ -747,11 +747,11 @@ module.exports = async function() {
     }
 
     if (!(typeof latitude === 'number' && !Number.isNaN(latitude))) {
-      throw Error("Latitude field must take a number")
+      throw Error("Invalid input for latitude")
     }
 
     if (!(typeof description === 'string' || description instanceof String)) {
-      throw Error("Description field must take a string")
+      throw Error("Invalid input for description")
     }
 
     const result = await locations.insertOne({
@@ -777,7 +777,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedLocation.location_name === 'string' || updatedLocation.location_name instanceof String)) {
-      throw Error("Location_name field must take a string")
+      throw Error("Invalid input for location_name")
     }
 
     if (updatedLocation.longitude == null) {
@@ -785,7 +785,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedLocation.longitude === 'number' && !Number.isNaN(updatedLocation.longitude))) {
-      throw Error("Longitude field must take a number")
+      throw Error("Invalid input for longitude")
     }
 
     if (updatedLocation.latitude == null) {
@@ -794,13 +794,13 @@ module.exports = async function() {
 
     if (updatedLocation.latitude) {
       if (!(typeof updatedLocation.latitude === 'number' && !Number.isNaN(updatedLocation.latitude))) {
-        throw Error("Latitude field must take a number")
+        throw Error("Invalid input for latitude")
       }
     }
 
     if (updatedLocation.description) {
       if (!(typeof updatedLocation.description === 'string' || updatedLocation.description instanceof String)) {
-        throw Error("Description field must take a string")
+        throw Error("Invalid input for description")
       }
     }
 
@@ -1088,7 +1088,7 @@ module.exports = async function() {
     }
 
     if (!(typeof newPlant.plant_name === 'string' || newPlant.plant_name instanceof String)) {
-      throw Error("Plant_name field must take a string")
+      throw Error("Invalid input for plant_name")
     }
 
     if (!newPlant.scientific_name) {
@@ -1096,7 +1096,7 @@ module.exports = async function() {
     }
 
     if (!(typeof newPlant.scientific_name === 'string' || newPlant.scientific_name instanceof String)) {
-      throw Error("Scientific_name field must take a string")
+      throw Error("Invalid input for scientific_name")
     }
 
     if (!newPlant.description) {
@@ -1104,7 +1104,7 @@ module.exports = async function() {
     }
 
     if (!(typeof newPlant.description === 'string' || newPlant.description instanceof String)) {
-      throw Error("Description field must take a string")
+      throw Error("Invalid input for description")
     }
 
     //Convert all passed in array of id to ObjectId
@@ -1378,7 +1378,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedPlant.plant_name === 'string' || updatedPlant.plant_name instanceof String)) {
-      throw Error("Plant_name field must take a string")
+      throw Error("Invalid input for plant_name")
     }
 
     if (!updatedPlant.scientific_name) {
@@ -1386,7 +1386,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedPlant.scientific_name === 'string' || updatedPlant.scientific_name instanceof String)) {
-      throw Error("Scientific_name field must take a string")
+      throw Error("Invalid input for scientific_name")
     }
 
     if (!updatedPlant.description) {
@@ -1394,7 +1394,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedPlant.description === 'string' || updatedPlant.description instanceof String)) {
-      throw Error("Description field must take a string")
+      throw Error("Invalid input for description")
     }
 
     //Convert all passed in array of id to ObjectId
@@ -1525,7 +1525,7 @@ module.exports = async function() {
 
     if (updatedPlant.isPublish !== null && updatedPlant.isPublish !== undefined) {
       if (!(typeof updatedPlant.isPublish === 'boolean')) {
-        throw Error("IsPublish field must take a boolean")
+        throw Error("Invalid input for isPublish")
       }
     }
    
@@ -1995,7 +1995,7 @@ module.exports = async function() {
     }
 
     if (!(typeof newWaypoint.waypoint_name === 'string' || newWaypoint.waypoint_name instanceof String)) {
-      throw Error("Waypoint_name field must take a string")
+      throw Error("Invalid input for waypoint_name")
     }
 
     if (!newWaypoint.description) {
@@ -2003,7 +2003,7 @@ module.exports = async function() {
     }
 
     if (!(typeof newWaypoint.description === 'string' || newWaypoint.description instanceof String)) {
-      throw Error("Description field must take a string")
+      throw Error("Invalid input for description")
     }
 
     //Convert all passed in array of id to ObjectId
@@ -2393,7 +2393,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedWaypoint.waypoint_name === 'string' || updatedWaypoint.waypoint_name instanceof String)) {
-      throw Error("Waypoint_name field must take a string")
+      throw Error("Invalid input for waypoint_name")
     }
 
     if (!updatedWaypoint.description) {
@@ -2401,7 +2401,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedWaypoint.description === 'string' || updatedWaypoint.description instanceof String)) {
-      throw Error("Description field must take a string")
+      throw Error("Invalid input for description")
     }
 
     //Convert all passed in array of id to ObjectId
@@ -2545,7 +2545,7 @@ module.exports = async function() {
 
     if (updatedWaypoint.isPublish !== null && updatedWaypoint.isPublish !== undefined) {
       if (!(typeof updatedWaypoint.isPublish === 'boolean')) {
-        throw Error("IsPublish field must take a boolean")
+        throw Error("Invalid input for isPublish")
       }
     }
 
@@ -2981,7 +2981,7 @@ module.exports = async function() {
     }
 
     if (!(typeof newTour.tour_name === 'string' || newTour.tour_name instanceof String)) {
-      throw Error("Tour_name field must take a string")
+      throw Error("Invalid input for tour_name")
     }
 
     if (!newTour.description) {
@@ -2989,7 +2989,7 @@ module.exports = async function() {
     }
 
     if (!(typeof newTour.description === 'string' || newTour.description instanceof String)) {
-      throw Error("Description field must take a string")
+      throw Error("Invalid input for description")
     }
 
     //Convert all passed in array of id to ObjectId
@@ -3555,7 +3555,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedTour.tour_name === 'string' || updatedTour.tour_name instanceof String)) {
-      throw Error("Tour_name field must take a string")
+      throw Error("Invalid input for tour_name")
     }
 
     if (!updatedTour.description) {
@@ -3563,7 +3563,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedTour.description === 'string' || updatedTour.description instanceof String)) {
-      throw Error("Description field must take a string")
+      throw Error("Invalid input for description")
     }
 
     //Convert all passed in array of id to ObjectId
@@ -3834,7 +3834,7 @@ module.exports = async function() {
     }
 
     if (!(typeof newLearnMore.learn_more_title === 'string' || newLearnMore.learn_more_title instanceof String)) {
-      throw Error("Learn_more_title field must take a string")
+      throw Error("Invalid input for learn_more_title")
     }
 
     if (!newLearnMore.description) {
@@ -3842,7 +3842,7 @@ module.exports = async function() {
     }
 
     if (!(typeof newLearnMore.description === 'string' || newLearnMore.description instanceof String)) {
-      throw Error("Description field must take a string")
+      throw Error("Invalid input for description")
     }
    
     if (newLearnMore.images !== null && newLearnMore.images !== undefined) {
@@ -4081,7 +4081,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedLearnMore.learn_more_title === 'string' || updatedLearnMore.learn_more_title instanceof String)) {
-      throw Error("Learn_more_title field must take a string")
+      throw Error("Invalid input for learn_more_title")
     }
 
     if (!updatedLearnMore.description) {
@@ -4089,7 +4089,7 @@ module.exports = async function() {
     }
 
     if (!(typeof updatedLearnMore.description === 'string' || updatedLearnMore.description instanceof String)) {
-      throw Error("Description field must take a string")
+      throw Error("Invalid input for description")
     }
     
     if (updatedLearnMore.images !== null && updatedLearnMore.images !== undefined) {
