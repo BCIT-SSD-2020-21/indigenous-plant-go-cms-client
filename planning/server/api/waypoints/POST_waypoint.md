@@ -29,8 +29,9 @@ Example request: POST /api/waypoints?key=<API_KEY>
 }
 ```
 
-Waypoint_name and description are required fields
-- Returns "Missing waypoint name" or "Missing description" otherwise
+Waypoint_name, description and location are required fields
+- Returns "Missing waypoint name" or "Missing description" for waypoint_name and description
+- Returns "Require at least one location" for location
 
 Waypoint_name and description must be a string
 - Returns "Waypoint_name field must take a string" or "Description field must take a string" otherwise
