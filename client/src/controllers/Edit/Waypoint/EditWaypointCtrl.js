@@ -57,6 +57,7 @@ export default function EditWaypointCtrl() {
 
   const resetDirective = async () => {
     await setTimeout(() => {
+      if (!isMounted) return;
       setDirective(null);
     }, 4000);
   };
