@@ -12,6 +12,7 @@ import {
 } from "../../../network";
 
 export default function AddPlantsCtrl() {
+  let isMounted;
   const history = useHistory();
   // ===============================================================
   // FORM DATA
@@ -46,7 +47,15 @@ export default function AddPlantsCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    resetDirective();
+    isMounted = true;
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isMounted) resetDirective();
   }, [directive]);
 
   const resetDirective = async () => {
@@ -56,14 +65,16 @@ export default function AddPlantsCtrl() {
   };
 
   useEffect(async () => {
-    setLoading(true);
-    await queryLocations();
-    await queryImages();
-    await queryAudios();
-    await queryVideos();
-    await queryTags();
-    await queryCategories();
-    setLoading(false);
+    if (isMounted) {
+      setLoading(true);
+      await queryLocations();
+      await queryImages();
+      await queryAudios();
+      await queryVideos();
+      await queryTags();
+      await queryCategories();
+      setLoading(false);
+    }
   }, []);
 
   // ===============================================================
@@ -73,24 +84,28 @@ export default function AddPlantsCtrl() {
   const queryLocations = async () => {
     const result = await getLocations();
     if (result.error) return;
+    if (!isMounted) return;
     setELocations(result);
   };
 
   const queryImages = async () => {
     const result = await getImages();
     if (result.error) return;
+    if (!isMounted) return;
     setEImages(result);
   };
 
   const queryAudios = async () => {
     const result = await getAudios();
     if (result.error) return;
+    if (!isMounted) return;
     setEAudios(result);
   };
 
   const queryVideos = async () => {
     const result = await getVideos();
     if (result.error) return;
+    if (!isMounted) return;
     setEVideos(result);
   };
 
@@ -103,6 +118,7 @@ export default function AddPlantsCtrl() {
   const queryCategories = async () => {
     const result = await getCategoryGroup("plant");
     if (result.error) return;
+    if (!isMounted) return;
     setECategories(result);
   };
 
@@ -113,51 +129,62 @@ export default function AddPlantsCtrl() {
 
   const categoriesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
+    if (!isMounted) return;
     setCategories(mappedData);
   };
 
   const tagsChanged = (data) => {
     const mappedData = data.map((d) => d._id);
+    if (!isMounted) return;
     setTags(mappedData);
   };
 
   const locationsChanged = (data) => {
     const mappedData = data.map((d) => d._id);
+    if (!isMounted) return;
     setLocations(mappedData);
   };
 
   const imagesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
+    if (!isMounted) return;
     setImages(mappedData);
   };
 
   const audioFilesChanged = (data) => {
     const mappedData = data.map((d) => d._id);
+    if (!isMounted) return;
     setAudioFiles(mappedData);
   };
 
   const videosChanged = (data) => {
     const mappedData = data.map((d) => d._id);
+    if (!isMounted) return;
     setVideos(mappedData);
   };
 
   const customFieldsChanged = (data) => {
+    if (!isMounted) return;
     setCustomFields(data);
   };
 
   const plantNameChanged = (data) => {
+    if (!isMounted) return;
     setPlantName(data);
   };
 
   const scientificNameChanged = (data) => {
+    if (!isMounted) return;
     setScientificName(data);
   };
 
   const descriptionChanged = (data) => {
+    if (!isMounted) return;
     setDescription(data);
   };
 
   const isVisibleChanged = (data) => {
+    if (!isMounted) return;
     setIsVisible(data);
   };
 
