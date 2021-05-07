@@ -57,10 +57,12 @@ module.exports = async function() {
       throw Error("Email field must take a string")
     }
 
-    if (user_name) {
-      if (!(typeof user_name === 'string' || user_name instanceof String)) {
-        throw Error("User_name field must take a string")
-      }
+    if (!user_name) {
+      throw Error("Requires an user name")
+    }
+
+    if (!(typeof user_name === 'string' || user_name instanceof String)) {
+      throw Error("User_name field must take a string")
     }
 
     if (!password) { //password can't be null
@@ -126,43 +128,49 @@ module.exports = async function() {
   //Update base on userId
   //PUT /api/users/:userId
   async function updateUser({userId, updatedUser, userRole}) {
-    if (updatedUser.email || updatedUser.user_name) {
-      const user = await users.findOne({
-        $or: [{email: updatedUser.email}, {user_name: updatedUser.user_name}]
-      })
-      if (user) {
-        if (user._id != userId) {
-          throw Error("Username or email is already taken")
-        }
-      }
-
-      if (updatedUser.email) {
-        if (typeof updatedUser.email === 'string' || updatedUser.email instanceof String) {
-          const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          if(!(re.test(updatedUser.email.toLowerCase()))) {
-            throw Error("Email not formatted correctly")
-          }
-        } else {
-          throw Error("Email field must take a string")
-        }
-      }
-
-      if (updatedUser.user_name) {
-        if (!(typeof updatedUser.user_name === 'string' || updatedUser.user_name instanceof String)) {
-          throw Error("User_name field must take a string")
-        }
+    const user = await users.findOne({
+      $or: [{email: updatedUser.email}, {user_name: updatedUser.user_name}]
+    })
+    if (user) {
+      if (user._id != userId) {
+        throw Error("Username or email is already taken")
       }
     }
 
-    if (updatedUser.password) {
-      if (!(typeof updatedUser.password === 'string' || updatedUser.password instanceof String)) {
-        throw Error("Password field must take a string")
-      }
-
-      //Hash password
-      const encrypted = await bcrypt.hash(updatedUser.password, 12)
-      updatedUser.password = encrypted
+    if (!updatedUser.email) {
+      throw Error("Requires an email")
     }
+
+    if (typeof updatedUser.email === 'string' || updatedUser.email instanceof String) {
+      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      if(!(re.test(updatedUser.email.toLowerCase()))) {
+        throw Error("Email not formatted correctly")
+      }
+    } else {
+      throw Error("Email field must take a string")
+    }
+
+    if (!updatedUser.user_name) {
+      throw Error("Requires an user name")
+    }
+
+    if (updatedUser.user_name) {
+      if (!(typeof updatedUser.user_name === 'string' || updatedUser.user_name instanceof String)) {
+        throw Error("User_name field must take a string")
+      }
+    }
+
+    if (!updatedUser.password) {
+      throw Error("Requires a password")
+    }
+
+    if (!(typeof updatedUser.password === 'string' || updatedUser.password instanceof String)) {
+      throw Error("Password field must take a string")
+    }
+
+    //Hash password
+    const encrypted = await bcrypt.hash(updatedUser.password, 12)
+    updatedUser.password = encrypted
     
     if (updatedUser.role) {
       if (userRole !== "Admin") {
@@ -713,15 +721,15 @@ module.exports = async function() {
       throw Error("Location_name field must take a string")
     }
 
-    if (!longitude) {
-      throw Error("Require a longtitude")
+    if (longitude == null) {
+      throw Error("Require a longitude")
     }
 
     if (!(typeof longitude === 'number' && !Number.isNaN(longitude))) {
       throw Error("Longitude field must take a number")
     }
 
-    if (!latitude) {
+    if (latitude == null) {
       throw Error("Require a latitude")
     }
 
@@ -751,16 +759,24 @@ module.exports = async function() {
   //Update
   //PUT /api/locations/:locationId
   async function updateLocation({locationId, updatedLocation}) {
-    if (updatedLocation.location_name) {
-      if (!(typeof updatedLocation.location_name === 'string' || updatedLocation.location_name instanceof String)) {
-        throw Error("Location_name field must take a string")
-      }
+    if (!updatedLocation.location_name) {
+      throw Error("Require a location name")
     }
 
-    if (updatedLocation.longitude) {
-      if (!(typeof updatedLocation.longitude === 'number' && !Number.isNaN(updatedLocation.longitude))) {
-        throw Error("Longitude field must take a number")
-      }
+    if (!(typeof updatedLocation.location_name === 'string' || updatedLocation.location_name instanceof String)) {
+      throw Error("Location_name field must take a string")
+    }
+
+    if (updatedLocation.longitude == null) {
+      throw Error("Require a longitude")
+    }
+
+    if (!(typeof updatedLocation.longitude === 'number' && !Number.isNaN(updatedLocation.longitude))) {
+      throw Error("Longitude field must take a number")
+    }
+
+    if (updatedLocation.latitude == null) {
+      throw Error("Require a latitude")
     }
 
     if (updatedLocation.latitude) {
