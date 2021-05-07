@@ -9,8 +9,6 @@ import {
   LocationIcon,
   TourIcon,
 } from "../../icons";
-import 'bootstrap/dist/css/bootstrap.min.css';   
-import Carousel from 'react-bootstrap/Carousel' 
 
 export default function Home({action, method}) {
   const history = useHistory();
@@ -61,7 +59,7 @@ export default function Home({action, method}) {
   setInterval(clock,1000)
 
   return (
-    <main>
+    <main className="homewrapper">
       {/* HERO SECTION */}
       <div style={style.hero}>
       <img className="carousel" style={style.image} src="/assets/images/hero.jpg" alt="Indigenous Initiatives and Partnerships Logo Red"/>
@@ -73,7 +71,7 @@ export default function Home({action, method}) {
       
         <span style={style.textDisplay}>
           <h1 style={style.time}> {time}</h1>
-          <h3 style={style.greeting}>Halq’emeylem,  {user}!</h3>
+          <h3 style={style.greeting}>Ey' Swayel,  {user}!</h3>
           <div style={style.date}> {displayDate}</div>
         </span>
       </div>
@@ -88,7 +86,7 @@ export default function Home({action, method}) {
           <div className="col" style={style.col} >
             <button className="link__button" style={style.button} onClick={() => history.push("/plants/add")}>
               <div className="quickicons"  style={style.icon}>
-                <PlantIcon />
+                <PlantIcon  />
               </div>
               <div>
                 <label style={style.addnew}>Add New </label>
@@ -129,7 +127,7 @@ export default function Home({action, method}) {
               </div>
             </button>
             <button className="link__button"  style={style.button} onClick={() => history.push("/learnmore/add")}>
-              <div style={style.icon}><InfoIcon /></div>
+              <div style={style.icon}><InfoIcon/></div>
               <div>
                 <label style={style.addnew}>Add New </label>
                 <p>Learn More</p>
@@ -144,8 +142,6 @@ export default function Home({action, method}) {
 const style = {
   hero : {
     position: "relative",
-    // border : "1px solid",
-    // borderColor : "black",
     minHeight : "500px",
     textAlign : "center",
    
@@ -154,6 +150,13 @@ const style = {
     width: "100%",
     maxHeight: "600px",
     // objectFit: "cover"
+  },
+  quicklinks :{
+    paddingLeft : "20px",
+  },
+  subhead :{
+    paddingTop: "20px",
+    paddingBottom: "10px"
   },
   textDisplay : {
     position : "absolute",
@@ -175,16 +178,14 @@ const style = {
   date :{
     fontSize : "145%"
   },
-  subhead :{
-    paddingTop: "10px",
-    paddingLeft: "20px",
-  },
+  
   grid :{
     display: "flex"
   },
   col :{
     display: "block",
-    padding: "20px",
+    paddingLeft: "0",
+    paddingRight : "20px",
     width: "100%"
   },
   button :{

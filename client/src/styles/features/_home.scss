@@ -1,3 +1,7 @@
+.homewrapper{
+  padding: unset
+}
+
 button.link__button {
   background: var(--highlight);
   padding: 14px 10px;
@@ -9,12 +13,18 @@ button.link__button {
     color: var(--highlight);
     border: 3px solid var(--highlight);
   }
+  svg{
+    fill : black;    
+  }
 }
+
 button.link__button:hover{
   transform: scale(1.04);
   transition: all 0.2s linear;
   background-color: black;
-  fill: white;
+  svg{
+    fill : white
+  }
 }
 
 .carousel{
