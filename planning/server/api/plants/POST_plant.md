@@ -29,8 +29,9 @@ Example request: POST /api/plants?key=<API_KEY>
 }
 ```
 
-Plant_name, scientific_name, and description are required fields
-- Returns "Missing plant name" or "Missing (scientific_name/description)" otherwise
+Plant_name, scientific_name, description, and location are required fields
+- Returns "Missing plant name" or "Missing (scientific_name/description)" for plant_name, scientific_name, and description
+- Returns "Require at least one location" for location
 
 Plant_name, scientific_name, and description must be a string
 - Returns "Plant_name field must take a string" or "(Scientific_name/Description) field must take a string" otherwise

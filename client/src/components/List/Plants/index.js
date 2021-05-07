@@ -121,10 +121,12 @@ export default function ListPlants({
         action="Add New"
         method={() => history.push("/plants/add")}
       />
-      <p>
-        <strong>Results</strong> ({plantData.length}){" "}
+      <div style={{ marginBottom: 10, display: "flex" }}>
+        <p>
+          <strong>Results</strong> ({plantData.length}){" "}
+        </p>
         {loading && <Loader active inline size="tiny" />}
-      </p>
+      </div>
       <div className="table__controls">
         <div style={{ display: "flex" }}>
           <div className="table__action">

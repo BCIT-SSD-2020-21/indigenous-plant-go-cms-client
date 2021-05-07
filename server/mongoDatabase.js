@@ -128,43 +128,49 @@ module.exports = async function() {
   //Update base on userId
   //PUT /api/users/:userId
   async function updateUser({userId, updatedUser, userRole}) {
-    if (updatedUser.email || updatedUser.user_name) {
-      const user = await users.findOne({
-        $or: [{email: updatedUser.email}, {user_name: updatedUser.user_name}]
-      })
-      if (user) {
-        if (user._id != userId) {
-          throw Error("Username or email is already taken")
-        }
-      }
-
-      if (updatedUser.email) {
-        if (typeof updatedUser.email === 'string' || updatedUser.email instanceof String) {
-          const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-          if(!(re.test(updatedUser.email.toLowerCase()))) {
-            throw Error("Incorrectly formatted email")
-          }
-        } else {
-          throw Error("Invalid input for email")
-        }
-      }
-
-      if (updatedUser.user_name) {
-        if (!(typeof updatedUser.user_name === 'string' || updatedUser.user_name instanceof String)) {
-          throw Error("Invalid input for user_name")
-        }
+    const user = await users.findOne({
+      $or: [{email: updatedUser.email}, {user_name: updatedUser.user_name}]
+    })
+    if (user) {
+      if (user._id != userId) {
+        throw Error("Username or email is already taken")
       }
     }
 
-    if (updatedUser.password) {
-      if (!(typeof updatedUser.password === 'string' || updatedUser.password instanceof String)) {
-        throw Error("Invalid input for password")
-      }
-
-      //Hash password
-      const encrypted = await bcrypt.hash(updatedUser.password, 12)
-      updatedUser.password = encrypted
+    if (!updatedUser.email) {
+      throw Error("Requires an email")
     }
+
+    if (typeof updatedUser.email === 'string' || updatedUser.email instanceof String) {
+      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      if(!(re.test(updatedUser.email.toLowerCase()))) {
+        throw Error("Incorrectly formatted email")
+      }
+    } else {
+      throw Error("Invalid input for email")
+    }
+
+    if (!updatedUser.user_name) {
+      throw Error("Requires an user name")
+    }
+
+    if (updatedUser.user_name) {
+      if (!(typeof updatedUser.user_name === 'string' || updatedUser.user_name instanceof String)) {
+        throw Error("Invalid input for user_name")
+      }
+    }
+
+    if (!updatedUser.password) {
+      throw Error("Requires a password")
+    }
+
+    if (!(typeof updatedUser.password === 'string' || updatedUser.password instanceof String)) {
+      throw Error("Invalid input for password")
+    }
+
+    //Hash password
+    const encrypted = await bcrypt.hash(updatedUser.password, 12)
+    updatedUser.password = encrypted
     
     if (updatedUser.role) {
       if (userRole !== "Admin") {
@@ -310,10 +316,12 @@ module.exports = async function() {
       )
     }
 
-    if (updatedImage.caption) {
-      if (!(typeof updatedImage.caption === 'string' || updatedImage.caption instanceof String)) {
-        throw Error("Caption field must take a string")
-      }
+    if (!updatedImage.caption) {
+      throw Error("Missing caption")
+    }
+
+    if (!(typeof updatedImage.caption === 'string' || updatedImage.caption instanceof String)) {
+      throw Error("Caption field must take a string")
     }
 
     const result = await images.findOneAndUpdate(
@@ -414,10 +422,12 @@ module.exports = async function() {
       )
     }
 
-    if (updatedAudio.caption) {
-      if (!(typeof updatedAudio.caption === 'string' || updatedAudio.caption instanceof String)) {
-        throw Error("Caption field must take a string")
-      }
+    if (!updatedAudio.caption) {
+      throw Error("Missing caption")
+    }
+
+    if (!(typeof updatedAudio.caption === 'string' || updatedAudio.caption instanceof String)) {
+      throw Error("Caption field must take a string")
     }
 
     const result = await audios.findOneAndUpdate(
@@ -478,7 +488,6 @@ module.exports = async function() {
     } else {
       throw Error("Video_url field must take a string")
     }
-    
 
     if (!newVideo.caption) {
       throw Error("Missing caption")
@@ -503,21 +512,25 @@ module.exports = async function() {
   //Update
   //PUT /api/videos/:videoId
   async function updateVideo({videoId, updatedVideo}) {
-    if (updatedVideo.video_url) {
-      if (typeof updatedVideo.video_url === 'string' || updatedVideo.video_url instanceof String) {
-        const re = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/
-        if(!(re.test(updatedVideo.video_url.toLowerCase()))) {
-          throw Error("Video url not formatted correctly")
-        }
-      } else {
-        throw Error("Video_url field must take a string")
-      }
+    if (!updatedVideo.video_url) {
+      throw Error("Missing video")
     }
 
-    if (updatedVideo.caption) {
-      if (!(typeof updatedVideo.caption === 'string' || updatedVideo.caption instanceof String)) {
-        throw Error("Caption field must take a string")
+    if (typeof updatedVideo.video_url === 'string' || updatedVideo.video_url instanceof String) {
+      const re = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.?be)\/.+$/
+      if(!(re.test(updatedVideo.video_url.toLowerCase()))) {
+        throw Error("Video url not formatted correctly")
       }
+    } else {
+      throw Error("Video_url field must take a string")
+    }
+
+    if (!updatedVideo.caption) {
+      throw Error("Missing caption")
+    }
+
+    if (!(typeof updatedVideo.caption === 'string' || updatedVideo.caption instanceof String)) {
+      throw Error("Caption field must take a string")
     }
 
     const result = await videos.findOneAndUpdate(
@@ -589,10 +602,12 @@ module.exports = async function() {
   //Update
   //PUT /api/tags/:tagId
   async function updateTag({tagId, updatedTag}) {
-    if (updatedTag.tag_name) {
-      if (!(typeof updatedTag.tag_name === 'string' || updatedTag.tag_name instanceof String)) {
-        throw Error("Tag_name field must take a string")
-      }
+    if (!updatedTag.tag_name) {
+      throw Error("Require a tag name")
+    }
+
+    if (!(typeof updatedTag.tag_name === 'string' || updatedTag.tag_name instanceof String)) {
+      throw Error("Tag_name field must take a string")
     }
 
     const result = await tags.findOneAndUpdate(
@@ -658,20 +673,24 @@ module.exports = async function() {
   //Update
   //PUT /api/categories/:categoryId
   async function updateCategory({categoryId, updatedCategory}) {
-    if (updatedCategory.category_name) {
-      if (!(typeof updatedCategory.category_name === 'string' || updatedCategory.category_name instanceof String)) {
-        throw Error("Category_name field must take a string")
-      }
+    if (!updatedCategory.category_name) {
+      throw Error("Require a category name")
     }
 
-    if (updatedCategory.resource) {
-      if (typeof updatedCategory.resource === 'string' || updatedCategory.resource instanceof String) {
-        if (!(updatedCategory.resource === 'plant' || updatedCategory.resource === 'waypoint' || updatedCategory.resource === 'tour' || updatedCategory.resource === 'learn_more')) {
-          throw Error("Invalid resource, resource must be plant, waypoint, tour, or learn_more")
-        }
-      } else {
-        throw Error("Resource field must take a string")
+    if (!(typeof updatedCategory.category_name === 'string' || updatedCategory.category_name instanceof String)) {
+      throw Error("Category_name field must take a string")
+    }
+
+    if (!updatedCategory.resource) {
+      throw Error("Require a resource")
+    }
+
+    if (typeof updatedCategory.resource === 'string' || updatedCategory.resource instanceof String) {
+      if (!(updatedCategory.resource === 'plant' || updatedCategory.resource === 'waypoint' || updatedCategory.resource === 'tour' || updatedCategory.resource === 'learn_more')) {
+        throw Error("Invalid resource, resource must be plant, waypoint, tour, or learn_more")
       }
+    } else {
+      throw Error("Resource field must take a string")
     }
 
     const result = await categories.findOneAndUpdate(
@@ -715,15 +734,15 @@ module.exports = async function() {
       throw Error("Location_name field must take a string")
     }
 
-    if (!longitude) {
-      throw Error("Require a longtitude")
+    if (longitude == null) {
+      throw Error("Require a longitude")
     }
 
     if (!(typeof longitude === 'number' && !Number.isNaN(longitude))) {
       throw Error("Longitude field must take a number")
     }
 
-    if (!latitude) {
+    if (latitude == null) {
       throw Error("Require a latitude")
     }
 
@@ -753,16 +772,24 @@ module.exports = async function() {
   //Update
   //PUT /api/locations/:locationId
   async function updateLocation({locationId, updatedLocation}) {
-    if (updatedLocation.location_name) {
-      if (!(typeof updatedLocation.location_name === 'string' || updatedLocation.location_name instanceof String)) {
-        throw Error("Location_name field must take a string")
-      }
+    if (!updatedLocation.location_name) {
+      throw Error("Require a location name")
     }
 
-    if (updatedLocation.longitude) {
-      if (!(typeof updatedLocation.longitude === 'number' && !Number.isNaN(updatedLocation.longitude))) {
-        throw Error("Longitude field must take a number")
-      }
+    if (!(typeof updatedLocation.location_name === 'string' || updatedLocation.location_name instanceof String)) {
+      throw Error("Location_name field must take a string")
+    }
+
+    if (updatedLocation.longitude == null) {
+      throw Error("Require a longitude")
+    }
+
+    if (!(typeof updatedLocation.longitude === 'number' && !Number.isNaN(updatedLocation.longitude))) {
+      throw Error("Longitude field must take a number")
+    }
+
+    if (updatedLocation.latitude == null) {
+      throw Error("Require a latitude")
     }
 
     if (updatedLocation.latitude) {
@@ -1083,7 +1110,7 @@ module.exports = async function() {
     //Convert all passed in array of id to ObjectId
     //Require passing in array of string
     //Default to empty array if the field is not given
-    if (newPlant.images) {
+    if (newPlant.images !== null && newPlant.images !== undefined) {
       if (!Array.isArray(newPlant.images)) {
         throw Error("The field images must be array")
       }
@@ -1099,7 +1126,7 @@ module.exports = async function() {
       newPlant.images = []
     }
 
-    if (newPlant.audio_files) {
+    if (newPlant.audio_files !== null && newPlant.audio_files !== undefined) {
       if (!Array.isArray(newPlant.audio_files)) {
         throw Error("The field audio_files must be array")
       }
@@ -1115,7 +1142,7 @@ module.exports = async function() {
       newPlant.audio_files = []
     }
 
-    if (newPlant.videos) {
+    if (newPlant.videos !== null && newPlant.videos !== undefined) {
       if (!Array.isArray(newPlant.videos)) {
         throw Error("The field videos must be array")
       }
@@ -1131,7 +1158,7 @@ module.exports = async function() {
       newPlant.videos = []
     }
 
-    if (newPlant.tags) {
+    if (newPlant.tags !== null && newPlant.tags !== undefined) {
       if (!Array.isArray(newPlant.tags)) {
         throw Error("The field tags must be array")
       }
@@ -1147,7 +1174,7 @@ module.exports = async function() {
       newPlant.tags = []
     }
 
-    if (newPlant.categories) {
+    if (newPlant.categories !== null && newPlant.categories !== undefined) {
       if (!Array.isArray(newPlant.categories)) {
         throw Error("The field categories must be array")
       }
@@ -1163,9 +1190,13 @@ module.exports = async function() {
       newPlant.categories = []
     }
 
-    if (newPlant.locations) {
+    if (newPlant.locations !== null && newPlant.locations !== undefined) {
       if (!Array.isArray(newPlant.locations)) {
         throw Error("The field locations must be array")
+      }
+
+      if (newPlant.locations.length < 1) {
+        throw Error("Require at least one location")
       }
 
       try {
@@ -1176,10 +1207,10 @@ module.exports = async function() {
         throw Error("Not all elements under locations are valid ObjectId")
       }
     } else {
-      newPlant.locations = []
+      throw Error("Require at least one location")
     }
 
-    if (newPlant.custom_fields) {
+    if (newPlant.custom_fields !== null && newPlant.custom_fields !== undefined) {
       if (!Array.isArray(newPlant.custom_fields)) {
         throw Error("The field custom_fields must be array")
       }
@@ -1342,27 +1373,33 @@ module.exports = async function() {
   //Update
   //PUT /api/plants/:plantId
   async function updatePlant({plantId, updatedPlant, user_id}) {
-    if (updatedPlant.plant_name) {
-      if (!(typeof updatedPlant.plant_name === 'string' || updatedPlant.plant_name instanceof String)) {
-        throw Error("Plant_name field must take a string")
-      }
+    if (!updatedPlant.plant_name) {
+      throw Error("Missing plant name")
     }
 
-    if (updatedPlant.scientific_name) {
-      if (!(typeof updatedPlant.scientific_name === 'string' || updatedPlant.scientific_name instanceof String)) {
-        throw Error("Scientific_name field must take a string")
-      }
+    if (!(typeof updatedPlant.plant_name === 'string' || updatedPlant.plant_name instanceof String)) {
+      throw Error("Plant_name field must take a string")
     }
 
-    if (updatedPlant.description) {
-      if (!(typeof updatedPlant.description === 'string' || updatedPlant.description instanceof String)) {
-        throw Error("Description field must take a string")
-      }
+    if (!updatedPlant.scientific_name) {
+      throw Error("Missing scientific name")
+    }
+
+    if (!(typeof updatedPlant.scientific_name === 'string' || updatedPlant.scientific_name instanceof String)) {
+      throw Error("Scientific_name field must take a string")
+    }
+
+    if (!updatedPlant.description) {
+      throw Error("Missing description")
+    }
+
+    if (!(typeof updatedPlant.description === 'string' || updatedPlant.description instanceof String)) {
+      throw Error("Description field must take a string")
     }
 
     //Convert all passed in array of id to ObjectId
     //User should get data of the plant when they start editing
-    if (updatedPlant.images) {
+    if (updatedPlant.images !== null && updatedPlant.images !== undefined) {
       if (!Array.isArray(updatedPlant.images)) {
         throw Error("The field images must be array")
       }
@@ -1376,7 +1413,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedPlant.audio_files) {
+    if (updatedPlant.audio_files !== null && updatedPlant.audio_files !== undefined) {
       if (!Array.isArray(updatedPlant.audio_files)) {
         throw Error("The field audio_files must be array")
       }
@@ -1390,7 +1427,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedPlant.videos) {
+    if (updatedPlant.videos !== null && updatedPlant.videos !== undefined) {
       if (!Array.isArray(updatedPlant.videos)) {
         throw Error("The field videos must be array")
       }
@@ -1404,7 +1441,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedPlant.tags) {
+    if (updatedPlant.tags !== null && updatedPlant.tags !== undefined) {
       if (!Array.isArray(updatedPlant.tags)) {
         throw Error("The field tags must be array")
       }
@@ -1418,7 +1455,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedPlant.categories) {
+    if (updatedPlant.categories !== null && updatedPlant.categories !== undefined) {
       if (!Array.isArray(updatedPlant.categories)) {
         throw Error("The field categories must be array")
       }
@@ -1432,9 +1469,13 @@ module.exports = async function() {
       }
     }
 
-    if (updatedPlant.locations) {
+    if (updatedPlant.locations !== null && updatedPlant.locations !== undefined) {
       if (!Array.isArray(updatedPlant.locations)) {
         throw Error("The field locations must be array")
+      }
+
+      if (updatedPlant.locations.length < 1) {
+        throw Error("Require at least one location")
       }
 
       try {
@@ -1444,9 +1485,11 @@ module.exports = async function() {
       } catch {
         throw Error("Not all elements under locations are valid ObjectId")
       }
+    } else {
+      throw Error("Require at least one location")
     }
 
-    if (updatedPlant.custom_fields) {
+    if (updatedPlant.custom_fields !== null && updatedPlant.custom_fields !== undefined) {
       if (!Array.isArray(updatedPlant.custom_fields)) {
         throw Error("The field custom_fields must be array")
       }
@@ -1480,7 +1523,7 @@ module.exports = async function() {
       })
     }
 
-    if (updatedPlant.isPublish) {
+    if (updatedPlant.isPublish !== null && updatedPlant.isPublish !== undefined) {
       if (!(typeof updatedPlant.isPublish === 'boolean')) {
         throw Error("IsPublish field must take a boolean")
       }
@@ -1966,7 +2009,7 @@ module.exports = async function() {
     //Convert all passed in array of id to ObjectId
     //Require passing in array of string
     //Default to empty array if the field is not given
-    if (newWaypoint.images) {
+    if (newWaypoint.images !== null && newWaypoint.images !== undefined) {
       if (!Array.isArray(newWaypoint.images)) {
         throw Error("The field images must be array")
       }
@@ -1982,7 +2025,7 @@ module.exports = async function() {
       newWaypoint.images = []
     }
 
-    if (newWaypoint.audio_files) {
+    if (newWaypoint.audio_files !== null && newWaypoint.audio_files !== undefined) {
       if (!Array.isArray(newWaypoint.audio_files)) {
         throw Error("The field audio_files must be array")
       }
@@ -1998,7 +2041,7 @@ module.exports = async function() {
       newWaypoint.audio_files = []
     }
 
-    if (newWaypoint.videos) {
+    if (newWaypoint.videos !== null && newWaypoint.videos !== undefined) {
       if (!Array.isArray(newWaypoint.videos)) {
         throw Error("The field videos must be array")
       }
@@ -2014,7 +2057,7 @@ module.exports = async function() {
       newWaypoint.videos = []
     }
 
-    if (newWaypoint.tags) {
+    if (newWaypoint.tags !== null && newWaypoint.tags !== undefined) {
       if (!Array.isArray(newWaypoint.tags)) {
         throw Error("The field tags must be array")
       }
@@ -2030,7 +2073,7 @@ module.exports = async function() {
       newWaypoint.tags = []
     }
 
-    if (newWaypoint.categories) {
+    if (newWaypoint.categories !== null && newWaypoint.categories !== undefined) {
       if (!Array.isArray(newWaypoint.categories)) {
         throw Error("The field categories must be array")
       }
@@ -2046,9 +2089,13 @@ module.exports = async function() {
       newWaypoint.categories = []
     }
 
-    if (newWaypoint.locations) {
+    if (newWaypoint.locations !== null && newWaypoint.locations !== undefined) {
       if (!Array.isArray(newWaypoint.locations)) {
         throw Error("The field locations must be array")
+      }
+
+      if (newWaypoint.locations.length < 1) {
+        throw Error("Require at least one location")
       }
 
       try {
@@ -2059,10 +2106,10 @@ module.exports = async function() {
         throw Error("Not all elements under locations are valid ObjectId")
       }
     } else {
-      newWaypoint.locations = []
+      throw Error("Require at least one location")
     }
 
-    if (newWaypoint.plants) {
+    if (newWaypoint.plants !== null && newWaypoint.plants !== undefined) {
       if (!Array.isArray(newWaypoint.plants)) {
         throw Error("The field plants must be array")
       }
@@ -2078,7 +2125,7 @@ module.exports = async function() {
       newWaypoint.plants = []
     }
 
-    if (newWaypoint.custom_fields) {
+    if (newWaypoint.custom_fields !== null && newWaypoint.custom_fields !== undefined) {
       if (!Array.isArray(newWaypoint.custom_fields)) {
         throw Error("The field custom_fields must be array")
       }
@@ -2341,21 +2388,25 @@ module.exports = async function() {
   //Update
   //PUT /api/waypoints/:waypointId
   async function updateWaypoint({waypointId, updatedWaypoint, user_id}) {
-    if (updatedWaypoint.waypoint_name) {
-      if (!(typeof updatedWaypoint.waypoint_name === 'string' || updatedWaypoint.waypoint_name instanceof String)) {
-        throw Error("Waypoint_name field must take a string")
-      }
+    if (!updatedWaypoint.waypoint_name) {
+      throw Error("Missing waypoint name")
     }
 
-    if (updatedWaypoint.description) {
-      if (!(typeof updatedWaypoint.description === 'string' || updatedWaypoint.description instanceof String)) {
-        throw Error("Description field must take a string")
-      }
+    if (!(typeof updatedWaypoint.waypoint_name === 'string' || updatedWaypoint.waypoint_name instanceof String)) {
+      throw Error("Waypoint_name field must take a string")
+    }
+
+    if (!updatedWaypoint.description) {
+      throw Error("Missing description")
+    }
+
+    if (!(typeof updatedWaypoint.description === 'string' || updatedWaypoint.description instanceof String)) {
+      throw Error("Description field must take a string")
     }
 
     //Convert all passed in array of id to ObjectId
     //User should get data of the waypoint when they start editing
-    if (updatedWaypoint.images) {
+    if (updatedWaypoint.images !== null && updatedWaypoint.images !== undefined) {
       if (!Array.isArray(updatedWaypoint.images)) {
         throw Error("The field images must be array")
       }
@@ -2369,7 +2420,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedWaypoint.audio_files) {
+    if (updatedWaypoint.audio_files !== null && updatedWaypoint.audio_files !== undefined) {
       if (!Array.isArray(updatedWaypoint.audio_files)) {
         throw Error("The field audio_files must be array")
       }
@@ -2383,7 +2434,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedWaypoint.videos) {
+    if (updatedWaypoint.videos !== null && updatedWaypoint.videos !== undefined) {
       if (!Array.isArray(updatedWaypoint.videos)) {
         throw Error("The field videos must be array")
       }
@@ -2397,7 +2448,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedWaypoint.tags) {
+    if (updatedWaypoint.tags !== null && updatedWaypoint.tags !== undefined) {
       if (!Array.isArray(updatedWaypoint.tags)) {
         throw Error("The field tags must be array")
       }
@@ -2411,7 +2462,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedWaypoint.categories) {
+    if (updatedWaypoint.categories !== null && updatedWaypoint.categories !== undefined) {
       if (!Array.isArray(updatedWaypoint.categories)) {
         throw Error("The field categories must be array")
       }
@@ -2425,9 +2476,13 @@ module.exports = async function() {
       }
     }
 
-    if (updatedWaypoint.locations) {
+    if (updatedWaypoint.locations !== null && updatedWaypoint.locations !== undefined) {
       if (!Array.isArray(updatedWaypoint.locations)) {
         throw Error("The field locations must be array")
+      }
+
+      if (updatedWaypoint.locations.length < 1) {
+        throw Error("Require at least one location")
       }
 
       try {
@@ -2437,9 +2492,11 @@ module.exports = async function() {
       } catch {
         throw Error("Not all elements under locations are valid ObjectId")
       }
+    } else {
+      throw Error("Require at least one location")
     }
 
-    if (updatedWaypoint.plants) {
+    if (updatedWaypoint.plants !== null && updatedWaypoint.plants !== undefined) {
       if (!Array.isArray(updatedWaypoint.plants)) {
         throw Error("The field plants must be array")
       }
@@ -2453,7 +2510,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedWaypoint.custom_fields) {
+    if (updatedWaypoint.custom_fields !== null && updatedWaypoint.custom_fields !== undefined) {
       if (!Array.isArray(updatedWaypoint.custom_fields)) {
         throw Error("The field custom_fields must be array")
       }
@@ -2486,7 +2543,7 @@ module.exports = async function() {
       })
     }
 
-    if (updatedWaypoint.isPublish) {
+    if (updatedWaypoint.isPublish !== null && updatedWaypoint.isPublish !== undefined) {
       if (!(typeof updatedWaypoint.isPublish === 'boolean')) {
         throw Error("IsPublish field must take a boolean")
       }
@@ -2938,7 +2995,7 @@ module.exports = async function() {
     //Convert all passed in array of id to ObjectId
     //Require passing in array of string
     //Default to empty array if the field is not given
-    if (newTour.images) {
+    if (newTour.images !== null && newTour.images !== undefined) {
       if (!Array.isArray(newTour.images)) {
         throw Error("The field images must be array")
       }
@@ -2954,7 +3011,7 @@ module.exports = async function() {
       newTour.images = []
     }
 
-    if (newTour.audio_files) {
+    if (newTour.audio_files !== null && newTour.audio_files !== undefined) {
       if (!Array.isArray(newTour.audio_files)) {
         throw Error("The field audio_files must be array")
       }
@@ -2970,7 +3027,7 @@ module.exports = async function() {
       newTour.audio_files = []
     }
 
-    if (newTour.videos) {
+    if (newTour.videos !== null && newTour.videos !== undefined) {
       if (!Array.isArray(newTour.videos)) {
         throw Error("The field videos must be array")
       }
@@ -2986,7 +3043,7 @@ module.exports = async function() {
       newTour.videos = []
     }
 
-    if (newTour.tags) {
+    if (newTour.tags !== null && newTour.tags !== undefined) {
       if (!Array.isArray(newTour.tags)) {
         throw Error("The field tags must be array")
       }
@@ -3002,7 +3059,7 @@ module.exports = async function() {
       newTour.tags = []
     }
 
-    if (newTour.categories) {
+    if (newTour.categories !== null && newTour.categories !== undefined) {
       if (!Array.isArray(newTour.categories)) {
         throw Error("The field categories must be array")
       }
@@ -3018,7 +3075,7 @@ module.exports = async function() {
       newTour.categories = []
     }
 
-    if (newTour.plants) {
+    if (newTour.plants !== null && newTour.plants !== undefined) {
       if (!Array.isArray(newTour.plants)) {
         throw Error("The field plants must be array")
       }
@@ -3034,7 +3091,7 @@ module.exports = async function() {
       newTour.plants = []
     }
 
-    if (newTour.waypoints) {
+    if (newTour.waypoints !== null && newTour.waypoints !== undefined) {
       if (!Array.isArray(newTour.waypoints)) {
         throw Error("The field waypoints must be array")
       }
@@ -3050,7 +3107,7 @@ module.exports = async function() {
       newTour.waypoints = []
     }
 
-    if (newTour.custom_fields) {
+    if (newTour.custom_fields !== null && newTour.custom_fields !== undefined) {
       if (!Array.isArray(newTour.custom_fields)) {
         throw Error("The field custom_fields must be array")
       }
@@ -3493,21 +3550,25 @@ module.exports = async function() {
   //Update
   //PUT /api/tours/:tourId
   async function updateTour({tourId, updatedTour, user_id}) {
-    if (updatedTour.tour_name) {
-      if (!(typeof updatedTour.tour_name === 'string' || updatedTour.tour_name instanceof String)) {
-        throw Error("Tour_name field must take a string")
-      }
+    if (!updatedTour.tour_name) {
+      throw Error("Missing tour name")
     }
 
-    if (updatedTour.description) {
-      if (!(typeof updatedTour.description === 'string' || updatedTour.description instanceof String)) {
-        throw Error("Description field must take a string")
-      }
+    if (!(typeof updatedTour.tour_name === 'string' || updatedTour.tour_name instanceof String)) {
+      throw Error("Tour_name field must take a string")
+    }
+
+    if (!updatedTour.description) {
+      throw Error("Missing description")
+    }
+
+    if (!(typeof updatedTour.description === 'string' || updatedTour.description instanceof String)) {
+      throw Error("Description field must take a string")
     }
 
     //Convert all passed in array of id to ObjectId
     //User should get data of the tour when they start editing
-    if (updatedTour.images) {
+    if (updatedTour.images !== null && updatedTour.images !== undefined) {
       if (!Array.isArray(updatedTour.images)) {
         throw Error("The field images must be array")
       }
@@ -3521,7 +3582,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedTour.audio_files) {
+    if (updatedTour.audio_files !== null && updatedTour.audio_files !== undefined) {
       if (!Array.isArray(updatedTour.audio_files)) {
         throw Error("The field audio_files must be array")
       }
@@ -3535,7 +3596,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedTour.videos) {
+    if (updatedTour.videos !== null && updatedTour.videos !== undefined) {
       if (!Array.isArray(updatedTour.videos)) {
         throw Error("The field videos must be array")
       }
@@ -3549,7 +3610,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedTour.tags) {
+    if (updatedTour.tags !== null && updatedTour.tags !== undefined) {
       if (!Array.isArray(updatedTour.tags)) {
         throw Error("The field tags must be array")
       }
@@ -3563,7 +3624,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedTour.categories) {
+    if (updatedTour.categories !== null && updatedTour.categories !== undefined) {
       if (!Array.isArray(updatedTour.categories)) {
         throw Error("The field categories must be array")
       }
@@ -3577,7 +3638,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedTour.plants) {
+    if (updatedTour.plants !== null && updatedTour.plants !== undefined) {
       if (!Array.isArray(updatedTour.plants)) {
         throw Error("The field plants must be array")
       }
@@ -3591,7 +3652,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedTour.waypoints) {
+    if (updatedTour.waypoints !== null && updatedTour.waypoints !== undefined) {
       if (!Array.isArray(updatedTour.waypoints)) {
         throw Error("The field waypoints must be array")
       }
@@ -3605,7 +3666,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedTour.custom_fields) {
+    if (updatedTour.custom_fields !== null && updatedTour.custom_fields !== undefined) {
       if (!Array.isArray(updatedTour.custom_fields)) {
         throw Error("The field custom_fields must be array")
       }
@@ -3784,7 +3845,7 @@ module.exports = async function() {
       throw Error("Description field must take a string")
     }
    
-    if (newLearnMore.images) {
+    if (newLearnMore.images !== null && newLearnMore.images !== undefined) {
       if (!Array.isArray(newLearnMore.images)) {
         throw Error("The field images must be array")
       }
@@ -3800,7 +3861,7 @@ module.exports = async function() {
       newLearnMore.images = []
     }
 
-    if (newLearnMore.audio_files) {
+    if (newLearnMore.audio_files !== null && newLearnMore.audio_files !== undefined) {
       if (!Array.isArray(newLearnMore.audio_files)) {
         throw Error("The field audio_files must be array")
       }
@@ -3816,7 +3877,7 @@ module.exports = async function() {
       newLearnMore.audio_files = []
     }
 
-    if (newLearnMore.videos) {
+    if (newLearnMore.videos !== null && newLearnMore.videos !== undefined) {
       if (!Array.isArray(newLearnMore.videos)) {
         throw Error("The field videos must be array")
       }
@@ -3832,7 +3893,7 @@ module.exports = async function() {
       newLearnMore.videos = []
     }
 
-    if (newLearnMore.tags) {
+    if (newLearnMore.tags !== null && newLearnMore.tags !== undefined) {
       if (!Array.isArray(newLearnMore.tags)) {
         throw Error("The field tags must be array")
       }
@@ -3848,7 +3909,7 @@ module.exports = async function() {
       newLearnMore.tags = []
     }
 
-    if (newLearnMore.categories) {
+    if (newLearnMore.categories !== null && newLearnMore.categories !== undefined) {
       if (!Array.isArray(newLearnMore.categories)) {
         throw Error("The field categories must be array")
       }
@@ -3864,7 +3925,7 @@ module.exports = async function() {
       newLearnMore.categories = []
     }
 
-    if (newLearnMore.custom_fields) {
+    if (newLearnMore.custom_fields !== null && newLearnMore.custom_fields !== undefined) {
       if (!Array.isArray(newLearnMore.custom_fields)) {
         throw Error("The field custom_fields must be array")
       }
@@ -4015,19 +4076,23 @@ module.exports = async function() {
   //Update
   //PUT /api/learn_more/:learnMoreId
   async function updateLearnMore({learnMoreId, updatedLearnMore, user_id}) {
-    if (updatedLearnMore.learn_more_title) {
-      if (!(typeof updatedLearnMore.learn_more_title === 'string' || updatedLearnMore.learn_more_title instanceof String)) {
-        throw Error("Learn_more_title field must take a string")
-      }
+    if (!updatedLearnMore.learn_more_title) {
+      throw Error("Missing title")
     }
 
-    if (updatedLearnMore.description) {
-      if (!(typeof updatedLearnMore.description === 'string' || updatedLearnMore.description instanceof String)) {
-        throw Error("Description field must take a string")
-      }
+    if (!(typeof updatedLearnMore.learn_more_title === 'string' || updatedLearnMore.learn_more_title instanceof String)) {
+      throw Error("Learn_more_title field must take a string")
     }
 
-    if (updatedLearnMore.images) {
+    if (!updatedLearnMore.description) {
+      throw Error("Missing description")
+    }
+
+    if (!(typeof updatedLearnMore.description === 'string' || updatedLearnMore.description instanceof String)) {
+      throw Error("Description field must take a string")
+    }
+    
+    if (updatedLearnMore.images !== null && updatedLearnMore.images !== undefined) {
       if (!Array.isArray(updatedLearnMore.images)) {
         throw Error("The field images must be array")
       }
@@ -4041,7 +4106,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedLearnMore.audio_files) {
+    if (updatedLearnMore.audio_files !== null && updatedLearnMore.audio_files !== undefined) {
       if (!Array.isArray(updatedLearnMore.audio_files)) {
         throw Error("The field audio_files must be array")
       }
@@ -4055,7 +4120,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedLearnMore.videos) {
+    if (updatedLearnMore.videos !== null && updatedLearnMore.videos !== undefined) {
       if (!Array.isArray(updatedLearnMore.videos)) {
         throw Error("The field videos must be array")
       }
@@ -4069,7 +4134,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedLearnMore.tags) {
+    if (updatedLearnMore.tags !== null && updatedLearnMore.tags !== undefined) {
       if (!Array.isArray(updatedLearnMore.tags)) {
         throw Error("The field tags must be array")
       }
@@ -4083,7 +4148,7 @@ module.exports = async function() {
       }
     }
     
-    if (updatedLearnMore.categories) {
+    if (updatedLearnMore.categories !== null && updatedLearnMore.categories !== undefined) {
       if (!Array.isArray(updatedLearnMore.categories)) {
         throw Error("The field categories must be array")
       }
@@ -4097,7 +4162,7 @@ module.exports = async function() {
       }
     }
 
-    if (updatedLearnMore.custom_fields) {
+    if (updatedLearnMore.custom_fields !== null && updatedLearnMore.custom_fields !== undefined) {
       if (!Array.isArray(updatedLearnMore.custom_fields)) {
         throw Error("The field custom_fields must be array")
       }

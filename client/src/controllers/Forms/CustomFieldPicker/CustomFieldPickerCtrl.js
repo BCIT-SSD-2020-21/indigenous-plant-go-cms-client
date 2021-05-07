@@ -139,8 +139,7 @@ export default function CustomFieldPickerCtrl({ label, setter, selected }) {
     @return none
   */
   const addToSelection = () => {
-    if (!title || !content)
-      return console.log("Cannot create empty custom field");
+    if (!title || !content) return;
 
     const id = new ObjectID();
     const field = {
@@ -192,7 +191,7 @@ export default function CustomFieldPickerCtrl({ label, setter, selected }) {
     setModalState("edit");
     let selected = [...activeSelection];
     selected = selected.filter((item) => item._id === id)[0];
-    if (!selected) return console.log("error editing a custom field");
+    if (!selected) return;
     setId(selected._id);
     setTitle(selected.field_title);
     setContent(selected.content);
@@ -219,11 +218,10 @@ export default function CustomFieldPickerCtrl({ label, setter, selected }) {
   */
   const submitEdit = () => {
     let selected = [...activeSelection];
-    if (!_id) return console.log("error editing a custom field");
+    if (!_id) return;
 
     let selectedIndex = selected.map((item) => item._id).indexOf(`${_id}`);
-    if (selectedIndex === null || selectedIndex === undefined)
-      return console.log("error finding existing index");
+    if (selectedIndex === null || selectedIndex === undefined) return;
 
     const updatedField = {
       _id: _id,

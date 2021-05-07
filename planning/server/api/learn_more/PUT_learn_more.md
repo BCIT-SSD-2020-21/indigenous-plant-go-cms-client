@@ -31,6 +31,9 @@ We set it to overwrite existing data
 
 New revision is added on whenever update is made
 
+Learn_more_title, and description are required fields
+- Returns "Missing title" or "Missing description" otherwise
+
 Learn_more_title and description must be a string
 - Returns "Learn_more_title field must take a string" or "Description field must take a string" otherwise
 

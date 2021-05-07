@@ -132,6 +132,8 @@ export default function ContentPickerCtrl({
         value: option._id,
         // Nullify description, it looks like semantic UI drop downs look for this specific key, value which produces unwanted effects.
         description: null,
+        // Nullify isPublish
+        isPublish: null,
         text: option[`${dataLabel}_name`],
       };
     });
@@ -160,8 +162,7 @@ export default function ContentPickerCtrl({
       (option) => option._id === selectedOption
     )[0];
 
-    if (!foundOption || foundOption.length < 1)
-      return console.log("Error selecting option");
+    if (!foundOption || foundOption.length < 1) return;
 
     foundOption = {
       _id: foundOption._id,

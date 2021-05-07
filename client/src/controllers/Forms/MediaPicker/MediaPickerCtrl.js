@@ -62,6 +62,13 @@ export default function MediaPickerCtrl({
   */
   const [caption, setCaption] = useState("");
 
+  /*
+    @desc a variable that holds the youtube link for a video
+    @author Patrick Fortaleza
+    @type String
+  */
+  const [videoLink, setVideoLink] = useState("");
+
   // ===============================================================
   // USE EFFECTS
   // ===============================================================
@@ -193,8 +200,7 @@ export default function MediaPickerCtrl({
       (option) => option._id === selectedOption
     )[0];
 
-    if (!foundOption || foundOption.length < 1)
-      return console.log("Error selecting option");
+    if (!foundOption || foundOption.length < 1) return;
 
     foundOption = {
       _id: foundOption._id,
@@ -234,7 +240,13 @@ export default function MediaPickerCtrl({
   */
   const handleUpload = async () => {
     let result, formatted, currSelection;
-    if (!file || !caption) return console.log("Error uploading file");
+    if (dataLabel !== "video") {
+      if (!file || !caption) return;
+    }
+
+    if (dataLabel === "video") {
+      if (!videoLink || !caption) return;
+    }
 
     const formData = new FormData();
 
@@ -250,13 +262,15 @@ export default function MediaPickerCtrl({
         result = await createAudio(formData);
         break;
       case "video":
-        formData.append("video", file);
-        formData.append("caption", caption);
-        result = await createVideo(formData);
+        const video_ = {
+          caption: caption,
+          video_url: videoLink,
+        };
+        result = await createVideo(video_);
         break;
     }
 
-    if (result.error) return console.log("Error uploading file");
+    if (result.error) return;
     formatted = {
       _id: result._id,
       url: result[`${dataLabel}_url`],
@@ -287,6 +301,8 @@ export default function MediaPickerCtrl({
       caption={caption}
       setCaption={setCaption}
       handleUpload={handleUpload}
+      setVideoLink={setVideoLink}
+      videoLink={videoLink}
     />
   );
 }

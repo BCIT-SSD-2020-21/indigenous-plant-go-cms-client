@@ -21,6 +21,9 @@ The image file must have key name "image"
 
 If image is not a file type it will just ignore the image input
 
+Caption are required
+- Returns "Missing caption" if missing the field
+
 Caption must be a string
 - Returns "Caption field must take a string" otherwise
 

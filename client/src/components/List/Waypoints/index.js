@@ -43,6 +43,7 @@ export default function ListWaypoints({
   // BULK ACTION -- Methods
   handleBulkActionChange,
   handleBulkDelete,
+  applyBulkDelete,
   // MODAL -- Attributes
   modalActive,
   modalState,
@@ -81,6 +82,37 @@ export default function ListWaypoints({
             </button>
           </>
         );
+      case "bulk":
+        return (
+          <>
+            <p>
+              Deleting&nbsp;
+              <strong style={{ color: "var(--danger)" }}>
+                {selectedWaypoints.length}
+              </strong>
+              &nbsp;waypoints will remove{" "}
+              <strong
+                style={{
+                  color: "var(--danger)",
+                  fontWeight: "700",
+                  textTransform: "uppercase",
+                }}
+              >
+                all
+              </strong>{" "}
+              instances of the deleted waypoints. Do you wish to proceed?
+            </p>
+            <button onClick={() => applyBulkDelete()} className="field__button">
+              Yes, I know what I am doing.
+            </button>
+            <button
+              onClick={() => closeModal()}
+              className="field__button secondary"
+            >
+              No, cancel my request.
+            </button>
+          </>
+        );
     }
   };
   return (
@@ -90,10 +122,12 @@ export default function ListWaypoints({
         action="Add New"
         method={() => history.push("/waypoints/add")}
       />
-      <p>
-        <strong>Results</strong> ({waypointData.length}){" "}
+      <div style={{ marginBottom: 10, display: "flex" }}>
+        <p>
+          <strong>Results</strong> ({waypointData.length}){" "}
+        </p>
         {loading && <Loader active inline size="tiny" />}
-      </p>
+      </div>
       <div className="table__controls">
         <div style={{ display: "flex" }}>
           <div className="table__action">

@@ -22,9 +22,16 @@ export default function ProfileCtrl() {
   }, [directive]);
 
   const resetDirective = async () => {
-    await setTimeout(() => {
-      setDirective(null);
-    }, 4000);
+    if (directive) {
+      switch (directive.success) {
+        case true:
+          break;
+        case false:
+          await setTimeout(() => {
+            setDirective(null);
+          }, 4000);
+      }
+    }
   };
 
   const toggleChangePassword = () => {
@@ -81,6 +88,12 @@ export default function ProfileCtrl() {
         success: false,
       });
     }
+
+    setDirective({
+      header: "Update Successful",
+      message: "Successfully updated your profile",
+      success: true,
+    });
 
     queryUser();
     setLoading(false);

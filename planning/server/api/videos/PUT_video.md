@@ -15,6 +15,9 @@ Example request: PUT /api/videos/607e399e59c8feg7e2af65r7?key=<API_KEY>
 }
 ```
 
+Video_url and caption are both required
+- Returns "Missing video" or "Missing caption" if missing the field
+
 Video_url and caption must be a string
 - Returns "Video_url field must take a string" or "Caption field must take a string" otherwise
 

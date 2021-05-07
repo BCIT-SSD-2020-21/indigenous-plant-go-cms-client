@@ -12,6 +12,7 @@ import {
 } from "../../../network";
 
 export default function AddPlantsCtrl() {
+  let isMounted = true;
   const history = useHistory();
   // ===============================================================
   // FORM DATA
@@ -46,7 +47,7 @@ export default function AddPlantsCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    resetDirective();
+    if (isMounted) resetDirective();
   }, [directive]);
 
   const resetDirective = async () => {
@@ -56,14 +57,20 @@ export default function AddPlantsCtrl() {
   };
 
   useEffect(async () => {
-    setLoading(true);
-    await queryLocations();
-    await queryImages();
-    await queryAudios();
-    await queryVideos();
-    await queryTags();
-    await queryCategories();
-    setLoading(false);
+    isMounted = true;
+    if (isMounted) {
+      setLoading(true);
+      await queryLocations();
+      await queryImages();
+      await queryAudios();
+      await queryVideos();
+      await queryTags();
+      await queryCategories();
+      setLoading(false);
+    }
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   // ===============================================================
@@ -72,37 +79,43 @@ export default function AddPlantsCtrl() {
   // ===============================================================
   const queryLocations = async () => {
     const result = await getLocations();
-    if (result.error) return console.log("error getting locations");
+    if (result.error) return;
+    if (!isMounted) return;
     setELocations(result);
   };
 
   const queryImages = async () => {
     const result = await getImages();
-    if (result.error) return console.log("error getting images");
+    if (result.error) return;
+    if (!isMounted) return;
     setEImages(result);
   };
 
   const queryAudios = async () => {
     const result = await getAudios();
-    if (result.error) return console.log("error getting audios");
+    if (result.error) return;
+    if (!isMounted) return;
     setEAudios(result);
   };
 
   const queryVideos = async () => {
     const result = await getVideos();
-    if (result.error) return console.log("error getting videos");
+    if (result.error) return;
+    if (!isMounted) return;
     setEVideos(result);
   };
 
   const queryTags = async () => {
     const result = await getTags();
-    if (result.error) return console.log("error getting tags");
+    if (result.error) return;
+    if (!isMounted) return;
     setETags(result);
   };
 
   const queryCategories = async () => {
     const result = await getCategoryGroup("plant");
-    if (result.error) return console.log("error getting categories");
+    if (result.error) return;
+    if (!isMounted) return;
     setECategories(result);
   };
 
@@ -167,6 +180,7 @@ export default function AddPlantsCtrl() {
   // ===============================================================
 
   const handlePublish = async () => {
+    if (!isMounted) return;
     setLoading(true);
     const plant = {
       plant_name: plantName,
@@ -183,6 +197,7 @@ export default function AddPlantsCtrl() {
     };
 
     const result = await createPlant(plant);
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({

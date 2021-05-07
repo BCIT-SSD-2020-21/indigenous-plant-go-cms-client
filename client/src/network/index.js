@@ -189,6 +189,22 @@ export const bulkDeleteUsers = async (array) => {
   }
 };
 
+export const resetPassword = async (email) => {
+  try {
+    const response = await axios.post(
+      `${BASE_URL}/users/reset_password`,
+      email
+    );
+
+    return response.data;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
 /* =================================================
 LOCATIONS
 ==================================================*/
@@ -357,7 +373,12 @@ export const deleteImage = async (id) => {
       error: "No token found. Could not authenticate request.",
     };
   try {
-    const response = await axios.delete(`${BASE_URL}/images/${id}`);
+    const response = await axios.delete(`${BASE_URL}/images/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -470,7 +491,12 @@ export const deleteAudio = async (id) => {
       error: "No token found. Could not authenticate request.",
     };
   try {
-    const response = await axios.delete(`${BASE_URL}/audios/${id}`);
+    const response = await axios.delete(`${BASE_URL}/audios/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -537,7 +563,7 @@ export const bulkDeleteAudios = async (array) => {
 /* =================================================
 VIDEOS
 ==================================================*/
-export const createVideo = async (formData) => {
+export const createVideo = async (video) => {
   const token = getToken();
 
   if (!token)
@@ -546,9 +572,9 @@ export const createVideo = async (formData) => {
     };
 
   try {
-    const response = await axios.post(`${BASE_URL}/videos`, formData, {
+    const response = await axios.post(`${BASE_URL}/videos`, video, {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
@@ -583,7 +609,12 @@ export const deleteVideo = async (id) => {
       error: "No token found. Could not authenticate request.",
     };
   try {
-    const response = await axios.delete(`${BASE_URL}/videos/${id}`);
+    const response = await axios.delete(`${BASE_URL}/videos/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return response.data;
   } catch (error) {
@@ -1101,6 +1132,34 @@ export const updateWaypoint = async (id, waypoint) => {
     console.log(error.response);
     return {
       error: error.message,
+    };
+  }
+};
+
+export const bulkDeleteWaypoints = async (array) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const deleteRequests = array.map((waypointId) =>
+      axios.delete(`${BASE_URL}/waypoints/${waypointId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    );
+
+    const responses = await Promise.all(deleteRequests);
+    return responses;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
     };
   }
 };

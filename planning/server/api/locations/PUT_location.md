@@ -17,6 +17,9 @@ Example request: PUT /api/locations/607e399e59c8feg7e2af65r7?key=<API_KEY>
 }
 ```
 
+Location_name, longitude, and latitude is required
+- Returns "Require a tag name" or "Require a (longitude/latitude)" otherwise
+
 Location_name and description must be a string
 - Returns "Location_name field must take a string" or "Description field must take a string" otherwise
 
