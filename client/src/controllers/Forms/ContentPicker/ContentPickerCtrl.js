@@ -91,6 +91,8 @@ export default function ContentPickerCtrl({
       return {
         _id: option._id,
         title: option[`${dataLabel}_name`],
+        // Nullify isPublish to suppress react warning
+        isPublish: null,
       };
     });
 
