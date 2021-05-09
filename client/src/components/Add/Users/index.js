@@ -1,6 +1,8 @@
 import React from "react";
 import DashHeader from "../../DashHeader";
 import { Input, Dropdown, Icon } from "semantic-ui-react";
+import Message from "../../Message";
+import { Loader } from "semantic-ui-react";
 
 /*
   @desc UI component for the AddUsers dashboard. Displays form inputs.
@@ -13,6 +15,8 @@ export default function AddUsers({
   role,
   password,
   confirmPassword,
+  directive,
+  loading,
   // Methods
   changeUsername,
   changeEmail,
@@ -23,6 +27,15 @@ export default function AddUsers({
 }) {
   return (
     <div>
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <DashHeader
         title={"Create New User"}
         method={() => registerUser()}
@@ -126,6 +139,7 @@ export default function AddUsers({
             ]}
           />
         </fieldset>
+        {loading && <Loader active inline size="small" />}
       </form>
     </div>
   );

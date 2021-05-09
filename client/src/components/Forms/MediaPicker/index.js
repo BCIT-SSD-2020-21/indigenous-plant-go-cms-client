@@ -26,65 +26,119 @@ export default function MediaPicker({
   setCaption,
   handleUpload,
   dataLabel,
+  setVideoLink,
+  videoLink,
 }) {
   const renderModal = () => {
-    return (
-      <>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
-          <fieldset style={style.fieldset}>
-            <p style={style.label}>
-              Caption <span style={style.req}>*</span>
-            </p>
-            <Input
-              value={caption}
-              onChange={(e) => setCaption(e.target.value)}
-              style={style.input}
-              placeholder="Enter caption"
-            />
-          </fieldset>
-          <p style={style.label}>
-            Upload file: <span style={style.req}>*</span>
-          </p>
-          <fieldset style={style.fieldset}>
-            <div className="field__file">
-              <div className="file__meta">
-                <p>{file?.name}</p>
-              </div>
-              <input
-                filename={file}
-                onChange={(e) => {
-                  setFile(e.target.files[0]);
-                }}
-                style={{ display: "none" }}
-                id="file--upload"
-                type="file"
-                accept={
-                  dataLabel === "image"
-                    ? "image/*"
-                    : dataLabel === "audio_file"
-                    ? "audio/*"
-                    : "video/*"
-                }
-              />
-              <button className="field__button">
-                <label htmlFor="file--upload">Choose File</label>
+    switch (dataLabel) {
+      case "video":
+        return (
+          <>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+            >
+              <fieldset style={style.fieldset}>
+                <p style={style.label}>
+                  Caption <span style={style.req}>*</span>
+                </p>
+                <Input
+                  value={caption}
+                  onChange={(e) => setCaption(e.target.value)}
+                  style={style.input}
+                  placeholder="Enter caption"
+                />
+              </fieldset>
+
+              <fieldset style={style.fieldset}>
+                <p style={style.label}>
+                  Youtube URL <span style={style.req}>*</span>
+                </p>
+
+                <Input
+                  value={videoLink}
+                  onChange={(e) => setVideoLink(e.target.value)}
+                  style={style.input}
+                  placeholder="Enter Youtube URL"
+                />
+                <p style={{ fontSize: 12, marginTop: 7 }}>
+                  Valid Example: https://www.youtube.com/watch?v=lhqNduGgpC8
+                </p>
+              </fieldset>
+
+              <button className="field__button" onClick={() => handleUpload()}>
+                Upload {label[0].toUpperCase()}
+                {label.substring(1)}
               </button>
-            </div>
-            <button className="field__button" onClick={() => handleUpload()}>
-              Upload {label[0].toUpperCase()}
-              {label.substring(1)}
-            </button>
-            <button className="modal__cancel" onClick={() => closeModal()}>
-              Cancel
-            </button>
-          </fieldset>
-        </form>
-      </>
-    );
+              <button className="modal__cancel" onClick={() => closeModal()}>
+                Cancel
+              </button>
+            </form>
+          </>
+        );
+      default:
+        return (
+          <>
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+              }}
+            >
+              <fieldset style={style.fieldset}>
+                <p style={style.label}>
+                  Caption <span style={style.req}>*</span>
+                </p>
+                <Input
+                  value={caption}
+                  onChange={(e) => setCaption(e.target.value)}
+                  style={style.input}
+                  placeholder="Enter caption"
+                />
+              </fieldset>
+              <p style={style.label}>
+                Upload file: <span style={style.req}>*</span>
+              </p>
+              <fieldset style={style.fieldset}>
+                <div className="field__file">
+                  <div className="file__meta">
+                    <p>{file?.name}</p>
+                  </div>
+                  <input
+                    filename={file}
+                    onChange={(e) => {
+                      setFile(e.target.files[0]);
+                    }}
+                    style={{ display: "none" }}
+                    id="file--upload"
+                    type="file"
+                    accept={
+                      dataLabel === "image"
+                        ? "image/*"
+                        : dataLabel === "audio_file"
+                        ? "audio/*"
+                        : "video/*"
+                    }
+                  />
+                  <button className="field__button">
+                    <label htmlFor="file--upload">Choose File</label>
+                  </button>
+                </div>
+                <button
+                  className="field__button"
+                  onClick={() => handleUpload()}
+                >
+                  Upload {label[0].toUpperCase()}
+                  {label.substring(1)}
+                </button>
+                <button className="modal__cancel" onClick={() => closeModal()}>
+                  Cancel
+                </button>
+              </fieldset>
+            </form>
+          </>
+        );
+    }
   };
 
   return (

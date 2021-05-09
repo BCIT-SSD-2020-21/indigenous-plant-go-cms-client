@@ -19,6 +19,14 @@ Example request: POST /api/images?key=<API_KEY>
 
 The image file must have key name "image"
 
+Image and caption are both required
+- Returns "Missing image" or "Missing caption" if missing the field
+
+If image is not a file type it will just return "Missing image"
+
+Caption must be a string
+- Returns "Caption field must take a string" otherwise
+
 # SUCCESS RESPONSE BODY
 ```
 {

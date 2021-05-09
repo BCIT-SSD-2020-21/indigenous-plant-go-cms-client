@@ -2,15 +2,13 @@ import React, {useState, useEffect}from "react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import {
-  PlantIcon,
-  CompassIcon,
-  InfoIcon,
-  UsersIcon,
-  LocationIcon,
-  TourIcon,
+  CompassIcon2,
+  InfoIcon2,
+  UsersIcon2,
+  LocationIcon2,
+  TourIcon2,
+  PlantIcon2
 } from "../../icons";
-import 'bootstrap/dist/css/bootstrap.min.css';   
-import Carousel from 'react-bootstrap/Carousel' 
 
 export default function Home({action, method}) {
   const history = useHistory();
@@ -61,18 +59,19 @@ export default function Home({action, method}) {
   setInterval(clock,1000)
 
   return (
-    <main>
+    <main className="homewrapper">
       {/* HERO SECTION */}
       <div style={style.hero}>
-        <Carousel fade interval="8000" indicators={false} controls = {false}>
+      <img className="carousel" style={style.image} src="/assets/images/hero.jpg" alt="Indigenous Initiatives and Partnerships Logo Red"/>
+        {/* <Carousel fade interval="8000" indicators={false} controls = {false}>
           <Carousel.Item>
             <img className="carousel" style={style.image} src="/assets/images/hero.jpg" alt="Indigenous Initiatives and Partnerships Logo Red"/>
           </Carousel.Item>
-        </Carousel>
+        </Carousel> */}
       
         <span style={style.textDisplay}>
           <h1 style={style.time}> {time}</h1>
-          <h3 style={style.greeting}>Halq’emeylem,  {user}!</h3>
+          <h3 style={style.greeting}>Ey' Swayel,  {user}!</h3>
           <div style={style.date}> {displayDate}</div>
         </span>
       </div>
@@ -87,7 +86,7 @@ export default function Home({action, method}) {
           <div className="col" style={style.col} >
             <button className="link__button" style={style.button} onClick={() => history.push("/plants/add")}>
               <div className="quickicons"  style={style.icon}>
-                <PlantIcon />
+                <PlantIcon2 />
               </div>
               <div>
                 <label style={style.addnew}>Add New </label>
@@ -95,7 +94,7 @@ export default function Home({action, method}) {
               </div>
             </button>
             <button className="link__button"  style={style.button} onClick={() => history.push("/users/add")}>
-              <div style={style.icon}><UsersIcon /></div>
+              <div style={style.icon}><UsersIcon2 /></div>
               <div>
                 <label style={style.addnew}>Add New </label>
                 <p>User</p>
@@ -105,14 +104,14 @@ export default function Home({action, method}) {
 
           <div className="col" style={style.col} >
             <button className="link__button" style={style.button} onClick={() => history.push("/waypoints/add")}>
-              <div style={style.icon}><CompassIcon /></div>
+              <div style={style.icon}><CompassIcon2 /></div>
               <div>
                 <label style={style.addnew}>Add New </label>
                 <p>Waypoint</p>
               </div>
             </button>
             <button className="link__button" style={style.button} onClick={() => history.push("/locations/add")}>
-              <div style={style.icon}><LocationIcon /></div>
+              <div style={style.icon}><LocationIcon2 /></div>
               <div>
                 <label style={style.addnew}>Add New </label>
                 <p>Location</p>
@@ -121,14 +120,14 @@ export default function Home({action, method}) {
           </div>
           <div className="col" style={style.col} >
             <button className="link__button"  style={style.button}  onClick={() => history.push("/tours/add")}>
-            <div style={style.icon}><TourIcon /></div>
+            <div style={style.icon}><TourIcon2 /></div>
               <div>
                 <label style={style.addnew} >Add New </label>
                 <p>Tour</p>
               </div>
             </button>
             <button className="link__button"  style={style.button} onClick={() => history.push("/learnmore/add")}>
-              <div style={style.icon}><InfoIcon /></div>
+              <div style={style.icon}><InfoIcon2/></div>
               <div>
                 <label style={style.addnew}>Add New </label>
                 <p>Learn More</p>
@@ -143,8 +142,6 @@ export default function Home({action, method}) {
 const style = {
   hero : {
     position: "relative",
-    // border : "1px solid",
-    // borderColor : "black",
     minHeight : "500px",
     textAlign : "center",
    
@@ -154,10 +151,17 @@ const style = {
     maxHeight: "600px",
     // objectFit: "cover"
   },
+  quicklinks :{
+    paddingLeft : "20px",
+  },
+  subhead :{
+    paddingTop: "20px",
+    paddingBottom: "10px"
+  },
   textDisplay : {
     position : "absolute",
     top : "30%",
-    left : "47%",
+    left : "45%",
     color : "#d9d9d9",
     zIndex: "1"
   },
@@ -174,16 +178,14 @@ const style = {
   date :{
     fontSize : "145%"
   },
-  subhead :{
-    paddingTop: "10px",
-    paddingLeft: "20px",
-  },
+  
   grid :{
     display: "flex"
   },
   col :{
     display: "block",
-    padding: "20px",
+    paddingLeft: "0",
+    paddingRight : "20px",
     width: "100%"
   },
   button :{

@@ -1,6 +1,8 @@
 import React from "react";
 import DashHeader from "../DashHeader";
 import { Input, Dropdown, Icon } from "semantic-ui-react";
+import Message from "../Message";
+import { Loader } from "semantic-ui-react";
 
 /*
   @desc UI component that displays a profile screen.
@@ -26,9 +28,20 @@ export default function Profile({
   changePassword,
   // Apply Update
   applyUpdate,
+  loading,
+  directive,
 }) {
   return (
     <div>
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <DashHeader title={"My Profile"} />
       <p style={{ maxWidth: 450 }}>
         To update your profile, edit the fields below and click{" "}
@@ -180,6 +193,7 @@ export default function Profile({
           </p>
         )}
       </form>
+      {loading && <Loader active inline size="small" />}
     </div>
   );
 }
