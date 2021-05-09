@@ -1,204 +1,260 @@
-import React, {useState, useEffect}from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import {
   CompassIcon2,
-  InfoIcon2,
   UsersIcon2,
   LocationIcon2,
-  TourIcon2,
-  PlantIcon2
+  PlantIcon2,
 } from "../../icons";
 
-export default function Home({action, method}) {
+export default function Home({ action, method }) {
+  let isMounted = true;
   const history = useHistory();
   const authContext = useAuth();
-  const {userData} = authContext;
-  
+  const { userData } = authContext;
+
   //Get Signed in User
-  const [user, setUser] = useState()
+  const [user, setUser] = useState();
   useEffect(() => {
-    setUser(userData.user.user_name);
+    isMounted = true;
+    if (isMounted) setUser(userData.user.user_name);
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
- 
   //Get Date
-  const dateToday = new Date()
-  const options = {  year: 'numeric', month: 'short', day: 'numeric' };
-  const displayDate = dateToday.toLocaleDateString("en-US", options)
- 
+  const dateToday = new Date();
+  const options = { year: "numeric", month: "short", day: "numeric" };
+  const displayDate = dateToday.toLocaleDateString("en-US", options);
+
   //Get Clock
-  const [time, setTime]=useState()
-  const clock = ()=>{
+  const [time, setTime] = useState();
+  const clock = () => {
     var date = new Date();
     var minute = date.getMinutes();
-    var hour = date.getHours() 
+    var hour = date.getHours();
     var formathour;
-    if(hour > 12){
-      formathour = hour - 12
+    if (hour > 12) {
+      formathour = hour - 12;
     }
-    if(hour === 0){
-     formathour = 12
+    if (hour === 0) {
+      formathour = 12;
     }
-    
+
     var amOrPm;
-    if(hour >= 12){
-      amOrPm = "PM"
+    if (hour >= 12) {
+      amOrPm = "PM";
     } else {
-      amOrPm = "AM"
+      amOrPm = "AM";
     }
-  
-    if(hour> 12){
-      var time = ("0" + formathour).substr(-2) + ":" + ("0" + minute).substr(-2) +  ` ${amOrPm}`
+
+    if (hour > 12) {
+      var time = {
+        hour: `${("0" + formathour).substr(-2)}`,
+        minute: `${("0" + minute).substr(-2)}`,
+        twelveHour: `${amOrPm}`,
+      };
     } else {
-      time = ("0" + hour).substr(-2) + ":" + ("0" + minute).substr(-2) +  ` ${amOrPm}`
+      var time = {
+        hour: `${("0" + hour).substr(-2)}`,
+        minute: `${("0" + minute).substr(-2)}`,
+        twelveHour: `${amOrPm}`,
+      };
     }
-    
-    setTime(time)
-  }
-  setInterval(clock,1000)
+
+    if (isMounted) setTime(time);
+  };
+  if (isMounted) setInterval(clock, 1000);
 
   return (
     <main className="homewrapper">
       {/* HERO SECTION */}
       <div style={style.hero}>
-      <img className="carousel" style={style.image} src="/assets/images/hero.jpg" alt="Indigenous Initiatives and Partnerships Logo Red"/>
-        {/* <Carousel fade interval="8000" indicators={false} controls = {false}>
-          <Carousel.Item>
-            <img className="carousel" style={style.image} src="/assets/images/hero.jpg" alt="Indigenous Initiatives and Partnerships Logo Red"/>
-          </Carousel.Item>
-        </Carousel> */}
-      
+        <img
+          className="carousel"
+          style={style.image}
+          src="/assets/images/hero.jpg"
+          alt="Indigenous Initiatives and Partnerships Logo Red"
+        />
+
         <span style={style.textDisplay}>
-          <h1 style={style.time}> {time}</h1>
-          <h3 style={style.greeting}>Ey' Swayel,  {user}!</h3>
+          <h1 style={style.time}>
+            {time &&
+            typeof time === "object" &&
+            time !== null &&
+            Object.keys(time).length > 1
+              ? `${time.hour}`
+              : `00`}
+            <span className="time__colon">:</span>
+            {time &&
+            typeof time === "object" &&
+            time !== null &&
+            Object.keys(time).length > 1
+              ? `${time.minute} ${time.twelveHour}`
+              : `00 PM`}
+          </h1>
+          <h3 style={style.greeting}>Ey' Swayel, {user}!</h3>
           <div style={style.date}> {displayDate}</div>
         </span>
       </div>
 
       {/* QUICKLINK SECTION */}
-      <div style={style.quicklinks}>
+      <div className="quick__links" style={style.quicklinks}>
         <div className="subhead" style={style.subhead}>
-          <h3>Quick Links</h3>
+          <h3 style={{ fontSize: 21 }}>Quick Links</h3>
         </div>
-        
-        <div className="grid" style={style.grid}>
-          <div className="col" style={style.col} >
-            <button className="link__button" style={style.button} onClick={() => history.push("/plants/add")}>
-              <div className="quickicons"  style={style.icon}>
-                <PlantIcon2 />
-              </div>
-              <div>
-                <label style={style.addnew}>Add New </label>
-                <p>Plant</p>
-              </div>
-            </button>
-            <button className="link__button"  style={style.button} onClick={() => history.push("/users/add")}>
-              <div style={style.icon}><UsersIcon2 /></div>
-              <div>
-                <label style={style.addnew}>Add New </label>
-                <p>User</p>
-              </div>
-            </button>
-          </div>
 
-          <div className="col" style={style.col} >
-            <button className="link__button" style={style.button} onClick={() => history.push("/waypoints/add")}>
-              <div style={style.icon}><CompassIcon2 /></div>
-              <div>
-                <label style={style.addnew}>Add New </label>
-                <p>Waypoint</p>
-              </div>
-            </button>
-            <button className="link__button" style={style.button} onClick={() => history.push("/locations/add")}>
-              <div style={style.icon}><LocationIcon2 /></div>
-              <div>
-                <label style={style.addnew}>Add New </label>
-                <p>Location</p>
-              </div>
-            </button>
-          </div>
-          <div className="col" style={style.col} >
-            <button className="link__button"  style={style.button}  onClick={() => history.push("/tours/add")}>
-            <div style={style.icon}><TourIcon2 /></div>
-              <div>
-                <label style={style.addnew} >Add New </label>
-                <p>Tour</p>
-              </div>
-            </button>
-            <button className="link__button"  style={style.button} onClick={() => history.push("/learnmore/add")}>
-              <div style={style.icon}><InfoIcon2/></div>
-              <div>
-                <label style={style.addnew}>Add New </label>
-                <p>Learn More</p>
-              </div>
-            </button>
-          </div>
+        <div className="quick__grid" style={style.grid}>
+          <button
+            className="link__button"
+            style={style.button}
+            onClick={() => history.push("/plants/add")}
+          >
+            <div className="quickicons" style={style.icon}>
+              <PlantIcon2 />
+            </div>
+            <div>
+              <label style={style.addnew}>Add New </label>
+              <p style={style.resource}>Plant</p>
+            </div>
+
+            <div className="icon__accent">
+              <PlantIcon2 />
+            </div>
+          </button>
+          <button
+            className="link__button"
+            style={style.button}
+            onClick={() => history.push("/users/add")}
+          >
+            <div style={style.icon}>
+              <UsersIcon2 />
+            </div>
+            <div>
+              <label style={style.addnew}>Add New </label>
+              <p style={style.resource}>User</p>
+            </div>
+
+            <div className="icon__accent">
+              <UsersIcon2 />
+            </div>
+          </button>
+
+          <button
+            className="link__button"
+            style={style.button}
+            onClick={() => history.push("/waypoints/add")}
+          >
+            <div style={style.icon}>
+              <CompassIcon2 />
+            </div>
+            <div>
+              <label style={style.addnew}>Add New </label>
+              <p style={style.resource}>Waypoint</p>
+            </div>
+
+            <div className="icon__accent">
+              <CompassIcon2 />
+            </div>
+          </button>
+          <button
+            className="link__button"
+            style={style.button}
+            onClick={() => history.push("/locations")}
+          >
+            <div style={style.icon}>
+              <LocationIcon2 />
+            </div>
+            <div>
+              <label style={style.addnew}>Add New </label>
+              <p style={style.resource}>Location</p>
+            </div>
+
+            <div className="icon__accent">
+              <LocationIcon2 />
+            </div>
+          </button>
         </div>
       </div>
-    </main>);
+    </main>
+  );
 }
 
 const style = {
-  hero : {
+  hero: {
     position: "relative",
-    minHeight : "500px",
-    textAlign : "center",
-   
+    height: "100%",
+    textAlign: "center",
+    overflow: "hidden",
+    maxWidth: "1400px",
   },
   image: {
     width: "100%",
-    maxHeight: "600px",
-    // objectFit: "cover"
+    maxHeight: "550px",
+    opacity: 0.75,
+    verticalAlign: "bottom",
   },
-  quicklinks :{
-    paddingLeft : "20px",
+  quicklinks: {
+    paddingLeft: "20px",
   },
-  subhead :{
-    paddingTop: "20px",
-    paddingBottom: "10px"
+  subhead: {
+    padding: "10px 0",
   },
-  textDisplay : {
-    position : "absolute",
-    top : "30%",
-    left : "45%",
-    color : "#d9d9d9",
-    zIndex: "1"
+  textDisplay: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    color: "white",
+    zIndex: "1",
+    textShadow: "1px 1px 8px rgba(0, 0, 0, 0.5)",
   },
-  greeting:{
-    textTransform : "capitalize",
-    fontSize : "175%",
-    marginTop :"10px",
-    marginBottom :"5px"
+  greeting: {
+    textTransform: "capitalize",
+    fontSize: "175%",
+    marginTop: "10px",
+    marginBottom: "5px",
+    fontWeight: "normal",
   },
-  time :{
+  resource: {
+    fontSize: 21,
+    fontWeight: "normal",
+    margin: 0,
+    marginLeft: 1,
+    marginTop: 3,
+  },
+  time: {
     marginBottom: "0",
-    fontSize : "350%"
+    fontSize: "40px",
   },
-  date :{
-    fontSize : "145%"
+  date: {
+    fontSize: "17px",
   },
-  
-  grid :{
-    display: "flex"
+  grid: {
+    display: "flex",
   },
-  col :{
+  col: {
     display: "block",
-    paddingLeft: "0",
-    paddingRight : "20px",
-    width: "100%"
+    marginRight: "10px",
+    width: "100%",
   },
-  button :{
+  button: {
     display: "flex",
     textAlign: "left",
   },
-  icon :{
-    paddingRight : "10px",
+  icon: {
+    marginRight: "20px",
     color: "white",
   },
-  addnew :{
-    fontWeight: "bold"
-  }
- 
-}
-
+  addnew: {
+    textTransform: "uppercase",
+    fontSize: 12,
+    letterSpacing: "0.09em",
+    background: "var(--highlightsecondary)",
+    padding: "3px 7px",
+    borderRadius: "2px",
+  },
+};
