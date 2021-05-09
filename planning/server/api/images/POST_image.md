@@ -25,7 +25,7 @@ Image and caption are both required
 If image is not a file type it will just return "Missing image"
 
 Caption must be a string
-- Returns "Caption field must take a string" otherwise
+- Returns "Invalid input for caption" otherwise
 
 # SUCCESS RESPONSE BODY
 ```

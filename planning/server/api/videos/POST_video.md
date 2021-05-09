@@ -19,10 +19,10 @@ Video_url and caption are both required
 - Returns "Missing video" or "Missing caption" if missing the field
 
 Video_url and caption must be a string
-- Returns "Video_url field must take a string" or "Caption field must take a string" otherwise
+- Returns "Invalid input for (video_url/caption)" otherwise
 
 Video_url takes a youtube video
-- Returns "Video url not formatted correctly" if not a valid youtube link
+- Returns "Incorrectly formatted video url" if not a valid youtube link
 
 # SUCCESS RESPONSE BODY
 ```

@@ -52,6 +52,7 @@ export default function AddPlantsCtrl() {
 
   const resetDirective = async () => {
     await setTimeout(() => {
+      if (!isMounted) return;
       setDirective(null);
     }, 4000);
   };

@@ -18,7 +18,7 @@ Tag_name is required
 - Returns "Require a tag name" otherwise
 
 Tag_name must be a string
-- Returns "Tag_name field must take a string" otherwise
+- Returns "Invalid input for tag_name" otherwise
 
 # SUCCESS RESPONSE BODY
 ```

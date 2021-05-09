@@ -129,11 +129,14 @@ export default function MediaPickerCtrl({
   const formatSelection = () => {
     if (!selected) return;
     const formatted = selected.map((option) => {
-      return {
+      const obj = {
         _id: option._id,
         url: option[`${dataLabel}_url`],
         title: option.caption,
+        image: null,
       };
+
+      return obj;
     });
 
     setActiveSelection(formatted);
@@ -158,6 +161,7 @@ export default function MediaPickerCtrl({
         key: option._id,
         value: option._id,
         text: option.caption,
+        image: null,
       };
     });
 

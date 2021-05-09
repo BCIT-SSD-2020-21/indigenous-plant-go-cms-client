@@ -16,7 +16,7 @@ export default function TextInput({ label, value, setValue }) {
       <fieldset style={style.fieldset}>
         <Input
           onChange={(e) => setValue(e.target.value)}
-          value={value}
+          value={value || ""}
           style={style.input}
           placeholder={`${label[0].toUpperCase()}${label.substring(1)}:`}
         />
