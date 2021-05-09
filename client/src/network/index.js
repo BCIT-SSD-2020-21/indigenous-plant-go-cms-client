@@ -877,6 +877,34 @@ export const deleteCategory = async (id) => {
   }
 };
 
+export const bulkDeleteCategory = async (array) => {
+  const token = getToken();
+
+  if (!token)
+    return {
+      error: "No token found. Could not authenticate request.",
+    };
+
+  try {
+    const deleteRequests = array.map((categoryId) =>
+      axios.delete(`${BASE_URL}/categories/${categoryId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+    );
+
+    const responses = await Promise.all(deleteRequests);
+    return responses;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      error: error.response,
+    };
+  }
+};
+
 export const updateCategory = async (id, category) => {
   const token = getToken();
 

@@ -5,6 +5,7 @@ import {
   createCategory,
   deleteCategory,
   updateCategory,
+  bulkDeleteCategory,
 } from "../../../network";
 
 export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
@@ -24,6 +25,7 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   const [modalActive, setModalActive] = useState(false);
   const [modalState, setModalState] = useState("delete");
   const [loading, setLoading] = useState(false);
+  const [bulkAction, setBulkAction] = useState("");
   // Error Messaging
   const [directive, setDirective] = useState(null);
 
@@ -276,6 +278,43 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
     queryCategories();
   };
 
+  const handleBulkActionChange = (_, data) => {
+    const value = data.value;
+    setBulkAction(value);
+  };
+
+  const handleBulkDelete = async () => {
+    setModalState("bulk");
+    if (selectedCategories.length < 1)
+      return setDirective({
+        header: "Error applying bulk actions",
+        message: "No items selected",
+        success: false,
+      });
+    if (bulkAction === "default")
+      return setDirective({
+        header: "Error applying bulk actions",
+        message: "Invalid action",
+        success: false,
+      });
+    setModalActive(true);
+  };
+
+  const applyBulkDelete = async () => {
+    if (!isMounted) return;
+    const result = await bulkDeleteCategory(selectedCategories);
+    if (!isMounted) return;
+    if (result.error)
+      return setDirective({
+        header: "Error applying bulk action",
+        message: result.error.data.error,
+        success: false,
+      });
+    closeModal();
+    setSelectedCategories([]);
+    queryCategories();
+  };
+
   return (
     <ListCategories
       dataLabel={dataLabel}
@@ -310,6 +349,9 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
       applyEdit={applyEdit}
       loading={loading}
       directive={directive}
+      handleBulkActionChange={handleBulkActionChange}
+      handleBulkDelete={handleBulkDelete}
+      applyBulkDelete={applyBulkDelete}
     />
   );
 }

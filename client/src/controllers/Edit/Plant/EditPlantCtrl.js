@@ -229,6 +229,7 @@ export default function EditPlantCtrl() {
     };
 
     const result = await updatePlant(plantId, plant);
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({

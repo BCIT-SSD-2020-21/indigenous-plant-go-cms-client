@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import TextInput from "../../../components/Forms/TextInput";
 
 export default function TextInputCtrl({ label, setter, eValue }) {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(" ");
 
   useEffect(() => {
     setter(value);
