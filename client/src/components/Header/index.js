@@ -8,7 +8,13 @@ export default function Header({ handleSignout, userData, navigateToProfile }) {
   return (
     <header style={style.header}>
       <div className="wrap">
-        <section style={{ display: "flex", justifyContent: "space-between" }}>
+        <section
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            maxWidth: "1550px",
+          }}
+        >
           <div style={{ display: "flex" }}>
             <div
               style={{

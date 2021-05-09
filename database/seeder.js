@@ -1,3 +1,4 @@
+
 const {MongoClient, ObjectID, Timestamp} = require('mongodb')
 require('dotenv').config()
 
@@ -42,6 +43,26 @@ const seed = async () => {
       "password" : "$2a$12$exIUEGDgWU.l2mJU78JIBOJvwA1j/OHmp5OidfVVfrEiFBotD91.C",
       "role" : "Manager"
     
+    },
+    {
+      "email" : "patrick@test.ca",
+      "user_name" : "patrick",
+      "password" : "$2a$12$exIUEGDgWU.l2mJU78JIBOJvwA1j/OHmp5OidfVVfrEiFBotD91.C",
+      "role" : "Admin"
+    },
+    {
+      "email" : "wayne@test.ca",
+      "user_name" : "wayne",
+      "password" : "$2a$12$exIUEGDgWU.l2mJU78JIBOJvwA1j/OHmp5OidfVVfrEiFBotD91.C",
+      "role" : "Admin"
+    
+    },   
+    {
+      "email" : "aj@test.ca",
+      "user_name" : "aj",
+      "password" : "$2a$12$exIUEGDgWU.l2mJU78JIBOJvwA1j/OHmp5OidfVVfrEiFBotD91.C",
+      "role" : "Admin"
+    
     }
   ])
 
@@ -70,16 +91,24 @@ const seed = async () => {
   ])
 
   // 4. Insert Audios
-  await audios.insertMany([
-    {
-      "audio_file_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/sound-1.mp3",
-      "caption": "lavender"
-    },
-    {
-      "audio_file_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/sound-2.mp3",
-      "caption": "kinnikinnick"
-    }
-  ])
+  await audios.insertMany(
+    
+    [
+      {
+        "audio_file_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/sound-1.mp3",
+        "caption": "lavender"
+      },
+      {
+        "audio_file_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/sound-2.mp3",
+        "caption": "kinnikinnick"
+      },
+      {
+        "audio_file_url": "https://indigenous-plant.s3-us-west-2.amazonaws.com/ambience.mp3",
+        "caption": "ambience"
+      },
+
+    ]
+  )
 
   // 5. Insert Locations
   await locations.insertMany([
@@ -221,6 +250,7 @@ const seed = async () => {
       "audio_files" : [audio1._id],
       "locations" : [location1._id],
       "categories" : [plant_category1._id],
+      "isPublish" : true,
       "tags" : [tag1._id],
       //"custom_fields" : [custom_field1._id],
       "revision_history" : [
@@ -246,6 +276,7 @@ const seed = async () => {
       "categories" : [plant_category2._id],
       "tags" : [tag2._id],
       "revision_history" : [revision_history2._id],
+      "isPublish" : false,
       "custom_fields" : [
         { 
           "_id" : new ObjectID(),
@@ -266,22 +297,47 @@ const seed = async () => {
   
   // 12. Insert Waypoint
   const category3 = await categories.findOne({"category_name": "SW01"})
+  const plant1 = await plants.findOne({"plant_name": "lavender"})
+  const plant2 = await plants.findOne({ "plant_name": "kinnikinnick"})
+  const audio3 = await audios.findOne({"caption": "ambience"})
   await waypoints.insertMany([
     {
       "waypoint_name": "Location A",
       "description": "Infront of SW1",
-      "location": location1._id,
+      "locations": [location1._id],
       "images": [image1._id],
-     "audio_files": [audio1._id],
+      "audio_files": [audio3._id],
       "videos": [video1._id],
       "tags": [tag1._id],
       "categories": [category3._id],
+      "plants":[plant1._id, plant2._id],
       "revision_history": [revision_history1._id],
+      "isPublish" : true,
       "custom_fields" : [
         { 
           "_id" : new ObjectID(),
           "field_title": "Foot Traffic",
           "content": "Light"
+        }
+      ]
+    },
+    {
+      "waypoint_name": "Location B",
+      "description": "Infront of SW2",
+      "locations": [location2._id],
+      "images": [image2._id],
+     "audio_files": [audio2._id],
+      "videos": [video2._id],
+      "tags": [tag2._id],
+      "categories": [category2._id],
+      "plants":[plant2._id],
+      "revision_history": [revision_history2._id],
+      "isPublish" : false,
+      "custom_fields" : [
+        { 
+          "_id" : new ObjectID(),
+          "field_title": "Foot Traffic",
+          "content": "Heavy"
         }
       ]
     }
@@ -312,7 +368,7 @@ const seed = async () => {
   // 14. Insert Tours
 
   const waypoint1 = await waypoints.findOne({"waypoint_name": "Location A"})
-  const plant1 = await plants.findOne({ "plant_name": "lavender"})
+ 
  
   await tours.insertMany([
     {
@@ -324,7 +380,7 @@ const seed = async () => {
       "tags" : [tag1._id, tag2._id],
       "categories" : [category1._id, category2._id],
       "waypoints" : [waypoint1._id],
-      "plants" : [plant1._id],
+      "plants" : [plant1._id, plant2._id],
       "revision_history" : [revision_history1._id],
       "custom_fields" : [
         { 
