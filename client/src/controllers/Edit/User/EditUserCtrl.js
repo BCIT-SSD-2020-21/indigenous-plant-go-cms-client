@@ -24,6 +24,7 @@ export default function EditUserCtrl() {
 
   useEffect(() => {
     if (isMounted) resetDirective();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [directive]);
 
   const resetDirective = async () => {
@@ -38,12 +39,14 @@ export default function EditUserCtrl() {
     @author Patrick Fortaleza
   */
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isMounted = true;
     queryUser();
 
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /* 

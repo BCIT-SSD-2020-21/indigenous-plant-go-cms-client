@@ -23,12 +23,14 @@ export default function ListUsersCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isMounted = true;
     queryUsers();
 
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -36,15 +38,18 @@ export default function ListUsersCtrl() {
       formatRoles();
       setUserDatas_(userDatas);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userDatas]);
 
   useEffect(() => {
     if (!searchQuery) applyFilter();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   useEffect(() => {
     setPage(1);
     formatPages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userDatas_]);
 
   const formatPages = () => {
@@ -149,7 +154,7 @@ export default function ListUsersCtrl() {
     const selectedIds = selectedUsers;
 
     const allSelected =
-      resourceIds.length == selectedIds.length &&
+      resourceIds.length === selectedIds.length &&
       resourceIds.every(function (element, index) {
         return element === selectedIds[index];
       });

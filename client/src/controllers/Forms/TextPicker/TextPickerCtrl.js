@@ -80,6 +80,7 @@ export default function TextPickerCtrl({
   useEffect(() => {
     setOptions(data);
     formatOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   /*
@@ -88,6 +89,7 @@ export default function TextPickerCtrl({
   */
   useEffect(() => {
     formatSelection();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
 
   /*
@@ -96,6 +98,7 @@ export default function TextPickerCtrl({
   */
   useEffect(() => {
     setter(activeSelection);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSelection]);
 
   /*
@@ -104,6 +107,7 @@ export default function TextPickerCtrl({
   */
   useEffect(() => {
     formatOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options, activeSelection]);
 
   // ===============================================================
@@ -273,11 +277,13 @@ export default function TextPickerCtrl({
           return;
         const location = {
           location_name: fields.location.name,
-          latitude: fields.location.latitude,
-          longitude: fields.location.longitude,
+          latitude: +fields.location.latitude,
+          longitude: +fields.location.longitude,
           description: fields.location.description,
         };
         result = await createLocation(location);
+        break;
+      default:
         break;
     }
     if (result.error) return;

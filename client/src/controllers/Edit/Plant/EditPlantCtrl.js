@@ -52,6 +52,7 @@ export default function EditPlantCtrl() {
 
   useEffect(() => {
     if (isMounted) resetDirective();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [directive]);
 
   const resetDirective = async () => {
@@ -61,24 +62,28 @@ export default function EditPlantCtrl() {
     }, 4000);
   };
 
-  useEffect(async () => {
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isMounted = true;
 
     if (isMounted) {
-      setLoading(true);
-      await queryPlant();
-      await queryLocations();
-      await queryImages();
-      await queryAudios();
-      await queryVideos();
-      await queryTags();
-      await queryCategories();
-      setLoading(false);
+      (async () => {
+        setLoading(true);
+        await queryPlant();
+        await queryLocations();
+        await queryImages();
+        await queryAudios();
+        await queryVideos();
+        await queryTags();
+        await queryCategories();
+        setLoading(false);
+      })();
     }
 
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ===============================================================
@@ -229,6 +234,7 @@ export default function EditPlantCtrl() {
     };
 
     const result = await updatePlant(plantId, plant);
+    if (!isMounted) return;
     setLoading(false);
     if (result.error)
       return setDirective({

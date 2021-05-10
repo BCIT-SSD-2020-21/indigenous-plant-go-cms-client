@@ -160,6 +160,8 @@ export default function TextPicker({
             </fieldset>
           </>
         );
+      default:
+        return <></>;
     }
   };
 

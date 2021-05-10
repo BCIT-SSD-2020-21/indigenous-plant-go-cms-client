@@ -5,12 +5,18 @@
   padding: 17px 0;
   display: flex;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
   transition: 0.2s ease-in-out;
 
   &.selected {
     background: #cefab2;
     border: 1px solid #90e858;
+  }
+
+  .table__col {
+    padding: 0 7px;
+    line-height: 1.5em;
+    font-size: 14px;
   }
 
   p {
@@ -43,12 +49,21 @@
     font-size: 12px;
   }
 
-  .author,
-  .categories,
-  .tags,
-  .updated {
+  .author {
     width: 17.5%;
     text-overflow: clip;
+  }
+
+  .categories {
+    width: 15%;
+  }
+
+  .tags {
+    width: 22.5%;
+  }
+
+  .updated {
+    width: 15%;
   }
 
   .thumbnail {
@@ -113,7 +128,7 @@
 }
 
 .table__controls {
-  max-width: 1200px;
+  max-width: 1400px;
   margin-bottom: 15px;
   display: flex;
   justify-content: space-between;

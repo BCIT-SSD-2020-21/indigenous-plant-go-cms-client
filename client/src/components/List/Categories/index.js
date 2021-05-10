@@ -34,6 +34,9 @@ export default function ListCategories({
   // BATCH SELECT -- Methods
   handleSelected,
   batchSelect,
+  handleBulkActionChange,
+  handleBulkDelete,
+  applyBulkDelete,
   // NEW CATEGORY -- Methods
   newCategory,
   submitNewCategory,
@@ -60,6 +63,18 @@ export default function ListCategories({
   loading,
   directive,
 }) {
+  const renderModal = () => {
+    switch (modalState) {
+      case "edit":
+        return editModal();
+      case "delete":
+        return deleteModal();
+      case "bulk":
+        return bulkDeleteModal();
+      default:
+        return <></>;
+    }
+  };
   const editModal = () => (
     <>
       <fieldset style={style.fieldset}>
@@ -95,6 +110,34 @@ export default function ListCategories({
         . Do you wish to proceed?
       </p>
       <button onClick={() => applyDelete()} className="field__button">
+        Yes, I know what I am doing.
+      </button>
+      <button onClick={() => closeModal()} className="field__button secondary">
+        No, cancel my request.
+      </button>
+    </>
+  );
+
+  const bulkDeleteModal = () => (
+    <>
+      <p>
+        Deleting&nbsp;
+        <strong style={{ color: "var(--danger)" }}>
+          {selectedCategories.length}
+        </strong>
+        &nbsp;categories will remove{" "}
+        <strong
+          style={{
+            color: "var(--danger)",
+            fontWeight: "700",
+            textTransform: "uppercase",
+          }}
+        >
+          all
+        </strong>{" "}
+        instances of the deleted categories. Do you wish to proceed?
+      </p>
+      <button onClick={() => applyBulkDelete()} className="field__button">
         Yes, I know what I am doing.
       </button>
       <button onClick={() => closeModal()} className="field__button secondary">
@@ -148,13 +191,14 @@ export default function ListCategories({
               <div className="table__action">
                 <Dropdown
                   placeholder={"Bulk Actions"}
+                  onChange={(e, data) => handleBulkActionChange(e, data)}
                   selection
                   options={[
                     { key: "default", value: "default", text: "Bulk Actions" },
                     { key: "delete", value: "delete", text: "Delete" },
                   ]}
                 />
-                <button>Apply</button>
+                <button onClick={() => handleBulkDelete()}>Apply</button>
               </div>
             </div>
 
@@ -228,7 +272,7 @@ export default function ListCategories({
             }`}
             closeModal={closeModal}
           >
-            {modalState === "delete" ? deleteModal() : editModal()}
+            {renderModal()}
           </Modal>
         </div>
       </div>

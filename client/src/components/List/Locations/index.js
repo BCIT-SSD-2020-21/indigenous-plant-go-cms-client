@@ -69,6 +69,8 @@ export default function ListLocations({
         return deleteModal();
       case "bulk":
         return bulkDeleteModal();
+      default:
+        return <></>;
     }
   };
 

@@ -57,6 +57,7 @@ export default function CustomFieldPickerCtrl({ label, setter, selected }) {
   */
   useEffect(() => {
     setter(activeSelection);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSelection]);
 
   /*
@@ -65,6 +66,7 @@ export default function CustomFieldPickerCtrl({ label, setter, selected }) {
   */
   useEffect(() => {
     formatSelection();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
 
   // ===============================================================

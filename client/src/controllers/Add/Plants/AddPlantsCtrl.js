@@ -48,29 +48,37 @@ export default function AddPlantsCtrl() {
 
   useEffect(() => {
     if (isMounted) resetDirective();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [directive]);
 
-  const resetDirective = async () => {
-    await setTimeout(() => {
-      setDirective(null);
-    }, 4000);
+  const resetDirective = () => {
+    (async () => {
+      await setTimeout(() => {
+        if (!isMounted) return;
+        setDirective(null);
+      }, 4000);
+    })();
   };
 
-  useEffect(async () => {
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isMounted = true;
     if (isMounted) {
-      setLoading(true);
-      await queryLocations();
-      await queryImages();
-      await queryAudios();
-      await queryVideos();
-      await queryTags();
-      await queryCategories();
-      setLoading(false);
+      (async () => {
+        setLoading(true);
+        await queryLocations();
+        await queryImages();
+        await queryAudios();
+        await queryVideos();
+        await queryTags();
+        await queryCategories();
+        setLoading(false);
+      })();
     }
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ===============================================================

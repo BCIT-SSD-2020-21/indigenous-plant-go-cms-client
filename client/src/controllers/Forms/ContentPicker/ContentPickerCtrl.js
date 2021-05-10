@@ -49,6 +49,7 @@ export default function ContentPickerCtrl({
   useEffect(() => {
     setOptions(data);
     formatOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   /*
@@ -57,6 +58,7 @@ export default function ContentPickerCtrl({
   */
   useEffect(() => {
     formatSelection();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
 
   /*
@@ -65,6 +67,7 @@ export default function ContentPickerCtrl({
   */
   useEffect(() => {
     setter(activeSelection);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSelection]);
 
   /*
@@ -73,6 +76,7 @@ export default function ContentPickerCtrl({
   */
   useEffect(() => {
     formatOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options, activeSelection]);
 
   // ===============================================================
@@ -88,10 +92,15 @@ export default function ContentPickerCtrl({
   const formatSelection = () => {
     if ((selected && selected.length < 1) || !selected) return;
     const formatted = selected.map((option) => {
-      return {
+      const obj = {
         _id: option._id,
         title: option[`${dataLabel}_name`],
+        // Nullify isPublish to suppress react warning
+        isPublish: null,
       };
+      if (obj.isPublish) delete obj.isPublish;
+
+      return obj;
     });
 
     setActiveSelection(formatted);
@@ -126,7 +135,7 @@ export default function ContentPickerCtrl({
     );
 
     const formatted = filtered.map((option) => {
-      return {
+      const obj = {
         ...option,
         key: option._id,
         value: option._id,
@@ -136,6 +145,10 @@ export default function ContentPickerCtrl({
         isPublish: null,
         text: option[`${dataLabel}_name`],
       };
+
+      if (obj.isPublish) delete obj.isPublish;
+
+      return obj;
     });
 
     setFormattedOptions(formatted);

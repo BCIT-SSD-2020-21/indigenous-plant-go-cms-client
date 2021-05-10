@@ -48,25 +48,30 @@ export default function ListMediaCtrl({ dataLabel, label }) {
   const [directive, setDirective] = useState(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isMounted = true;
     queryMedia();
 
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (isMounted) setMedias_(eMedias);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eMedias]);
 
   useEffect(() => {
     setPage(1);
     formatPages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [medias_]);
 
   useEffect(() => {
     resetDirective();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [directive]);
 
   const resetDirective = async () => {
@@ -129,6 +134,8 @@ export default function ListMediaCtrl({ dataLabel, label }) {
       case "video":
         result = await getVideos();
         break;
+      default:
+        break;
     }
     if (!isMounted) return;
     setLoading(false);
@@ -165,7 +172,7 @@ export default function ListMediaCtrl({ dataLabel, label }) {
     const selectedIds = selectedMedias;
 
     const allSelected =
-      resourceIds.length == selectedIds.length &&
+      resourceIds.length === selectedIds.length &&
       resourceIds.every(function (element, index) {
         return element === selectedIds[index];
       });
@@ -227,6 +234,8 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         };
         result = await createVideo(video_);
         break;
+      default:
+        break;
     }
     if (!isMounted) return;
     setLoading(false);
@@ -277,6 +286,8 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         break;
       case "video":
         result = await deleteVideo(id);
+        break;
+      default:
         break;
     }
     if (!isMounted) return;
@@ -377,6 +388,8 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         };
         result = await updateVideo(video_, id);
         break;
+      default:
+        break;
     }
     if (!isMounted) return;
     if (result.error)
@@ -426,6 +439,8 @@ export default function ListMediaCtrl({ dataLabel, label }) {
         break;
       case "video":
         result = await bulkDeleteVideos(selectedMedias);
+        break;
+      default:
         break;
     }
     if (!isMounted) return;

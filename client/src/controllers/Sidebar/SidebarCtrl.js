@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../../components/Sidebar";
 import { useAuth } from "../../context/AuthContext";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { sidebarLinks } from "./SidebarLinks";
 
 export default function SidebarCtrl() {
@@ -43,6 +43,7 @@ export default function SidebarCtrl() {
 
   useEffect(() => {
     evaluatePath();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location]);
 
   return (

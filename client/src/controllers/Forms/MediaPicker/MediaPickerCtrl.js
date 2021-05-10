@@ -79,6 +79,7 @@ export default function MediaPickerCtrl({
   useEffect(() => {
     setOptions(data);
     formatOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   /*
@@ -87,6 +88,7 @@ export default function MediaPickerCtrl({
   */
   useEffect(() => {
     formatSelection();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
 
   /*
@@ -95,6 +97,7 @@ export default function MediaPickerCtrl({
   */
   useEffect(() => {
     setter(activeSelection);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSelection]);
 
   /*
@@ -103,6 +106,7 @@ export default function MediaPickerCtrl({
   */
   useEffect(() => {
     formatOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options, activeSelection]);
 
   // ===============================================================
@@ -129,11 +133,14 @@ export default function MediaPickerCtrl({
   const formatSelection = () => {
     if (!selected) return;
     const formatted = selected.map((option) => {
-      return {
+      const obj = {
         _id: option._id,
         url: option[`${dataLabel}_url`],
         title: option.caption,
+        image: null,
       };
+
+      return obj;
     });
 
     setActiveSelection(formatted);
@@ -158,6 +165,7 @@ export default function MediaPickerCtrl({
         key: option._id,
         value: option._id,
         text: option.caption,
+        image: null,
       };
     });
 
@@ -267,6 +275,8 @@ export default function MediaPickerCtrl({
           video_url: videoLink,
         };
         result = await createVideo(video_);
+        break;
+      default:
         break;
     }
 

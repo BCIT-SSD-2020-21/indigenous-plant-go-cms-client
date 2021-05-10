@@ -19,6 +19,7 @@ export default function ProfileCtrl() {
 
   useEffect(() => {
     resetDirective();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [directive]);
 
   const resetDirective = async () => {
@@ -30,6 +31,9 @@ export default function ProfileCtrl() {
           await setTimeout(() => {
             setDirective(null);
           }, 4000);
+          break;
+        default:
+          break;
       }
     }
   };

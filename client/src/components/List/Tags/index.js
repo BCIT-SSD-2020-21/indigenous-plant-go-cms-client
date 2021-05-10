@@ -68,6 +68,8 @@ export default function ListTags({
         return deleteModal();
       case "bulk":
         return bulkDeleteModal();
+      default:
+        return <></>;
     }
   };
   const editModal = () => (
