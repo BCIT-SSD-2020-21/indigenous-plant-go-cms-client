@@ -13,6 +13,12 @@
     border: 1px solid #90e858;
   }
 
+  .table__col {
+    padding: 0 7px;
+    line-height: 1.5em;
+    font-size: 14px;
+  }
+
   p {
     margin: 0;
   }
@@ -43,12 +49,21 @@
     font-size: 12px;
   }
 
-  .author,
-  .categories,
-  .tags,
-  .updated {
+  .author {
     width: 17.5%;
     text-overflow: clip;
+  }
+
+  .categories {
+    width: 15%;
+  }
+
+  .tags {
+    width: 22.5%;
+  }
+
+  .updated {
+    width: 15%;
   }
 
   .thumbnail {

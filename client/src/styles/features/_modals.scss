@@ -29,6 +29,10 @@
   width: 450px;
   background: var(--lightprimary);
   box-shadow: var(--deepshadow);
+
+  p {
+    margin-bottom: 10px;
+  }
 }
 
 .modal__head {
