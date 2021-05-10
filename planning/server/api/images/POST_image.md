@@ -27,6 +27,9 @@ If image is not a file type it will just return "Missing image"
 Caption must be a string
 - Returns "Invalid input for caption" otherwise
 
+Caption must be unique
+- Returns "Image caption is already taken" otherwise
+
 # SUCCESS RESPONSE BODY
 ```
 {

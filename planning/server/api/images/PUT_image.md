@@ -27,6 +27,9 @@ Caption are required
 Caption must be a string
 - Returns "Invalid input for caption" otherwise
 
+Caption must be unique
+- Returns "Image caption is already taken" otherwise
+
 If you don't provide a field that field will just remain as the old value
 
 # SUCCESS RESPONSE BODY

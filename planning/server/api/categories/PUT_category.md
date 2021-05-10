@@ -23,6 +23,9 @@ Category_name and resource must be a string
 Resource must be either plant, waypoint, tour, or learn_more
 - Returns "Invalid resource, resource must be plant, waypoint, tour, or learn_more" otherwise
 
+Category_name must be unique within its resource group
+- Returns "Category already exist in this resource group" otherwise
+
 # SUCCESS RESPONSE BODY
 ```
 "Category updated"
