@@ -20,6 +20,9 @@ Tag_name is required
 Tag_name must be a string
 - Returns "Invalid input for tag_name" otherwise
 
+Tag_name must be unique
+- Returns "Tag already exist" otherwise
+
 # SUCCESS RESPONSE BODY
 ```
 {

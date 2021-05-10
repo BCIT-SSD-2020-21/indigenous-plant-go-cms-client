@@ -27,6 +27,9 @@ If audio is not a file type it will just return "Missing audio file"
 Caption must be a string
 - Returns "Invalid input for caption" otherwise
 
+Caption must be unique
+- Returns "Audio caption is already taken" otherwise
+
 # SUCCESS RESPONSE BODY
 ```
 {

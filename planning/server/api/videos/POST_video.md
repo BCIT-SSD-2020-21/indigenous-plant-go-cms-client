@@ -24,6 +24,9 @@ Video_url and caption must be a string
 Video_url takes a youtube video
 - Returns "Incorrectly formatted video url" if not a valid youtube link
 
+Caption must be unique
+- Returns "Video caption is already taken" otherwise
+
 # SUCCESS RESPONSE BODY
 ```
 {
