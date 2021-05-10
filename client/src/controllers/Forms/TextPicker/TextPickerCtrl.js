@@ -277,8 +277,8 @@ export default function TextPickerCtrl({
           return;
         const location = {
           location_name: fields.location.name,
-          latitude: fields.location.latitude,
-          longitude: fields.location.longitude,
+          latitude: +fields.location.latitude,
+          longitude: +fields.location.longitude,
           description: fields.location.description,
         };
         result = await createLocation(location);
