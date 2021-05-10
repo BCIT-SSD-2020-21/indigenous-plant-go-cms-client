@@ -71,6 +71,8 @@ export default function ListCategories({
         return deleteModal();
       case "bulk":
         return bulkDeleteModal();
+      default:
+        return <></>;
     }
   };
   const editModal = () => (

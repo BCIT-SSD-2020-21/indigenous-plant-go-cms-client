@@ -1,5 +1,5 @@
 import React from "react";
-import { TextArea as TextArea_ } from "semantic-ui-react";
+import { TextArea as TEXT_AREA } from "semantic-ui-react";
 
 /*
   @desc UI component for A text area form control.
@@ -14,7 +14,7 @@ export default function TextArea({ label, setValue, value }) {
       </label>
 
       <fieldset style={style.fieldset}>
-        <TextArea_
+        <TEXT_AREA
           onChange={(e) => setValue(e.target.value)}
           value={value}
           style={{

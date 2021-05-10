@@ -11,6 +11,7 @@ export default function ResetFormCtrl() {
 
   useEffect(() => {
     resetDirective();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [directive]);
 
   const resetDirective = async () => {
@@ -22,6 +23,9 @@ export default function ResetFormCtrl() {
           await setTimeout(() => {
             setDirective(null);
           }, 4000);
+          break;
+        default:
+          break;
       }
     }
   };

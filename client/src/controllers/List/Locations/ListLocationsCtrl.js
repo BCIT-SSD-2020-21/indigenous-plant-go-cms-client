@@ -36,25 +36,30 @@ export default function ListLocationsCtrl() {
   const [directive, setDirective] = useState(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isMounted = true;
     queryLocations();
 
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (isMounted) setLocations_(eLocations);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eLocations]);
 
   useEffect(() => {
     setPage(1);
     formatPages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locations_]);
 
   useEffect(() => {
     resetDirective();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [directive]);
 
   const resetDirective = async () => {
@@ -155,7 +160,7 @@ export default function ListLocationsCtrl() {
     const selectedIds = selectedLocations;
 
     const allSelected =
-      resourceIds.length == selectedIds.length &&
+      resourceIds.length === selectedIds.length &&
       resourceIds.every(function (element, index) {
         return element === selectedIds[index];
       });

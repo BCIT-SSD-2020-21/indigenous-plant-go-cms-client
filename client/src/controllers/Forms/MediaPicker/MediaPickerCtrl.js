@@ -79,6 +79,7 @@ export default function MediaPickerCtrl({
   useEffect(() => {
     setOptions(data);
     formatOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   /*
@@ -87,6 +88,7 @@ export default function MediaPickerCtrl({
   */
   useEffect(() => {
     formatSelection();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
 
   /*
@@ -95,6 +97,7 @@ export default function MediaPickerCtrl({
   */
   useEffect(() => {
     setter(activeSelection);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSelection]);
 
   /*
@@ -103,6 +106,7 @@ export default function MediaPickerCtrl({
   */
   useEffect(() => {
     formatOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options, activeSelection]);
 
   // ===============================================================
@@ -271,6 +275,8 @@ export default function MediaPickerCtrl({
           video_url: videoLink,
         };
         result = await createVideo(video_);
+        break;
+      default:
         break;
     }
 

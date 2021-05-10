@@ -43,6 +43,7 @@ export function AuthProvider({ children }) {
     };
 
     pingToken();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /*

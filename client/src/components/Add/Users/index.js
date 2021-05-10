@@ -1,6 +1,6 @@
 import React from "react";
 import DashHeader from "../../DashHeader";
-import { Input, Dropdown, Icon } from "semantic-ui-react";
+import { Input, Dropdown } from "semantic-ui-react";
 import Message from "../../Message";
 import { Loader } from "semantic-ui-react";
 
