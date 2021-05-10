@@ -627,6 +627,13 @@ module.exports = async function() {
   //Create
   //POST /api/tags
   async function createTag({tag_name}) {
+    const tag = await tags.findOne({
+      tag_name: tag_name
+    })
+    if (tag) {
+      throw Error("Tag already exist")
+    }
+
     if (!tag_name) {
       throw Error("Require a tag name")
     }
@@ -650,6 +657,15 @@ module.exports = async function() {
   //Update
   //PUT /api/tags/:tagId
   async function updateTag({tagId, updatedTag}) {
+    const tag = await tags.findOne({
+      tag_name: updatedTag.tag_name
+    })
+    if (tag) {
+      if (tag._id != tagId) {
+        throw Error("Tag already exist")
+      }
+    }
+
     if (!updatedTag.tag_name) {
       throw Error("Require a tag name")
     }
@@ -685,6 +701,13 @@ module.exports = async function() {
   //Create
   //POST /api/categories
   async function createCategory({category_name, resource}) {
+    const category = await categories.findOne({
+      $and: [{category_name: category_name}, {resource: resource}]
+    })
+    if (category) {
+      throw Error("Category already exist in this resource group")
+    }
+
     if (!category_name) {
       throw Error("Require a category name")
     }
@@ -721,6 +744,15 @@ module.exports = async function() {
   //Update
   //PUT /api/categories/:categoryId
   async function updateCategory({categoryId, updatedCategory}) {
+    const category = await categories.findOne({
+      $and: [{category_name: updatedCategory.category_name}, {resource: updatedCategory.resource}]
+    })
+    if (category) {
+      if (category._id != categoryId) {
+        throw Error("Category already exist in this resource group")
+      }
+    }
+
     if (!updatedCategory.category_name) {
       throw Error("Require a category name")
     }
