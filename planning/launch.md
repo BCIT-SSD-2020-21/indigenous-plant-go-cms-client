@@ -22,7 +22,7 @@ AWS_SECRET_KEY=<Your s3 secret key>
 SENDER_EMAIL=<Your email that handles sending recovery email>
 SENDER_PASSWORD=<Your password for the email above>
 ```
-3. Running npm start now should run the api stuff at `http://localhost:8080`, for the routes see /planning/server/api for all the routes
+3. Running `npm start` now should run the api stuff at `http://localhost:8080`, for the routes see /planning/server/api for all the routes
 ### To deploy to heroku (using heroku cli)
 1. Set up the app on heroku site and download heroku cli, typing heroku --version in your terminal to check if you install heroku cli correctly
 2. Add a new git inside the server folder and commit everything, and make sure to rename the branch that was created with the commit is called master, rename to master if it is not
@@ -46,3 +46,10 @@ git push heroku master
 1. If you already clone it from step 1 above you just need to navigate to the client folder instead
   - indigenous-plant-go-cms/client
 2. Install all the node module with `npm install`
+3. Add a .env file with the base url of your server-side code
+  - If you run the server-side locally, the link will be `http://localhost:8080/api`
+  - If you run the server-side on heroku, the link will be where the the url provided by heroku followed by /api
+```
+REACT_APP_BASE_URL="<Your link>/api"
+```
+4. Running `npm start` now should run it at `http://localhost:3000`
