@@ -27,6 +27,7 @@ export default function ListPlantsCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isMounted = true;
     queryPlants();
     queryCategories();
@@ -35,23 +36,28 @@ export default function ListPlantsCtrl() {
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (isMounted) setPlantData_(plantData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plantData]);
 
   useEffect(() => {
     if (!searchQuery) applyFilter();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   useEffect(() => {
     formatCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eCategories]);
 
   useEffect(() => {
     setPage(1);
     formatPages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [plantData_]);
 
   const queryPlants = async () => {
@@ -168,7 +174,7 @@ export default function ListPlantsCtrl() {
     const selectedIds = selectedPlants;
 
     const allSelected =
-      resourceIds.length == selectedIds.length &&
+      resourceIds.length === selectedIds.length &&
       resourceIds.every(function (element, index) {
         return element === selectedIds[index];
       });

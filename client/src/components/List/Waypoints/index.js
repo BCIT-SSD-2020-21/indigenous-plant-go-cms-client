@@ -113,6 +113,8 @@ export default function ListWaypoints({
             </button>
           </>
         );
+      default:
+        return <></>;
     }
   };
   return (

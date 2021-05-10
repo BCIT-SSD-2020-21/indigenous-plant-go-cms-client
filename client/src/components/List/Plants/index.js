@@ -112,6 +112,8 @@ export default function ListPlants({
             </button>
           </>
         );
+      default:
+        return <></>;
     }
   };
   return (

@@ -117,6 +117,8 @@ export default function ListUsers({
             </button>
           </>
         );
+      default:
+        return <></>;
     }
   };
   return (

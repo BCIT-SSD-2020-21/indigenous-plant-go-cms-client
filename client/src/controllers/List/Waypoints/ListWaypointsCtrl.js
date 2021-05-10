@@ -27,6 +27,7 @@ export default function ListWaypointsCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isMounted = true;
     queryWaypoints();
     queryCategories();
@@ -35,23 +36,28 @@ export default function ListWaypointsCtrl() {
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     formatCategories();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eCategories]);
 
   useEffect(() => {
     if (isMounted) setWaypointData_(waypointData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [waypointData]);
 
   useEffect(() => {
     if (!searchQuery) applyFilter();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
 
   useEffect(() => {
     setPage(1);
     formatPages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [waypointData_]);
 
   const formatPages = () => {
@@ -184,7 +190,7 @@ export default function ListWaypointsCtrl() {
     const selectedIds = selectedWaypoints;
 
     const allSelected =
-      resourceIds.length == selectedIds.length &&
+      resourceIds.length === selectedIds.length &&
       resourceIds.every(function (element, index) {
         return element === selectedIds[index];
       });

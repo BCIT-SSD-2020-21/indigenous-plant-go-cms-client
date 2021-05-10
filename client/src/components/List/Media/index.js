@@ -79,6 +79,8 @@ export default function ListMedia({
         return deleteModal();
       case "bulk":
         return bulkDeleteModal();
+      default:
+        return <></>;
     }
   };
   const deleteModal = () => (

@@ -49,6 +49,7 @@ export default function ContentPickerCtrl({
   useEffect(() => {
     setOptions(data);
     formatOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   /*
@@ -57,6 +58,7 @@ export default function ContentPickerCtrl({
   */
   useEffect(() => {
     formatSelection();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
 
   /*
@@ -65,6 +67,7 @@ export default function ContentPickerCtrl({
   */
   useEffect(() => {
     setter(activeSelection);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeSelection]);
 
   /*
@@ -73,6 +76,7 @@ export default function ContentPickerCtrl({
   */
   useEffect(() => {
     formatOptions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options, activeSelection]);
 
   // ===============================================================

@@ -17,8 +17,10 @@ export default function Home({ action, method }) {
   //Get Signed in User
   const [user, setUser] = useState();
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isMounted = true;
-    if (isMounted) setUser(userData.user.user_name);
+    if (isMounted && userData && userData.user && userData.user.user_name)
+      setUser(userData.user.user_name);
 
     return () => {
       isMounted = false;
@@ -33,6 +35,7 @@ export default function Home({ action, method }) {
   //Get Clock
   const [time, setTime] = useState();
   const clock = () => {
+    var time_;
     var date = new Date();
     var minute = date.getMinutes();
     var hour = date.getHours();
@@ -52,20 +55,20 @@ export default function Home({ action, method }) {
     }
 
     if (hour > 12) {
-      var time = {
+      time_ = {
         hour: `${("0" + formathour).substr(-2)}`,
         minute: `${("0" + minute).substr(-2)}`,
         twelveHour: `${amOrPm}`,
       };
     } else {
-      var time = {
+      time_ = {
         hour: `${("0" + hour).substr(-2)}`,
         minute: `${("0" + minute).substr(-2)}`,
         twelveHour: `${amOrPm}`,
       };
     }
 
-    if (isMounted) setTime(time);
+    if (isMounted) setTime(time_);
   };
   if (isMounted) setInterval(clock, 1000);
 

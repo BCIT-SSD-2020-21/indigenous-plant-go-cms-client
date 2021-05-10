@@ -30,25 +30,30 @@ export default function ListTagsCtrl() {
   const [directive, setDirective] = useState(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isMounted = true;
     queryTags();
 
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (isMounted) setTags_(eTags);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eTags]);
 
   useEffect(() => {
     setPage(1);
     formatPages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tags_]);
 
   useEffect(() => {
     resetDirective();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [directive]);
 
   const resetDirective = async () => {
@@ -121,7 +126,7 @@ export default function ListTagsCtrl() {
     const selectedIds = selectedTags;
 
     const allSelected =
-      resourceIds.length == selectedIds.length &&
+      resourceIds.length === selectedIds.length &&
       resourceIds.every(function (element, index) {
         return element === selectedIds[index];
       });

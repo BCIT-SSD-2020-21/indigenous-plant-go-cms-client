@@ -20,6 +20,7 @@ export default function AddUserCtrl() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isMounted = true;
 
     return () => {
@@ -29,6 +30,7 @@ export default function AddUserCtrl() {
 
   useEffect(() => {
     if (isMounted) resetDirective();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [directive]);
 
   const resetDirective = async () => {

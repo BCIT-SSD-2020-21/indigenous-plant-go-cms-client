@@ -53,6 +53,7 @@ export default function EditWaypointCtrl() {
 
   useEffect(() => {
     if (isMounted) resetDirective();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [directive]);
 
   const resetDirective = async () => {
@@ -62,25 +63,29 @@ export default function EditWaypointCtrl() {
     }, 4000);
   };
 
-  useEffect(async () => {
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isMounted = true;
 
     if (isMounted) {
-      setLoading(true);
-      await queryWaypoint();
-      await queryLocations();
-      await queryImages();
-      await queryAudios();
-      await queryVideos();
-      await queryTags();
-      await queryCategories();
-      await queryPlants();
-      setLoading(false);
+      (async () => {
+        setLoading(true);
+        await queryWaypoint();
+        await queryLocations();
+        await queryImages();
+        await queryAudios();
+        await queryVideos();
+        await queryTags();
+        await queryCategories();
+        await queryPlants();
+        setLoading(false);
+      })();
     }
 
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ===============================================================

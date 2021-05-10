@@ -30,25 +30,30 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
   const [directive, setDirective] = useState(null);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     isMounted = true;
     queryCategories();
 
     return () => {
       isMounted = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     if (isMounted) setCategories_(eCategories);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eCategories]);
 
   useEffect(() => {
     setPage(1);
     formatPages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categories_]);
 
   useEffect(() => {
     if (isMounted) resetDirective();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [directive]);
 
   const resetDirective = async () => {
@@ -144,7 +149,7 @@ export default function ListCategoriesCtrl({ dataLabel, label, labelPlural }) {
     const selectedIds = selectedCategories;
 
     const allSelected =
-      resourceIds.length == selectedIds.length &&
+      resourceIds.length === selectedIds.length &&
       resourceIds.every(function (element, index) {
         return element === selectedIds[index];
       });

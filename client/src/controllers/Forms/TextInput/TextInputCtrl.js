@@ -6,10 +6,12 @@ export default function TextInputCtrl({ label, setter, eValue }) {
 
   useEffect(() => {
     setter(value);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   useEffect(() => {
     setValue(eValue);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eValue]);
 
   return <TextInput label={label} setValue={setValue} value={value} />;

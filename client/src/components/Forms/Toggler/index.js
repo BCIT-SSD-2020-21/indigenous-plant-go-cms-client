@@ -15,7 +15,7 @@ export default function Toggler({ label, setValue, value }) {
       <fieldset style={style.fieldset}>
         <div style={{ display: "flex" }}>
           <input
-            style={{ width: "unset", marginRight: 7, width: 17, height: 17 }}
+            style={{ marginRight: 7, width: 17, height: 17 }}
             type="checkbox"
             checked={value}
             onChange={(e) => setValue(e.target.checked)}
