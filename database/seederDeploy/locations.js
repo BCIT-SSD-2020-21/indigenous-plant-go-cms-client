@@ -1,4 +1,4 @@
-module.exports.locations = [
+module.exports.locationsList = [
   {
     "location_name": "Lavender 1",
     "latitude": 49.2545,

@@ -1,4 +1,4 @@
-module.exports.categories =[
+module.exports.categoriesList =[
   {
     "category_name": "medicinal plants",
     "resource": "plant",

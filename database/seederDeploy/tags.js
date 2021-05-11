@@ -1,4 +1,4 @@
-module.exports.tags = [
+module.exports.tagsList = [
   {
     "tag_name": "luck"
   },

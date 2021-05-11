@@ -1,5 +1,5 @@
 
-module.exports.users = [
+module.exports.usersList = [
   {
     "email" : "Zaa_Joseph@bcit.ca",
     "user_name" : "Zaa",
