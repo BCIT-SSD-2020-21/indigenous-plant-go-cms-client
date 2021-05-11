@@ -3,6 +3,7 @@ import { TrashIcon, ImageIcon, AudioIcon, VideoIcon } from "../../../icons";
 import { Dropdown, Input } from "semantic-ui-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Modal from "../../Modal";
+import Message from "../../Message";
 
 /*
   @desc UI component for A media picker form control. Allows the user to select existing media,
@@ -28,6 +29,7 @@ export default function MediaPicker({
   dataLabel,
   setVideoLink,
   videoLink,
+  directive,
 }) {
   const renderModal = () => {
     switch (dataLabel) {
@@ -143,6 +145,15 @@ export default function MediaPicker({
 
   return (
     <div className="textpicker">
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <label>
         {label === "category"
           ? "Categories:"
