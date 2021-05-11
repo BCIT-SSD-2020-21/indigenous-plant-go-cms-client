@@ -9,7 +9,7 @@
   - The heroku set up we have now doesn't have a fix IP address which is something worth looking into later on.
 4. For database user, create any user and remember the username and password.
   - This user is used to grant access to modify the database, you can create more users but it is not necessary.
-5. For choosing the connection method, click on connect your application. You will be given an url where you need to fill in the username and password and the database name in there. This is the url you will need to put in the environment variable MONGO_DB_URL.
+5. For choosing the connection method, click on connect your application. You will be given an url where you need to fill in the username and password and the database name in there. This is the url you will need to put in the environment variable `MONGO_DB_URL`.
   - For local installation of the server side code you put it in .env file.
   - For heroku deployment you put this in the config vars.
 6. This should be all you need to do.
