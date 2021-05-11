@@ -4,6 +4,7 @@ module.exports = function({database, authorize, verifyKey}) {
   const router = express.Router()
 
   //Get All
+  //GET /api/learn_more?key=<API_KEY>
   router.get('/', verifyKey, async (req, res) => {
     try {
       const result = await database.getLearnMores()
@@ -16,7 +17,7 @@ module.exports = function({database, authorize, verifyKey}) {
 
   //Create
   //POST /api/learn_more
-  router.post('/', authorize, verifyKey, async (req, res) => {
+  router.post('/', authorize, async (req, res) => {
     try {
       const result = await database.createLearnMore({newLearnMore: req.body, user_id: req.user._id})
       res.send("Learn more added")
@@ -27,7 +28,7 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Get One
-  //
+  //GET /api/learn_more/:learnMoreId?key=<API_KEY>
   router.get('/:learnMoreId', verifyKey, async (req, res) => {
     try {
       const learnMoreId = req.params.learnMoreId
@@ -40,8 +41,8 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Update
-  // PUT /api/learn_more/:learnMoreId
-  router.put('/:learnMoreId', authorize, verifyKey, async (req, res) => {
+  //PUT /api/learn_more/:learnMoreId
+  router.put('/:learnMoreId', authorize, async (req, res) => {
     try {
       const learnMoreId = req.params.learnMoreId
       const result = await database.updateLearnMore({learnMoreId, updatedLearnMore : req.body, user_id: req.user._id})
@@ -53,8 +54,8 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //DELETE 
-  // DELETE /api/learn_more/:learnMoreId
-  router.delete('/:learnMoreId', authorize, verifyKey, async (req, res) => {
+  //DELETE /api/learn_more/:learnMoreId
+  router.delete('/:learnMoreId', authorize, async (req, res) => {
     try {
       const learnMoreId = req.params.learnMoreId
       const result = await database.deleteLearnMore({learnMoreId})

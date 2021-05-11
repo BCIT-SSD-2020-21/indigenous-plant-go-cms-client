@@ -28,8 +28,8 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Create
-  //POST /api/waypoints?key=<API_KEY>
-  router.post('/', authorize, verifyKey, async (req, res) => {
+  //POST /api/waypoints
+  router.post('/', authorize, async (req, res) => {
     try {
       const result = await database.createWaypoint({newWaypoint: req.body, user_id: req.user._id})
       res.send("Waypoint added")
@@ -53,8 +53,8 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Update
-  //PUT /api/waypoints/:waypointId?key=<API_KEY>
-  router.put('/:waypointId', authorize, verifyKey, async (req, res) => {
+  //PUT /api/waypoints/:waypointId
+  router.put('/:waypointId', authorize, async (req, res) => {
     try {
       const waypointId = req.params.waypointId
       const result = await database.updateWaypoint({waypointId, updatedWaypoint: req.body, user_id: req.user._id})
@@ -66,8 +66,8 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Delete
-  //DELETE /api/waypoints/:waypointId?key=<API_KEY>
-  router.delete('/:waypointId', authorize, verifyKey, async (req, res) => {
+  //DELETE /api/waypoints/:waypointId
+  router.delete('/:waypointId', authorize, async (req, res) => {
     try {
       const waypointId = req.params.waypointId
       const result = await database.deleteWaypoint({waypointId})

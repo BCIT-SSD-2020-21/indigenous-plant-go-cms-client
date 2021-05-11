@@ -16,8 +16,8 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Create
-  //POST /api/tours?key=<API_KEY>
-  router.post('/', authorize, verifyKey, async (req, res) => {
+  //POST /api/tours
+  router.post('/', authorize, async (req, res) => {
     try {
       const result = await database.createTour({newTour: req.body, user_id: req.user._id})
       res.send("Tour added")
@@ -41,8 +41,8 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Update
-  //PUT /api/tours/:tourId?key=<API_KEY>
-  router.put('/:tourId', authorize, verifyKey, async (req, res) => {
+  //PUT /api/tours/:tourId
+  router.put('/:tourId', authorize, async (req, res) => {
     try {
       const tourId = req.params.tourId
       const result = await database.updateTour({tourId, updatedTour: req.body, user_id: req.user._id})
@@ -54,8 +54,8 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Delete
-  //DELETE /api/tours/:tourId?key=<API_KEY>
-  router.delete('/:tourId', authorize, verifyKey, async (req, res) => {
+  //DELETE /api/tours/:tourId
+  router.delete('/:tourId', authorize, async (req, res) => {
     try {
       const tourId = req.params.tourId
       const result = await database.deleteTour({tourId})
