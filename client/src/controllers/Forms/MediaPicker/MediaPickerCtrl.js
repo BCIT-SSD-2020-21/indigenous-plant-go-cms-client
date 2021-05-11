@@ -68,6 +68,7 @@ export default function MediaPickerCtrl({
     @type String
   */
   const [videoLink, setVideoLink] = useState("");
+  const [directive, setDirective] = useState(null);
 
   // ===============================================================
   // USE EFFECTS
@@ -109,9 +110,19 @@ export default function MediaPickerCtrl({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options, activeSelection]);
 
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
   // ===============================================================
   // FUNCTIONS
   // ===============================================================
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      setDirective(null);
+    }, 4000);
+  };
 
   /*
     @desc resets fields related to uploading new media
@@ -280,7 +291,12 @@ export default function MediaPickerCtrl({
         break;
     }
 
-    if (result.error) return;
+    if (result.error)
+      return setDirective({
+        header: "Error uploading media",
+        message: result.error.data.error,
+        success: false,
+      });
     formatted = {
       _id: result._id,
       url: result[`${dataLabel}_url`],
@@ -313,6 +329,7 @@ export default function MediaPickerCtrl({
       handleUpload={handleUpload}
       setVideoLink={setVideoLink}
       videoLink={videoLink}
+      directive={directive}
     />
   );
 }
