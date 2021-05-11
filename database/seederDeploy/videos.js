@@ -1,10 +1,10 @@
 module.exports.videosList = [
   {
-    "video_url": "https://www.youtube.com/watch?v=-EfK8OhRElI",
-    "caption": "A lavender flower blooming timelapse"
+    "video_url": "https://youtu.be/49BCc6FJEK8",
+    "caption": "The Indigenous Initiatives Gathering Place"
   },
   {
-    "video_url": "https://www.youtube.com/watch?v=lhqNduGgpC8",
-    "caption": "A kinnikinnick flower blooming timelapse"
+    "video_url": "https://youtu.be/7g2ku5qT0ug",
+    "caption": "The House Post"
   }
 ]
