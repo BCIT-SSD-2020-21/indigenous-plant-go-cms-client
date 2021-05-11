@@ -11,3 +11,5 @@
 [MongoDb Atlas doc](../server/mongoDb/README.md)
 ## Endpoint documentation
 [All routes](../server/api)
+## Seeder documentation
+[Seeder doc](../server/seeder/README.md)
