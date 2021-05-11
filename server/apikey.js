@@ -1,3 +1,7 @@
+function generateKey() {
+}
+exports.generateKey = generateKey
+
 function verifyKey(req, res, next) {
   // For comparing key
   // This is key from the url
