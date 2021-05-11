@@ -16,8 +16,8 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Create
-  //POST /api/revisions?key=<API_KEY>
-  router.post('/', authorize, verifyKey, async (req, res) => {
+  //POST /api/revisions
+  router.post('/', authorize, async (req, res) => {
     try {
       const result = await database.createRevision({user_id: req.user._id})
       res.send("Revision added")
@@ -41,8 +41,8 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Delete
-  //DELETE /api/revisions/:revisionId?key=<API_KEY>
-  router.delete('/:revisionId', authorize, verifyKey, async (req, res) => {
+  //DELETE /api/revisions/:revisionId
+  router.delete('/:revisionId', authorize, async (req, res) => {
     try {
       const revisionId = req.params.revisionId
       const result = await database.deleteRevision({revisionId})

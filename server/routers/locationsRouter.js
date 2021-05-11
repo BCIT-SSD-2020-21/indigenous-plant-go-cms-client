@@ -16,8 +16,8 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Create
-  //POST /api/locations?key=<API_KEY>
-  router.post('/', authorize, verifyKey, async (req, res) => {
+  //POST /api/locations
+  router.post('/', authorize, async (req, res) => {
     try {
       const result = await database.createLocation(req.body)
       res.send(result.ops[0])
@@ -41,8 +41,8 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Update
-  //PUT /api/locations/:locationId?key=<API_KEY>
-  router.put('/:locationId', authorize, verifyKey, async (req, res) => {
+  //PUT /api/locations/:locationId
+  router.put('/:locationId', authorize, async (req, res) => {
     try {
       const locationId = req.params.locationId
       const result = await database.updateLocation({locationId, updatedLocation: req.body})
@@ -54,8 +54,8 @@ module.exports = function({database, authorize, verifyKey}) {
   })
 
   //Delete
-  //DELETE /api/locations/:locationId?key=<API_KEY>
-  router.delete('/:locationId', authorize, verifyKey, async (req, res) => {
+  //DELETE /api/locations/:locationId
+  router.delete('/:locationId', authorize, async (req, res) => {
     try {
       const locationId = req.params.locationId
       const result = await database.deleteLocation({locationId})
