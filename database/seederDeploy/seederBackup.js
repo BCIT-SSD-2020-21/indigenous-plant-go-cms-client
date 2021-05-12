@@ -10,7 +10,7 @@ const {MongoClient, ObjectID, Timestamp} = require('mongodb')
 require('dotenv').config()
 
 const url = process.env.MONGO_DB_URL 
-const dbName = "backup" //process.env.MONGO_DB_NAME_BACKUP
+const dbName = process.env.MONGO_DB_NAME
 const client = new MongoClient(url, {useUnifiedTopology: true, useNewUrlParser: true})
 
 const seed = async () => {
@@ -63,6 +63,12 @@ const seed = async () => {
       "images" : [lavenderImage1._id],
       "locations" : [lavenderLocation1._id],
       "isPublish" : true,
+      "videos" : [],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : []
     },
     {
       "plant_name": "kinnikinnick",
@@ -71,6 +77,12 @@ const seed = async () => {
       "images" : [kinnikinnickImage1._id],
       "locations" : [kinnikinnickLocation1._id],
       "isPublish" : true,
+      "videos" : [],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : []
     },
     {
       "plant_name": "Coastal Strawberry",
@@ -78,6 +90,12 @@ const seed = async () => {
       "description": "This evergreen ground cover has three leaves, and white flowers that bloom in the summer. The coastal strawberry attracts pollinators. It’s a food source for wildlife in the spring and summer.",
       "locations" : [coastalLocation1._id],
       "isPublish" : true,
+      "videos" : [],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : []
     },
     {
       "plant_name": "Salal",
@@ -85,6 +103,12 @@ const seed = async () => {
       "description": "Salal is a perennial evergreen shrub. Salal attracts pollinators and hummingbirds. It’s a food source for wildlife all year round.",   
       "locations" : [salalLocation1._id],
       "isPublish" : true,
+      "videos" : [],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : []
     },
     {
       "plant_name": "Snowberry",
@@ -92,6 +116,12 @@ const seed = async () => {
       "description": "These shrubs have white flowers in spring, and white berries through the fall and winter.",   
       "locations" : [snowberryLocation1._id],
       "isPublish" : true,
+      "videos" : [],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : []
     },
     {
       "plant_name": "Snow Fern" ,
@@ -99,6 +129,12 @@ const seed = async () => {
       "description": "Sword fern gets its name from its elongated blade-like fronds. The robust, handsome leaves can grow several feet long and the plant can have as many as a hundred leaves. This evergreen fern can be used to prevent erosion on slopes. Sword ferns are a food source for wildlife all year round.",   
       "locations" : [swordfernLocation1._id],
       "isPublish" : true,
+      "videos" : [],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : []
     },
     {
       "plant_name": "Western Red Cedar",
@@ -106,6 +142,12 @@ const seed = async () => {
       "description": "Western Red Cedar is a large evergreen tree, they can grow to 120 – 150 feet. Western Red cedar are a food source for wildlife all year round. Because cedar is resistant to decay it was used for building long houses, canoes and other items. The bark can be shredded and used to weave.",   
       "locations" : [westerncedarLocation._id, lotOLocation1._id],
       "isPublish" : true,
+      "videos" : [],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : []
     },
     {
       "plant_name": "Stika Spruce",
@@ -113,6 +155,12 @@ const seed = async () => {
       "description": "The Sitka Spruce is a conifer tree that can grow to 180 – 225 feet tall. ",   
       "locations" : [lotOLocation1._id],
       "isPublish" : true,
+      "videos" : [],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : []
     },
     {
       "plant_name": "Big Maple Leaf",
@@ -120,6 +168,12 @@ const seed = async () => {
       "description": "Big Leaf Maples typically grow to 30 – 75 feet, and may live to be 200 years old. It is a food source for wildlife. ",   
       "locations" : [lotOLocation1._id],
       "isPublish" : true,
+      "videos" : [],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : []
     },
     {
       "plant_name": "Salmonberry",
@@ -127,6 +181,12 @@ const seed = async () => {
       "description": "Salmonberry have pink flowers with five petals in April - May, and yellow-orange berries through May - July. The flowers are attractive to hummingbirds, and the plant is a food source for wildlife in summer.",   
       "locations" : [lotOLocation1._id],
       "isPublish" : true,
+      "videos" : [],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : []
     },
     {
       "plant_name": "Red Elderberry",
@@ -134,6 +194,12 @@ const seed = async () => {
       "description": "Red Elderberry have white flowers in April - July, and bright red berries through July – August. Red Elderberry is used for erosion control. The plant is a food source for wildlife and pollinators.",   
       "locations" : [lotOLocation1._id],
       "isPublish" : true,
+      "videos" : [],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : []
     },
     {
       "plant_name": "Red-Osier Dogwood",
@@ -141,6 +207,12 @@ const seed = async () => {
       "description": "Placeholder description",   
       "locations" : [lotOLocation1._id, englishwalkLocation1._id],
       "isPublish" : true,
+      "videos" : [],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : []
     },
     {
       "plant_name": "Thimbleberry",
@@ -148,6 +220,12 @@ const seed = async () => {
       "description": "Thimbleberry have white flowers in May - June, and small red berries through July – September. The plant is a food source for wildlife and pollinators during summer.",   
       "locations" : [lotOLocation1._id],
       "isPublish" : true,
+      "videos" : [],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : []
     },
     {
       "plant_name": "Evergreen Huckleberry",
@@ -155,6 +233,12 @@ const seed = async () => {
       "description": "Evergreen Huckleberry have pinkish-white flowers in April - May, and purplish-black berries through August – September. The plant is a food source for wildlife and pollinators.",   
       "locations" : [englishwalkLocation1],
       "isPublish" : true,
+      "videos" : [],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : []
     },
   ])
 
@@ -173,6 +257,14 @@ const seed = async () => {
       "description": "Coming Soon – Corn, Beans and Squash are the Three Sisters.",
       "locations": [threeSistersLocation._id],
       "isPublish" : true,
+      "videos" : [],
+      "images":[],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : [],
+      "plants":[],
     },
     {
       "waypoint_name": "The Indigenous Initiatives Gathering Place",
@@ -180,6 +272,13 @@ const seed = async () => {
       "locations": [gatheringPlaceLocation._id],
       "videos":[gatheringVideo1._id],
       "isPublish" : true,
+      "images":[],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "custom_fields" : [],
+      "plants":[],
     },
     {
       "waypoint_name": "The House Post",
@@ -187,6 +286,12 @@ const seed = async () => {
       "locations": [housePostLocation._id],
       "videos" : [housePostVideo1._id],
       "isPublish" : true,
+      "images":[],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
+      "plants":[],
       "custom_fields" : [
         { 
           "_id" : new ObjectID(),
@@ -200,6 +305,11 @@ const seed = async () => {
       "description": "A sweat lodge ceremony is a gentle and caring approach to the cleansing of your mind, body, and spirit. Through the experience, your body is cleansed of the toxins within your body, which aids in the de-stressing of your mental, emotional, physical and spiritual well-being.",
       "locations": [sweatLodgeLocation._id],
       "isPublish" : true,
+      "images":[],
+      "audio_files" : [],
+      "categories" : [],
+      "tags" : [],
+      "revision_history" : [],
       "custom_fields" : [
         { 
           "_id" : new ObjectID(),
