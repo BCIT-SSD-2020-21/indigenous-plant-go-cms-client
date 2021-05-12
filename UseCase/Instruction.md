@@ -24,6 +24,8 @@
 
 **USE CASE 10: Viewing of Tags**
 
-**USE CASE 11: Admin Account**<br>
+**USE CASE 11: Admin Account**
+
+### Chapter 1
 
 
