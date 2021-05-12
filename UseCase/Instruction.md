@@ -29,7 +29,7 @@
 ## APPLICATION TYPE: Content Managing System
 
 **LOG IN**
-a. Users start the system by entering [https://ipgcms.netlify.app](https://ipgcms.netlify.app) on the url.
+-a. Users start the system by entering [https://ipgcms.netlify.app](https://ipgcms.netlify.app) on the url.
 b. User can enters either Username or email and password. 
 
 
