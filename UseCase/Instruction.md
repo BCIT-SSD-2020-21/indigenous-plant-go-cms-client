@@ -31,5 +31,5 @@
 **LOG IN**
 - Users start the system by entering [https://ipgcms.netlify.app](https://ipgcms.netlify.app) on the url.
 - User can enter either Username or email and password. 
-
+![image](/planning/database/ERD/ERDv3.png)
 
