@@ -3,9 +3,7 @@
 
 @route /api/tags
 
-@access Protected -- API key
-
-Example request: GET /api/tags?key=<API_KEY>
+Example request: GET /api/tags
 
 # EXAMPLE RESPONSE BODY
 ```

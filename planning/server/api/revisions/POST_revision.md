@@ -3,9 +3,9 @@
 
 @route /api/revisions
 
-@access Protected -- API key, require user login
+@access Protected -- require user login
 
-Example request: POST /api/revisions?key=<API_KEY>
+Example request: POST /api/revisions
 
 You don't need a request body for this
 

@@ -3,9 +3,9 @@
 
 @route /api/audios
 
-@access Protected -- API key, require user login
+@access Protected -- require user login
 
-Example request: POST /api/audios?key=<API_KEY>
+Example request: POST /api/audios
 
 # EXAMPLE REQUEST BODY
 ```

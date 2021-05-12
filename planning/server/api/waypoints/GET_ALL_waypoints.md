@@ -1,9 +1,9 @@
 # Get waypoints
 @desc GET all waypoints
-@route /api/waypoints/all
-@access Protected -- API key
 
-Example request: GET /api/waypoints/all?key=<API_KEY>
+@route /api/waypoints/all
+
+Example request: GET /api/waypoints/all
 
 # EXAMPLE RESPONSE BODY
 ```
