@@ -2,5 +2,5 @@
 
 *Members: Patrick Fortaleza, J-Daveroen Bona, Wayne Lee, Aj Purugganan*
 
-** This Technical Use Case Documentation 
-for Indigenous Plant Go **
+**This Technical Use Case Documentation 
+for Indigenous Plant Go**
