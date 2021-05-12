@@ -4,4 +4,4 @@
 
 ## Table of Contents
 
-*USE CASE 1: LOG IN ------------------- 1*
+**USE CASE 1: LOG IN                 1**
