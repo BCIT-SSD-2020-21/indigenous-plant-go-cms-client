@@ -26,6 +26,6 @@
 
 **USE CASE 11: Admin Account**
 
-### Chapter 1
+## APPLICATION TYPE: Content Managing System
 
 
