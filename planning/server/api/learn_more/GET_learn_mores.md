@@ -1,9 +1,9 @@
 # Get learn mores
 @desc GET all learn_more
-@route /api/learn_more
-@access Protected -- API key
 
-Example request: GET /api/learn_more?key=<API_KEY>
+@route /api/learn_more
+
+Example request: GET /api/learn_more
 
 # EXAMPLE RESPONSE BODY
 ```

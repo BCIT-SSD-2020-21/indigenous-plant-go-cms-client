@@ -3,9 +3,7 @@
 
 @route /api/videos
 
-@access Protected -- API key
-
-Example request: GET /api/videos?key=<API_KEY>
+Example request: GET /api/videos
 
 # EXAMPLE RESPONSE BODY
 ```

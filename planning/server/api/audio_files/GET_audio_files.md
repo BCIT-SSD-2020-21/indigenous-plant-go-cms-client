@@ -3,9 +3,7 @@
 
 @route /api/audios
 
-@access Protected -- API key
-
-Example request: GET /api/audios?key=<API_KEY>
+Example request: GET /api/audios
 
 # EXAMPLE RESPONSE BODY
 ```
