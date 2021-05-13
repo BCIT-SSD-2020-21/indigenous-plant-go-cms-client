@@ -65,7 +65,7 @@ const seed = async () => {
   const lotOLocation1 = await locations.findOne({"location_name": "Lot O (general)"})
   const englishwalkLocation1 = await locations.findOne({"location_name": "English Walk (general)"})
   
-  const user1 = await users.findOne({"user_name": "aj"})
+  const user1 = await users.findOne({"user_name": "admin"})
   await revisions.insertMany([
     { 
       "user": user1._id,

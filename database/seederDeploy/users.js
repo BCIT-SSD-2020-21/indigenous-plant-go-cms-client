@@ -44,5 +44,12 @@ module.exports.usersList = [
     "password" : "$2a$12$exIUEGDgWU.l2mJU78JIBOJvwA1j/OHmp5OidfVVfrEiFBotD91.C",
     "role" : "Admin"
   
+  },
+  {
+    "email" : "admin@test.ca",
+    "user_name" : "admin",
+    "password" : "$2a$12$exIUEGDgWU.l2mJU78JIBOJvwA1j/OHmp5OidfVVfrEiFBotD91.C",
+    "role" : "Admin"
+  
   }
 ]
