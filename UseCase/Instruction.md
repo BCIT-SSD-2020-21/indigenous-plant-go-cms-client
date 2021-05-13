@@ -4,7 +4,16 @@
 
 ## Table of Contents
 1. [**LOG IN**](#1)
-
+2. [**CREATING A PLANT**](#2)
+3. [**VIEWING A PLANT**](#3)
+4. [**VIEWING A WAYPOINT**](#4)
+5. [**VIEWING A USER**](#5)
+6. [**VIEWING A LOCATION**](#6)
+7. [**VIEWING A MEDIA(IMAGE)**](#7)
+8. [**VIEWING A MEDIA(VIDEO)**](#8)
+9. [**VIEWING A MEDIA(AUDIO)**](#9)
+10. [**VIEWING A TAG**](#10)
+11. [**ADMIN ACCOUNT**](#11)
 
 **USE CASE 2: Creating Plants**
 
