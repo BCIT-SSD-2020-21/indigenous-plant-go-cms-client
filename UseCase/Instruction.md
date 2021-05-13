@@ -3,7 +3,7 @@
 *Members: Patrick Fortaleza, J-Daveroen Bona, Wayne Lee, Aj Purugganan*
 
 ## Table of Contents
-1. [Sql vs NoSQL](#1)
+1. [**LOG IN**](#1)
 **USE CASE 1: LOG IN**
 
 **USE CASE 2: Creating Plants**
