@@ -149,6 +149,95 @@ module.exports.tagsList = [
   {
     "tag_name": "Indigenous Initiatives "
   },
-  
+  {
+    "tag_name": "Wellness "
+  },
+  {
+    "tag_name": "Relaxation"
+  },
+  {
+    "tag_name": "Calm"
+  },
+  {
+    "tag_name": "Mindfullness"
+  },
+  {
+    "tag_name": "Intergenerational"
+  },
+  {
+    "tag_name": "Holistic "
+  },
+  {
+    "tag_name": "Ancestors "
+  },
+  {
+    "tag_name": "Cultural Competence"
+  },
+  {
+    "tag_name": "Mentorship"
+  },
+  {
+    "tag_name": "Leadership "
+  },
+  {
+    "tag_name": "Mother Earth"
+  },
+  {
+    "tag_name": "Turtle Island"
+  },
+  {
+    "tag_name": "Culturally-Engaged Programming"
+  },
+  {
+    "tag_name": "Place based learning"
+  },
+  {
+    "tag_name": "Land-based learning"
+  },
+  {
+    "tag_name": "Health "
+  },
+  {
+    "tag_name": "Connection"
+  },
+  {
+    "tag_name": "Identity "
+  },
+  {
+    "tag_name": "Ceremony"
+  },
+  {
+    "tag_name": "Our Relations"
+  },
+  {
+    "tag_name": "All Our Relations"
+  },
+  {
+    "tag_name": "Youth "
+  },
+  {
+    "tag_name": "Urban "
+  },
+  {
+    "tag_name": "Indian Reserve"
+  },
+  {
+    "tag_name": "Life Skills "
+  },
+  {
+    "tag_name": "Diversity "
+  },
+  {
+    "tag_name": "Inclusion "
+  },
+  {
+    "tag_name": "Knowledge Keepers "
+  },
+  {
+    "tag_name": "Tools"
+  },
+  {
+    "tag_name": "Decolonization"
+  },
   
 ]
