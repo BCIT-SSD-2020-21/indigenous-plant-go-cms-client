@@ -3,6 +3,7 @@ import { TrashIcon, HamburgerIcon } from "../../../icons";
 import { Dropdown, Input, TextArea } from "semantic-ui-react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import Modal from "../../Modal";
+import Message from "../../Message";
 
 /*
   @desc UI component for A text picker form control. Allows users to associate text-based content to a main content type.
@@ -24,6 +25,7 @@ export default function TextPicker({
   fields,
   handleFieldChange,
   handleFieldUpload,
+  directive,
 }) {
   const renderModal = () => {
     let label_;
@@ -167,6 +169,15 @@ export default function TextPicker({
 
   return (
     <div className="textpicker">
+      {typeof directive === "object" &&
+        directive !== null &&
+        Object.keys(directive).length > 0 && (
+          <Message
+            success={directive.success}
+            header={directive.header}
+            message={directive.message}
+          />
+        )}
       <label>
         {label === "category"
           ? "Categories:"

@@ -69,10 +69,16 @@ export default function TextPickerCtrl({
     @type {Object<fieldInputs>}
   */
   const [fields, setFields] = useState(fieldInputs);
+  const [directive, setDirective] = useState(null);
 
   // ===============================================================
   // USE EFFECTS
   // ===============================================================
+
+  useEffect(() => {
+    resetDirective();
+  }, [directive]);
+
   /*
     @desc once the data mounts, we set our options, then format them.
     @author Patrick Fortaleza
@@ -113,6 +119,12 @@ export default function TextPickerCtrl({
   // ===============================================================
   // FUNCTIONS
   // ===============================================================
+
+  const resetDirective = async () => {
+    await setTimeout(() => {
+      setDirective(null);
+    }, 4000);
+  };
 
   /*
     @desc formats the existing data into an array that can be accepted by the picker.
@@ -286,7 +298,12 @@ export default function TextPickerCtrl({
       default:
         break;
     }
-    if (result.error) return;
+    if (result.error)
+      return setDirective({
+        header: `Error creating ${dataLabel}`,
+        message: result.error.data.error,
+        success: false,
+      });
     formatted = {
       _id: result._id,
       title: result[`${dataLabel}_name`],
@@ -314,6 +331,7 @@ export default function TextPickerCtrl({
       fields={fields}
       handleFieldChange={handleFieldChange}
       handleFieldUpload={handleFieldUpload}
+      directive={directive}
     />
   );
 }

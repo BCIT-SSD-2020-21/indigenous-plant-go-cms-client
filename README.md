@@ -10,7 +10,6 @@ Members: Patrick Fortaleza, J-D Bona, Wayne Lee, Aj Purugganan
 
 ## FEATURE LIST
 
----
 
 ### Core Application Features
 

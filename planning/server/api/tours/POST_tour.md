@@ -3,9 +3,9 @@
 
 @route /api/tours
 
-@access Protected -- API key, require user login
+@access Protected -- require user login
 
-Example request: POST /api/tours?key=<API_KEY>
+Example request: POST /api/tours
 
 # EXAMPLE REQUEST BODY
 ```

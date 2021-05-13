@@ -1,4 +1,4 @@
-# Documentation
+# S3 Documentation
 ## S3 setup
 1. Create the s3 bucket on aws, note the region you create the bucket.
   - For this you can uncheck the block all public access here or you can do that later.
@@ -55,4 +55,4 @@ AWS_BUCKET_REGION=<Your bucket region>
 AWS_ACCESS_KEY=<Access key you got from creating user>
 AWS_SECRET_KEY=<Secret key you got from creating user>
 ```
-12. After that you should be good, let me know if I missed something.
+12. After that you should be good.
