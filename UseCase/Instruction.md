@@ -1,4 +1,4 @@
-# **Use Case Documentation for Indigenous Plant Go**
+# **Indigenous Plant Go CMS Handbook**
 
 *Members: Patrick Fortaleza, J-Daveroen Bona, Wayne Lee, Aj Purugganan*
 
