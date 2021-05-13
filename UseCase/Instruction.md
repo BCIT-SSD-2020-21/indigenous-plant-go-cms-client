@@ -64,9 +64,10 @@
 - ![](https://i.imgur.com/LEVxCoc.png)
 - View, Create, Edit or Delete plant category via categories in menu. To add a category, fill the category name and click Create new category. 
 ![](https://i.imgur.com/tlK6Gji.png)
-- To edit or delete, click between the two button below the plant name. User can select plants individually or delete all by clicking the check box beside the name.
+- To edit or delete, click between the two button below the plant name. 
 ![](https://i.imgur.com/vUWMvme.png)
 ![](https://i.imgur.com/zfZIYad.png)
+- User can select plants individually or delete all by clicking the check box beside the name.
 ![](https://i.imgur.com/F4fCpHC.png)
 - User can search plant categories in search box using the plant category name.
 ![](https://i.imgur.com/K8EwuaS.png)
