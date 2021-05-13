@@ -4,7 +4,7 @@
 
 ## Table of Contents
 1. [**LOG IN**](#1)
-**USE CASE 1: LOG IN**
+
 
 **USE CASE 2: Creating Plants**
 
@@ -28,8 +28,8 @@
 
 ## APPLICATION TYPE: Content Managing System
 <a name="1"></a>
-## 1) Sql vs NoSQL
-**LOG IN**
+## 1) LOG IN
+
 - Users start the system by entering [https://ipgcms.netlify.app](https://ipgcms.netlify.app) on the url.
 - User can enter either Username or email and password. 
 ![image](/planning/database/ERD/ERDv3.png)
