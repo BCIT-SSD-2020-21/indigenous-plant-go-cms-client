@@ -5,13 +5,15 @@
 git clone https://github.com/BCIT-SSD-2020-21/indigenous-plant-go-cms.git
 ```
 2. Navigate into the server folder of the repo.
-  - indigenous-plant-go-cms/server
+    - indigenous-plant-go-cms/server
 ### To run locally
 1. Install all the node module with `npm install`.
 2. Few things related to .env file needs to be set up:
-  1. To run this locally you will need to set up a S3, see [S3 doc](../server/s3/README.md) for how to set that up.
-  2. To run this locally you will need to set up mongoDb, if you have mongo shell and stuff you can just set `MONGO_DB_URL=mongodb://localhost:27017/<Your Db name>` in .env file. For mongoDb atlas set up, see [MongoDb Atlas doc](../server/mongoDb/README.md).
-  3. One more thing to set up in .env file is sender email for recovering password.
+    1. To run this locally you will need to set up a S3, see [S3 doc](../server/s3/README.md) for how to set that up.
+    2. To run this locally you will need to set up mongoDb, if you have mongo shell and stuff you can just set `MONGO_DB_URL=mongodb://localhost:27017/<Your Db name>` in .env file. For mongoDb atlas set up, see [MongoDb Atlas doc](../server/mongoDb/README.md).
+        - This also includes a seeder to fill the database with sample data, see [Seeder doc](./documentation/seeder/README.md) for how to use the seeder.
+    3. One more thing to set up in .env file is sender email for recovering password.
+        - For gmail you do need to have less secure app access on
 Final .env file should have the following field: 
 ```
 MONGO_DB_URL=<Your mongo_db url>
@@ -39,16 +41,16 @@ git add remote heroku <Your heroku git url>
 git push heroku master
 ```
 3. You also need to set up s3 and mongoDb separately, but you put the variable that is suppose to go in .env file into config vars in heroku app's setting, see above to run locally step 2 to see what environmental variables are required.
-  - An extra variable you can add is ACCESS_TOKEN_SECRET to separate the jwt token generated from your local with ones generated from your deployed app, the secret can be anything you want.
+    - An extra variable you can add is ACCESS_TOKEN_SECRET to separate the jwt token generated from your local with ones generated from your deployed app, the secret can be anything you want.
 4. Once you set up all the environmental variables in config vars on heroku, you should be able to run it on your deployed domain, route still follow those in /planning/server/api.
 
 ## Installing client-side of cms from github
 1. If you already clone it from step 1 above you just need to navigate to the client folder instead.
-  - indigenous-plant-go-cms/client
+    - indigenous-plant-go-cms/client
 2. Install all the node module with `npm install`.
 3. Add a .env file with the base url of your server-side code.
-  - If you run the server-side locally, the link will be `http://localhost:8080/api`.
-  - If you run the server-side on heroku, the link will be where the the url provided by heroku followed by /api.
+    - If you run the server-side locally, the link will be `http://localhost:8080/api`.
+    - If you run the server-side on heroku, the link will be where the the url provided by heroku followed by /api.
 ```
 REACT_APP_BASE_URL="<Your link>/api"
 ```
@@ -59,6 +61,8 @@ REACT_APP_BASE_URL="<Your link>/api"
 2. Select New site from Git and connect to a Git provider
 3. Select the repository for the client-side application
 4. Click on Advanced settings and define the environment variable (refer to the .env file):  
-      Key = "REACT_APP_BASE_URL"
-      Value : <-Your-Heroku-URL->
+```
+Key = "REACT_APP_BASE_URL"
+Value : <-Your-Heroku-URL->
+```
 5. Deploy the site
