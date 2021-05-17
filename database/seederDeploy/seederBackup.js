@@ -9,8 +9,8 @@ const {videosList} = require('./videos')
 const {MongoClient, ObjectID, Timestamp} = require('mongodb')
 require('dotenv').config()
 
-const url = process.env.MONGO_DB_URL 
-const dbName = process.env.MONGO_DB_NAME
+const url = process.env.MONGO_DB_URL_DEV
+const dbName = process.env.MONGO_DB_NAME_DEV
 const client = new MongoClient(url, {useUnifiedTopology: true, useNewUrlParser: true})
 
 const seed = async () => {
@@ -73,11 +73,110 @@ const seed = async () => {
     },
     {
       "user": user1._id,
+      "date": 1619650526501
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526502
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526503
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526504
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526505
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526506
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526507
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526508
+    },
+    {
+      "user": user1._id,
       "date": 1619650526509
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526510
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526511
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526512
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526513
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526514
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526515
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526516
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526517
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526518
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526519
+    },
+    {
+      "user": user1._id,
+      "date": 1619650526520
     },
     
   ])
-  const revision_history1 = await revisions.findOne({"user": user1._id})
+  const revision_history1 = await revisions.findOne({"date": 1619651670890})
+  const revision_history2 = await revisions.findOne({"date": 1619650526501})
+  const revision_history3 = await revisions.findOne({"date": 1619650526502})
+  const revision_history4 = await revisions.findOne({"date": 1619650526503})
+  const revision_history5 = await revisions.findOne({"date": 1619650526504})
+
+  const revision_history6 = await revisions.findOne({"date": 1619650526505})
+  const revision_history7 = await revisions.findOne({"date": 1619650526506})
+  const revision_history8 = await revisions.findOne({"date": 1619650526507})
+  const revision_history9 = await revisions.findOne({"date": 1619650526508})
+  const revision_history10 = await revisions.findOne({"date": 1619650526509})
+
+  const revision_history11 = await revisions.findOne({"date": 1619650526510})
+  const revision_history12 = await revisions.findOne({"date": 1619650526511})
+  const revision_history13 = await revisions.findOne({"date": 1619650526512})
+  const revision_history14 = await revisions.findOne({"date": 1619650526513})
+  const revision_history15 = await revisions.findOne({"date": 1619650526514})
+
+  const revision_history16 = await revisions.findOne({"date": 1619650526515})
+  const revision_history17 = await revisions.findOne({"date": 1619650526516})
+  const revision_history18 = await revisions.findOne({"date": 1619650526517})
+  const revision_history19 = await revisions.findOne({"date": 1619650526518})
+  const revision_history20 = await revisions.findOne({"date": 1619650526519})
+
 
   await plants.insertMany([
     {
@@ -105,7 +204,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [revision_history1._id],
+      "revision_history" : [revision_history2._id],
       "custom_fields" : []
     },
     {
@@ -119,7 +218,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [revision_history1._id],
+      "revision_history" : [revision_history3._id],
       "custom_fields" : []
     },
     {
@@ -133,7 +232,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [revision_history1._id],
+      "revision_history" : [revision_history4._id],
       "custom_fields" : []
     },
     {
@@ -147,7 +246,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [revision_history1._id],
+      "revision_history" : [revision_history5._id],
       "custom_fields" : []
     },
     {
@@ -161,7 +260,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [revision_history1._id],
+      "revision_history" : [revision_history6._id],
       "custom_fields" : []
     },
     {
@@ -175,7 +274,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [revision_history1._id],
+      "revision_history" : [revision_history7._id],
       "custom_fields" : []
     },
     {
@@ -188,7 +287,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [revision_history1._id],
+      "revision_history" : [revision_history8._id],
       "custom_fields" : []
     },
     {
@@ -201,7 +300,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [revision_history1._id],
+      "revision_history" : [revision_history9._id],
       "custom_fields" : []
     },
     {
@@ -214,7 +313,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [revision_history1._id],
+      "revision_history" : [revision_history10._id],
       "custom_fields" : []
     },
     {
@@ -227,7 +326,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [revision_history1._id],
+      "revision_history" : [revision_history11._id],
       "custom_fields" : []
     },
     {
@@ -240,7 +339,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [revision_history1._id],
+      "revision_history" : [revision_history12._id],
       "custom_fields" : []
     },
     {
@@ -253,7 +352,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [revision_history1._id],
+      "revision_history" : [revision_history13._id],
       "custom_fields" : []
     },
     {
@@ -266,7 +365,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [revision_history1._id],
+      "revision_history" : [revision_history14._id],
       "custom_fields" : []
     },
   ])
@@ -297,7 +396,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [],
+      "revision_history" : [revision_history15._id],
       "custom_fields" : [],
       "plants":[],
     },
@@ -311,7 +410,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [],
+      "revision_history" : [revision_history16._id],
       "custom_fields" : [],
       "plants":[],
     },
@@ -325,7 +424,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [],
+      "revision_history" : [revision_history17._id],
       "plants":[],
       "custom_fields" : [
         { 
@@ -344,7 +443,7 @@ const seed = async () => {
       "audio_files" : [],
       "categories" : [],
       "tags" : [],
-      "revision_history" : [],
+      "revision_history" : [revision_history18._id],
       "custom_fields" : [
         { 
           "_id" : new ObjectID(),
