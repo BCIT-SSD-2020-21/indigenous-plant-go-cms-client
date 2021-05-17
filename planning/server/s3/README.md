@@ -1,7 +1,7 @@
 # S3 Documentation
 ## S3 setup
 1. Create the s3 bucket on aws, note the region you create the bucket.
-  - For this you can uncheck the block all public access here or you can do that later.
+    - For this you can uncheck the block all public access here or you can do that later.
 2. Once you create the bucket go in it and go to properties to grab your arn and go to permissions.
 3. Make sure you have block all public access uncheck and edit the bucket policy with something similar to this:
 ```
